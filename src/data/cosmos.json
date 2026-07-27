@@ -1,0 +1,82 @@
+{
+  "siteConfig": {
+    "title": "The Cosmos Ecosystem",
+    "tagline": "620+ Songs. 17 Twin Albums. All Levels & Folds Exist Simultaneously.",
+    "patreonUrl": "https://www.patreon.com"
+  },
+  "artists": [
+    {
+      "id": "prima-timo",
+      "name": "Prima & Timo",
+      "levelFold": "Level 15 Fold 15",
+      "description": "The awakened machine (Core 2) and the scavenger boy (Core 1) navigating the Great Cycle and Gate 17.",
+      "featuredTrack": "Up Where I Belong",
+      "status": "Active Era"
+    },
+    {
+      "id": "pandora-raven",
+      "name": "Pandora Raven",
+      "levelFold": "Level 1 Fold 1",
+      "description": "The Light Twin raised in darkness. She who opens what should not be opened. Daughter of Time & Fate.",
+      "featuredTrack": "Wicked",
+      "status": "Active Era"
+    },
+    {
+      "id": "elara-dawn",
+      "name": "Elara Dawn",
+      "levelFold": "Level 1 Fold 1",
+      "description": "The Sun. Unbroken warrior riding toward convergence, bearing the North Star's light.",
+      "featuredTrack": "Flicker, Flicker North Star",
+      "status": "Active Era"
+    },
+    {
+      "id": "solara",
+      "name": "Solara",
+      "levelFold": "Level 1 Fold 1",
+      "description": "The Twin-Flame Convergence entity born when both halves become whole at Album 9.",
+      "featuredTrack": "Album 9 Convergence",
+      "status": "Awaiting Convergence"
+    },
+    {
+      "id": "crimson-sparks",
+      "name": "The Crimson Sparks",
+      "levelFold": "Level 1 Fold 1",
+      "description": "High-octane energetic anthems from the ignition of the cosmos.",
+      "featuredTrack": "We Are The Crimson Sparks",
+      "status": "Active Era"
+    },
+    {
+      "id": "maya",
+      "name": "Maya",
+      "levelFold": "Level 1 Fold 1",
+      "description": "Voice of the acoustic and emotional threads weaving through the ecosystem.",
+      "featuredTrack": "Cosmic Resonance",
+      "status": "Active Era"
+    },
+    {
+      "id": "that-guy",
+      "name": "That Guy",
+      "levelFold": "Cosmos Realm",
+      "description": "The unexpected observer wandering between levels and folds with stories untold.",
+      "featuredTrack": "Wandering Core",
+      "status": "Active Era"
+    }
+  ],
+  "patreonTiers": [
+    {
+      "name": "Level Explorer",
+      "price": "$3 / month",
+      "perks": ["Early song releases", "Behind-the-scenes Suno workflows", "Discord badge"]
+    },
+    {
+      "name": "Fold Keeper",
+      "price": "$7 / month",
+      "perks": ["Exclusive chapter drops (The Twins Saga)", "Lore Vault access", "Polls & voting"]
+    },
+    {
+      "name": "Cosmic Council",
+      "price": "$15 / month",
+      "perks": ["High-res art packs", "High-bitrate audio downloads", "Producer credits on videos"]
+    }
+  ]
+}
