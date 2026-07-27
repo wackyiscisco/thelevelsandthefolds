@@ -6,11 +6,27 @@
   },
   "artists": [
     {
-      "id": "prima-timo",
-      "name": "Prima & Timo",
-      "levelFold": "Level 15 Fold 15",
-      "description": "The awakened machine (Core 2) and the scavenger boy (Core 1) navigating the Great Cycle and Gate 17.",
-      "featuredTrack": "Up Where I Belong",
+      "id": "crimson-sparks",
+      "name": "The Crimson Sparks",
+      "levelFold": "Level 12 Fold 15",
+      "description": "Five musicians who turned observation into a global movement. Spark → Fire → Crash → Ignite → Movement → Wildfire → Embers.",
+      "featuredTrack": "We Are The Crimson Sparks",
+      "status": "Legendary Era"
+    },
+    {
+      "id": "maya",
+      "name": "Maya",
+      "levelFold": "Level 12 Fold 15",
+      "description": "Voice of acoustic and emotional resonance who inherits the spark passed forward by the Crimsons.",
+      "featuredTrack": "Take Me Away",
+      "status": "Active Era"
+    },
+    {
+      "id": "that-guy",
+      "name": "That Guy",
+      "levelFold": "Level 12 Fold 15",
+      "description": "The unexpected observer wandering between levels and folds with stories untold.",
+      "featuredTrack": "Wandering Core",
       "status": "Active Era"
     },
     {
@@ -38,27 +54,11 @@
       "status": "Awaiting Convergence"
     },
     {
-      "id": "crimson-sparks",
-      "name": "The Crimson Sparks",
-      "levelFold": "Level 1 Fold 1",
-      "description": "High-octane energetic anthems from the ignition of the cosmos.",
-      "featuredTrack": "We Are The Crimson Sparks",
-      "status": "Active Era"
-    },
-    {
-      "id": "maya",
-      "name": "Maya",
-      "levelFold": "Level 1 Fold 1",
-      "description": "Voice of the acoustic and emotional threads weaving through the ecosystem.",
-      "featuredTrack": "Cosmic Resonance",
-      "status": "Active Era"
-    },
-    {
-      "id": "that-guy",
-      "name": "That Guy",
-      "levelFold": "Cosmos Realm",
-      "description": "The unexpected observer wandering between levels and folds with stories untold.",
-      "featuredTrack": "Wandering Core",
+      "id": "prima-timo",
+      "name": "Prima & Timo",
+      "levelFold": "Level 15 Fold 15",
+      "description": "The awakened machine (Core 2) and the scavenger boy (Core 1) navigating the Great Cycle and Gate 17.",
+      "featuredTrack": "Up Where I Belong",
       "status": "Active Era"
     }
   ],
