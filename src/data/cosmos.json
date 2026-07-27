@@ -2,7 +2,8 @@
   "siteConfig": {
     "title": "The Cosmos Ecosystem",
     "tagline": "620+ Songs. 17 Twin Albums. All Levels & Folds Exist Simultaneously.",
-    "patreonUrl": "https://www.patreon.com"
+    "patreonUrl": "https://www.patreon.com/c/wackyciscorecords/",
+    "labelYoutube": "https://www.youtube.com/@WackyciscORecords"
   },
   "artists": [
     {
@@ -11,7 +12,9 @@
       "levelFold": "Level 12 Fold 15",
       "description": "Suki, Soren, Sky, Sol, and Sienna. Spark → Fire → Crash → Ignite → Movement → Wildfire → Embers.",
       "featuredTrack": "We Are The Crimson Sparks",
-      "status": "Legendary Era"
+      "status": "Legendary Era",
+      "spotify": "https://open.spotify.com/artist/6xgaUUsvV5q8DlOyC9AmgV?si=RM5ns_81STSTGI7MHFsbpw",
+      "youtube": "https://www.youtube.com/@thecrimsonsparks"
     },
     {
       "id": "maya",
@@ -19,7 +22,9 @@
       "levelFold": "Level 12 Fold 15",
       "description": "Voice of emotional resonance carrying the legacy guitar. From Preflight to Strings and Theories.",
       "featuredTrack": "Take Me Away",
-      "status": "Active Era"
+      "status": "Active Era",
+      "spotify": "https://open.spotify.com/artist/2UPh7kDWkHjvoVw4WPWCFC?si=K7RHXhDOSYeL16nCrgsPUA",
+      "youtube": "https://www.youtube.com/@MaryAnnMAYAYanez"
     },
     {
       "id": "that-guy",
@@ -27,7 +32,9 @@
       "levelFold": "Level 12 Fold 15",
       "description": "Angry All The Time. Navigating corporate chains, mosquitoes, love, and consequences across Saevit Animo.",
       "featuredTrack": "Corporate Chains",
-      "status": "Active Era"
+      "status": "Active Era",
+      "spotify": "",
+      "youtube": ""
     },
     {
       "id": "pandora-raven",
@@ -35,7 +42,9 @@
       "levelFold": "Level 1 Fold 1",
       "description": "Daughter of Time & Fate. The Light Twin raised in darkness who opens what should not be opened.",
       "featuredTrack": "Wicked",
-      "status": "Active Era"
+      "status": "Active Era",
+      "spotify": "",
+      "youtube": "https://www.youtube.com/@PandoraRaven"
     },
     {
       "id": "elara-dawn",
@@ -43,7 +52,9 @@
       "levelFold": "Level 1 Fold 1",
       "description": "The Sun. Unbroken warrior bearing the North Star's light, riding toward the 300,000-year convergence.",
       "featuredTrack": "Flicker, Flicker North Star",
-      "status": "Active Era"
+      "status": "Active Era",
+      "spotify": "",
+      "youtube": "https://www.youtube.com/@Elara_Dawn"
     },
     {
       "id": "solara",
@@ -51,7 +62,9 @@
       "levelFold": "Level 1 Fold 1",
       "description": "The Twin-Flame Convergence entity born when both halves become whole at Album 9.",
       "featuredTrack": "Album 9 Convergence",
-      "status": "Awaiting Convergence"
+      "status": "Awaiting Convergence",
+      "spotify": "",
+      "youtube": "https://www.youtube.com/@Solara_the_next_saga"
     },
     {
       "id": "prima-timo",
@@ -59,7 +72,9 @@
       "levelFold": "Level 15 Fold 15",
       "description": "The awakened machine (Core 2) and scavenger boy (Core 1) navigating the Great Cycle, MAR, and Gate 17.",
       "featuredTrack": "Up Where I Belong",
-      "status": "Active Era"
+      "status": "Active Era",
+      "spotify": "",
+      "youtube": ""
     }
   ],
   "patreonTiers": [
@@ -81,15 +96,15 @@
       "id": "lorekeeper",
       "name": "Lorekeeper Tier",
       "price": "$5 / month",
+      "trial": "7 days free trial",
+      "highlighted": true,
+      "tagline": "Step deeper into the mythology.",
       "perks": [
         "All Baseline Tier benefits",
         "Exclusive lore drops & full story documents",
         "Character backstories & timeline maps",
         "Behind-the-scenes insights across all projects"
-      ],
-      "trial": "7 days free trial",
-      "highlighted": true,
-      "tagline": "Step deeper into the mythology."
+      ]
     }
   ]
 }
