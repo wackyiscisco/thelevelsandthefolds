@@ -1,0 +1,108 @@
+---
+import Layout from '../layouts/Layout.astro';
+import cosmosData from '../data/cosmos.json';
+
+const { siteConfig, artists, patreonTiers } = cosmosData;
+---
+
+<Layout title="Home Portal">
+  <!-- Hero Section -->
+  <section class="relative py-24 px-6 max-w-5xl mx-auto text-center overflow-hidden">
+    <div class="absolute inset-0 -z-10 flex items-center justify-center">
+      <div class="w-[500px] h-[500px] bg-purple-600/10 rounded-full blur-3xl"></div>
+      <div class="w-[300px] h-[300px] bg-amber-500/10 rounded-full blur-3xl"></div>
+    </div>
+    
+    <span class="text-xs uppercase tracking-widest font-bold text-purple-400 bg-purple-950/60 border border-purple-800/50 px-3 py-1 rounded-full">
+      620+ Songs Active &bull; All Levels Coexist
+    </span>
+    
+    <h1 class="mt-6 text-5xl md:text-7xl font-extrabold tracking-tight leading-none">
+      One Greater Cosmos.<br />
+      <span class="bg-gradient-to-r from-purple-400 via-pink-400 to-amber-300 bg-clip-text text-transparent">
+        All Levels & Folds Exist Together.
+      </span>
+    </h1>
+    
+    <p class="mt-6 text-lg text-slate-400 max-w-2xl mx-auto font-light">
+      {siteConfig.tagline}
+    </p>
+
+    <div class="mt-10 flex flex-wrap justify-center gap-4">
+      <a href="#artists" class="bg-slate-100 text-slate-950 hover:bg-white px-8 py-3.5 rounded-full font-bold text-sm transition">
+        Explore All 7 Roster Artists
+      </a>
+      <a href="#patreon" class="border border-slate-700 bg-slate-900/50 hover:border-slate-500 px-8 py-3.5 rounded-full font-bold text-sm text-slate-200 transition">
+        Support on Patreon
+      </a>
+    </div>
+  </section>
+
+  <!-- Roster Section (All 7 Artists) -->
+  <section id="artists" class="py-20 bg-slate-900/40 border-y border-slate-800/60">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="flex justify-between items-end mb-8">
+        <div>
+          <h2 class="text-3xl font-bold">Active Roster & Factions</h2>
+          <p class="text-slate-400 text-sm mt-1">Cross-platform releases active across all Levels and Folds.</p>
+        </div>
+        <span class="text-xs font-mono text-purple-400 bg-purple-950 px-3 py-1 rounded-full border border-purple-800/50">
+          7 Artists Initialized
+        </span>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {artists.map((artist) => (
+          <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl flex flex-col justify-between hover:border-purple-500/50 transition">
+            <div>
+              <div class="flex justify-between items-center mb-3">
+                <span class="text-xs font-mono text-purple-400 bg-purple-950/80 px-2.5 py-0.5 rounded border border-purple-800/40">
+                  {artist.levelFold}
+                </span>
+                <span class="text-[10px] font-semibold text-slate-500 uppercase tracking-wider">
+                  {artist.status}
+                </span>
+              </div>
+              <h3 class="text-xl font-bold text-white">{artist.name}</h3>
+              <p class="mt-2 text-slate-400 text-sm leading-relaxed">{artist.description}</p>
+            </div>
+            <div class="mt-6 pt-4 border-t border-slate-800/80 flex justify-between items-center">
+              <span class="text-xs text-slate-500">Track: <strong class="text-slate-300">{artist.featuredTrack}</strong></span>
+              <span class="text-xs text-amber-400 font-semibold">&rarr;</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Patreon Funnel Section -->
+  <section id="patreon" class="py-24 max-w-7xl mx-auto px-6">
+    <div class="text-center max-w-2xl mx-auto mb-12">
+      <h2 class="text-3xl font-bold">Support the Cosmos Gateway</h2>
+      <p class="text-slate-400 text-sm mt-2">Unlock exclusive chapter drops, raw audio, and lore archives.</p>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-6">
+      {patreonTiers.map((tier) => (
+        <div class="bg-gradient-to-b from-slate-900 to-slate-950 border border-slate-800 p-8 rounded-2xl flex flex-col justify-between hover:border-amber-500/50 transition">
+          <div>
+            <h3 class="text-xl font-bold text-white">{tier.name}</h3>
+            <p class="text-3xl font-black text-amber-400 mt-2">{tier.price}</p>
+            <ul class="mt-6 space-y-2 text-sm text-slate-300">
+              {tier.perks.map((perk) => (
+                <li class="flex items-center space-x-2">
+                  <span class="text-purple-400">&check;</span>
+                  <span>{perk}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <a href={siteConfig.patreonUrl} target="_blank" class="mt-8 block text-center bg-purple-600 hover:bg-purple-500 text-white py-2.5 rounded-xl font-bold text-sm transition">
+            Join Tier
+          </a>
+        </div>
+      ))}
+    </div>
+  </section>
+</Layout>
