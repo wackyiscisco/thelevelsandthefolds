@@ -1,0 +1,173 @@
+---
+import Layout from '../layouts/Layout.astro';
+import cosmosData from '../data/cosmos.json';
+
+const { siteConfig } = cosmosData;
+
+const bookSeries = [
+  {
+    id: "twins-saga",
+    title: "The Twins Saga",
+    levelFold: "Level 1 • Fold 1",
+    status: "Active Development",
+    badgeColor: "border-purple-800 text-purple-300 bg-purple-950",
+    description: "The narrative adaptation of Pandora Raven and Elara Dawn's 300,000-year cycle. Following the strict creation thesis: every track forms an emotional foundation that translates directly into chapter narrative and character demonstration.",
+    books: [
+      {
+        title: "Book I: Dawn's Raven",
+        adaptedAlbums: "Album 0.5 — In the Beginning...",
+        summary: "The separation at birth. Pandora's descent into the southern monastery while Elara is forged into the Church's weapon in Mydaal."
+      },
+      {
+        title: "Book II: Box of Little Horrors vs. House of Miracles",
+        adaptedAlbums: "Album 3 & Album 3.5",
+        summary: "Ideology turns to warfare. Cities fall as Pandora curates damage and Elara builds the resistance before their first face-to-face meeting."
+      },
+      {
+        title: "Book III: The Age of Destruction",
+        adaptedAlbums: "Album 6 & Album 6.5",
+        summary: "The Seven enter the field. Elara sheds the title of War to ride as herself, ascending the Northern Tower while Pandora releases Apollyon."
+      },
+      {
+        title: "Book IV: The Convergence & Rise of SOLARA",
+        adaptedAlbums: "Album 8 & Album 9",
+        summary: "The paradox resolved. Illuminate transfers complete memory across time, setting up the twin-flame alignment and the birth of SOLARA."
+      }
+    ]
+  }
+];
+
+const labProjects = [
+  {
+    title: "Civilian Perspectives",
+    realm: "Level 1 • Fold 1",
+    type: "Side Stories",
+    desc: "Short fiction exploring ordinary townspeople, Lighted safehouses, and southern farmers surviving the proxy war between Church and Corrupt."
+  },
+  {
+    title: "The 34-Age Records",
+    realm: "Level 15 • Fold 15",
+    type: "Worldbuilding Dossiers",
+    desc: "Deep-dive logs detailing previous caretaker species, dormant machine holding zones in the Hidden Realm, and Vellum's Twelve Books."
+  },
+  {
+    title: "The Loading Bay Chronicles",
+    realm: "Level 12 • Fold 15",
+    type: "Behind the Music",
+    desc: "Gritty, low-fi prose vignettes capturing Suki's original notebooks, Soren's dive bar mentorship, and the night Maya inherited The Guitar."
+  }
+];
+---
+
+<Layout title="Books & Fiction Lab">
+  <!-- Hero Section -->
+  <section class="relative py-20 px-6 max-w-5xl mx-auto text-center overflow-hidden">
+    <div class="absolute inset-0 -z-10 flex items-center justify-center">
+      <div class="w-[500px] h-[500px] bg-pink-600/10 rounded-full blur-3xl"></div>
+      <div class="w-[300px] h-[300px] bg-purple-500/10 rounded-full blur-3xl"></div>
+    </div>
+
+    <span class="text-xs uppercase tracking-widest font-mono font-bold text-pink-400 bg-pink-950/80 border border-pink-800/60 px-3 py-1 rounded-full shadow-[0_0_15px_rgba(236,72,153,0.2)]">
+      Narrative Adaptations & Worldbuilding
+    </span>
+
+    <h1 class="font-orbitron mt-6 text-4xl md:text-6xl font-black tracking-tight leading-tight uppercase">
+      Books & <span class="bg-gradient-to-r from-pink-400 via-purple-400 to-amber-300 bg-clip-text text-transparent">Fiction Lab</span>
+    </h1>
+
+    <p class="mt-4 text-slate-300 text-sm md:text-base max-w-2xl mx-auto leading-relaxed font-light">
+      Where melodies become chapters. In the Cosmos, books are not standalone projects—they are precise narrative expressions built upon the emotional thesis of our songs.
+    </p>
+  </section>
+
+  <!-- Method Methodology Banner -->
+  <section class="max-w-4xl mx-auto px-6 mb-16">
+    <div class="bg-slate-900/90 border border-purple-900/40 p-6 rounded-2xl backdrop-blur-md">
+      <h2 class="text-xs font-mono font-bold uppercase tracking-widest text-amber-400 text-center mb-4">The Narrative Adaptation Sequence</h2>
+      <div class="grid md:grid-cols-3 gap-4 text-center font-mono text-xs">
+        <div class="bg-slate-950 border border-slate-800 p-4 rounded-xl">
+          <span class="text-purple-400 font-bold block text-sm mb-1">SONG</span>
+          <span class="text-slate-400">Emotional Thesis</span>
+        </div>
+        <div class="bg-slate-950 border border-slate-800 p-4 rounded-xl">
+          <span class="text-pink-400 font-bold block text-sm mb-1">CHAPTER</span>
+          <span class="text-slate-400">Narrative Expression</span>
+        </div>
+        <div class="bg-slate-950 border border-slate-800 p-4 rounded-xl">
+          <span class="text-amber-400 font-bold block text-sm mb-1">SCENE</span>
+          <span class="text-slate-400">Character Demonstration</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Active Book Series -->
+  <section class="max-w-6xl mx-auto px-6 pb-16">
+    <h2 class="font-orbitron text-2xl font-bold text-white uppercase mb-8 flex items-center gap-3">
+      <span>📖</span> Active Book Series
+    </h2>
+
+    {bookSeries.map((series) => (
+      <div class="bg-slate-900 border border-slate-800 p-8 rounded-3xl mb-12 hover:border-purple-500/50 transition">
+        <div class="flex flex-wrap justify-between items-start gap-4 mb-6">
+          <div>
+            <span class={`text-xs font-mono px-3 py-1 rounded-full border ${series.badgeColor}`}>
+              {series.levelFold}
+            </span>
+            <h3 class="font-orbitron text-3xl font-black text-white mt-3">{series.title}</h3>
+          </div>
+          <span class="text-xs font-mono text-slate-400 uppercase tracking-widest bg-slate-950 px-3 py-1 rounded border border-slate-800">
+            {series.status}
+          </span>
+        </div>
+
+        <p class="text-sm text-slate-300 leading-relaxed font-light mb-8 max-w-4xl">
+          {series.description}
+        </p>
+
+        <!-- Book Volumes Grid -->
+        <div class="grid md:grid-cols-2 gap-6">
+          {series.books.map((book) => (
+            <div class="bg-slate-950/70 border border-slate-800/80 p-6 rounded-2xl">
+              <span class="text-[10px] font-mono text-amber-400 uppercase tracking-wider block mb-1">
+                {book.adaptedAlbums}
+              </span>
+              <h4 class="font-orbitron text-lg font-bold text-white mb-2">{book.title}</h4>
+              <p class="text-xs text-slate-400 leading-relaxed font-sans">{book.summary}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    ))}
+  </section>
+
+  <!-- Fiction Lab Section -->
+  <section class="max-w-6xl mx-auto px-6 pb-24 border-t border-slate-900 pt-16">
+    <div class="flex justify-between items-center mb-8">
+      <div>
+        <h2 class="font-orbitron text-2xl font-bold text-white uppercase">🧪 The Fiction Lab</h2>
+        <p class="text-xs text-slate-400 mt-1">Experimental side stories, civilian logs, and worldbuilding material.</p>
+      </div>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-6">
+      {labProjects.map((lab) => (
+        <div class="bg-slate-900/60 border border-slate-800 p-6 rounded-2xl flex flex-col justify-between hover:border-pink-500/50 transition">
+          <div>
+            <span class="text-[10px] font-mono text-pink-400 bg-pink-950 px-2.5 py-0.5 rounded border border-pink-800/40">
+              {lab.realm}
+            </span>
+            <h3 class="font-orbitron text-xl font-bold text-white mt-4 mb-1">{lab.title}</h3>
+            <span class="text-xs font-mono text-amber-400 block mb-3">{lab.type}</span>
+            <p class="text-xs text-slate-400 leading-relaxed font-light">{lab.desc}</p>
+          </div>
+
+          <a href={siteConfig.patreonUrl} target="_blank" class="mt-6 pt-4 border-t border-slate-800/80 flex items-center justify-between text-xs font-bold text-slate-300 hover:text-white transition">
+            <span>Read Previews on Patreon</span>
+            <span class="text-amber-400">&rarr;</span>
+          </a>
+        </div>
+      ))}
+    </div>
+  </section>
+</Layout>
