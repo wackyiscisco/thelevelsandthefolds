@@ -5,68 +5,71 @@ album: "Album 4: Sede Vacante"
 levelFold: "Level 1 Fold 1"
 featured: false
 coverImage: "/images/albums/pandora-raven/sede-vacante.jpg"
-quote: "Beneath the horrors... lies everything they tried to bury."
+quote: "Something was always there... Something was always — Her."
 ---
 
 ### Verse 1
-I cleared off the shelves of my Little Horrors display
-Swept the jealousies and poisons and obsessions away
-Underneath the velvet, buried in the floor
-I found a hidden compartment I had missed before
-No curses inside, no dark incantations
-No trophies of ruin or sweet ruinous temptations
-Just small, quiet objects covered in dust
-Waiting for someone to remember and trust
+I closed every ending, I sealed every line
+There was nothing remaining, nothing outside
+Every path reached conclusion, every thread came undone
+Every voice fell to silence — except for one
 
 ### Pre-Chorus
-A wooden carved star, a faded red thread
-A letter in script that I never had read...
+It was not there before, it was not part of me
+This thing I found I can't describe
+Not a spell, not a potion
+Not a form I can assign
+Let me check my list -
 
 ### Chorus
-Pandora's Box of Forgotten Things
-Listen to the quiet song it sings
-Not the horror, not the blight
-But the fragments of a lost, gentle light
-Everything they made me throw away
-Is sitting in this box today
-Forgotten things...
-Remembered now.
+Welcome to the box of forgotten things
+Where the unnamed live and the unwanted cling
+I sealed it shut, I turned the key
+But something inside kept breathing — free
+Pandora's box — oh what it brings
+When the raven forgets what was never hers
 
 ### Verse 2
-Here is the warmth before the altar went cold
-Here is the hand I was forbidden to hold
-Here is the name my mother whispered at birth
-Before I was traded for the power of the earth
-I thought I was born out of poison and threat
-But this box holds the pieces I wasn't meant to forget
-I wasn't made evil—I was made to forget
-And remembering... is my greatest threat yet.
+There are fragments I cannot measure, there are traces I can't remove
+Something lives outside of pressure, something outside proof
+It does not answer to the system, it does not bend to form
+It does not follow any ending — it was there before
 
-### Pre-Chorus 2
-A wooden carved star, a faded red thread
-A letter in script that I never had read...
+### Pre-Chorus
+This was never seen before, this was never mine
+A rabbit's foot, Four knives, a broken staff
+Fingers from the grave, a key to a door?
+A Dusty book, incense, and some nightshade
+Angel dust? Was this on the list?
 
 ### Chorus
-Pandora's Box of Forgotten Things
-Listen to the quiet song it sings
-Not the horror, not the blight
-But the fragments of a lost, gentle light
-Everything they made me throw away
-Is sitting in this box today
-Forgotten things...
-Remembered now.
+Welcome to the box of forgotten things
+Where the unnamed live and the unwanted cling
+I sealed it shut, I turned the key
+But something inside kept breathing — free
+Pandora's box — oh what it brings
+When the raven forgets what was never hers
 
 ### Bridge
-[Soft acoustic guitar and cello]
-They thought if they filled my head with pain
-I'd never search for my sister again
-They gave me a kingdom of terror and stone
-So I'd stay on this throne... forever alone.
+If it was never part of this then where did it begin?
+If it exists beyond my reach then what lies within?
 
-### Final Chorus
-Pandora's Box of Forgotten Things!
-I reclaim what memory brings!
-The crown is a weight, the dark was a lie
-I am looking at the dawn in the northern sky!
-Pandora's Box of Forgotten Things...
-I remember.
+### Final Section
+There are things I did not end, there are things I did not see
+There are things that now return, independent of me
+
+### Outro — the box opens slightly
+I have stumbled upon other artifacts of interest -
+
+A sound like morning breaking through
+A warmth I did not architect
+A light that carries its own name
+A name I almost recognize
+
+Red at the edges
+Red in the dark
+Something that burns without asking
+
+Something was always there
+Something was always —
+Her
