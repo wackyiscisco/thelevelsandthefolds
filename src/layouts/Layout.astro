@@ -12,33 +12,39 @@ const { title } = Astro.props;
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>{title} | The Levels and The Folds</title>
+		<!-- Tailwind CSS CDN Engine -->
 		<script src="https://cdn.tailwindcss.com"></script>
 	</head>
-	<body class="min-h-screen flex flex-col font-sans antialiased selection:bg-purple-500 selection:text-white">
+	<body class="min-h-screen flex flex-col bg-slate-950 text-slate-100 font-sans antialiased selection:bg-purple-500 selection:text-white">
 		
-		<!-- Sticky Cosmic Header -->
+		<!-- Master Navigation Header -->
 		<header class="sticky top-0 z-50 backdrop-blur-md bg-slate-950/80 border-b border-slate-800">
 			<div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
 				<a href="/" class="flex items-center space-x-3">
 					<span class="text-2xl font-black tracking-widest bg-gradient-to-r from-purple-400 via-pink-500 to-amber-400 bg-clip-text text-transparent">
 						COSMOS
 					</span>
-					<span class="text-xs px-2 py-0.5 bg-purple-950/80 border border-purple-800/60 rounded-full text-purple-300 font-mono">
+					<span class="text-xs px-2.5 py-1 bg-purple-950/80 border border-purple-800/60 rounded-full text-purple-300 font-mono hidden sm:inline-block">
 						Level 1 Fold 1 &bull; Level 15 Fold 15
 					</span>
 				</a>
-				<nav class="hidden md:flex space-x-8 text-sm font-medium text-slate-300">
-					<a href="/" class="hover:text-purple-400 transition">Portal</a>
-					<a href="#artists" class="hover:text-pink-400 transition">Artists & Factions</a>
-					<a href="#patreon" class="hover:text-amber-400 transition">Patreon Vault</a>
+
+				<!-- Page Navigation Links -->
+				<nav class="hidden md:flex space-x-6 text-sm font-medium text-slate-300">
+					<a href="/" class="hover:text-purple-400 transition">Home</a>
+					<a href="/about" class="hover:text-pink-400 transition">About</a>
+					<a href="/artists" class="hover:text-purple-400 transition">Artists</a>
+					<a href="/lore" class="hover:text-amber-400 transition">Lore</a>
+					<a href="/patreon" class="hover:text-emerald-400 transition">Patreon</a>
 				</nav>
-				<a href="https://www.patreon.com" target="_blank" class="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white px-5 py-2 rounded-full font-bold text-sm shadow-lg shadow-purple-900/40 transition hover:scale-105">
+
+				<a href="/patreon" class="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white px-5 py-2 rounded-full font-bold text-sm shadow-lg shadow-purple-900/40 transition hover:scale-105">
 					Join Patreon
 				</a>
 			</div>
 		</header>
 
-		<!-- Main Content Slot -->
+		<!-- Dynamic Page Slot -->
 		<main class="flex-grow">
 			<slot />
 		</main>
