@@ -13,7 +13,7 @@ const { title } = Astro.props;
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>{title} | The Levels and The Folds</title>
 		
-		<!-- Google Fonts: Orbitron & Inter & JetBrains Mono -->
+		<!-- Google Fonts: Orbitron, Inter, & JetBrains Mono -->
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600;800&family=Orbitron:wght@600;800;900&display=swap" rel="stylesheet">
@@ -65,7 +65,7 @@ const { title } = Astro.props;
 		<div class="fixed top-0 left-1/4 w-[600px] h-[600px] bg-purple-600/10 rounded-full blur-[120px] pointer-events-none -z-10 animate-pulse-slow"></div>
 		<div class="fixed bottom-0 right-1/4 w-[500px] h-[500px] bg-amber-500/10 rounded-full blur-[120px] pointer-events-none -z-10 animate-pulse-slow"></div>
 
-		<!-- Sticky Glassmorphism Header -->
+		<!-- Sticky Glassmorphism Header with Full Navigation -->
 		<header class="sticky top-0 z-50 backdrop-blur-xl bg-slate-950/80 border-b border-purple-900/30 shadow-lg shadow-purple-950/20">
 			<div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
 				
@@ -79,12 +79,13 @@ const { title } = Astro.props;
 					</span>
 				</a>
 
-				<!-- Desktop Navigation -->
+				<!-- Desktop Navigation Links (Includes Books) -->
 				<nav class="hidden md:flex items-center space-x-8 text-xs uppercase tracking-widest font-mono font-semibold text-slate-300">
 					<a href="/" class="hover:text-purple-400 transition hover:scale-105">Home</a>
 					<a href="/about" class="hover:text-pink-400 transition hover:scale-105">About</a>
 					<a href="/artists" class="hover:text-purple-400 transition hover:scale-105">Artists</a>
 					<a href="/music" class="hover:text-amber-400 transition hover:scale-105">Music</a>
+					<a href="/books" class="hover:text-pink-400 transition hover:scale-105">Books</a>
 					<a href="/lore" class="hover:text-cyan-400 transition hover:scale-105">Lore</a>
 					<a href="/patreon" class="hover:text-emerald-400 transition hover:scale-105">Patreon</a>
 				</nav>
