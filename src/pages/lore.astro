@@ -1,0 +1,70 @@
+---
+import Layout from '../layouts/Layout.astro';
+import cosmosData from '../data/cosmos.json';
+
+const { siteConfig } = cosmosData;
+
+const realms = [
+  {
+    levelFold: "Level 1 • Fold 1",
+    title: "The Twins Saga & SOLARA",
+    desc: "A 300,000-year cycle enforced by The One preventing twin convergence. Pandora Raven and Elara Dawn journey toward the birth of SOLARA.",
+    link: "/lore/level-1-fold-1",
+    badgeColor: "border-purple-800 text-purple-300 bg-purple-950",
+    hoverBorder: "hover:border-purple-500"
+  },
+  {
+    levelFold: "Level 12 • Fold 15",
+    title: "The Crimson Sparks, Maya, & That Guy",
+    desc: "A plane defined by raw human experience, emotional resonance, and rock-and-roll movement. From dive bar sparks to stadium epilogues and Saevit Animo.",
+    link: "/lore/level-12-fold-15",
+    badgeColor: "border-red-800 text-red-300 bg-red-950",
+    hoverBorder: "hover:border-red-500"
+  },
+  {
+    levelFold: "Level 15 • Fold 15",
+    title: "Prima & Timo",
+    desc: "An eons-spanning sci-fi reality exploring machine awakening, civilizational hand-offs, and 'Same Core, Different House' across 34 Ages.",
+    link: "/lore/level-15-fold-15",
+    badgeColor: "border-cyan-800 text-cyan-300 bg-cyan-950",
+    hoverBorder: "hover:border-cyan-500"
+  }
+];
+---
+
+<Layout title="Cosmology & Lore Map">
+  <section class="py-20 px-6 max-w-5xl mx-auto text-center">
+    <span class="text-xs uppercase tracking-widest font-bold text-amber-400 bg-amber-950/60 border border-amber-800/50 px-3 py-1 rounded-full">
+      Coexisting Realm Map
+    </span>
+
+    <h1 class="mt-6 text-4xl md:text-6xl font-black tracking-tight">
+      Levels & Folds <span class="bg-gradient-to-r from-purple-400 via-pink-400 to-amber-300 bg-clip-text text-transparent">Cosmology</span>
+    </h1>
+
+    <p class="mt-4 text-slate-400 text-sm md:text-base max-w-2xl mx-auto leading-relaxed">
+      Space was folded into coexisting planes. Every Level and Fold carries its own inhabitants, technological advancements, religions, and heroes—yet all exist simultaneously within the same greater Cosmos.
+    </p>
+  </section>
+
+  <section class="max-w-5xl mx-auto px-6 pb-24">
+    <div class="grid md:grid-cols-3 gap-8">
+      {realms.map((realm) => (
+        <a href={realm.link} class={`bg-slate-900 border border-slate-800 p-8 rounded-2xl flex flex-col justify-between transition group ${realm.hoverBorder}`}>
+          <div>
+            <span class={`text-xs font-mono px-2.5 py-1 rounded-full border ${realm.badgeColor}`}>
+              {realm.levelFold}
+            </span>
+            <h2 class="text-2xl font-bold text-white mt-5 group-hover:text-amber-400 transition">{realm.title}</h2>
+            <p class="text-xs text-slate-400 mt-3 leading-relaxed">{realm.desc}</p>
+          </div>
+
+          <div class="mt-8 pt-4 border-t border-slate-800/80 flex items-center justify-between text-xs font-bold text-slate-300 group-hover:text-white">
+            <span>Explore Realm</span>
+            <span>&rarr;</span>
+          </div>
+        </a>
+      ))}
+    </div>
+  </section>
+</Layout>
