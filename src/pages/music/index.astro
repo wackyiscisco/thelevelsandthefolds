@@ -1,0 +1,98 @@
+---
+// src/pages/music/index.astro
+import { getCollection } from 'astro:content';
+
+const allSongs = await getCollection('songs');
+
+// Group songs by Artist -> Album
+const musicCatalog = allSongs.reduce((acc, song) => {
+  const artist = song.data.artist || 'Unknown Artist';
+  const album = song.data.album || 'Singles & Vault';
+  
+  if (!acc[artist]) {
+    acc[artist] = {};
+  }
+  if (!acc[artist][album]) {
+    acc[artist][album] = {
+      coverImage: song.data.coverImage || '/images/default-album.jpg',
+      songs: []
+    };
+  }
+  
+  acc[artist][album].songs.push(song);
+  return acc;
+}, {} as Record<string, Record<string, { coverImage: string; songs: any[] }>>);
+---
+
+<html lang="en" class="dark bg-slate-950 text-slate-100">
+  <head>
+    <meta charset="UTF-8" />
+    <title>The Cosmos Music Vault | Discography</title>
+  </head>
+  <body class="min-h-screen font-sans antialiased selection:bg-purple-500 selection:text-white">
+    <main class="max-w-7xl mx-auto px-6 py-16">
+      
+      <!-- Header -->
+      <div class="text-center max-w-2xl mx-auto mb-16 space-y-4">
+        <span class="px-3 py-1 rounded-full text-xs font-semibold bg-purple-950/80 text-purple-300 border border-purple-800/50">
+          {allSongs.length} Tracks Published Across the Cosmos
+        </span>
+        <h1 class="text-4xl md:text-6xl font-black tracking-tight">The Cosmos Discography</h1>
+        <p class="text-slate-400 text-sm md:text-base">
+          Explore the foundation of our universe. Select an artist and album below to open the tracklist and dive into the lyrics and lore.
+        </p>
+      </div>
+
+      <!-- Artist & Album Hierarchy -->
+      <div class="space-y-20">
+        {Object.entries(musicCatalog).map(([artist, albums]) => (
+          <section class="space-y-8">
+            <div class="border-b border-slate-800 pb-4">
+              <h2 class="text-3xl font-bold tracking-tight text-purple-400">{artist}</h2>
+            </div>
+
+            <!-- Album Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {Object.entries(albums).map(([albumName, albumData]) => {
+                const artistSlug = artist.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+                const albumSlug = albumName.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+                
+                return (
+                  <a 
+                    href={`/music/${artistSlug}/${albumSlug}`}
+                    class="group relative flex flex-col bg-slate-900/60 hover:bg-slate-900 border border-slate-800 hover:border-purple-500/50 rounded-2xl overflow-hidden shadow-xl transition-all duration-300"
+                  >
+                    <!-- Album Cover Art Thumbnail -->
+                    <div class="aspect-square w-full relative overflow-hidden bg-slate-950">
+                      <img 
+                        src={albumData.coverImage} 
+                        alt={albumName} 
+                        class="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500 opacity-90 group-hover:opacity-100"
+                      />
+                      <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-60"></div>
+                      <span class="absolute bottom-3 left-3 px-2.5 py-1 rounded-md text-xs font-medium bg-slate-900/80 backdrop-blur-md text-purple-300 border border-slate-700/50">
+                        {albumData.songs.length} Tracks
+                      </span>
+                    </div>
+
+                    <!-- Album Info -->
+                    <div class="p-6 flex flex-col flex-grow justify-between space-y-4">
+                      <div>
+                        <h3 class="text-xl font-bold group-hover:text-purple-400 transition-colors">{albumName}</h3>
+                        <p class="text-xs text-slate-400 mt-1">Official Canonical Release</p>
+                      </div>
+                      <div class="flex items-center text-xs font-semibold text-purple-400">
+                        View Tracklist & Lyrics →
+                      </div>
+                    </div>
+                  </a>
+                );
+              })}
+            </div>
+          </section>
+        ))}
+      </div>
+
+    </main>
+  </body>
+</html>
