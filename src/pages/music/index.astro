@@ -4,7 +4,7 @@ import { getCollection } from 'astro:content';
 
 const allSongs = await getCollection('songs');
 
-// Group songs by Artist -> Album
+// Group songs cleanly by Artist -> Album
 const musicCatalog = allSongs.reduce((acc, song) => {
   const artist = song.data.artist || 'Unknown Artist';
   const album = song.data.album || 'Singles & Vault';
