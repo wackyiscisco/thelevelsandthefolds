@@ -9,7 +9,7 @@
       "id": "crimson-sparks",
       "name": "The Crimson Sparks",
       "levelFold": "Level 12 Fold 15",
-      "description": "Five musicians who turned observation into a global movement. Spark → Fire → Crash → Ignite → Movement → Wildfire → Embers.",
+      "description": "Suki, Soren, Sky, Sol, and Sienna. Spark → Fire → Crash → Ignite → Movement → Wildfire → Embers.",
       "featuredTrack": "We Are The Crimson Sparks",
       "status": "Legendary Era"
     },
@@ -17,7 +17,7 @@
       "id": "maya",
       "name": "Maya",
       "levelFold": "Level 12 Fold 15",
-      "description": "Voice of acoustic and emotional resonance who inherits the spark passed forward by the Crimsons.",
+      "description": "Voice of emotional resonance carrying the legacy guitar. From Preflight to Strings and Theories.",
       "featuredTrack": "Take Me Away",
       "status": "Active Era"
     },
@@ -25,15 +25,15 @@
       "id": "that-guy",
       "name": "That Guy",
       "levelFold": "Level 12 Fold 15",
-      "description": "The unexpected observer wandering between levels and folds with stories untold.",
-      "featuredTrack": "Wandering Core",
+      "description": "Angry All The Time. Navigating corporate chains, mosquitoes, love, and consequences across Saevit Animo.",
+      "featuredTrack": "Corporate Chains",
       "status": "Active Era"
     },
     {
       "id": "pandora-raven",
       "name": "Pandora Raven",
       "levelFold": "Level 1 Fold 1",
-      "description": "The Light Twin raised in darkness. She who opens what should not be opened. Daughter of Time & Fate.",
+      "description": "Daughter of Time & Fate. The Light Twin raised in darkness who opens what should not be opened.",
       "featuredTrack": "Wicked",
       "status": "Active Era"
     },
@@ -41,7 +41,7 @@
       "id": "elara-dawn",
       "name": "Elara Dawn",
       "levelFold": "Level 1 Fold 1",
-      "description": "The Sun. Unbroken warrior riding toward convergence, bearing the North Star's light.",
+      "description": "The Sun. Unbroken warrior bearing the North Star's light, riding toward the 300,000-year convergence.",
       "featuredTrack": "Flicker, Flicker North Star",
       "status": "Active Era"
     },
@@ -57,7 +57,7 @@
       "id": "prima-timo",
       "name": "Prima & Timo",
       "levelFold": "Level 15 Fold 15",
-      "description": "The awakened machine (Core 2) and the scavenger boy (Core 1) navigating the Great Cycle and Gate 17.",
+      "description": "The awakened machine (Core 2) and scavenger boy (Core 1) navigating the Great Cycle, MAR, and Gate 17.",
       "featuredTrack": "Up Where I Belong",
       "status": "Active Era"
     }
@@ -74,22 +74,22 @@
         "Access to all song releases & early drops",
         "The Crimson Sparks & Maya catalog",
         "Pandora Raven & Elara Dawn (The Twins Saga)",
-        "Prima & Timo, The Archivist & future projects"
+        "Prima & Timo, That Guy & future projects"
       ]
     },
     {
       "id": "lorekeeper",
       "name": "Lorekeeper Tier",
       "price": "$5 / month",
-      "trial": "7 days free trial",
-      "highlighted": true,
-      "tagline": "Step deeper into the mythology.",
       "perks": [
         "All Baseline Tier benefits",
         "Exclusive lore drops & full story documents",
         "Character backstories & timeline maps",
         "Behind-the-scenes insights across all projects"
-      ]
+      ],
+      "trial": "7 days free trial",
+      "highlighted": true,
+      "tagline": "Step deeper into the mythology."
     }
   ]
 }
