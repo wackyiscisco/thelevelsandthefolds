@@ -1,0 +1,89 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../layouts/Layout.astro';
+import cosmosData from '../data/cosmos.json';
+
+const allSongs = await getCollection('songs');
+const { siteConfig, artists } = cosmosData;
+---
+
+<Layout title="Music & Discography Catalog">
+  <!-- Hero Section -->
+  <section class="relative py-20 px-6 max-w-5xl mx-auto text-center overflow-hidden">
+    <div class="absolute inset-0 -z-10 flex items-center justify-center">
+      <div class="w-[500px] h-[500px] bg-purple-600/10 rounded-full blur-3xl"></div>
+      <div class="w-[300px] h-[300px] bg-amber-500/10 rounded-full blur-3xl"></div>
+    </div>
+
+    <span class="text-xs uppercase tracking-widest font-bold text-amber-400 bg-amber-950/60 border border-amber-800/50 px-3 py-1 rounded-full">
+      620+ Tracks Active Across 17 Twin Albums
+    </span>
+
+    <h1 class="mt-6 text-4xl md:text-6xl font-black tracking-tight leading-tight">
+      The Cosmos <span class="bg-gradient-to-r from-purple-400 via-pink-400 to-amber-300 bg-clip-text text-transparent">Discography</span>
+    </h1>
+
+    <p class="mt-4 text-slate-300 text-sm md:text-base max-w-2xl mx-auto leading-relaxed font-light">
+      Explore the foundation of our universe. Every song is an emotional thesis that drives the stories, lore, and coexisting realms across all Levels & Folds.
+    </p>
+  </section>
+
+  <!-- Featured Tracks / Active Song Index -->
+  <section class="max-w-6xl mx-auto px-6 pb-24">
+    <div class="flex justify-between items-center mb-8 border-b border-slate-800/80 pb-4">
+      <div>
+        <h2 class="text-2xl font-bold text-white">Song Vault Directory</h2>
+        <p class="text-xs text-slate-400 mt-0.5">Click any song title to read lyrics, lore notes, and streaming options.</p>
+      </div>
+      <span class="text-xs font-mono text-purple-400 bg-purple-950 px-3 py-1 rounded-full border border-purple-800/50">
+        {allSongs.length} Track{allSongs.length === 1 ? '' : 's'} Published
+      </span>
+    </div>
+
+    <!-- Dynamic Song Cards Grid -->
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {allSongs.map((song) => (
+        <a 
+          href={`/music/${song.slug}`} 
+          class="bg-slate-900 border border-slate-800 p-6 rounded-2xl flex flex-col justify-between hover:border-purple-500/60 transition group"
+        >
+          <div>
+            <div class="flex justify-between items-start mb-3">
+              <span class="text-xs font-mono text-purple-400 bg-purple-950 px-2.5 py-0.5 rounded border border-purple-800/40">
+                {song.data.levelFold}
+              </span>
+              {song.data.featured && (
+                <span class="text-[10px] font-black uppercase tracking-wider text-amber-400 bg-amber-950/80 px-2 py-0.5 rounded border border-amber-800/50">
+                  Featured
+                </span>
+              )}
+            </div>
+
+            <h3 class="text-xl font-bold text-white group-hover:text-amber-400 transition mb-1">
+              {song.data.title}
+            </h3>
+            
+            <p class="text-xs text-purple-300 font-semibold mb-2">
+              {song.data.artist}
+            </p>
+
+            <p class="text-xs font-mono text-slate-500 mb-4">
+              {song.data.album}
+            </p>
+
+            {song.data.quote && (
+              <p class="text-xs text-slate-400 italic border-l-2 border-slate-800 pl-3">
+                "{song.data.quote}"
+              </p>
+            )}
+          </div>
+
+          <div class="mt-6 pt-4 border-t border-slate-800/80 flex justify-between items-center text-xs font-bold text-slate-300 group-hover:text-white">
+            <span>Read Lyrics & Story</span>
+            <span class="text-amber-400 font-mono">&rarr;</span>
+          </div>
+        </a>
+      ))}
+    </div>
+  </section>
+</Layout>
