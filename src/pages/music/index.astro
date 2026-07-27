@@ -4,6 +4,22 @@ import { getCollection } from 'astro:content';
 
 const allSongs = await getCollection('songs');
 
+// Clean helper to map album names to exact cover filenames in public/images/albums/pandora-raven/
+function getAlbumCover(artist: string, album: string): string {
+  if (artist.toLowerCase().includes('pandora')) {
+    const albLower = album.toLowerCase();
+    if (albLower.includes('wicked')) return '/images/albums/pandora-raven/Wicked.jpg';
+    if (albLower.includes('corrupted')) return '/images/albums/pandora-raven/Corrupted.jpg';
+    if (albLower.includes('little horrors')) return '/images/albums/pandora-raven/Pandora\'s Box of Little Horrors.jpg';
+    if (albLower.includes('sede vacante')) return '/images/albums/pandora-raven/Sede Vacante.jpg';
+    if (albLower.includes('raven\'s light') || albLower.includes('ravens light')) return '/images/albums/pandora-raven/The Raven\'s Light.jpg';
+    if (albLower.includes('raven\'s shadow') || albLower.includes('ravens shadow')) return '/images/albums/pandora-raven/The Raven\'s Shadow.jpg';
+    if (albLower.includes('spirit of the raven')) return '/images/albums/pandora-raven/The Spirit of the Raven Twins.jpg';
+    if (albLower.includes('pandora raven')) return '/images/albums/pandora-raven/Pandora Raven.jpg';
+  }
+  return '/images/default-album.jpg';
+}
+
 // Group songs cleanly by Artist -> Album
 const musicCatalog = allSongs.reduce((acc, song) => {
   const artist = song.data.artist || 'Unknown Artist';
@@ -14,7 +30,7 @@ const musicCatalog = allSongs.reduce((acc, song) => {
   }
   if (!acc[artist][album]) {
     acc[artist][album] = {
-      coverImage: song.data.coverImage || '/images/default-album.jpg',
+      coverImage: getAlbumCover(artist, album),
       songs: []
     };
   }
