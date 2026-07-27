@@ -5,70 +5,62 @@ album: "Album 4: Sede Vacante"
 levelFold: "Level 1 Fold 1"
 featured: false
 coverImage: "/images/albums/pandora-raven/sede-vacante.jpg"
-quote: "The system worked perfectly... that's why it failed."
+quote: "Seek no mercy in the crimson line I designed."
 ---
 
+[Intro — cold, certain]
+
 ### Verse 1
-The One wrote the equation three hundred thousand years ago
-Calculated every risk and every outcome below
-Divided the light, separated the line
-Built a cage out of law and called it divine
-Every gear turned smoothly, every seal held tight
-Preventing two sisters from sharing the light
-I followed the blueprint, I carried the flaw
-Executing every mandate of the sacred law
+Every line was drawn with purpose
+Every step was placed with care
+Nothing moved without intention
+Nothing placed at random there
+Every outcome calculated
+Every fracture sealed in place
+Every path led to conclusion
+Every end I chose to face
 
 ### Pre-Chorus
-Flawless logic, perfect math
-Leading directly to the ash.
+There are no missing pieces, no part left undefined
+Nothing missing
+None worth finding
 
 ### Chorus
-Flawless design!
-Nothing was left to chance!
-Flawless design!
-The end of the cosmic dance!
-The machine succeeded in breaking the whole
-And left me sitting here with half of a soul
-Flawless design...
-Look at what you made.
+The flawless design, every step aligned
+Every end brought into form, every line defined
+There is nothing out of place, nothing left behind
+The flawless design — it holds every line
 
 ### Verse 2
-You wanted order, you wanted control
-You feared what happens when the two become whole
-So you weaponized one and you wounded the other
-And watched from the heights like a distant mother
-But a flawless system is a fragile thing
-It can't account for what memory will bring
-One unexpected spark, one crack in the wall
-And the flawless design begins to fall
+There is no room for deviation
+There is no unknown left
+Everything was brought to closure
+Nothing misdirected, nothing concealed
+What remains does not belong here
+What remains cannot be true
+There is no condition for it, there is nothing it can do
 
-### Pre-Chorus 2
-Flawless logic, perfect math
-Leading directly to the ash.
+### Pre-Chorus
+This does not exist within it, this does not align
+This is heresy—
+this is nothing but a lie
 
 ### Chorus
-Flawless design!
-Nothing was left to chance!
-Flawless design!
-The end of the cosmic dance!
-The machine succeeded in breaking the whole
-And left me sitting here with half of a soul
-Flawless design...
-Look at what you made.
+The flawless design, there is nothing missed
+Every outcome followed through, every line exists
+There is no exception here, nothing undefined
+This is my flawless design — it holds every time
 
 ### Bridge
-[Heavy industrial electronic beat with organ layers]
-You built the prison, you gave me the key
-You thought the darkness would satisfy me
-But perfection is empty and victory is cold
-And the flaw in your design... is about to unfold.
+If something stands outside it then it has no place
+If something does not answer then it has no face
 
-### Final Chorus
-Flawless design!
-The equation is breaking down!
-Flawless design!
-The Queen is throwing off her crown!
-You built a universe to keep us apart
-And forgot about the pull of a sister's heart
-Flawless design...
-Is done.
+### Final Section
+It does not belong here, it cannot remain
+There is no structure for it, there is no name
+
+### Outro — controlled, repeating
+This is my flawless design
+This is my flawless design
+Seek no mercy in the crimson line I designed
+The flawless design
