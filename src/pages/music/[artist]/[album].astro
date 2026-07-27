@@ -1,0 +1,101 @@
+---
+// src/pages/music/[artist]/[album].astro
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const songs = await getCollection('songs');
+  
+  // Extract unique artist/album combinations from frontmatter
+  const paths = songs.map(song => {
+    // Generate URL-friendly slugs from artist and album metadata
+    const artistSlug = song.data.artist.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+    const albumSlug = song.data.album.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+    
+    return {
+      params: { artist: artistSlug, album: albumSlug },
+      props: { artistName: song.data.artist, albumName: song.data.album },
+    };
+  });
+
+  // Remove duplicates
+  return Array.from(new Set(paths.map(p => `${p.params.artist}/${p.params.album}`)))
+    .map(path => {
+      const [artist, album] = path.split('/');
+      const match = paths.find(p => p.params.artist === artist && p.params.album === album);
+      return {
+        params: { artist, album },
+        props: { artistName: match?.props.artistName, albumName: match?.props.albumName }
+      };
+    });
+}
+
+const { artist, album } = Astro.params;
+const { artistName, albumName } = Astro.props;
+
+const allSongs = await getCollection('songs');
+
+// Filter songs belonging strictly to this artist and album
+const albumSongs = allSongs.filter(song => {
+  const aSlug = song.data.artist.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+  const alSlug = song.data.album.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+  return aSlug === artist && alSlug === album;
+});
+
+// Grab cover image from the first available song match
+const coverImage = albumSongs[0]?.data.coverImage || '/images/default-album.jpg';
+---
+
+<html lang="en" class="dark bg-slate-950 text-slate-100">
+  <head>
+    <meta charset="UTF-8" />
+    <title>{albumName} | {artistName} — The Cosmos</title>
+  </head>
+  <body class="min-h-screen font-sans antialiased selection:bg-purple-500 selection:text-white">
+    <main class="max-w-5xl mx-auto px-6 py-12">
+      <!-- Back Navigation -->
+      <a href="/music" class="text-sm text-purple-400 hover:text-purple-300 mb-8 inline-block transition-colors">
+        ← Back to Music Vault
+      </a>
+
+      <!-- Album Header Section -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-center mb-16 bg-slate-900/50 p-8 rounded-2xl border border-slate-800 backdrop-blur-sm">
+        <div class="aspect-square relative rounded-xl overflow-hidden shadow-2xl border border-slate-700/50">
+          <img src={coverImage} alt={albumName} class="object-cover w-full h-full" />
+        </div>
+        <div class="md:col-span-2 space-y-4">
+          <span class="px-3.5 py-1.5 rounded-full text-xs font-semibold bg-purple-950/80 text-purple-300 border border-purple-800/50">
+            {artistName}
+          </span>
+          <h1 class="text-4xl md:text-5xl font-black tracking-tight">{albumName}</h1>
+          <p class="text-slate-400 text-sm">
+            Featuring {albumSongs.length} canonical tracks straight from the master archives. Click any song below to explore lyrics and lore notes.
+          </p>
+        </div>
+      </div>
+
+      <!-- Tracklist Grid / List -->
+      <section>
+        <h2 class="text-2xl font-bold mb-6 tracking-wide">Tracklist</h2>
+        <div class="space-y-3">
+          {albumSongs.map((song, index) => (
+            <a 
+              href={`/music/${artist}/${album}/${song.slug}`}
+              class="group flex items-center justify-between p-4 rounded-xl bg-slate-900/40 hover:bg-slate-900/80 border border-slate-800/80 hover:border-purple-500/50 transition-all duration-200"
+            >
+              <div class="flex items-center space-x-4">
+                <span class="text-slate-500 font-mono text-sm w-6">{(index + 1).toString().padStart(2, '0')}</span>
+                <div>
+                  <h3 class="font-semibold group-hover:text-purple-400 transition-colors">{song.data.title}</h3>
+                  {song.data.quote && <p class="text-xs text-slate-500 italic mt-0.5 line-clamp-1">"{song.data.quote}"</p>}
+                </div>
+              </div>
+              <span class="text-xs font-medium text-purple-400 opacity-0 group-hover:opacity-100 transition-opacity">
+                Read Lyrics →
+              </span>
+            </a>
+          ))}
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
