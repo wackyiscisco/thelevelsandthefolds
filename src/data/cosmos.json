@@ -64,19 +64,32 @@
   ],
   "patreonTiers": [
     {
-      "name": "Level Explorer",
+      "id": "baseline",
+      "name": "Baseline Tier",
       "price": "$3 / month",
-      "perks": ["Early song releases", "Behind-the-scenes Suno workflows", "Discord badge"]
+      "trial": "7 days free trial",
+      "highlighted": false,
+      "tagline": "Your entry point into WackycsicO Records.",
+      "perks": [
+        "Access to all song releases & early drops",
+        "The Crimson Sparks & Maya catalog",
+        "Pandora Raven & Elara Dawn (The Twins Saga)",
+        "Prima & Timo, The Archivist & future projects"
+      ]
     },
     {
-      "name": "Fold Keeper",
-      "price": "$7 / month",
-      "perks": ["Exclusive chapter drops (The Twins Saga)", "Lore Vault access", "Polls & voting"]
-    },
-    {
-      "name": "Cosmic Council",
-      "price": "$15 / month",
-      "perks": ["High-res art packs", "High-bitrate audio downloads", "Producer credits on videos"]
+      "id": "lorekeeper",
+      "name": "Lorekeeper Tier",
+      "price": "$5 / month",
+      "trial": "7 days free trial",
+      "highlighted": true,
+      "tagline": "Step deeper into the mythology.",
+      "perks": [
+        "All Baseline Tier benefits",
+        "Exclusive lore drops & full story documents",
+        "Character backstories & timeline maps",
+        "Behind-the-scenes insights across all projects"
+      ]
     }
   ]
 }
