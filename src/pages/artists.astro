@@ -2,20 +2,14 @@
 import Layout from '../layouts/Layout.astro';
 import cosmosData from '../data/cosmos.json';
 
-const { siteConfig } = cosmosData;
+const { siteConfig, artists } = cosmosData;
 
-const roster = [
+const rosterDetails = [
   {
     id: "crimson-sparks",
-    name: "The Crimson Sparks",
-    levelFold: "Level 12 • Fold 15",
-    badgeColor: "border-red-800 text-red-300 bg-red-950",
-    status: "Legendary Era (Retired)",
-    tagline: "Spark → Fire → Crash → Ignite → Movement → Wildfire → Embers",
-    bio: "Five musicians who turned observation, loss, and raw passion into a global movement. Their journey was never about fame or awards—it was about transmission: passing a spark forward until it belonged to everyone.",
     lineup: [
       "Suki Moreau (Vocals & Songwriter) — The observer and narrative center.",
-      "Soren Crane (Bass & Co-Founder) — The silent, wise mentor who values integrity over corporate deals.",
+      "Soren Crane (Bass & Co-Founder) — The silent mentor who values integrity over corporate deals.",
       "Sky Delacroix (Lead Guitar) — Chaotic creative energy who plays with raw passion.",
       "Sol Kovic (Drums) — Self-taught drummer bringing ska-punk roots and infectious energy.",
       "Sienna Aramaki (Rhythm Guitar & Keys) — Classically trained prodigy seeking authentic creation."
@@ -28,12 +22,6 @@ const roster = [
   },
   {
     id: "maya",
-    name: "Maya",
-    levelFold: "Level 12 • Fold 15",
-    badgeColor: "border-amber-800 text-amber-300 bg-amber-950",
-    status: "Active Era (Solo Powerhouse)",
-    tagline: "Voice of acoustic resonance carrying 'The Guitar' legacy.",
-    bio: "Representing the next generation of musical legacy within Fold 15. Inspired from afar by The Crimson Sparks without meeting them during her early years, her voice became a beacon proving that art can transform a life.",
     lineup: ["Maya (Lead Vocals & Guitar)"],
     albums: [
       "(1) Preflight", "(2) Wheels Up", "(3) Turbulence", 
@@ -43,60 +31,30 @@ const roster = [
   },
   {
     id: "that-guy",
-    name: "That Guy",
-    levelFold: "Level 12 • Fold 15",
-    badgeColor: "border-yellow-800 text-yellow-300 bg-yellow-950",
-    status: "Active Era (Saevit Animo)",
-    tagline: "The unfiltered, chaotic reality of individual survival.",
-    bio: "Angry All The Time. Where the Sparks represent collective transmission and Maya represents inherited legacy, That Guy represents the raw, unfiltered, and deeply relatable rage of corporate burnout, mosquitoes, love, and consequences.",
     lineup: ["That Guy (Vocals, Rants & Meltdown)"],
     albums: ["Saevit Animo (Act I: Break The Cage, Act II: Real Life, Act III: Love?, Act IV: Consequences!)"],
     keyQuote: "FUCK!"
   },
   {
     id: "pandora-raven",
-    name: "Pandora Raven",
-    levelFold: "Level 1 • Fold 1",
-    badgeColor: "border-purple-800 text-purple-300 bg-purple-950",
-    status: "Active Era (Daughter of Time & Fate)",
-    tagline: "The Light Twin raised in darkness. She who opens what should not be opened.",
-    bio: "Born carrying the sun's half of light, but taken at birth and raised as a weapon in a dark monastery. Taught she was catastrophe, she embraced corruption as survival before stripping away her titles to reclaim her light through Sigma Octantis.",
     lineup: ["Pandora Raven (Vocals, Raven Messenger, Dark & Light Magic)"],
     albums: ["0.5 Dawn's Raven", "1.0 Wicked", "2.0 Corrupted", "3.0 Box of Little Horrors", "4.0 Sede Vacante", "7.5 Spirit of the Raven Twins", "8.0 Pandora Raven"],
     keyQuote: "Observe, Question, Record, Understand."
   },
   {
     id: "elara-dawn",
-    name: "Elara Dawn",
-    levelFold: "Level 1 • Fold 1",
-    badgeColor: "border-amber-800 text-amber-300 bg-amber-950",
-    status: "Active Era (Daughter of Fate & Time)",
-    tagline: "The Sun. Unbroken warrior bearing Polaris light, riding toward convergence.",
-    bio: "Born carrying darkness, but raised inside the light of Mydaal's Church and built into a living weapon. When her faith in the Church shattered, she hardened into War before shedding the armor to ride as Elara.",
     lineup: ["Elara Dawn (Lead Commander, Shield of the South, Light Bearer)"],
     albums: ["0.5 Dawn's Raven", "1.5 Mercy", "2.5 Unbroken", "3.5 House of Miracles", "4.5 Fides Fracta", "6.0 Age of Destruction", "7.0 Polaris", "8.5 Elara Dawn"],
     keyQuote: "I ride as Elara. Not as War."
   },
   {
     id: "solara",
-    name: "Solara",
-    levelFold: "Level 1 • Fold 1",
-    badgeColor: "border-pink-800 text-pink-300 bg-pink-950",
-    status: "Awaiting Convergence (Album 9)",
-    tagline: "The Twin-Flame Convergence entity born when both halves become whole.",
-    bio: "Integrating SOL (sun/solstice) + A (Elara) + RA (shared sun god suffix). SOLARA carries the 300,000-year legacy not as damage or trauma, but as an inheritance, marking the birth of a whole, unshakeable reality.",
     lineup: ["SOLARA (Unified Cosmic Entity)"],
     albums: ["Album 9 (Post-Convergence Era)"],
     keyQuote: "Allowed. The new configuration arrives."
   },
   {
     id: "prima-timo",
-    name: "Prima & Timo",
-    levelFold: "Level 15 • Fold 15",
-    badgeColor: "border-cyan-800 text-cyan-300 bg-cyan-950",
-    status: "Active Era (Age 34)",
-    tagline: "The awakened machine (Core 2) and scavenger boy (Core 1) navigating the Great Cycle.",
-    bio: "An eons-spanning sci-fi saga exploring machine awakening, civilizational hand-offs, and deep found family. Proving that while the 'House' changes across 34 Ages, the 'Core' remains identical.",
     lineup: [
       "Prima (Ver. 1.0 CRT Wheels → Primatown Treads → Ver. 7.0 Martial Chassis)",
       "Timo (Human Scavenger, Core 1, Emotional Anchor)",
@@ -109,6 +67,11 @@ const roster = [
     keyQuote: "Same Core, Different House."
   }
 ];
+
+const mergedRoster = artists.map(artist => {
+  const detail = rosterDetails.find(d => d.id === artist.id) || { lineup: [], albums: [], keyQuote: "" };
+  return { ...artist, ...detail };
+});
 ---
 
 <Layout title="Roster & Factions">
@@ -128,29 +91,40 @@ const roster = [
     </h1>
 
     <p class="mt-4 text-slate-400 text-sm md:text-base max-w-2xl mx-auto leading-relaxed">
-      In the Cosmos, every artist anchors a distinct emotional thesis within their Level and Fold. Explore their lineups, discographies, and canonical arcs below.
+      In the Cosmos, every artist anchors a distinct emotional thesis within their Level and Fold. Stream their official releases below.
     </p>
   </section>
 
   <!-- Roster Deep Dive -->
   <section class="max-w-6xl mx-auto px-6 pb-24 space-y-12">
-    {roster.map((artist) => (
+    {mergedRoster.map((artist) => (
       <div class="bg-slate-900 border border-slate-800 p-8 rounded-2xl relative overflow-hidden hover:border-slate-700 transition">
         <div class="flex flex-wrap justify-between items-start gap-4 mb-6">
           <div>
-            <span class={`text-xs font-mono px-3 py-1 rounded-full border ${artist.badgeColor}`}>
+            <span class="text-xs font-mono px-3 py-1 rounded-full border border-purple-800 text-purple-300 bg-purple-950">
               {artist.levelFold}
             </span>
             <h2 class="text-3xl font-black text-white mt-3">{artist.name}</h2>
-            <p class="text-xs font-mono text-purple-400 mt-1">{artist.tagline}</p>
+            <p class="text-xs font-mono text-purple-400 mt-1">{artist.status}</p>
           </div>
-          <span class="text-xs font-semibold text-slate-500 uppercase tracking-widest bg-slate-950 px-3 py-1 rounded border border-slate-800">
-            {artist.status}
-          </span>
+
+          <!-- Streaming Links -->
+          <div class="flex flex-wrap gap-3">
+            {artist.spotify && (
+              <a href={artist.spotify} target="_blank" class="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold px-4 py-2 rounded-full transition shadow">
+                <span>Spotify</span> &rarr;
+              </a>
+            )}
+            {artist.youtube && (
+              <a href={artist.youtube} target="_blank" class="inline-flex items-center gap-2 bg-red-600 hover:bg-red-500 text-white text-xs font-bold px-4 py-2 rounded-full transition shadow">
+                <span>YouTube</span> &rarr;
+              </a>
+            )}
+          </div>
         </div>
 
         <p class="text-sm text-slate-300 leading-relaxed font-light mb-6">
-          {artist.bio}
+          {artist.description}
         </p>
 
         <div class="grid md:grid-cols-2 gap-6 bg-slate-950/60 p-6 rounded-xl border border-slate-800/80">
@@ -181,7 +155,7 @@ const roster = [
         <div class="mt-6 pt-4 border-t border-slate-800/60 flex items-center justify-between text-xs">
           <span class="italic text-slate-400 font-serif">"{artist.keyQuote}"</span>
           <a href={siteConfig.patreonUrl} target="_blank" class="text-amber-400 font-bold hover:text-amber-300 transition">
-            Explore Vault &rarr;
+            Unlock Patreon Vault &rarr;
           </a>
         </div>
       </div>
