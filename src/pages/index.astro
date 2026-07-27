@@ -30,10 +30,10 @@ const { siteConfig, artists, patreonTiers } = cosmosData;
 
     <div class="mt-10 flex flex-wrap justify-center gap-4">
       <a href="#artists" class="bg-slate-100 text-slate-950 hover:bg-white px-8 py-3.5 rounded-full font-bold text-sm transition">
-        Explore All 7 Roster Artists
+        Explore Roster
       </a>
       <a href="#patreon" class="border border-slate-700 bg-slate-900/50 hover:border-slate-500 px-8 py-3.5 rounded-full font-bold text-sm text-slate-200 transition">
-        Support on Patreon
+        Join Patreon Vault
       </a>
     </div>
   </section>
@@ -76,30 +76,48 @@ const { siteConfig, artists, patreonTiers } = cosmosData;
     </div>
   </section>
 
-  <!-- Patreon Funnel Section -->
-  <section id="patreon" class="py-24 max-w-7xl mx-auto px-6">
+  <!-- Patreon Funnel Section (Updated 2 Tiers) -->
+  <section id="patreon" class="py-24 max-w-5xl mx-auto px-6">
     <div class="text-center max-w-2xl mx-auto mb-12">
-      <h2 class="text-3xl font-bold">Support the Cosmos Gateway</h2>
-      <p class="text-slate-400 text-sm mt-2">Unlock exclusive chapter drops, raw audio, and lore archives.</p>
+      <h2 class="text-3xl font-bold">Support WackycsicO Records</h2>
+      <p class="text-slate-400 text-sm mt-2">Unlock early music drops, character backstories, timeline maps, and exclusive lore vaults.</p>
     </div>
 
-    <div class="grid md:grid-cols-3 gap-6">
+    <div class="grid md:grid-cols-2 gap-8">
       {patreonTiers.map((tier) => (
-        <div class="bg-gradient-to-b from-slate-900 to-slate-950 border border-slate-800 p-8 rounded-2xl flex flex-col justify-between hover:border-amber-500/50 transition">
+        <div class={`relative p-8 rounded-2xl flex flex-col justify-between transition ${
+          tier.highlighted 
+            ? 'bg-gradient-to-b from-slate-900 to-purple-950/40 border-2 border-purple-500 shadow-xl shadow-purple-950/50' 
+            : 'bg-slate-900 border border-slate-800'
+        }`}>
+          {tier.highlighted && (
+            <span class="absolute -top-3 right-6 bg-purple-500 text-white text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-full shadow">
+              Highlighted Tier
+            </span>
+          )}
           <div>
-            <h3 class="text-xl font-bold text-white">{tier.name}</h3>
-            <p class="text-3xl font-black text-amber-400 mt-2">{tier.price}</p>
-            <ul class="mt-6 space-y-2 text-sm text-slate-300">
+            <h3 class="text-2xl font-bold text-white">{tier.name}</h3>
+            <div class="mt-3 flex items-baseline space-x-2">
+              <span class="text-4xl font-black text-amber-400">{tier.price}</span>
+              <span class="text-xs text-slate-400 font-mono">({tier.trial})</span>
+            </div>
+            <p class="text-sm text-slate-300 italic mt-3">{tier.tagline}</p>
+
+            <ul class="mt-6 space-y-2.5 text-sm text-slate-300 border-t border-slate-800/80 pt-4">
               {tier.perks.map((perk) => (
-                <li class="flex items-center space-x-2">
-                  <span class="text-purple-400">&check;</span>
+                <li class="flex items-start space-x-2">
+                  <span class="text-purple-400 font-bold">&check;</span>
                   <span>{perk}</span>
                 </li>
               ))}
             </ul>
           </div>
-          <a href={siteConfig.patreonUrl} target="_blank" class="mt-8 block text-center bg-purple-600 hover:bg-purple-500 text-white py-2.5 rounded-xl font-bold text-sm transition">
-            Join Tier
+          <a href={siteConfig.patreonUrl} target="_blank" class={`mt-8 block text-center py-3 rounded-xl font-bold text-sm transition ${
+            tier.highlighted 
+              ? 'bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white shadow-lg' 
+              : 'bg-slate-800 hover:bg-slate-700 text-slate-200'
+          }`}>
+            Get Started (7-Day Trial)
           </a>
         </div>
       ))}
