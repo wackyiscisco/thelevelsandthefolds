@@ -5,20 +5,22 @@ import Layout from '../../layouts/Layout.astro';
 
 const allSongs = await getCollection('songs');
 
-// Helper to map artist names to portrait image files in public/images/artists/
+// Helper mapping artist names to exact uploaded asset filenames
 function getArtistImage(artistName: string): string {
-  const name = artistName.toLowerCase();
-  if (name.includes('pandora')) return '/images/artists/pandora-box.jpg';
-  if (name.includes('elara')) return '/images/artists/elara-box.jpg';
-  if (name.includes('prima')) return '/images/artists/prima-and-timo.jpg';
-  if (name.includes('crimson')) return '/images/artists/the-crimson-sparks.jpg';
-  if (name.includes('maya')) return '/images/artists/maya.jpg';
-  if (name.includes('guy')) return '/images/artists/that-guy.jpg';
-  if (name.includes('solara')) return '/images/artists/solara.jpg';
+  const name = String(artistName || '').toLowerCase();
+  
+  if (name.includes('pandora')) return '/images/artists/pandora-box.jpg.png';
+  if (name.includes('elara')) return '/images/artists/elara-box.jpg.png';
+  if (name.includes('prima')) return '/images/artists/prima-and-timo.jpg.png';
+  if (name.includes('crimson')) return '/images/artists/the-crimson-sparks.jpg.png';
+  if (name.includes('maya')) return '/images/artists/maya.jpg.png';
+  if (name.includes('guy')) return '/images/artists/that-guy.jpg.png';
+  if (name.includes('solara')) return '/images/artists/Solara.jpg.png';
+  
   return '/images/default-artist.jpg';
 }
 
-// Group track counts by Artist
+// Group track counts and unique albums per artist
 const artistCatalog: Record<string, { songCount: number; albums: Set<string>; image: string }> = {};
 
 allSongs.forEach((song: any) => {
@@ -65,7 +67,7 @@ allSongs.forEach((song: any) => {
             href={`/music/${artistSlug}`}
             class="group relative flex flex-col bg-slate-900/60 hover:bg-slate-900 border border-slate-800 hover:border-purple-500/50 rounded-2xl overflow-hidden shadow-2xl transition-all duration-300 hover:-translate-y-1.5"
           >
-            <!-- Artist Image Container -->
+            <!-- Artist Image Container with Aspect Lock -->
             <div class="aspect-square w-full relative overflow-hidden bg-slate-950">
               <img
                 src={data.image}
