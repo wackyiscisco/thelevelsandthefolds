@@ -6,7 +6,6 @@ import Layout from '../../../layouts/Layout.astro';
 export async function getStaticPaths() {
   const allSongs = await getCollection('songs');
   
-  // Extract unique artist slugs
   const artistSlugs = new Set(
     allSongs.map((song: any) => 
       String(song.data.artist || '').toLowerCase().replace(/[^a-z0-9]+/g, '-')
@@ -21,7 +20,6 @@ export async function getStaticPaths() {
 const { artist: artistParam } = Astro.params;
 const allSongs = await getCollection('songs');
 
-// Filter songs belonging to this artist
 const artistSongs = allSongs.filter((song: any) => {
   const slug = String(song.data.artist || '').toLowerCase().replace(/[^a-z0-9]+/g, '-');
   return slug === artistParam;
@@ -29,7 +27,7 @@ const artistSongs = allSongs.filter((song: any) => {
 
 const artistName = artistSongs[0]?.data?.artist || 'Artist';
 
-// Helper: Extract numerical album value for ascending timeline ordering (1 -> 2 -> 3 -> 4 -> 5.5 -> 6.5)
+// Helper: Extract numerical album value for timeline ordering (1 -> 2 -> 3 -> 4 -> 5.5 -> 6.5)
 function extractAlbumNumber(albumTitle: string): number {
   const match = albumTitle.match(/Album\s+([\d.]+)/i) || albumTitle.match(/([\d.]+)/);
   if (match && match[1]) {
@@ -38,15 +36,18 @@ function extractAlbumNumber(albumTitle: string): number {
   return 999;
 }
 
-// Helper: Resolve album cover image with fallbacks
-function resolveAlbumCover(albumTitle: string, frontmatterImage?: string): string {
+// Helper: Maps full album strings ("Album 6.5: The Raven's Shadow") to your exact GitHub filenames ("The Raven's Shadow.jpg")
+function getExactAlbumImage(albumTitle: string, frontmatterImage?: string): string {
+  // If a valid path is explicitly supplied in frontmatter, use it
   if (frontmatterImage && frontmatterImage.trim() !== '') {
     return frontmatterImage;
   }
-  
-  // Slugify album title for automatic fallback mapping
-  const albumSlug = albumTitle.toLowerCase().replace(/[^a-z0-9]+/g, '-');
-  return `/images/albums/${artistParam}/${albumSlug}.jpg`;
+
+  // Strip prefix like "Album 6.5: " or "Album 1: " to get raw album name
+  const cleanTitle = albumTitle.replace(/^Album\s+[\d.]+:\s*/i, '').trim();
+
+  // Return the direct public path matching your actual uploaded GitHub filenames
+  return `/images/albums/${artistParam}/${cleanTitle}.jpg`;
 }
 
 // Group tracks by album
@@ -58,14 +59,10 @@ artistSongs.forEach((song: any) => {
   if (!albumMap[albumTitle]) {
     albumMap[albumTitle] = {
       title: albumTitle,
-      coverImage: resolveAlbumCover(albumTitle, song.data.coverImage),
+      coverImage: getExactAlbumImage(albumTitle, song.data.coverImage),
       count: 0
     };
-  } else if (!albumMap[albumTitle].coverImage && song.data.coverImage) {
-    // If a subsequent track has the cover image, grab it!
-    albumMap[albumTitle].coverImage = song.data.coverImage;
   }
-
   albumMap[albumTitle].count += 1;
 });
 
