@@ -5,6 +5,7 @@ album: "Album 1: Wicked"
 levelFold: "Level 1 Fold 1"
 featured: true
 coverImage: "/images/albums/pandora-raven/wicked.jpg"
+trackNumber: 1
 quote: "They needed a villain. So they made one."
 ---
 
@@ -103,7 +104,7 @@ They're calling me sinister
 But I've read every page of every lie
 Sinister
 Oh I'm your sinister
-The inconvenient truth you can'deny
+The inconvenient truth you can't deny
 You built your kingdom on the silent
 On the broken and the frightened
 Now I'm standing in the ashes of the fire you lit
