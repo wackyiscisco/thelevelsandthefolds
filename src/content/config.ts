@@ -6,6 +6,7 @@ const songsCollection = defineCollection({
     title: z.string(),
     artist: z.string(),
     album: z.string(),
+    trackNumber: z.number().optional(), // <-- ADDED THIS LINE
     levelFold: z.string(),
     featured: z.boolean().optional().default(false),
     spotifyUrl: z.string().optional(),
