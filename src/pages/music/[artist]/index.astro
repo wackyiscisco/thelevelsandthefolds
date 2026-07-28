@@ -2,7 +2,7 @@
 import fs from 'fs';
 import path from 'path';
 import { getCollection } from 'astro:content';
-import Layout from '../../layouts/Layout.astro';
+import Layout from '../../../layouts/Layout.astro';
 
 export async function getStaticPaths() {
   const allSongs = await getCollection('songs');
