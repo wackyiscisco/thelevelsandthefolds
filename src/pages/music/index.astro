@@ -1,7 +1,7 @@
 ---
-// src/pages/music/index.astro
-import { getCollection } from 'astro:content';
+// src/pages/music/index.astro (Notice: TWO '../../' because it sits inside src/pages/music/)
 import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
 
 const allSongs = await getCollection('songs');
 
@@ -23,7 +23,7 @@ function getAlbumCover(artistRaw: any, albumRaw: any): string {
   return '/images/default-album.jpg';
 }
 
-// Group songs safely using standard object initialization to avoid TS accumulator errors
+// Group songs cleanly
 const musicCatalog: Record<string, Record<string, { coverImage: string; songs: any[] }>> = {};
 
 allSongs.forEach((song: any) => {
@@ -48,7 +48,7 @@ allSongs.forEach((song: any) => {
   <main class="max-w-7xl mx-auto px-6 py-12">
     <!-- Header Section -->
     <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
-      <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs font-semibold bg-purple-950/80 text-purple-300 border border-purple-800/50 shadow-inner font-mono">
+      <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs font-semibold bg-purple-950/80 text-purple-300 border border-purple-800/50 font-mono">
         <span class="w-2 h-2 rounded-full bg-purple-400 animate-pulse"></span>
         {Object.keys(musicCatalog).length} Artists • {allSongs.length} Tracks Active Across the Cosmos
       </div>
@@ -63,7 +63,7 @@ allSongs.forEach((song: any) => {
     <!-- Artist & Album Grid Hierarchy -->
     <div class="space-y-16">
       {Object.entries(musicCatalog).map(([artist, albums]) => (
-        <section class="space-y-6">
+        <section class="space-y-6" key={artist}>
           <div class="flex items-center justify-between border-b border-slate-800/80 pb-4">
             <h2 class="text-2xl md:text-3xl font-bold tracking-tight text-purple-400 flex items-center gap-3">
               <span class="text-slate-600">✦</span> {artist}
@@ -79,10 +79,10 @@ allSongs.forEach((song: any) => {
               
               return (
                 <a 
+                  key={albumSlug}
                   href={`/music/${artistSlug}/${albumSlug}`}
                   class="group relative flex flex-col bg-slate-900/60 hover:bg-slate-900 border border-slate-800 hover:border-purple-500/50 rounded-xl overflow-hidden shadow-xl transition-all duration-300 hover:-translate-y-1"
                 >
-                  <!-- Square Aspect Lock Container to prevent massive images -->
                   <div class="aspect-square w-full relative overflow-hidden bg-slate-950">
                     <img 
                       src={albumData.coverImage} 
@@ -95,7 +95,6 @@ allSongs.forEach((song: any) => {
                     </span>
                   </div>
 
-                  <!-- Card Footer -->
                   <div class="p-4 flex flex-col flex-grow justify-between space-y-3">
                     <div>
                       <h3 class="text-lg font-bold text-slate-100 group-hover:text-purple-300 transition-colors line-clamp-1">{albumName}</h3>
