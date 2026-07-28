@@ -1,157 +1,111 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import cosmosData from '../data/cosmos.json';
+// src/pages/music/index.astro
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
 
-const { siteConfig, artists, patreonTiers } = cosmosData;
+const allSongs = await getCollection('songs');
+
+// Map album titles directly to exact image filenames in public/images/albums/
+function getAlbumCover(artist: string, album: string): string {
+  if (artist.toLowerCase().includes('pandora')) {
+    const albLower = album.toLowerCase();
+    if (albLower.includes('wicked')) return '/images/albums/pandora-raven/Wicked.jpg';
+    if (albLower.includes('corrupted')) return '/images/albums/pandora-raven/Corrupted.jpg';
+    if (albLower.includes('little horrors')) return '/images/albums/pandora-raven/Pandora\'s Box of Little Horrors.jpg';
+    if (albLower.includes('sede vacante')) return '/images/albums/pandora-raven/Sede Vacante.jpg';
+    if (albLower.includes('raven\'s light') || albLower.includes('ravens light')) return '/images/albums/pandora-raven/The Raven\'s Light.jpg';
+    if (albLower.includes('raven\'s shadow') || albLower.includes('ravens shadow')) return '/images/albums/pandora-raven/The Raven\'s Shadow.jpg';
+    if (albLower.includes('spirit of the raven')) return '/images/albums/pandora-raven/The Spirit of the Raven Twins.jpg';
+    if (albLower.includes('pandora raven')) return '/images/albums/pandora-raven/Pandora Raven.jpg';
+  }
+  return '/images/default-album.jpg';
+}
+
+// Group songs cleanly by Artist -> Album
+const musicCatalog = allSongs.reduce((acc, song) => {
+  const artist = song.data.artist || 'Unknown Artist';
+  const album = song.data.album || 'Singles & Vault';
+  
+  if (!acc[artist]) {
+    acc[artist] = {};
+  }
+  if (!acc[artist][album]) {
+    acc[artist][album] = {
+      coverImage: getAlbumCover(artist, album),
+      songs: []
+    };
+  }
+  
+  acc[artist][album].songs.push(song);
+  return acc;
+}, {} as Record<string, Record<string, { coverImage: string; songs: any[] }>>);
 ---
 
-<Layout title="Home Portal">
-  <!-- Hero Section -->
-  <section class="relative py-28 px-6 max-w-6xl mx-auto text-center">
-    <div class="inline-flex items-center space-x-2 bg-purple-950/80 border border-purple-700/60 px-4 py-1.5 rounded-full text-xs font-mono text-purple-300 mb-8 shadow-[0_0_20px_rgba(168,85,247,0.25)]">
-      <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
-      <span>620+ SONGS ACTIVE &bull; ALL LEVELS COEXIST</span>
-    </div>
-    
-    <h1 class="font-orbitron text-5xl md:text-7xl font-black tracking-tight leading-tight uppercase">
-      One Greater Cosmos.<br />
-      <span class="bg-gradient-to-r from-purple-400 via-pink-400 to-amber-300 bg-clip-text text-transparent drop-shadow-[0_0_35px_rgba(168,85,247,0.35)]">
-        All Levels & Folds Exist Together.
-      </span>
-    </h1>
-    
-    <p class="mt-8 text-base md:text-lg text-slate-300 max-w-3xl mx-auto font-light leading-relaxed">
-      Forget strict linear timelines. In our multiverse, space was folded[cite: 1]. Experience 17 twin albums, 7 roster factions, and 300,000 years of lore where <strong>Music Comes First</strong>[cite: 1, 4].
-    </p>
-
-    <!-- Hero Action Buttons -->
-    <div class="mt-10 flex flex-wrap justify-center gap-5 font-mono text-xs font-bold uppercase tracking-wider">
-      <a href="/artists" class="bg-slate-100 text-slate-950 hover:bg-white px-8 py-4 rounded-full shadow-lg shadow-white/10 transition hover:scale-105 border border-white">
-        Explore 7 Roster Artists &rarr;
-      </a>
-      <a href="/lore" class="bg-purple-950/80 hover:bg-purple-900 text-purple-200 border border-purple-700/60 px-8 py-4 rounded-full transition hover:scale-105 shadow-lg shadow-purple-950/50">
-        Enter Realm Map &rarr;
-      </a>
-    </div>
-  </section>
-
-  <!-- Creative Sequence Banner -->
-  <section class="py-12 bg-slate-900/60 border-y border-purple-900/30 backdrop-blur-md">
-    <div class="max-w-5xl mx-auto px-6 text-center font-mono">
-      <span class="text-[10px] uppercase tracking-widest text-amber-400 font-bold block mb-2">Core Creation Methodology</span>
-      <div class="flex flex-wrap justify-center items-center gap-3 text-sm font-bold text-slate-200 tracking-wider">
-        <span class="px-3 py-1 bg-purple-950 border border-purple-800 rounded text-purple-300">MUSIC</span>
-        <span class="text-slate-600">&rarr;</span>
-        <span class="px-3 py-1 bg-pink-950 border border-pink-800 rounded text-pink-300">STORIES</span>
-        <span class="text-slate-600">&rarr;</span>
-        <span class="px-3 py-1 bg-amber-950 border border-amber-800 rounded text-amber-300">LORE</span>
-        <span class="text-slate-600">&rarr;</span>
-        <span class="px-3 py-1 bg-cyan-950 border border-cyan-800 rounded text-cyan-300">COSMOS</span>
+<Layout title="The Cosmos Discography | Music Vault">
+  <main class="max-w-7xl mx-auto px-6 py-12">
+    <!-- Header Section -->
+    <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
+      <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs font-semibold bg-purple-950/80 text-purple-300 border border-purple-800/50 shadow-inner font-mono">
+        <span class="w-2 h-2 rounded-full bg-purple-400 animate-pulse"></span>
+        {Object.keys(musicCatalog).length} Artists • {allSongs.length} Tracks Active Across the Cosmos
       </div>
-    </div>
-  </section>
-
-  <!-- Roster Grid Section -->
-  <section id="artists" class="py-24 max-w-7xl mx-auto px-6">
-    <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 border-b border-slate-800 pb-6">
-      <div>
-        <h2 class="font-orbitron text-3xl font-black text-white uppercase tracking-wider">Active Roster & Factions</h2>
-        <p class="text-slate-400 text-sm mt-1">Cross-platform releases active across Level 1, Level 12, and Level 15[cite: 1].</p>
-      </div>
-      <a href="/artists" class="mt-4 md:mt-0 font-mono text-xs text-purple-400 hover:text-purple-300 font-bold uppercase tracking-wider">
-        View Complete Profiles &rarr;
-      </a>
+      <h1 class="text-4xl md:text-6xl font-black tracking-tight">The Cosmos <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-400 to-amber-300">Discography</span></h1>
+      <p class="text-slate-400 text-sm md:text-base leading-relaxed">
+        Explore the foundation of our universe. Select an album below to open the official tracklist, read the lyrics, and unlock deep lore notes.
+      </p>
     </div>
 
-    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-      {artists.map((artist) => (
-        <div class="bg-slate-900/80 border border-slate-800 p-7 rounded-2xl flex flex-col justify-between hover:border-purple-500/60 hover:shadow-[0_0_30px_rgba(168,85,247,0.15)] transition-all duration-300 group">
-          <div>
-            <div class="flex justify-between items-center mb-4">
-              <span class="text-[11px] font-mono text-purple-300 bg-purple-950/90 px-3 py-0.5 rounded-full border border-purple-800/60">
-                {artist.levelFold}
-              </span>
-              <span class="text-[10px] font-mono text-slate-500 uppercase tracking-widest">
-                {artist.status}
-              </span>
-            </div>
-            
-            <h3 class="font-orbitron text-2xl font-bold text-white group-hover:text-amber-300 transition">
-              {artist.name}
-            </h3>
-            
-            <p class="mt-3 text-slate-400 text-xs leading-relaxed font-light">
-              {artist.description}
-            </p>
+    <!-- Artist & Album Cards Hierarchy -->
+    <div class="space-y-16">
+      {Object.entries(musicCatalog).map(([artist, albums]) => (
+        <section class="space-y-6">
+          <div class="flex items-center justify-between border-b border-slate-800/80 pb-4">
+            <h2 class="text-2xl md:text-3xl font-bold tracking-tight text-purple-400 flex items-center gap-3">
+              <span class="text-slate-600">✦</span> {artist}
+            </h2>
+            <span class="text-xs text-slate-500 font-mono">{Object.keys(albums).length} Official Releases</span>
           </div>
 
-          <div class="mt-8 pt-4 border-t border-slate-800/80 flex justify-between items-center text-xs font-mono">
-            <span class="text-slate-500">Track: <strong class="text-slate-300">{artist.featuredTrack}</strong></span>
-            <a href="/artists" class="text-amber-400 font-bold group-hover:translate-x-1 transition-transform">
-              &rarr;
-            </a>
+          <!-- Album Cards Grid (Strict responsive boundaries) -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {Object.entries(albums).map(([albumName, albumData]) => {
+              const artistSlug = artist.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+              const albumSlug = albumName.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+              
+              return (
+                <a 
+                  href={`/music/${artistSlug}/${albumSlug}`}
+                  class="group relative flex flex-col bg-slate-900/60 hover:bg-slate-900 border border-slate-800 hover:border-purple-500/50 rounded-xl overflow-hidden shadow-xl transition-all duration-300 hover:-translate-y-1"
+                >
+                  <!-- Album Cover Image Wrapper with aspect-ratio lock -->
+                  <div class="aspect-square w-full relative overflow-hidden bg-slate-950">
+                    <img 
+                      src={albumData.coverImage} 
+                      alt={albumName} 
+                      class="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500 opacity-90 group-hover:opacity-100"
+                    />
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80"></div>
+                    <span class="absolute bottom-2.5 left-2.5 px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-purple-950/90 backdrop-blur-md text-purple-200 border border-purple-700/50 shadow-md font-mono">
+                      {albumData.songs.length} Tracks
+                    </span>
+                  </div>
+
+                  <!-- Card Footer -->
+                  <div class="p-4 flex flex-col flex-grow justify-between space-y-3">
+                    <div>
+                      <h3 class="text-lg font-bold text-slate-100 group-hover:text-purple-300 transition-colors line-clamp-1">{albumName}</h3>
+                      <p class="text-xs text-slate-400 mt-0.5 font-mono">Canonical Release</p>
+                    </div>
+                    <div class="flex items-center text-xs font-semibold text-purple-400 group-hover:text-purple-300 transition-colors font-mono">
+                      View Tracklist <span class="ml-1 transition-transform group-hover:translate-x-1">→</span>
+                    </div>
+                  </div>
+                </a>
+              );
+            })}
           </div>
-        </div>
+        </section>
       ))}
     </div>
-  </section>
-
-  <!-- Patreon Monetization Section -->
-  <section id="patreon" class="py-24 bg-gradient-to-b from-slate-950 via-purple-950/20 to-slate-950 border-t border-slate-900">
-    <div class="max-w-5xl mx-auto px-6">
-      <div class="text-center max-w-2xl mx-auto mb-16">
-        <span class="text-xs font-mono font-bold uppercase tracking-widest text-amber-400 bg-amber-950/80 px-3 py-1 rounded-full border border-amber-800/60">
-          WackycsicO Records Inner Circle
-        </span>
-        <h2 class="font-orbitron text-3xl md:text-4xl font-black text-white mt-4 uppercase">Support the Multiverse</h2>
-        <p class="text-slate-400 text-sm mt-2">Unlock early music drops, character backstories, timeline maps, and full story bibles.</p>
-      </div>
-
-      <div class="grid md:grid-cols-2 gap-8">
-        {patreonTiers.map((tier) => (
-          <div class={`relative p-8 rounded-3xl flex flex-col justify-between transition-all duration-300 ${
-            tier.highlighted 
-              ? 'bg-slate-900/90 border-2 border-purple-500 shadow-[0_0_40px_rgba(168,85,247,0.25)]' 
-              : 'bg-slate-900/60 border border-slate-800'
-          }`}>
-            {tier.highlighted && (
-              <span class="absolute -top-3 right-8 bg-gradient-to-r from-purple-500 to-pink-500 text-white text-[10px] font-mono font-black uppercase tracking-widest px-3 py-1 rounded-full shadow">
-                Highlighted Tier
-              </span>
-            )}
-
-            <div>
-              <h3 class="font-orbitron text-2xl font-bold text-white">{tier.name}</h3>
-              <div class="mt-4 flex items-baseline space-x-2">
-                <span class="font-orbitron text-4xl font-black text-amber-400">{tier.price}</span>
-                <span class="text-xs text-slate-400 font-mono">({tier.trial})</span>
-              </div>
-              <p class="text-xs text-purple-300 italic mt-2">{tier.tagline}</p>
-
-              <ul class="mt-8 space-y-3 text-xs text-slate-300 font-sans border-t border-slate-800 pt-6">
-                {tier.perks.map((perk) => (
-                  <li class="flex items-start space-x-3">
-                    <span class="text-purple-400 font-bold shrink-0">&check;</span>
-                    <span class="leading-relaxed">{perk}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <a 
-              href={siteConfig.patreonUrl} 
-              target="_blank" 
-              class={`mt-10 block text-center py-3.5 rounded-full font-mono text-xs font-bold uppercase tracking-wider transition-all shadow-lg hover:scale-105 ${
-                tier.highlighted 
-                  ? 'bg-gradient-to-r from-purple-600 via-pink-600 to-amber-500 hover:from-purple-500 hover:to-amber-400 text-white' 
-                  : 'bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700'
-              }`}
-            >
-              Get Started (7-Day Trial) &rarr;
-            </a>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
+  </main>
 </Layout>
