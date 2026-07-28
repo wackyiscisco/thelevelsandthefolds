@@ -4,12 +4,11 @@ import { getCollection } from 'astro:content';
 export async function getStaticPaths() {
   const allSongs = await getCollection('songs');
   
-  // Extract unique album & artist route combinations
   const albumMap = new Map();
 
   allSongs.forEach((song) => {
-    const artistSlug = song.data.artist.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
-    const albumSlug = song.data.album.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+    const artistSlug = song.data.artist ? song.data.artist.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '') : 'artist';
+    const albumSlug = song.data.album ? song.data.album.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '') : 'album';
     
     const key = `${artistSlug}/${albumSlug}`;
     if (!albumMap.has(key)) {
@@ -34,14 +33,19 @@ const { artistName, albumName, coverImage, levelFold } = Astro.props;
 // 1. Fetch all songs from content collection
 const allSongs = await getCollection('songs');
 
-// 2. Filter songs matching this specific album
+// 2. Filter songs matching this specific album route
 const albumSongs = allSongs
   .filter((song) => {
-    const currentAlbumSlug = song.data.album.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+    const currentAlbumSlug = song.data.album ? song.data.album.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '') : '';
     return currentAlbumSlug === album;
   })
-  // 3. FORCE STRICT NUMERICAL SORTING by trackNumber (1 -> 12)
-  .sort((a, b) => (a.data.trackNumber || 0) - (b.data.trackNumber || 0));
+  // 3. Smart sort: If trackNumber exists on both, sort numerically. Otherwise keep array/file order.
+  .sort((a, b) => {
+    if (a.data.trackNumber && b.data.trackNumber) {
+      return a.data.trackNumber - b.data.trackNumber;
+    }
+    return 0;
+  });
 ---
 
 <!DOCTYPE html>
@@ -109,9 +113,11 @@ const albumSongs = allSongs
         </div>
 
         <div class="space-y-3">
-          {albumSongs.map((song) => {
+          {albumSongs.map((song, index) => {
             const songSlug = song.slug || song.data.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
-            const formattedTrackNum = String(song.data.trackNumber || 0).padStart(2, '0');
+            // SMART NUMERICAL FALLBACK: Use frontmatter trackNumber if present; otherwise use array position + 1!
+            const rawTrackNum = song.data.trackNumber || (index + 1);
+            const formattedTrackNum = String(rawTrackNum).padStart(2, '0');
 
             return (
               <a 
