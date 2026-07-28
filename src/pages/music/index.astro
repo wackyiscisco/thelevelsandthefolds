@@ -1,6 +1,7 @@
 ---
 // src/pages/music/index.astro
 import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
 
 const allSongs = await getCollection('songs');
 
@@ -10,12 +11,12 @@ function getAlbumCover(artist: string, album: string): string {
     const albLower = album.toLowerCase();
     if (albLower.includes('wicked')) return '/images/albums/pandora-raven/Wicked.jpg';
     if (albLower.includes('corrupted')) return '/images/albums/pandora-raven/Corrupted.jpg';
-    if (albLower.includes('little horrors')) return '/images/albums/pandora-raven/Pandora\'s Box of Little Horrors.jpg';
+    if (albLower.includes('horrors') || albLower.includes('box')) return encodeURI("/images/albums/pandora-raven/Pandora's Box of Little Horrors.jpg");
     if (albLower.includes('sede vacante')) return '/images/albums/pandora-raven/Sede Vacante.jpg';
-    if (albLower.includes('raven\'s light') || albLower.includes('ravens light')) return '/images/albums/pandora-raven/The Raven\'s Light.jpg';
-    if (albLower.includes('raven\'s shadow') || albLower.includes('ravens shadow')) return '/images/albums/pandora-raven/The Raven\'s Shadow.jpg';
-    if (albLower.includes('spirit of the raven')) return '/images/albums/pandora-raven/The Spirit of the Raven Twins.jpg';
-    if (albLower.includes('pandora raven')) return '/images/albums/pandora-raven/Pandora Raven.jpg';
+    if (albLower.includes('raven\'s light') || albLower.includes('ravens light') || albLower.includes('raven')) return encodeURI("/images/albums/pandora-raven/The Raven's Light.jpg");
+    if (albLower.includes('shadow')) return encodeURI("/images/albums/pandora-raven/The Raven's Shadow.jpg");
+    if (albLower.includes('spirit') || albLower.includes('twins')) return encodeURI("/images/albums/pandora-raven/The Spirit of the Raven Twins.jpg");
+    if (albLower.includes('pandora raven')) return encodeURI("/images/albums/pandora-raven/Pandora Raven.jpg");
   }
   return '/images/default-album.jpg';
 }
@@ -40,79 +41,71 @@ const musicCatalog = allSongs.reduce((acc, song) => {
 }, {} as Record<string, Record<string, { coverImage: string; songs: any[] }>>);
 ---
 
-<html lang="en" class="dark bg-slate-950 text-slate-100">
-  <head>
-    <meta charset="UTF-8" />
-    <title>The Cosmos Discography | Music Vault</title>
-  </head>
-  <body class="min-h-screen font-sans antialiased bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-slate-900 via-slate-950 to-black text-slate-100 selection:bg-purple-500 selection:text-white">
-    <main class="max-w-7xl mx-auto px-6 py-16">
-      
-      <!-- Header Section -->
-      <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
-        <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs font-semibold bg-purple-950/80 text-purple-300 border border-purple-800/50 shadow-inner">
-          <span class="w-2 h-2 rounded-full bg-purple-400 animate-pulse"></span>
-          {Object.keys(musicCatalog).length} Artists • {allSongs.length} Tracks Active Across the Cosmos
-        </div>
-        <h1 class="text-4xl md:text-6xl font-black tracking-tight">The Cosmos <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-400 to-amber-300">Discography</span></h1>
-        <p class="text-slate-400 text-sm md:text-base leading-relaxed">
-          Explore the foundation of our universe. Select an album below to open the official tracklist, read the lyrics, and unlock deep lore notes.
-        </p>
+<Layout title="The Cosmos Discography | Music Vault">
+  <main class="max-w-7xl mx-auto px-6 py-12">
+    <!-- Header Section -->
+    <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
+      <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs font-semibold bg-purple-950/80 text-purple-300 border border-purple-800/50 shadow-inner font-mono">
+        <span class="w-2 h-2 rounded-full bg-purple-400 animate-pulse"></span>
+        {Object.keys(musicCatalog).length} Artists • {allSongs.length} Tracks Active Across the Cosmos
       </div>
+      <h1 class="text-4xl md:text-6xl font-black tracking-tight">The Cosmos <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-400 to-amber-300">Discography</span></h1>
+      <p class="text-slate-400 text-sm md:text-base leading-relaxed">
+        Explore the foundation of our universe. Select an album below to open the official tracklist, read the lyrics, and unlock deep lore notes.
+      </p>
+    </div>
 
-      <!-- Artist & Album Cards Hierarchy -->
-      <div class="space-y-20">
-        {Object.entries(musicCatalog).map(([artist, albums]) => (
-          <section class="space-y-8">
-            <div class="flex items-center justify-between border-b border-slate-800/80 pb-4">
-              <h2 class="text-3xl font-bold tracking-tight text-purple-400 flex items-center gap-3">
-                <span class="text-slate-600">✦</span> {artist}
-              </h2>
-              <span class="text-xs text-slate-500 font-mono">{Object.keys(albums).length} Official Albums</span>
-            </div>
+    <!-- Artist & Album Cards Hierarchy -->
+    <div class="space-y-16">
+      {Object.entries(musicCatalog).map(([artist, albums]) => (
+        <section class="space-y-6">
+          <div class="flex items-center justify-between border-b border-slate-800/80 pb-4">
+            <h2 class="text-2xl md:text-3xl font-bold tracking-tight text-purple-400 flex items-center gap-3">
+              <span class="text-slate-600">✦</span> {artist}
+            </h2>
+            <span class="text-xs text-slate-500 font-mono">{Object.keys(albums).length} Official Releases</span>
+          </div>
 
-            <!-- Album Cards Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {Object.entries(albums).map(([albumName, albumData]) => {
-                const artistSlug = artist.toLowerCase().replace(/[^a-z0-9]+/g, '-');
-                const albumSlug = albumName.toLowerCase().replace(/[^a-z0-9]+/g, '-');
-                
-                return (
-                  <a 
-                    href={`/music/${artistSlug}/${albumSlug}`}
-                    class="group relative flex flex-col bg-slate-900/60 hover:bg-slate-900 border border-slate-800 hover:border-purple-500/50 rounded-2xl overflow-hidden shadow-2xl transition-all duration-300 hover:-translate-y-1.5"
-                  >
-                    <!-- Album Cover Image -->
-                    <div class="aspect-square w-full relative overflow-hidden bg-slate-950">
-                      <img 
-                        src={albumData.coverImage} 
-                        alt={albumName} 
-                        class="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500 opacity-90 group-hover:opacity-100"
-                      />
-                      <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent opacity-80"></div>
-                      <span class="absolute bottom-3 left-3 px-3 py-1 rounded-full text-xs font-semibold bg-purple-950/90 backdrop-blur-md text-purple-200 border border-purple-700/50 shadow-md">
-                        {albumData.songs.length} Tracks
-                      </span>
+          <!-- Album Cards Grid -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {Object.entries(albums).map(([albumName, albumData]) => {
+              const artistSlug = artist.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+              const albumSlug = albumName.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+              
+              return (
+                <a 
+                  href={`/music/${artistSlug}/${albumSlug}`}
+                  class="group relative flex flex-col bg-slate-900/60 hover:bg-slate-900 border border-slate-800 hover:border-purple-500/50 rounded-xl overflow-hidden shadow-xl transition-all duration-300 hover:-translate-y-1"
+                >
+                  <!-- Album Cover Container -->
+                  <div class="aspect-square w-full relative overflow-hidden bg-slate-950">
+                    <img 
+                      src={albumData.coverImage} 
+                      alt={albumName} 
+                      class="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500 opacity-90 group-hover:opacity-100 block"
+                    />
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80 pointer-events-none"></div>
+                    <span class="absolute bottom-2.5 left-2.5 px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-purple-950/90 backdrop-blur-md text-purple-200 border border-purple-700/50 shadow-md font-mono">
+                      {albumData.songs.length} Tracks
+                    </span>
+                  </div>
+
+                  <!-- Card Footer -->
+                  <div class="p-4 flex flex-col flex-grow justify-between space-y-3">
+                    <div>
+                      <h3 class="text-lg font-bold text-slate-100 group-hover:text-purple-300 transition-colors line-clamp-1">{albumName}</h3>
+                      <p class="text-xs text-slate-400 mt-0.5 font-mono">Canonical Release</p>
                     </div>
-
-                    <!-- Album Info Card Footer -->
-                    <div class="p-6 flex flex-col flex-grow justify-between space-y-4">
-                      <div>
-                        <h3 class="text-xl font-bold text-slate-100 group-hover:text-purple-300 transition-colors">{albumName}</h3>
-                        <p class="text-xs text-slate-400 mt-1">Official Canonical Release</p>
-                      </div>
-                      <div class="flex items-center text-xs font-semibold text-purple-400 group-hover:text-purple-300 transition-colors">
-                        View Tracklist & Lyrics <span class="ml-1 transition-transform group-hover:translate-x-1">→</span>
-                      </div>
+                    <div class="flex items-center text-xs font-semibold text-purple-400 group-hover:text-purple-300 transition-colors font-mono">
+                      View Tracklist <span class="ml-1 transition-transform group-hover:translate-x-1">→</span>
                     </div>
-                  </a>
-                );
-              })}
-            </div>
-          </section>
-        ))}
-      </div>
-
-    </main>
-  </body>
-</html>
+                  </div>
+                </a>
+              );
+            })}
+          </div>
+        </section>
+      ))}
+    </div>
+  </main>
+</Layout>
