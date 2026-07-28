@@ -103,9 +103,3 @@ It waits, while you sleep
 So Am I the Light Bringer?
 The Light Bringer?
 Maybe.....but not yet.
-
-Related:
-[[00. Pandora Raven]]
-[[01. Pandora Raven]]
-[[01. Purple Gaze]]
-[[1. The Crimson One]]
