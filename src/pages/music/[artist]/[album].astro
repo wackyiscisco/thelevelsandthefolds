@@ -30,7 +30,6 @@ const { artistName, albumName } = Astro.props;
 
 const allSongs = await getCollection('songs');
 
-// Map album titles directly to exact image filenames in public/images/albums/
 function getAlbumCover(artistStr: string, albumStr: string): string {
   if (artistStr.toLowerCase().includes('pandora')) {
     const albLower = albumStr.toLowerCase();
@@ -38,7 +37,7 @@ function getAlbumCover(artistStr: string, albumStr: string): string {
     if (albLower.includes('corrupted')) return '/images/albums/pandora-raven/Corrupted.jpg';
     if (albLower.includes('horrors') || albLower.includes('box')) return encodeURI("/images/albums/pandora-raven/Pandora's Box of Little Horrors.jpg");
     if (albLower.includes('sede vacante')) return '/images/albums/pandora-raven/Sede Vacante.jpg';
-    if (albLower.includes('raven\'s light') || albLower.includes('ravens light') || albLower.includes('raven')) return encodeURI("/images/albums/pandora-raven/The Raven's Light.jpg");
+    if (albLower.includes('raven\'s light') || albLower.includes('ravens light')) return encodeURI("/images/albums/pandora-raven/The Raven's Light.jpg");
     if (albLower.includes('shadow')) return encodeURI("/images/albums/pandora-raven/The Raven's Shadow.jpg");
     if (albLower.includes('spirit') || albLower.includes('twins')) return encodeURI("/images/albums/pandora-raven/The Spirit of the Raven Twins.jpg");
     if (albLower.includes('pandora raven')) return encodeURI("/images/albums/pandora-raven/Pandora Raven.jpg");
@@ -53,22 +52,20 @@ let albumSongs = allSongs.filter(song => {
   return aSlug === artist && alSlug === album;
 });
 
-// Canonical Track Order Extraction (Reads track numbers from title or slug)
+// Extract track number safely from title or slug for strict 1 -> 12 canon order
 function extractTrackNumber(song: any): number {
   if (song.data.trackNumber) return Number(song.data.trackNumber);
   
-  // Check title e.g. "7. Blinding Silhouette" or "1. The Final Command"
   const titleMatch = song.data.title.match(/^(\d+)[._\s-]/);
   if (titleMatch) return parseInt(titleMatch[1], 10);
 
-  // Check slug/file ID e.g. "7-blinding-silhouette" or "12-the-repossession"
   const slugMatch = song.slug.match(/^(\d+)[-_.]/);
   if (slugMatch) return parseInt(slugMatch[1], 10);
 
   return 99;
 }
 
-// Sort tracks numerical 1 -> 12 order
+// Sort tracks numerically in ascending order
 albumSongs.sort((a, b) => extractTrackNumber(a) - extractTrackNumber(b));
 
 const coverImage = getAlbumCover(artistName, albumName);
@@ -76,12 +73,12 @@ const coverImage = getAlbumCover(artistName, albumName);
 
 <Layout title={`${albumName} | ${artistName} — The Cosmos`}>
   <main class="max-w-5xl mx-auto px-6 py-12">
-    <!-- Back Navigation -->
+    <!-- Navigation Back Link -->
     <a href="/music" class="text-sm text-purple-400 hover:text-purple-300 mb-8 inline-flex items-center gap-2 transition-colors font-mono">
       ← Back to Discography
     </a>
 
-    <!-- Album Header Card -->
+    <!-- Album Header Header -->
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-center mb-12 bg-slate-900/60 p-8 rounded-2xl border border-slate-800/80 shadow-2xl backdrop-blur-sm">
       <div class="aspect-square relative rounded-xl overflow-hidden shadow-2xl border border-slate-700/50 bg-slate-950 w-full max-w-[280px] mx-auto md:max-w-none">
         <img src={coverImage} alt={albumName} class="object-cover w-full h-full block" />
@@ -92,12 +89,12 @@ const coverImage = getAlbumCover(artistName, albumName);
         </span>
         <h1 class="text-3xl md:text-5xl font-black tracking-tight text-white">{albumName}</h1>
         <p class="text-slate-400 text-sm leading-relaxed">
-          {albumSongs.length} Canonical Tracks in official release order. Select any song below to read full lyrics and lore notes.
+          {albumSongs.length} Canonical Tracks in official release sequence. Select any song below to read full lyrics and lore notes.
         </p>
       </div>
     </div>
 
-    <!-- Official Sequenced Tracklist -->
+    <!-- Tracklist -->
     <section class="space-y-4">
       <h2 class="text-2xl font-bold tracking-tight text-purple-400 border-b border-slate-800 pb-3 flex items-center justify-between">
         <span>Official Tracklist</span>
@@ -106,6 +103,7 @@ const coverImage = getAlbumCover(artistName, albumName);
       
       <div class="space-y-3 pt-2">
         {albumSongs.map((song, index) => {
+          // Route matching src/pages/music/[slug].astro
           const songUrl = `/music/${song.slug}`;
           const displayTrackNum = (index + 1).toString().padStart(2, '0');
 
