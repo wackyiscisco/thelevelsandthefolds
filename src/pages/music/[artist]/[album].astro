@@ -51,35 +51,59 @@ let albumSongs = allSongs.filter(song => {
   return aSlug === artist && alSlug === album;
 });
 
-// Explicit Canon Track Order Table (Update anytime to re-sequence canon)
+// Master Canonical Track Order Table (Locks timeline and narrative flow)
 const masterCanonOrders: Record<string, string[]> = {
   "wicked": [
     "sinister", "run away", "marionettes and puppets", "hide and seek", "pandora says",
     "wicked", "contented torments", "the 8th day", "lost and confused", "white noise",
     "the brooding silence", "die lullaby"
+  ],
+  "corrupted": [
+    "dark trinity", "poison caution", "i lust you", "voices", "forbidden fruit",
+    "corrupted", "book of jezebel", "blind faith", "tartarus 9", "six ticks to six",
+    "the possession of pandora raven", "the 5th rider"
+  ],
+  "pandorasboxoflittlehorrors": [
+    "her malevolence", "kiss of death", "femme fatale", "purple to gaze", "scream dream",
+    "pandora's box of little horrors", "let me in (knock, knock)", "smitten", "holy poison",
+    "mist of ruination", "the last bastion", "is this the end of the beginning"
+  ],
+  "sedevacante": [
+    "the final command", "no one left to answer", "a world without witness", "throne of everything",
+    "the silence doesn't worship", "sede vacante", "blinding silhouette", "flawless design",
+    "pandora's box of forgotten things", "the priest", "a road less travelled", "hope's desperate end"
+  ],
+  "theravenslight": [
+    "light bringer", "path to salvation", "conflict within", "east rising", "screams of crimson",
+    "the raven's light", "those left behind", "road to redemption", "unbroken mercy",
+    "church of ruin", "homebound", "the repossession of pandora raven"
+  ],
+  "theravensshadow": [
+    "the map i left behind", "familiar feelings", "the commandment keeper", "unlikely encounter",
+    "child of light", "the raven's shadow", "corridors and spirals", "down is up",
+    "the one's below", "sigma octantis", "quiet in the chaos", "the two towers"
+  ],
+  "thespiritoftheraventwins": [
+    "through space and time", "crimson haired light", "the dominions", "road to ruin",
+    "raven flight", "the last bastion ii", "through my purple eyes", "the rings of destiny",
+    "the crimson riders", "true north", "flight of the raven", "polaris"
+  ],
+  "pandoraraven": [
+    "the time fate guided", "outside the pattern", "the purple woman", "the red warrior",
+    "ordained guidance", "children of the light", "olan the brave", "martyrs of the south",
+    "magenta", "when the cradle falls", "the liber primodius", "pandora raven"
   ]
 };
 
 function getTrackOrder(song: any): number {
   if (song.data?.trackNumber) return Number(song.data.trackNumber);
-  if (song.data?.track) return Number(song.data.track);
 
-  const title = String(song.data?.title || '');
-  const slug = String(song.slug || '');
-
-  const titleMatch = title.match(/^(\d+)[._\s-]/);
-  if (titleMatch) return parseInt(titleMatch[1], 10);
-
-  const slugMatch = slug.match(/^(\d+)[-_.]/);
-  if (slugMatch) return parseInt(slugMatch[1], 10);
-
-  // Match against explicit canon array if available
+  const title = String(song.data?.title || '').toLowerCase();
   const albumKey = String(album || '').toLowerCase().replace(/[^a-z0-9]+/g, '');
-  const lowerTitle = title.toLowerCase();
-  
+
   for (const [key, trackList] of Object.entries(masterCanonOrders)) {
     if (albumKey.includes(key)) {
-      const idx = trackList.findIndex(t => lowerTitle.includes(t));
+      const idx = trackList.findIndex(t => title.includes(t) || t.includes(title));
       if (idx !== -1) return idx + 1;
     }
   }
