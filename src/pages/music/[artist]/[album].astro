@@ -29,11 +29,20 @@ export async function getStaticPaths() {
 const { artist, album } = Astro.params;
 const { artistName, albumName, coverImage, levelFold } = Astro.props;
 
-// Fetch all songs and filter for this specific album
+// 1. Fetch all songs from content collection
 const allSongs = await getCollection('songs');
-const albumSongs = allSongs.filter((song) => {
+
+// 2. Filter songs matching this specific album route
+const filteredSongs = allSongs.filter((song) => {
   const currentAlbumSlug = song.data.album ? song.data.album.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '') : '';
   return currentAlbumSlug === album;
+});
+
+// 3. SAFE SORTING LOGIC: Sorts by trackNumber if present, pushes un-numbered items safely to the end
+const albumSongs = filteredSongs.sort((a, b) => {
+  const numA = typeof a.data.trackNumber === 'number' ? a.data.trackNumber : 999;
+  const numB = typeof b.data.trackNumber === 'number' ? b.data.trackNumber : 999;
+  return numA - numB;
 });
 ---
 
@@ -104,7 +113,9 @@ const albumSongs = allSongs.filter((song) => {
         <div class="space-y-3">
           {albumSongs.map((song, index) => {
             const songSlug = song.slug || song.data.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
-            const formattedTrackNum = String(index + 1).padStart(2, '0');
+            // Uses frontmatter trackNumber if it's a number, otherwise falls back gracefully to index + 1
+            const trackNum = typeof song.data.trackNumber === 'number' ? song.data.trackNumber : (index + 1);
+            const formattedTrackNum = String(trackNum).padStart(2, '0');
 
             return (
               <a 
