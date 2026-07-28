@@ -5,13 +5,13 @@ import Layout from '../../layouts/Layout.astro';
 
 const allSongs = await getCollection('songs');
 
-// Helper mapping artist names to exact uploaded asset filenames
+// Exact mapping matching your GitHub upload filenames
 function getArtistImage(artistName: string): string {
   const name = String(artistName || '').toLowerCase();
   
   if (name.includes('pandora')) return '/images/artists/pandora-box.jpg.png';
   if (name.includes('elara')) return '/images/artists/elara-box.jpg.png';
-  if (name.includes('prima')) return '/images/artists/prima-and-timo.jpg.png';
+  if (name.includes('prima')) return '/images/artists/prima-and-timo.jpg.png'; // or prima-and-timo.jpg depending on upload
   if (name.includes('crimson')) return '/images/artists/the-crimson-sparks.jpg.png';
   if (name.includes('maya')) return '/images/artists/maya.jpg.png';
   if (name.includes('guy')) return '/images/artists/that-guy.jpg.png';
@@ -20,7 +20,6 @@ function getArtistImage(artistName: string): string {
   return '/images/default-artist.jpg';
 }
 
-// Group track counts and unique albums per artist
 const artistCatalog: Record<string, { songCount: number; albums: Set<string>; image: string }> = {};
 
 allSongs.forEach((song: any) => {
@@ -42,7 +41,6 @@ allSongs.forEach((song: any) => {
 
 <Layout title="The Cosmos Roster | Music Artists">
   <main class="max-w-7xl mx-auto px-6 py-12">
-    <!-- Header Section -->
     <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
       <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs font-semibold bg-purple-950/80 text-purple-300 border border-purple-800/50 font-mono">
         <span class="w-2 h-2 rounded-full bg-purple-400 animate-pulse"></span>
@@ -56,7 +54,6 @@ allSongs.forEach((song: any) => {
       </p>
     </div>
 
-    <!-- Artist Cards Grid (1 Box Per Artist) -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
       {Object.entries(artistCatalog).map(([artistName, data]) => {
         const artistSlug = artistName.toLowerCase().replace(/[^a-z0-9]+/g, '-');
@@ -67,7 +64,6 @@ allSongs.forEach((song: any) => {
             href={`/music/${artistSlug}`}
             class="group relative flex flex-col bg-slate-900/60 hover:bg-slate-900 border border-slate-800 hover:border-purple-500/50 rounded-2xl overflow-hidden shadow-2xl transition-all duration-300 hover:-translate-y-1.5"
           >
-            <!-- Artist Image Container with Aspect Lock -->
             <div class="aspect-square w-full relative overflow-hidden bg-slate-950">
               <img
                 src={data.image}
@@ -86,7 +82,6 @@ allSongs.forEach((song: any) => {
               </div>
             </div>
 
-            <!-- Card Footer -->
             <div class="p-6 flex items-center justify-between">
               <div>
                 <h2 class="text-2xl font-bold text-white group-hover:text-purple-300 transition-colors">{artistName}</h2>
