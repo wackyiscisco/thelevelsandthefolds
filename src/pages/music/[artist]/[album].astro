@@ -31,17 +31,9 @@ const { artistName, albumName, coverImage, levelFold } = Astro.props;
 
 // Fetch all songs and filter for this specific album
 const allSongs = await getCollection('songs');
-const filteredSongs = allSongs.filter((song) => {
+const albumSongs = allSongs.filter((song) => {
   const currentAlbumSlug = song.data.album ? song.data.album.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '') : '';
   return currentAlbumSlug === album;
-});
-
-// SAFE SORT: Only sorts if trackNumber exists on both items, otherwise preserves file order cleanly
-const albumSongs = filteredSongs.sort((a, b) => {
-  if (typeof a.data.trackNumber === 'number' && typeof b.data.trackNumber === 'number') {
-    return a.data.trackNumber - b.data.trackNumber;
-  }
-  return 0;
 });
 ---
 
@@ -111,10 +103,8 @@ const albumSongs = filteredSongs.sort((a, b) => {
 
         <div class="space-y-3">
           {albumSongs.map((song, index) => {
-            // Uses native Astro song.slug directly to guarantee 100% route matching with [song].astro
             const songSlug = song.slug;
-            const trackNum = typeof song.data.trackNumber === 'number' ? song.data.trackNumber : (index + 1);
-            const formattedTrackNum = String(trackNum).padStart(2, '0');
+            const formattedTrackNum = String(index + 1).padStart(2, '0');
 
             return (
               <a 
