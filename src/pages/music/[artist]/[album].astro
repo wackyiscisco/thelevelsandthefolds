@@ -51,7 +51,7 @@ let albumSongs = allSongs.filter(song => {
   return aSlug === artist && alSlug === album;
 });
 
-// Master Canonical Track Order Table (Locks timeline and narrative flow)
+// Master Canon Track Order Table for Pandora Raven Albums 1 through 8 (including 5.5)
 const masterCanonOrders: Record<string, string[]> = {
   "wicked": [
     "sinister", "run away", "marionettes and puppets", "hide and seek", "pandora says",
@@ -97,13 +97,24 @@ const masterCanonOrders: Record<string, string[]> = {
 
 function getTrackOrder(song: any): number {
   if (song.data?.trackNumber) return Number(song.data.trackNumber);
+  if (song.data?.track) return Number(song.data.track);
 
-  const title = String(song.data?.title || '').toLowerCase();
+  const title = String(song.data?.title || '');
+  const slug = String(song.slug || '');
+
+  const titleMatch = title.match(/^(\d+)[._\s-]/);
+  if (titleMatch) return parseInt(titleMatch[1], 10);
+
+  const slugMatch = slug.match(/^(\d+)[-_.]/);
+  if (slugMatch) return parseInt(slugMatch[1], 10);
+
+  // Match against explicit master canon array
   const albumKey = String(album || '').toLowerCase().replace(/[^a-z0-9]+/g, '');
-
+  const lowerTitle = title.toLowerCase();
+  
   for (const [key, trackList] of Object.entries(masterCanonOrders)) {
     if (albumKey.includes(key)) {
-      const idx = trackList.findIndex(t => title.includes(t) || t.includes(title));
+      const idx = trackList.findIndex(t => lowerTitle.includes(t) || t.includes(lowerTitle));
       if (idx !== -1) return idx + 1;
     }
   }
