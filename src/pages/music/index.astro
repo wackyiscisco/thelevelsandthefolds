@@ -8,8 +8,8 @@ const allSongs = await getCollection('songs');
 // Helper to map artist names to portrait image files in public/images/artists/
 function getArtistImage(artistName: string): string {
   const name = artistName.toLowerCase();
-  if (name.includes('pandora')) return '/images/artists/pandora-raven.jpg';
-  if (name.includes('elara')) return '/images/artists/elara-dawn.jpg';
+  if (name.includes('pandora')) return '/images/artists/pandora-box.jpg';
+  if (name.includes('elara')) return '/images/artists/elara-box.jpg';
   if (name.includes('prima')) return '/images/artists/prima-and-timo.jpg';
   if (name.includes('crimson')) return '/images/artists/the-crimson-sparks.jpg';
   if (name.includes('maya')) return '/images/artists/maya.jpg';
@@ -40,7 +40,7 @@ allSongs.forEach((song: any) => {
 
 <Layout title="The Cosmos Roster | Music Artists">
   <main class="max-w-7xl mx-auto px-6 py-12">
-    <!-- Header -->
+    <!-- Header Section -->
     <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
       <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs font-semibold bg-purple-950/80 text-purple-300 border border-purple-800/50 font-mono">
         <span class="w-2 h-2 rounded-full bg-purple-400 animate-pulse"></span>
