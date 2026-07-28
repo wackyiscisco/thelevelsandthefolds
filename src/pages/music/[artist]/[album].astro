@@ -29,14 +29,14 @@ export async function getStaticPaths() {
 const { artist, album } = Astro.params;
 const { artistName, albumName, coverImage, levelFold } = Astro.props;
 
-// Fetch all songs and filter for this specific album
+// Fetch all songs and filter for this specific album route
 const allSongs = await getCollection('songs');
 const filteredSongs = allSongs.filter((song) => {
   const currentAlbumSlug = song.data.album ? song.data.album.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '') : '';
   return currentAlbumSlug === album;
 });
 
-// Safe numerical sort using trackNumber, falling back gracefully
+// SAFE CANONICAL SORT: Sorts by explicit trackNumber, safely falls back without breaking
 const albumSongs = filteredSongs.sort((a, b) => {
   const numA = typeof a.data.trackNumber === 'number' ? a.data.trackNumber : 999;
   const numB = typeof b.data.trackNumber === 'number' ? b.data.trackNumber : 999;
