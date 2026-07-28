@@ -1,153 +1,134 @@
 ---
+// src/pages/music/[artist]/index.astro
 import { getCollection } from 'astro:content';
+import Layout from '../../../layouts/Layout.astro';
 
 export async function getStaticPaths() {
   const allSongs = await getCollection('songs');
-  const albumMap = new Map();
+  
+  const artistSlugs = new Set(
+    allSongs.map((song: any) => 
+      String(song.data.artist || '').toLowerCase().replace(/[^a-z0-9]+/g, '-')
+    )
+  );
 
-  allSongs.forEach((song) => {
-    const artistSlug = song.data.artist ? song.data.artist.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '') : 'artist';
-    const albumSlug = song.data.album ? song.data.album.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '') : 'album';
-    
-    const key = `${artistSlug}/${albumSlug}`;
-    if (!albumMap.has(key)) {
-      albumMap.set(key, {
-        params: { artist: artistSlug, album: albumSlug },
-        props: {
-          artistName: song.data.artist,
-          albumName: song.data.album,
-          coverImage: song.data.coverImage,
-          levelFold: song.data.levelFold,
-        },
-      });
-    }
-  });
-
-  return Array.from(albumMap.values());
+  return Array.from(artistSlugs).map((slug) => ({
+    params: { artist: slug },
+  }));
 }
 
-const { artist, album } = Astro.params;
-const { artistName, albumName, coverImage, levelFold } = Astro.props;
-
-// 1. Fetch all songs from content collection
+const { artist: artistParam } = Astro.params;
 const allSongs = await getCollection('songs');
 
-// 2. Filter songs matching this specific album route
-const filteredSongs = allSongs.filter((song) => {
-  const currentAlbumSlug = song.data.album ? song.data.album.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '') : '';
-  return currentAlbumSlug === album;
+const artistSongs = allSongs.filter((song: any) => {
+  const slug = String(song.data.artist || '').toLowerCase().replace(/[^a-z0-9]+/g, '-');
+  return slug === artistParam;
 });
 
-// 3. SAFE SORTING LOGIC: Sorts by trackNumber if present, pushes un-numbered items safely to the end
-const albumSongs = filteredSongs.sort((a, b) => {
-  const numA = typeof a.data.trackNumber === 'number' ? a.data.trackNumber : 999;
-  const numB = typeof b.data.trackNumber === 'number' ? b.data.trackNumber : 999;
-  return numA - numB;
+const artistName = artistSongs[0]?.data?.artist || 'Artist';
+
+// Helper: Extract numerical album value for timeline ordering (1 -> 2 -> 3 -> 4 -> 5.5 -> 6.5)
+function extractAlbumNumber(albumTitle: string): number {
+  const match = albumTitle.match(/Album\s+([\d.]+)/i) || albumTitle.match(/([\d.]+)/);
+  if (match && match[1]) {
+    return parseFloat(match[1]);
+  }
+  return 999;
+}
+
+// Helper: Maps full album strings ("Album 6.5: The Raven's Shadow") to your exact GitHub filenames ("The Raven's Shadow.jpg")
+function getExactAlbumImage(albumTitle: string, frontmatterImage?: string): string {
+  // If a valid path is explicitly supplied in frontmatter, use it
+  if (frontmatterImage && frontmatterImage.trim() !== '') {
+    return frontmatterImage;
+  }
+
+  // Strip prefix like "Album 6.5: " or "Album 1: " to get raw album name
+  const cleanTitle = albumTitle.replace(/^Album\s+[\d.]+:\s*/i, '').trim();
+
+  // Return the direct public path matching your actual uploaded GitHub filenames
+  return `/images/albums/${artistParam}/${cleanTitle}.jpg`;
+}
+
+// Group tracks by album
+const albumMap: Record<string, { title: string; coverImage: string; count: number }> = {};
+
+artistSongs.forEach((song: any) => {
+  const albumTitle = song.data.album || 'Singles';
+
+  if (!albumMap[albumTitle]) {
+    albumMap[albumTitle] = {
+      title: albumTitle,
+      coverImage: getExactAlbumImage(albumTitle, song.data.coverImage),
+      count: 0
+    };
+  }
+  albumMap[albumTitle].count += 1;
+});
+
+// Sort albums ASCENDING by number (1 -> 2 -> 3 -> 4 -> 5.5 -> 6.5)
+const sortedAlbums = Object.values(albumMap).sort((a, b) => {
+  return extractAlbumNumber(a.title) - extractAlbumNumber(b.title);
 });
 ---
 
-<!DOCTYPE html>
-<html lang="en" class="bg-slate-950 text-slate-100 min-h-screen">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{albumName} | {artistName} — The Cosmos</title>
-  </head>
-  <body class="bg-slate-950 text-slate-100 font-sans antialiased selection:bg-purple-500 selection:text-white">
-    
-    <!-- Top Cosmological Navigation Header -->
-    <header class="border-b border-purple-900/30 bg-slate-950/80 backdrop-blur sticky top-0 z-50">
-      <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-        <div class="flex items-center gap-4">
-          <a href="/" class="text-2xl font-black tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-400 to-amber-300">
-            COSMOS
+<Layout title={`${artistName} | Discography`}>
+  <main class="max-w-7xl mx-auto px-6 py-12">
+    <!-- Header -->
+    <div class="mb-12 space-y-2">
+      <div class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-purple-950/80 text-purple-300 border border-purple-800/50 font-mono">
+        Official Canonical Discography
+      </div>
+      <h1 class="text-4xl md:text-6xl font-black text-white tracking-tight">{artistName}</h1>
+      <p class="text-slate-400 text-sm md:text-base font-mono">
+        {sortedAlbums.length} Canonical Releases arranged in timeline sequence.
+      </p>
+    </div>
+
+    <!-- Album Cards Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      {sortedAlbums.map((album) => {
+        const albumSlug = album.title.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+
+        return (
+          <a
+            href={`/music/${artistParam}/${albumSlug}`}
+            class="group relative flex flex-col bg-slate-900/60 hover:bg-slate-900 border border-slate-800 hover:border-purple-500/50 rounded-2xl overflow-hidden shadow-xl transition-all duration-300 hover:-translate-y-1"
+          >
+            <!-- Album Cover Box -->
+            <div class="aspect-square w-full relative overflow-hidden bg-slate-950">
+              <img
+                src={album.coverImage}
+                alt={album.title}
+                class="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500 opacity-90 group-hover:opacity-100 block"
+                onerror="this.onerror=null; this.src='/images/default-artist.jpg';"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/10 to-transparent opacity-80 pointer-events-none"></div>
+              
+              <div class="absolute bottom-3 left-3">
+                <span class="px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-purple-950/90 backdrop-blur-md text-purple-200 border border-purple-700/50 font-mono">
+                  {album.count} Tracks
+                </span>
+              </div>
+            </div>
+
+            <!-- Card Info -->
+            <div class="p-5 flex flex-col justify-between flex-1">
+              <div>
+                <h2 class="text-lg font-bold text-white group-hover:text-purple-300 transition-colors line-clamp-1">
+                  {album.title}
+                </h2>
+                <p class="text-xs text-slate-400 font-mono mt-1">Canonical Release</p>
+              </div>
+
+              <div class="mt-4 flex items-center justify-between text-xs font-mono text-purple-400 group-hover:text-purple-300">
+                <span>View Tracklist</span>
+                <span class="transition-transform group-hover:translate-x-1 font-bold">→</span>
+              </div>
+            </div>
           </a>
-          <span class="text-xs px-2.5 py-1 rounded-full border border-purple-500/30 bg-purple-950/40 text-purple-300 font-mono">
-            {levelFold || "Level 1 Fold 1"}
-          </span>
-        </div>
-        <nav class="hidden md:flex items-center gap-6 text-sm font-medium tracking-wide text-slate-300">
-          <a href="/" class="hover:text-purple-400 transition-colors">HOME</a>
-          <a href="/about" class="hover:text-purple-400 transition-colors">ABOUT</a>
-          <a href="/artists" class="hover:text-purple-400 transition-colors">ARTISTS</a>
-          <a href="/music" class="hover:text-purple-400 transition-colors text-purple-400">MUSIC</a>
-          <a href="/books" class="hover:text-purple-400 transition-colors">BOOKS</a>
-          <a href="/lore" class="hover:text-purple-400 transition-colors">LORE</a>
-          <a href="/patreon" class="hover:text-purple-400 transition-colors">PATREON</a>
-        </nav>
-      </div>
-    </header>
-
-    <!-- Main Album Hero & Tracklist View -->
-    <main class="max-w-5xl mx-auto px-6 py-12 space-y-12">
-      
-      <!-- Album Banner Header -->
-      <div class="p-8 md:p-10 rounded-2xl bg-slate-900/60 border border-purple-900/40 backdrop-blur flex flex-col md:flex-row gap-8 items-center md:items-start shadow-2xl">
-        <img 
-          src={coverImage} 
-          alt={albumName} 
-          class="w-56 h-56 md:w-64 md:h-64 object-cover rounded-xl shadow-2xl border border-purple-500/20"
-        />
-        <div class="space-y-4 text-center md:text-left flex-1">
-          <span class="inline-block px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider bg-purple-950/80 text-purple-300 border border-purple-700/40">
-            {artistName}
-          </span>
-          <h1 class="text-3xl md:text-5xl font-extrabold tracking-tight text-slate-50">
-            {albumName}
-          </h1>
-          <p class="text-sm text-slate-400 leading-relaxed max-w-2xl">
-            {albumSongs.length} Canonical Tracks in official release sequence. Select any song below to read full lyrics and lore notes.
-          </p>
-        </div>
-      </div>
-
-      <!-- Official Tracklist Container -->
-      <section class="space-y-4">
-        <div class="flex items-center justify-between border-b border-purple-900/40 pb-4">
-          <h2 class="text-2xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">
-            Official Tracklist
-          </h2>
-          <span class="text-xs font-mono text-slate-400">{albumSongs.length} Songs</span>
-        </div>
-
-        <div class="space-y-3">
-          {albumSongs.map((song, index) => {
-            const songSlug = song.slug || song.data.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
-            // Uses frontmatter trackNumber if it's a number, otherwise falls back gracefully to index + 1
-            const trackNum = typeof song.data.trackNumber === 'number' ? song.data.trackNumber : (index + 1);
-            const formattedTrackNum = String(trackNum).padStart(2, '0');
-
-            return (
-              <a 
-                href={`/music/${artist}/${album}/${songSlug}`}
-                class="group block p-4 md:p-5 rounded-xl bg-slate-900/40 hover:bg-slate-900/90 border border-purple-900/20 hover:border-purple-500/50 transition-all duration-200 shadow-md"
-              >
-                <div class="flex items-center justify-between gap-4">
-                  <div class="flex items-center gap-4 md:gap-6 min-w-0">
-                    <span class="text-lg md:text-xl font-mono font-bold text-purple-400 group-hover:text-pink-400 transition-colors">
-                      {formattedTrackNum}
-                    </span>
-                    <div class="min-w-0">
-                      <h3 class="text-base md:text-lg font-semibold text-slate-100 group-hover:text-purple-200 transition-colors truncate">
-                        {song.data.title}
-                      </h3>
-                      {song.data.quote && (
-                        <p class="text-xs md:text-sm italic text-slate-400 truncate mt-0.5">
-                          "{song.data.quote}"
-                        </p>
-                      )}
-                    </div>
-                  </div>
-                  <span class="text-xs font-mono text-purple-400/80 group-hover:text-purple-300 flex items-center gap-1 shrink-0">
-                    Read Lyrics &rarr;
-                  </span>
-                </div>
-              </a>
-            );
-          })}
-        </div>
-      </section>
-
-    </main>
-  </body>
-</html>
+        );
+      })}
+    </div>
+  </main>
+</Layout>
