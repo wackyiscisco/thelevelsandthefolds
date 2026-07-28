@@ -6,7 +6,6 @@ export async function getStaticPaths() {
   const albumMap = new Map();
 
   allSongs.forEach((song) => {
-    // Generate clean URL slugs for artist and album
     const artistSlug = song.data.artist ? song.data.artist.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '') : 'artist';
     const albumSlug = song.data.album ? song.data.album.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '') : 'album';
     
@@ -17,7 +16,6 @@ export async function getStaticPaths() {
         props: {
           artistName: song.data.artist,
           albumName: song.data.album,
-          coverImage: song.data.coverImage,
           levelFold: song.data.levelFold,
         },
       });
@@ -28,18 +26,19 @@ export async function getStaticPaths() {
 }
 
 const { artist, album } = Astro.params;
-const { artistName, albumName, coverImage, levelFold } = Astro.props;
+const { artistName, albumName, levelFold } = Astro.props;
 
-// 1. Fetch all songs from the content collection
+// Fetch all songs and filter for this specific album
 const allSongs = await getCollection('songs');
-
-// 2. Filter songs belonging strictly to this album route
 const filteredSongs = allSongs.filter((song) => {
   const currentAlbumSlug = song.data.album ? song.data.album.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '') : '';
   return currentAlbumSlug === album;
 });
 
-// 3. Strict sorting: Sorts by trackNumber if defined, otherwise preserves natural file sequence
+// Robust Cover Image Finder (scans all album songs until it finds a cover image)
+let coverImage = filteredSongs.find(song => song.data.coverImage)?.data.coverImage || '';
+
+// Strict Numerical Sort: Uses trackNumber if available, falls back safely to filename order
 const albumSongs = filteredSongs.sort((a, b) => {
   const numA = typeof a.data.trackNumber === 'number' ? a.data.trackNumber : 999;
   const numB = typeof b.data.trackNumber === 'number' ? b.data.trackNumber : 999;
@@ -59,7 +58,6 @@ const albumSongs = filteredSongs.sort((a, b) => {
   </head>
   <body class="bg-slate-950 text-slate-100 font-sans antialiased selection:bg-purple-500 selection:text-white">
     
-    <!-- Top Cosmological Navigation Header -->
     <header class="border-b border-purple-900/30 bg-slate-950/80 backdrop-blur sticky top-0 z-50">
       <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
         <div class="flex items-center gap-4">
@@ -72,20 +70,13 @@ const albumSongs = filteredSongs.sort((a, b) => {
         </div>
         <nav class="hidden md:flex items-center gap-6 text-sm font-medium tracking-wide text-slate-300">
           <a href="/" class="hover:text-purple-400 transition-colors">HOME</a>
-          <a href="/about" class="hover:text-purple-400 transition-colors">ABOUT</a>
-          <a href="/artists" class="hover:text-purple-400 transition-colors">ARTISTS</a>
           <a href="/music" class="hover:text-purple-400 transition-colors text-purple-400">MUSIC</a>
-          <a href="/books" class="hover:text-purple-400 transition-colors">BOOKS</a>
-          <a href="/lore" class="hover:text-purple-400 transition-colors">LORE</a>
-          <a href="/patreon" class="hover:text-purple-400 transition-colors">PATREON</a>
         </nav>
       </div>
     </header>
 
-    <!-- Main Album Hero & Tracklist View -->
     <main class="max-w-5xl mx-auto px-6 py-12 space-y-12">
       
-      <!-- Album Banner Header -->
       <div class="p-8 md:p-10 rounded-2xl bg-slate-900/60 border border-purple-900/40 backdrop-blur flex flex-col md:flex-row gap-8 items-center md:items-start shadow-2xl">
         {coverImage ? (
           <img 
@@ -111,7 +102,6 @@ const albumSongs = filteredSongs.sort((a, b) => {
         </div>
       </div>
 
-      <!-- Official Tracklist Container -->
       <section class="space-y-4">
         <div class="flex items-center justify-between border-b border-purple-900/40 pb-4">
           <h2 class="text-2xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">
@@ -122,10 +112,7 @@ const albumSongs = filteredSongs.sort((a, b) => {
 
         <div class="space-y-3">
           {albumSongs.map((song, index) => {
-            // Robust slug extraction to match dynamic lyric page routes cleanly
-            const rawSlug = song.slug || song.id || '';
-            const songSlug = rawSlug.split('/').pop().replace(/\.[^/.]+$/, '');
-            
+            const songSlug = song.slug || song.id.replace(/\.[^/.]+$/, '');
             const trackNum = typeof song.data.trackNumber === 'number' ? song.data.trackNumber : (index + 1);
             const formattedTrackNum = String(trackNum).padStart(2, '0');
 
