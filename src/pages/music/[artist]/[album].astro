@@ -1,11 +1,11 @@
 ---
 // src/pages/music/[artist]/[album].astro
 import { getCollection } from 'astro:content';
+import Layout from '../../../layouts/Layout.astro';
 
 export async function getStaticPaths() {
   const songs = await getCollection('songs');
   
-  // Extract unique artist/album routes
   const pathMap = new Map();
 
   songs.forEach(song => {
@@ -38,84 +38,75 @@ let albumSongs = allSongs.filter(song => {
   return aSlug === artist && alSlug === album;
 });
 
-// Helper function to extract numerical track order if available in frontmatter or slug
+// Extract track number safely from frontmatter or filename
 function getTrackNumber(song: any): number {
   if (song.data.trackNumber) return Number(song.data.trackNumber);
-  
-  // Try extracting number from slug or file ID (e.g. "1-the-final-command" -> 1)
   const match = song.slug.match(/^(\d+)[-_.]/);
   if (match) return parseInt(match[1], 10);
-  
-  return 99; // Default fallback to end of list if unnumbered
+  return 99;
 }
 
-// Sort tracks in ascending 1 -> 12 numerical order
+// Sort tracks numerical order 1 -> 12
 albumSongs.sort((a, b) => getTrackNumber(a) - getTrackNumber(b));
 
 const coverImage = albumSongs[0]?.data.coverImage || '/images/default-album.jpg';
 ---
 
-<html lang="en" class="dark bg-slate-950 text-slate-100">
-  <head>
-    <meta charset="UTF-8" />
-    <title>{albumName} | {artistName} — The Cosmos</title>
-  </head>
-  <body class="min-h-screen font-sans antialiased bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-slate-900 via-slate-950 to-black text-slate-100">
-    <main class="max-w-5xl mx-auto px-6 py-12">
-      <!-- Back Navigation -->
-      <a href="/music" class="text-sm text-purple-400 hover:text-purple-300 mb-8 inline-flex items-center gap-2 transition-colors">
-        ← Back to Discography
-      </a>
+<Layout title={`${albumName} | ${artistName} — The Cosmos`}>
+  <main class="max-w-5xl mx-auto px-6 py-12">
+    <!-- Back Navigation -->
+    <a href="/music" class="text-sm text-purple-400 hover:text-purple-300 mb-8 inline-flex items-center gap-2 transition-colors font-mono">
+      ← Back to Discography
+    </a>
 
-      <!-- Album Header Section -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-center mb-12 bg-slate-900/60 p-8 rounded-2xl border border-slate-800/80 shadow-2xl backdrop-blur-sm">
-        <div class="aspect-square relative rounded-xl overflow-hidden shadow-2xl border border-slate-700/50 bg-slate-950">
-          <img src={coverImage} alt={albumName} class="object-cover w-full h-full" />
-        </div>
-        <div class="md:col-span-2 space-y-4">
-          <span class="px-3.5 py-1.5 rounded-full text-xs font-semibold bg-purple-950/80 text-purple-300 border border-purple-800/50">
-            {artistName}
-          </span>
-          <h1 class="text-4xl md:text-5xl font-black tracking-tight text-white">{albumName}</h1>
-          <p class="text-slate-400 text-sm leading-relaxed">
-            {albumSongs.length} Official Canonical Tracks. Select any song below to read full lyrics and lore notes.
-          </p>
-        </div>
+    <!-- Album Header Header -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-center mb-12 bg-slate-900/60 p-8 rounded-2xl border border-slate-800/80 shadow-2xl backdrop-blur-sm">
+      <div class="aspect-square relative rounded-xl overflow-hidden shadow-2xl border border-slate-700/50 bg-slate-950">
+        <img src={coverImage} alt={albumName} class="object-cover w-full h-full" />
       </div>
+      <div class="md:col-span-2 space-y-4">
+        <span class="px-3.5 py-1.5 rounded-full text-xs font-semibold bg-purple-950/80 text-purple-300 border border-purple-800/50 font-mono">
+          {artistName}
+        </span>
+        <h1 class="text-4xl md:text-5xl font-black tracking-tight text-white">{albumName}</h1>
+        <p class="text-slate-400 text-sm leading-relaxed">
+          {albumSongs.length} Canonical Tracks. Select any song below to read full lyrics and lore notes.
+        </p>
+      </div>
+    </div>
 
-      <!-- Tracklist Section -->
-      <section class="space-y-4">
-        <h2 class="text-2xl font-bold tracking-tight text-purple-400 border-b border-slate-800 pb-3 flex items-center justify-between">
-          <span>Official Tracklist</span>
-          <span class="text-xs text-slate-500 font-mono font-normal">{albumSongs.length} Songs</span>
-        </h2>
-        
-        <div class="space-y-3 pt-2">
-          {albumSongs.map((song, index) => {
-            // FIX: Route directly to /music/[artist]/[song-slug] to prevent Vercel 404!
-            const songUrl = `/music/${artist}/${song.slug}`;
-            const displayTrackNum = (index + 1).toString().padStart(2, '0');
+    <!-- Numbered Tracklist -->
+    <section class="space-y-4">
+      <h2 class="text-2xl font-bold tracking-tight text-purple-400 border-b border-slate-800 pb-3 flex items-center justify-between">
+        <span>Official Tracklist</span>
+        <span class="text-xs text-slate-500 font-mono font-normal">{albumSongs.length} Songs</span>
+      </h2>
+      
+      <div class="space-y-3 pt-2">
+        {albumSongs.map((song, index) => {
+          // DIRECT FIX: Match route /music/[slug] where [slug].astro lives!
+          const songUrl = `/music/${song.slug}`;
+          const displayTrackNum = (index + 1).toString().padStart(2, '0');
 
-            return (
-              <a 
-                href={songUrl}
-                class="group flex items-center justify-between p-4 rounded-xl bg-slate-900/40 hover:bg-slate-900 border border-slate-800/80 hover:border-purple-500/50 transition-all duration-200 shadow-md"
-              >
-                <div class="flex items-center space-x-4">
-                  <span class="text-slate-500 font-mono text-sm w-8 text-center">{displayTrackNum}</span>
-                  <div>
-                    <h3 class="font-semibold text-slate-200 group-hover:text-purple-300 transition-colors">{song.data.title}</h3>
-                    {song.data.quote && <p class="text-xs text-slate-500 italic mt-0.5 line-clamp-1">"{song.data.quote}"</p>}
-                  </div>
+          return (
+            <a 
+              href={songUrl}
+              class="group flex items-center justify-between p-4 rounded-xl bg-slate-900/40 hover:bg-slate-900 border border-slate-800/80 hover:border-purple-500/50 transition-all duration-200 shadow-md"
+            >
+              <div class="flex items-center space-x-4">
+                <span class="text-purple-400 font-mono text-sm w-8 text-center font-bold">{displayTrackNum}</span>
+                <div>
+                  <h3 class="font-semibold text-slate-200 group-hover:text-purple-300 transition-colors">{song.data.title}</h3>
+                  {song.data.quote && <p class="text-xs text-slate-500 italic mt-0.5 line-clamp-1">"{song.data.quote}"</p>}
                 </div>
-                <span class="text-xs font-medium text-purple-400 group-hover:text-purple-300 flex items-center gap-1 opacity-80 group-hover:opacity-100 transition-all">
-                  Read Lyrics <span class="transition-transform group-hover:translate-x-1">→</span>
-                </span>
-              </a>
-            );
-          })}
-        </div>
-      </section>
-    </main>
-  </body>
-</html>
+              </div>
+              <span class="text-xs font-medium text-purple-400 group-hover:text-purple-300 flex items-center gap-1 opacity-80 group-hover:opacity-100 transition-all font-mono">
+                Read Lyrics <span class="transition-transform group-hover:translate-x-1">→</span>
+              </span>
+            </a>
+          );
+        })}
+      </div>
+    </section>
+  </main>
+</Layout>
