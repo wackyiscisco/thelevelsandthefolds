@@ -32,39 +32,25 @@ const { artistName, albumName } = Astro.props;
 
 const allSongs = await getCollection('songs');
 
-// Safe Album Cover Mapping
-function getAlbumCover(artistRaw: any, albumRaw: any): string {
-  const artistStr = String(artistRaw || '').toLowerCase();
-  const albLower = String(albumRaw || '').toLowerCase();
-
-  if (artistStr.includes('pandora')) {
-    if (albLower.includes('wicked')) return '/images/albums/pandora-raven/Wicked.jpg';
-    if (albLower.includes('corrupted')) return '/images/albums/pandora-raven/Corrupted.jpg';
-    if (albLower.includes('horrors') || albLower.includes('box')) return '/images/albums/pandora-raven/Pandora\'s Box of Little Horrors.jpg';
-    if (albLower.includes('sede vacante')) return '/images/albums/pandora-raven/Sede Vacante.jpg';
-    if (albLower.includes('raven') && albLower.includes('light')) return '/images/albums/pandora-raven/The Raven\'s Light.jpg';
-    if (albLower.includes('shadow')) return '/images/albums/pandora-raven/The Raven\'s Shadow.jpg';
-    if (albLower.includes('spirit') || albLower.includes('twins')) return '/images/albums/pandora-raven/The Spirit of the Raven Twins.jpg';
-    if (albLower.includes('pandora raven')) return '/images/albums/pandora-raven/Pandora Raven.jpg';
-  }
+function getAlbumCover(artistStr: string, albumStr: string): string {
+  const albLower = String(albumStr || '').toLowerCase();
+  if (albLower.includes('wicked')) return '/images/albums/pandora-raven/Wicked.jpg';
+  if (albLower.includes('corrupted')) return '/images/albums/pandora-raven/Corrupted.jpg';
+  if (albLower.includes('horrors') || albLower.includes('box')) return "/images/albums/pandora-raven/Pandora's Box of Little Horrors.jpg";
+  if (albLower.includes('sede vacante')) return '/images/albums/pandora-raven/Sede Vacante.jpg';
+  if (albLower.includes('light')) return "/images/albums/pandora-raven/The Raven's Light.jpg";
+  if (albLower.includes('shadow')) return "/images/albums/pandora-raven/The Raven's Shadow.jpg";
+  if (albLower.includes('spirit') || albLower.includes('twins')) return "/images/albums/pandora-raven/The Spirit of the Raven Twins.jpg";
+  if (albLower.includes('pandora raven')) return "/images/albums/pandora-raven/Pandora Raven.jpg";
   return '/images/default-album.jpg';
 }
 
-// Filter songs for this artist & album safely
 let albumSongs = allSongs.filter(song => {
   const aSlug = String(song.data?.artist || '').toLowerCase().replace(/[^a-z0-9]+/g, '-');
   const alSlug = String(song.data?.album || '').toLowerCase().replace(/[^a-z0-9]+/g, '-');
   return aSlug === artist && alSlug === album;
 });
 
-// Explicit Canon Track Order Table for Album 1: Wicked
-const wickedOrder = [
-  "sinister", "wicked", "die lullaby", "hide and seek", "hope's desperate end",
-  "contented torments", "a world without witness", "blind faith", "book of jezebel",
-  "the 5th rider", "corrupted", "is this the end or the beginning"
-];
-
-// Robust numerical track order parser
 function getTrackOrder(song: any): number {
   if (song.data?.trackNumber) return Number(song.data.trackNumber);
   if (song.data?.track) return Number(song.data.track);
@@ -72,22 +58,15 @@ function getTrackOrder(song: any): number {
   const title = String(song.data?.title || '');
   const slug = String(song.slug || '');
 
-  // Match leading track numbers like "1. Title" or "01 - Title"
   const titleMatch = title.match(/^(\d+)[._\s-]/);
   if (titleMatch) return parseInt(titleMatch[1], 10);
 
   const slugMatch = slug.match(/^(\d+)[-_.]/);
   if (slugMatch) return parseInt(slugMatch[1], 10);
 
-  // Match Against Wicked Array Lookup
-  const lowerTitle = title.toLowerCase();
-  const wickedIdx = wickedOrder.findIndex(t => lowerTitle.includes(t));
-  if (wickedIdx !== -1) return wickedIdx + 1;
-
   return 99;
 }
 
-// Sort tracks strictly by numerical canon order
 albumSongs.sort((a, b) => getTrackOrder(a) - getTrackOrder(b));
 
 const coverImage = getAlbumCover(artistName, albumName);
@@ -95,12 +74,10 @@ const coverImage = getAlbumCover(artistName, albumName);
 
 <Layout title={`${albumName} | ${artistName} — The Cosmos`}>
   <main class="max-w-5xl mx-auto px-6 py-12">
-    <!-- Navigation Back Link -->
-    <a href="/music" class="text-sm text-purple-400 hover:text-purple-300 mb-8 inline-flex items-center gap-2 transition-colors font-mono">
-      ← Back to Discography
+    <a href={`/music/${artist}`} class="text-sm text-purple-400 hover:text-purple-300 mb-8 inline-flex items-center gap-2 transition-colors font-mono">
+      ← Back to {artistName} Discography
     </a>
 
-    <!-- Album Header Card -->
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-center mb-12 bg-slate-900/60 p-8 rounded-2xl border border-slate-800/80 shadow-2xl backdrop-blur-sm">
       <div class="aspect-square relative rounded-xl overflow-hidden shadow-2xl border border-slate-700/50 bg-slate-950 w-full max-w-[280px] mx-auto md:max-w-none">
         <img src={coverImage} alt={albumName} class="object-cover w-full h-full block" />
@@ -116,7 +93,6 @@ const coverImage = getAlbumCover(artistName, albumName);
       </div>
     </div>
 
-    <!-- Official Sequenced Tracklist -->
     <section class="space-y-4">
       <h2 class="text-2xl font-bold tracking-tight text-purple-400 border-b border-slate-800 pb-3 flex items-center justify-between">
         <span>Official Tracklist</span>
@@ -130,6 +106,7 @@ const coverImage = getAlbumCover(artistName, albumName);
 
           return (
             <a 
+              key={song.slug}
               href={songUrl}
               class="group flex items-center justify-between p-4 rounded-xl bg-slate-900/40 hover:bg-slate-900 border border-slate-800/80 hover:border-purple-500/50 transition-all duration-200 shadow-md"
             >
