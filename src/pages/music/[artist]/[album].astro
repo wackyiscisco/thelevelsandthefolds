@@ -16,7 +16,6 @@ export async function getStaticPaths() {
         props: {
           artistName: song.data.artist,
           albumName: song.data.album,
-          levelFold: song.data.levelFold,
         },
       });
     }
@@ -26,26 +25,37 @@ export async function getStaticPaths() {
 }
 
 const { artist, album } = Astro.params;
-const { artistName, albumName, levelFold } = Astro.props;
+const { artistName, albumName } = Astro.props;
+
+// Direct physical asset path mapping based on your public/images/albums/ structure
+const coverImageMap: Record<string, string> = {
+  'album-1-wicked': '/images/albums/pandora-raven/Wicked.jpg',
+  'album-2-corrupted': '/images/albums/pandora-raven/Corrupted.jpg',
+  'album-3-pandoras-box-of-little-horrors': "/images/albums/pandora-raven/Pandora's Box of Little Horrors.jpg",
+  'album-4-sede-vacante': '/images/albums/pandora-raven/Sede Vacante.jpg',
+  'album-5-5-the-ravens-light': "/images/albums/pandora-raven/The Raven's Light.jpg",
+  'album-6-5-the-ravens-shadow': "/images/albums/pandora-raven/The Raven's Shadow.jpg",
+  'album-7-5-the-spirit-of-the-raven-twins': "/images/albums/pandora-raven/The Spirit of the Raven Twins.jpg",
+  'album-8-pandora-raven': '/images/albums/pandora-raven/Pandora Raven.jpg',
+};
+
+const coverImage = coverImageMap[album] || '';
 
 // Fetch all songs and filter for this specific album
 const allSongs = await getCollection('songs');
-const filteredSongs = allSongs.filter((song) => {
+const albumSongs = allSongs.filter((song) => {
   const currentAlbumSlug = song.data.album ? song.data.album.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '') : '';
   return currentAlbumSlug === album;
 });
 
-// Robust Cover Image Finder
-let coverImage = filteredSongs.find(song => song.data.coverImage)?.data.coverImage || '';
-
-// STRICT CANONICAL SORTING: Sorts by trackNumber numerically. If track numbers match or are missing, falls back to clean alphabetical ID sorting.
-const albumSongs = filteredSongs.sort((a, b) => {
+// Sort songs by trackNumber numerically, falling back to title alphabetical order
+albumSongs.sort((a, b) => {
   const numA = typeof a.data.trackNumber === 'number' ? a.data.trackNumber : 999;
   const numB = typeof b.data.trackNumber === 'number' ? b.data.trackNumber : 999;
   if (numA !== numB) {
     return numA - numB;
   }
-  return a.id.localeCompare(b.id);
+  return a.data.title.localeCompare(b.data.title);
 });
 ---
 
@@ -56,30 +66,23 @@ const albumSongs = filteredSongs.sort((a, b) => {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{albumName} | {artistName} — The Cosmos</title>
   </head>
-  <body class="bg-slate-950 text-slate-100 font-sans antialiased selection:bg-purple-500 selection:text-white">
+  <body class="bg-slate-950 text-slate-100 font-sans antialiased">
     
-    <!-- Navigation Header -->
     <header class="border-b border-purple-900/30 bg-slate-950/80 backdrop-blur sticky top-0 z-50">
       <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-        <div class="flex items-center gap-4">
-          <a href="/" class="text-2xl font-black tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-400 to-amber-300">
-            COSMOS
-          </a>
-          <span class="text-xs px-2.5 py-1 rounded-full border border-purple-500/30 bg-purple-950/40 text-purple-300 font-mono">
-            {levelFold || "Level 1 Fold 1"}
-          </span>
-        </div>
+        <a href="/" class="text-2xl font-black tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-400 to-amber-300">
+          COSMOS
+        </a>
         <nav class="hidden md:flex items-center gap-6 text-sm font-medium tracking-wide text-slate-300">
           <a href="/" class="hover:text-purple-400 transition-colors">HOME</a>
-          <a href={`/music/${artist}`} class="hover:text-purple-400 transition-colors text-purple-400">MUSIC</a>
+          <a href="/music" class="hover:text-purple-400 transition-colors text-purple-400">MUSIC</a>
         </nav>
       </div>
     </header>
 
     <main class="max-w-5xl mx-auto px-6 py-12 space-y-12">
       
-      <!-- Album Banner Header -->
-      <div class="p-8 md:p-10 rounded-2xl bg-slate-900/60 border border-purple-900/40 backdrop-blur flex flex-col md:flex-row gap-8 items-center md:items-start shadow-2xl">
+      <div class="p-8 md:p-10 rounded-2xl bg-slate-900/60 border border-purple-900/40 flex flex-col md:flex-row gap-8 items-center md:items-start shadow-2xl">
         {coverImage ? (
           <img 
             src={coverImage} 
@@ -87,7 +90,7 @@ const albumSongs = filteredSongs.sort((a, b) => {
             class="w-56 h-56 md:w-64 md:h-64 object-cover rounded-xl shadow-2xl border border-purple-500/20"
           />
         ) : (
-          <div class="w-56 h-56 md:w-64 md:h-64 bg-slate-800 rounded-xl flex items-center justify-center border border-purple-500/20 text-slate-500 font-mono text-xs">
+          <div class="w-56 h-56 md:w-64 md:h-64 bg-slate-800 rounded-xl flex items-center justify-center text-slate-500 font-mono text-xs">
             No Cover Image
           </div>
         )}
@@ -99,38 +102,34 @@ const albumSongs = filteredSongs.sort((a, b) => {
             {albumName}
           </h1>
           <p class="text-sm text-slate-400 leading-relaxed max-w-2xl">
-            {albumSongs.length} Canonical Tracks in official release sequence. Select any song below to read full lyrics and lore notes.
+            {albumSongs.length} Tracks in official release sequence. Select any song below to read full lyrics.
           </p>
         </div>
       </div>
 
-      <!-- Official Tracklist Container -->
       <section class="space-y-4">
-        <div class="flex items-center justify-between border-b border-purple-900/40 pb-4">
-          <h2 class="text-2xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">
-            Official Tracklist
-          </h2>
-          <span class="text-xs font-mono text-slate-400">{albumSongs.length} Songs</span>
-        </div>
+        <h2 class="text-2xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">
+          Official Tracklist
+        </h2>
 
         <div class="space-y-3">
           {albumSongs.map((song, index) => {
-            const songSlug = song.slug || song.id.replace(/\.[^/.]+$/, '');
+            const songSlug = song.slug;
             const trackNum = typeof song.data.trackNumber === 'number' ? song.data.trackNumber : (index + 1);
             const formattedTrackNum = String(trackNum).padStart(2, '0');
 
             return (
               <a 
                 href={`/music/${artist}/${album}/${songSlug}`}
-                class="group block p-4 md:p-5 rounded-xl bg-slate-900/40 hover:bg-slate-900/90 border border-purple-900/20 hover:border-purple-500/50 transition-all duration-200 shadow-md"
+                class="block p-4 md:p-5 rounded-xl bg-slate-900/40 hover:bg-slate-900/90 border border-purple-900/20 hover:border-purple-500/50 transition-all shadow-md"
               >
                 <div class="flex items-center justify-between gap-4">
                   <div class="flex items-center gap-4 md:gap-6 min-w-0">
-                    <span class="text-lg md:text-xl font-mono font-bold text-purple-400 group-hover:text-pink-400 transition-colors">
+                    <span class="text-lg md:text-xl font-mono font-bold text-purple-400">
                       {formattedTrackNum}
                     </span>
                     <div class="min-w-0">
-                      <h3 class="text-base md:text-lg font-semibold text-slate-100 group-hover:text-purple-200 transition-colors truncate">
+                      <h3 class="text-base md:text-lg font-semibold text-slate-100 truncate">
                         {song.data.title}
                       </h3>
                       {song.data.quote && (
@@ -140,7 +139,7 @@ const albumSongs = filteredSongs.sort((a, b) => {
                       )}
                     </div>
                   </div>
-                  <span class="text-xs font-mono text-purple-400/80 group-hover:text-purple-300 flex items-center gap-1 shrink-0">
+                  <span class="text-xs font-mono text-purple-400/80 shrink-0">
                     Read Lyrics &rarr;
                   </span>
                 </div>
