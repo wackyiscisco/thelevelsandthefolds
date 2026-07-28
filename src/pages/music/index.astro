@@ -5,15 +5,17 @@ import Layout from '../../layouts/Layout.astro';
 
 const allSongs = await getCollection('songs');
 
-// Map album names directly to uploaded images in public/images/albums/pandora-raven/
-function getAlbumCover(artist: string, album: string): string {
-  if (artist.toLowerCase().includes('pandora')) {
-    const albLower = album.toLowerCase();
+// Safe Album Cover Mapping
+function getAlbumCover(artistRaw: any, albumRaw: any): string {
+  const artist = String(artistRaw || '').toLowerCase();
+  const albLower = String(albumRaw || '').toLowerCase();
+
+  if (artist.includes('pandora')) {
     if (albLower.includes('wicked')) return '/images/albums/pandora-raven/Wicked.jpg';
     if (albLower.includes('corrupted')) return '/images/albums/pandora-raven/Corrupted.jpg';
     if (albLower.includes('horrors') || albLower.includes('box')) return '/images/albums/pandora-raven/Pandora\'s Box of Little Horrors.jpg';
     if (albLower.includes('sede vacante')) return '/images/albums/pandora-raven/Sede Vacante.jpg';
-    if (albLower.includes('raven\'s light') || albLower.includes('ravens light')) return '/images/albums/pandora-raven/The Raven\'s Light.jpg';
+    if (albLower.includes('raven') && albLower.includes('light')) return '/images/albums/pandora-raven/The Raven\'s Light.jpg';
     if (albLower.includes('shadow')) return '/images/albums/pandora-raven/The Raven\'s Shadow.jpg';
     if (albLower.includes('spirit') || albLower.includes('twins')) return '/images/albums/pandora-raven/The Spirit of the Raven Twins.jpg';
     if (albLower.includes('pandora raven')) return '/images/albums/pandora-raven/Pandora Raven.jpg';
@@ -21,10 +23,10 @@ function getAlbumCover(artist: string, album: string): string {
   return '/images/default-album.jpg';
 }
 
-// Group songs cleanly by Artist -> Album
-const musicCatalog = allSongs.reduce((acc, song) => {
-  const artist = song.data.artist || 'Unknown Artist';
-  const album = song.data.album || 'Singles & Vault';
+// Group songs safely by Artist -> Album
+const musicCatalog = allSongs.reduce((acc: Record<string, Record<string, { coverImage: string; songs: any[] }>>, song) => {
+  const artist = song.data?.artist ? String(song.data.artist) : 'Unknown Artist';
+  const album = song.data?.album ? String(song.data.album) : 'Singles & Vault';
   
   if (!acc[artist]) {
     acc[artist] = {};
@@ -38,7 +40,7 @@ const musicCatalog = allSongs.reduce((acc, song) => {
   
   acc[artist][album].songs.push(song);
   return acc;
-}, {} as Record<string, Record<string, { coverImage: string; songs: any[] }>>);
+}, {});
 ---
 
 <Layout title="The Cosmos Discography | Music Vault">
@@ -53,7 +55,7 @@ const musicCatalog = allSongs.reduce((acc, song) => {
         The Cosmos <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-400 to-amber-300">Discography</span>
       </h1>
       <p class="text-slate-400 text-sm md:text-base leading-relaxed">
-        Explore the foundation of our universe. Select an album below to open the official tracklist, read the lyrics, and unlock deep lore notes.
+        Select an album below to open the official tracklist, read lyrics, and explore universe lore.
       </p>
     </div>
 
@@ -79,7 +81,7 @@ const musicCatalog = allSongs.reduce((acc, song) => {
                   href={`/music/${artistSlug}/${albumSlug}`}
                   class="group relative flex flex-col bg-slate-900/60 hover:bg-slate-900 border border-slate-800 hover:border-purple-500/50 rounded-xl overflow-hidden shadow-xl transition-all duration-300 hover:-translate-y-1"
                 >
-                  <!-- Cover Image locked into square aspect ratio -->
+                  <!-- Square Aspect Lock Container -->
                   <div class="aspect-square w-full relative overflow-hidden bg-slate-950">
                     <img 
                       src={albumData.coverImage} 
