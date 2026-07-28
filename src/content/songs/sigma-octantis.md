@@ -2,6 +2,7 @@
 title: "Sigma Octantis"
 artist: "Pandora Raven"
 album: "Album 6.5: The Raven's Shadow"
+trackNumber: 10
 levelFold: "Level 1 Fold 1"
 featured: false
 coverImage: "/images/albums/pandora-raven/The Raven's Shadow.jpg"
