@@ -1,184 +1,152 @@
 ---
-// src/pages/music/[artist]/[album].astro
 import { getCollection } from 'astro:content';
-import Layout from '../../../layouts/Layout.astro';
 
 export async function getStaticPaths() {
-  const songs = await getCollection('songs');
-  const pathMap = new Map();
+  const allSongs = await getCollection('songs');
+  const albumMap = new Map();
 
-  songs.forEach(song => {
-    const artist = song.data?.artist ? String(song.data.artist) : 'Unknown Artist';
-    const album = song.data?.album ? String(song.data.album) : 'Singles';
-    const artistSlug = artist.toLowerCase().replace(/[^a-z0-9]+/g, '-');
-    const albumSlug = album.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+  allSongs.forEach((song) => {
+    const artistSlug = song.data.artist ? song.data.artist.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '') : 'artist';
+    const albumSlug = song.data.album ? song.data.album.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '') : 'album';
     
-    if (artistSlug && albumSlug) {
-      const key = `${artistSlug}/${albumSlug}`;
-      if (!pathMap.has(key)) {
-        pathMap.set(key, { artistSlug, albumSlug, artistName: artist, albumName: album });
-      }
+    const key = `${artistSlug}/${albumSlug}`;
+    if (!albumMap.has(key)) {
+      albumMap.set(key, {
+        params: { artist: artistSlug, album: albumSlug },
+        props: {
+          artistName: song.data.artist,
+          albumName: song.data.album,
+          coverImage: song.data.coverImage,
+          levelFold: song.data.levelFold,
+        },
+      });
     }
   });
 
-  return Array.from(pathMap.values()).map(item => ({
-    params: { artist: item.artistSlug, album: item.albumSlug },
-    props: { artistName: item.artistName, albumName: item.albumName }
-  }));
+  return Array.from(albumMap.values());
 }
 
 const { artist, album } = Astro.params;
-const { artistName, albumName } = Astro.props;
+const { artistName, albumName, coverImage, levelFold } = Astro.props;
 
+// Fetch all songs and filter for this specific album
 const allSongs = await getCollection('songs');
-
-function getAlbumCover(artistStr: string, albumStr: string): string {
-  const albLower = String(albumStr || '').toLowerCase();
-  if (albLower.includes('wicked')) return '/images/albums/pandora-raven/Wicked.jpg';
-  if (albLower.includes('corrupted')) return '/images/albums/pandora-raven/Corrupted.jpg';
-  if (albLower.includes('horrors') || albLower.includes('box')) return "/images/albums/pandora-raven/Pandora's Box of Little Horrors.jpg";
-  if (albLower.includes('sede vacante')) return '/images/albums/pandora-raven/Sede Vacante.jpg';
-  if (albLower.includes('light')) return "/images/albums/pandora-raven/The Raven's Light.jpg";
-  if (albLower.includes('shadow')) return "/images/albums/pandora-raven/The Raven's Shadow.jpg";
-  if (albLower.includes('spirit') || albLower.includes('twins')) return "/images/albums/pandora-raven/The Spirit of the Raven Twins.jpg";
-  if (albLower.includes('pandora raven')) return "/images/albums/pandora-raven/Pandora Raven.jpg";
-  return '/images/default-album.jpg';
-}
-
-let albumSongs = allSongs.filter(song => {
-  const aSlug = String(song.data?.artist || '').toLowerCase().replace(/[^a-z0-9]+/g, '-');
-  const alSlug = String(song.data?.album || '').toLowerCase().replace(/[^a-z0-9]+/g, '-');
-  return aSlug === artist && alSlug === album;
+const filteredSongs = allSongs.filter((song) => {
+  const currentAlbumSlug = song.data.album ? song.data.album.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '') : '';
+  return currentAlbumSlug === album;
 });
 
-// Master Canon Track Order Table for Pandora Raven Albums
-const masterCanonOrders: Record<string, string[]> = {
-  "wicked": [
-    "sinister", "run away", "marionettes and puppets", "hide and seek", "pandora says",
-    "wicked", "contented torments", "the 8th day", "lost and confused", "white noise",
-    "the brooding silence", "die lullaby"
-  ],
-  "corrupted": [
-    "dark trinity", "poison caution", "i lust you", "voices", "forbidden fruit",
-    "corrupted", "book of jezebel", "blind faith", "tartarus 9", "six ticks to six",
-    "the possession of pandora raven", "the 5th rider"
-  ],
-  "pandorasboxoflittlehorrors": [
-    "her malevolence", "kiss of death", "femme fatale", "purple to gaze", "scream dream",
-    "pandora's box of little horrors", "let me in (knock, knock)", "smitten", "holy poison",
-    "mist of ruination", "the last bastion", "is this the end of the beginning"
-  ],
-  "sedevacante": [
-    "the final command", "no one left to answer", "a world without witness", "throne of everything",
-    "the silence doesn't worship", "sede vacante", "blinding silhouette", "flawless design",
-    "pandora's box of forgotten things", "the priest", "a road less travelled", "hope's desperate end"
-  ],
-  "theravenslight": [
-    "light bringer", "path to salvation", "conflict within", "east rising", "screams of crimson",
-    "the raven's light", "those left behind", "road to redemption", "unbroken mercy",
-    "church of ruin", "homebound", "the repossession of pandora raven"
-  ],
-  "theravensshadow": [
-    "the map i left behind", "familiar feelings", "the commandment keeper", "unlikely encounter",
-    "child of light", "the raven's shadow", "corridors and spirals", "down is up",
-    "the one's below", "sigma octantis", "quiet in the chaos", "the two towers"
-  ],
-  "thespiritoftheraventwins": [
-    "through space and time", "crimson haired light", "the dominions", "road to ruin",
-    "raven flight", "the last bastion ii", "through my purple eyes", "the rings of destiny",
-    "the crimson riders", "true north", "flight of the raven", "polaris"
-  ],
-  "pandoraraven": [
-    "the time fate guided", "outside the pattern", "the purple woman", "the red warrior",
-    "ordained guidance", "children of the light", "olan the brave", "martyrs of the south",
-    "magenta", "when the cradle falls", "the liber primodius", "pandora raven"
-  ]
-};
-
-function getTrackOrder(song: any): number {
-  if (song.data?.trackNumber) return Number(song.data.trackNumber);
-  if (song.data?.track) return Number(song.data.track);
-
-  const title = String(song.data?.title || '');
-  const slug = String(song.slug || '');
-
-  const titleMatch = title.match(/^(\d+)[._\s-]/);
-  if (titleMatch) return parseInt(titleMatch[1], 10);
-
-  const slugMatch = slug.match(/^(\d+)[-_.]/);
-  if (slugMatch) return parseInt(slugMatch[1], 10);
-
-  // Match against explicit master canon array
-  const albumKey = String(album || '').toLowerCase().replace(/[^a-z0-9]+/g, '');
-  const lowerTitle = title.toLowerCase();
-  
-  for (const [key, trackList] of Object.entries(masterCanonOrders)) {
-    if (albumKey.includes(key)) {
-      const idx = trackList.findIndex(t => lowerTitle.includes(t) || t.includes(lowerTitle));
-      if (idx !== -1) return idx + 1;
-    }
-  }
-
-  return 99;
-}
-
-albumSongs.sort((a, b) => getTrackOrder(a) - getTrackOrder(b));
-
-const coverImage = getAlbumCover(artistName, albumName);
+// Clean numerical sort with safe fallback
+const albumSongs = filteredSongs.sort((a, b) => {
+  const numA = typeof a.data.trackNumber === 'number' ? a.data.trackNumber : 999;
+  const numB = typeof b.data.trackNumber === 'number' ? b.data.trackNumber : 999;
+  return numA - numB;
+});
 ---
 
-<Layout title={`${albumName} | ${artistName} — The Cosmos`}>
-  <main class="max-w-5xl mx-auto px-6 py-12">
-    <a href={`/music/${artist}`} class="text-sm text-purple-400 hover:text-purple-300 mb-8 inline-flex items-center gap-2 transition-colors font-mono">
-      ← Back to {artistName} Discography
-    </a>
-
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-center mb-12 bg-slate-900/60 p-8 rounded-2xl border border-slate-800/80 shadow-2xl backdrop-blur-sm">
-      <div class="aspect-square relative rounded-xl overflow-hidden shadow-2xl border border-slate-700/50 bg-slate-950 w-full max-w-[280px] mx-auto md:max-w-none">
-        <img src={coverImage} alt={albumName} class="object-cover w-full h-full block" />
+<!DOCTYPE html>
+<html lang="en" class="bg-slate-950 text-slate-100 min-h-screen">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{albumName} | {artistName} — The Cosmos</title>
+  </head>
+  <body class="bg-slate-950 text-slate-100 font-sans antialiased selection:bg-purple-500 selection:text-white">
+    
+    <!-- Top Cosmological Navigation Header -->
+    <header class="border-b border-purple-900/30 bg-slate-950/80 backdrop-blur sticky top-0 z-50">
+      <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+        <div class="flex items-center gap-4">
+          <a href="/" class="text-2xl font-black tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-400 to-amber-300">
+            COSMOS
+          </a>
+          <span class="text-xs px-2.5 py-1 rounded-full border border-purple-500/30 bg-purple-950/40 text-purple-300 font-mono">
+            {levelFold || "Level 1 Fold 1"}
+          </span>
+        </div>
+        <nav class="hidden md:flex items-center gap-6 text-sm font-medium tracking-wide text-slate-300">
+          <a href="/" class="hover:text-purple-400 transition-colors">HOME</a>
+          <a href="/about" class="hover:text-purple-400 transition-colors">ABOUT</a>
+          <a href="/artists" class="hover:text-purple-400 transition-colors">ARTISTS</a>
+          <a href="/music" class="hover:text-purple-400 transition-colors text-purple-400">MUSIC</a>
+          <a href="/books" class="hover:text-purple-400 transition-colors">BOOKS</a>
+          <a href="/lore" class="hover:text-purple-400 transition-colors">LORE</a>
+          <a href="/patreon" class="hover:text-purple-400 transition-colors">PATREON</a>
+        </nav>
       </div>
-      <div class="md:col-span-2 space-y-4 text-center md:text-left">
-        <span class="px-3.5 py-1.5 rounded-full text-xs font-semibold bg-purple-950/80 text-purple-300 border border-purple-800/50 font-mono inline-block">
-          {artistName}
-        </span>
-        <h1 class="text-3xl md:text-5xl font-black tracking-tight text-white">{albumName}</h1>
-        <p class="text-slate-400 text-sm leading-relaxed">
-          {albumSongs.length} Canonical Tracks in official release sequence. Select any song below to read full lyrics and lore notes.
-        </p>
-      </div>
-    </div>
+    </header>
 
-    <section class="space-y-4">
-      <h2 class="text-2xl font-bold tracking-tight text-purple-400 border-b border-slate-800 pb-3 flex items-center justify-between">
-        <span>Official Tracklist</span>
-        <span class="text-xs text-slate-500 font-mono font-normal">{albumSongs.length} Songs</span>
-      </h2>
+    <!-- Main Album Hero & Tracklist View -->
+    <main class="max-w-5xl mx-auto px-6 py-12 space-y-12">
       
-      <div class="space-y-3 pt-2">
-        {albumSongs.map((song, index) => {
-          const songUrl = `/music/${song.slug}`;
-          const displayTrackNum = (index + 1).toString().padStart(2, '0');
-
-          return (
-            <a 
-              key={song.slug}
-              href={songUrl}
-              class="group flex items-center justify-between p-4 rounded-xl bg-slate-900/40 hover:bg-slate-900 border border-slate-800/80 hover:border-purple-500/50 transition-all duration-200 shadow-md"
-            >
-              <div class="flex items-center space-x-4">
-                <span class="text-purple-400 font-mono text-sm w-8 text-center font-bold">{displayTrackNum}</span>
-                <div>
-                  <h3 class="font-semibold text-slate-200 group-hover:text-purple-300 transition-colors">{song.data?.title || song.slug}</h3>
-                  {song.data?.quote && <p class="text-xs text-slate-500 italic mt-0.5 line-clamp-1">"{song.data.quote}"</p>}
-                </div>
-              </div>
-              <span class="text-xs font-medium text-purple-400 group-hover:text-purple-300 flex items-center gap-1 opacity-80 group-hover:opacity-100 transition-all font-mono">
-                Read Lyrics <span class="transition-transform group-hover:translate-x-1">→</span>
-              </span>
-            </a>
-          );
-        })}
+      <!-- Album Banner Header -->
+      <div class="p-8 md:p-10 rounded-2xl bg-slate-900/60 border border-purple-900/40 backdrop-blur flex flex-col md:flex-row gap-8 items-center md:items-start shadow-2xl">
+        <img 
+          src={coverImage} 
+          alt={albumName} 
+          class="w-56 h-56 md:w-64 md:h-64 object-cover rounded-xl shadow-2xl border border-purple-500/20"
+        />
+        <div class="space-y-4 text-center md:text-left flex-1">
+          <span class="inline-block px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider bg-purple-950/80 text-purple-300 border border-purple-700/40">
+            {artistName}
+          </span>
+          <h1 class="text-3xl md:text-5xl font-extrabold tracking-tight text-slate-50">
+            {albumName}
+          </h1>
+          <p class="text-sm text-slate-400 leading-relaxed max-w-2xl">
+            {albumSongs.length} Canonical Tracks in official release sequence. Select any song below to read full lyrics and lore notes.
+          </p>
+        </div>
       </div>
-    </section>
-  </main>
-</Layout>
+
+      <!-- Official Tracklist Container -->
+      <section class="space-y-4">
+        <div class="flex items-center justify-between border-b border-purple-900/40 pb-4">
+          <h2 class="text-2xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">
+            Official Tracklist
+          </h2>
+          <span class="text-xs font-mono text-slate-400">{albumSongs.length} Songs</span>
+        </div>
+
+        <div class="space-y-3">
+          {albumSongs.map((song, index) => {
+            // Robust slug extraction prevents 404 routing errors
+            const rawSlug = song.slug || song.id || '';
+            const songSlug = rawSlug.split('/').pop().replace(/\.[^/.]+$/, '');
+            const trackNum = typeof song.data.trackNumber === 'number' ? song.data.trackNumber : (index + 1);
+            const formattedTrackNum = String(trackNum).padStart(2, '0');
+
+            return (
+              <a 
+                href={`/music/${artist}/${album}/${songSlug}`}
+                class="group block p-4 md:p-5 rounded-xl bg-slate-900/40 hover:bg-slate-900/90 border border-purple-900/20 hover:border-purple-500/50 transition-all duration-200 shadow-md"
+              >
+                <div class="flex items-center justify-between gap-4">
+                  <div class="flex items-center gap-4 md:gap-6 min-w-0">
+                    <span class="text-lg md:text-xl font-mono font-bold text-purple-400 group-hover:text-pink-400 transition-colors">
+                      {formattedTrackNum}
+                    </span>
+                    <div class="min-w-0">
+                      <h3 class="text-base md:text-lg font-semibold text-slate-100 group-hover:text-purple-200 transition-colors truncate">
+                        {song.data.title}
+                      </h3>
+                      {song.data.quote && (
+                        <p class="text-xs md:text-sm italic text-slate-400 truncate mt-0.5">
+                          "{song.data.quote}"
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                  <span class="text-xs font-mono text-purple-400/80 group-hover:text-purple-300 flex items-center gap-1 shrink-0">
+                    Read Lyrics &rarr;
+                  </span>
+                </div>
+              </a>
+            );
+          })}
+        </div>
+      </section>
+
+    </main>
+  </body>
+</html>
