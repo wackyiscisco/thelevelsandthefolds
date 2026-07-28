@@ -36,7 +36,7 @@ const filteredSongs = allSongs.filter((song) => {
   return currentAlbumSlug === album;
 });
 
-// SORT CANONICALLY: Sorts by trackNumber if present, falls back gracefully to file order
+// Safe numerical sort using trackNumber, falling back gracefully
 const albumSongs = filteredSongs.sort((a, b) => {
   const numA = typeof a.data.trackNumber === 'number' ? a.data.trackNumber : 999;
   const numB = typeof b.data.trackNumber === 'number' ? b.data.trackNumber : 999;
