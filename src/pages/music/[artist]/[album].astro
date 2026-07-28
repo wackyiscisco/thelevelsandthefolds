@@ -6,6 +6,7 @@ export async function getStaticPaths() {
   const albumMap = new Map();
 
   allSongs.forEach((song) => {
+    // Generate clean URL slugs for artist and album
     const artistSlug = song.data.artist ? song.data.artist.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '') : 'artist';
     const albumSlug = song.data.album ? song.data.album.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '') : 'album';
     
@@ -29,18 +30,23 @@ export async function getStaticPaths() {
 const { artist, album } = Astro.params;
 const { artistName, albumName, coverImage, levelFold } = Astro.props;
 
-// Fetch all songs and filter for this specific album route
+// 1. Fetch all songs from the content collection
 const allSongs = await getCollection('songs');
+
+// 2. Filter songs belonging strictly to this album route
 const filteredSongs = allSongs.filter((song) => {
   const currentAlbumSlug = song.data.album ? song.data.album.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '') : '';
   return currentAlbumSlug === album;
 });
 
-// SAFE CANONICAL SORT: Sorts by explicit trackNumber, safely falls back without breaking
+// 3. Strict sorting: Sorts by trackNumber if defined, otherwise preserves natural file sequence
 const albumSongs = filteredSongs.sort((a, b) => {
   const numA = typeof a.data.trackNumber === 'number' ? a.data.trackNumber : 999;
   const numB = typeof b.data.trackNumber === 'number' ? b.data.trackNumber : 999;
-  return numA - numB;
+  if (numA !== numB) {
+    return numA - numB;
+  }
+  return a.id.localeCompare(b.id);
 });
 ---
 
@@ -81,11 +87,17 @@ const albumSongs = filteredSongs.sort((a, b) => {
       
       <!-- Album Banner Header -->
       <div class="p-8 md:p-10 rounded-2xl bg-slate-900/60 border border-purple-900/40 backdrop-blur flex flex-col md:flex-row gap-8 items-center md:items-start shadow-2xl">
-        <img 
-          src={coverImage} 
-          alt={albumName} 
-          class="w-56 h-56 md:w-64 md:h-64 object-cover rounded-xl shadow-2xl border border-purple-500/20"
-        />
+        {coverImage ? (
+          <img 
+            src={coverImage} 
+            alt={albumName} 
+            class="w-56 h-56 md:w-64 md:h-64 object-cover rounded-xl shadow-2xl border border-purple-500/20"
+          />
+        ) : (
+          <div class="w-56 h-56 md:w-64 md:h-64 bg-slate-800 rounded-xl flex items-center justify-center border border-purple-500/20 text-slate-500 font-mono text-xs">
+            No Cover Image
+          </div>
+        )}
         <div class="space-y-4 text-center md:text-left flex-1">
           <span class="inline-block px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider bg-purple-950/80 text-purple-300 border border-purple-700/40">
             {artistName}
@@ -110,7 +122,10 @@ const albumSongs = filteredSongs.sort((a, b) => {
 
         <div class="space-y-3">
           {albumSongs.map((song, index) => {
-            const songSlug = song.slug;
+            // Robust slug extraction to match dynamic lyric page routes cleanly
+            const rawSlug = song.slug || song.id || '';
+            const songSlug = rawSlug.split('/').pop().replace(/\.[^/.]+$/, '');
+            
             const trackNum = typeof song.data.trackNumber === 'number' ? song.data.trackNumber : (index + 1);
             const formattedTrackNum = String(trackNum).padStart(2, '0');
 
