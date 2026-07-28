@@ -5,32 +5,35 @@ import Layout from '../../layouts/Layout.astro';
 
 const allSongs = await getCollection('songs');
 
-// Exact mapping matching your actual public/images/artists/ filenames
-function getArtistImage(artistName: string): string {
+// Mapping matching public/images/artists/ with custom object positioning per card
+function getArtistMeta(artistName: string): { image: string; objectPosition: string } {
   const name = String(artistName || '').toLowerCase();
   
-  if (name.includes('pandora')) return '/images/artists/pandora-box.jpg';
-  if (name.includes('elara')) return '/images/artists/elara-box.jpg';
-  if (name.includes('prima')) return '/images/artists/prime-and-timo.jpg'; // Matches your folder's exact spelling
-  if (name.includes('crimson')) return '/images/artists/the-crimson-sparks.jpg';
-  if (name.includes('maya')) return '/images/artists/maya.jpg';
-  if (name.includes('guy')) return '/images/artists/that-guy.jpg';
-  if (name.includes('solara')) return '/images/artists/Solara.jpg';
+  // object-top pulls the top of Pandora's cover into frame so "The Twins Saga" isn't cropped!
+  if (name.includes('pandora')) return { image: '/images/artists/pandora-box.jpg', objectPosition: 'object-top' };
+  if (name.includes('elara')) return { image: '/images/artists/elara-box.jpg', objectPosition: 'object-center' };
+  if (name.includes('prima')) return { image: '/images/artists/prime-and-timo.jpg', objectPosition: 'object-center' };
+  if (name.includes('crimson')) return { image: '/images/artists/the-crimson-sparks.jpg', objectPosition: 'object-center' };
+  if (name.includes('maya')) return { image: '/images/artists/maya.jpg', objectPosition: 'object-center' };
+  if (name.includes('guy')) return { image: '/images/artists/that-guy.jpg', objectPosition: 'object-center' };
+  if (name.includes('solara')) return { image: '/images/artists/Solara.jpg', objectPosition: 'object-center' };
   
-  return '/images/default-artist.jpg';
+  return { image: '/images/default-artist.jpg', objectPosition: 'object-center' };
 }
 
-const artistCatalog: Record<string, { songCount: number; albums: Set<string>; image: string }> = {};
+const artistCatalog: Record<string, { songCount: number; albums: Set<string>; image: string; objectPosition: string }> = {};
 
 allSongs.forEach((song: any) => {
   const artist = song.data?.artist ? String(song.data.artist) : 'Unknown Artist';
   const album = song.data?.album ? String(song.data.album) : 'Singles';
 
   if (!artistCatalog[artist]) {
+    const meta = getArtistMeta(artist);
     artistCatalog[artist] = {
       songCount: 0,
       albums: new Set(),
-      image: getArtistImage(artist)
+      image: meta.image,
+      objectPosition: meta.objectPosition
     };
   }
 
@@ -68,7 +71,7 @@ allSongs.forEach((song: any) => {
               <img
                 src={data.image}
                 alt={artistName}
-                class="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500 opacity-90 group-hover:opacity-100 block"
+                class={`object-cover w-full h-full ${data.objectPosition} group-hover:scale-105 transition-transform duration-500 opacity-90 group-hover:opacity-100 block`}
               />
               <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent opacity-80 pointer-events-none"></div>
               
