@@ -2,15 +2,10 @@
 title: "Corridors and Spirals"
 artist: "Pandora Raven"
 album: "Album 6.5: The Raven's Shadow"
-trackNumber: 7
-releaseDate: "2026-06-15"
-coverImage: "/images/albums/pandora-raven/The Raven's Shadow.jpg"
 levelFold: "Level 1 Fold 1"
-saga: "The Twins Saga"
-spotifyUrl: "https://open.spotify.com"
-appleMusicUrl: "https://music.apple.com"
-youtubeUrl: "https://youtube.com"
-patreonTier: "Free / Public"
+featured: false
+coverImage: "/images/albums/pandora-raven/The Raven's Shadow.jpg"
+quote: "I reached for dark and found a thread of white."
 ---
 
 [Verse 1]
@@ -75,7 +70,7 @@ I know the floors she has not seen yet coming in
 I have to reach the bottom before she does
 She cannot face what waits here without me standing in
 
-[Final Chorus — faster, harder]
+[Final Chorus]
 I reached for dark and found a thread of white
 And then I reached for both and kept them in one fight
 I do not know the limits of this yet
@@ -83,7 +78,7 @@ But I am learning fast and moving by the light
 Corridors and spirals — I am clearing what I can
 She is coming and I will not let her face this unprepared
 
-[Outro — resolute, moving]
+[Outro]
 Every corridor is shorter than the last
 Every spiral brings me closer to the west
 I feel her at the threshold
