@@ -30,17 +30,18 @@ const { artistName, albumName } = Astro.props;
 
 const allSongs = await getCollection('songs');
 
+// Map album names directly to uploaded images in public/images/albums/pandora-raven/
 function getAlbumCover(artistStr: string, albumStr: string): string {
   if (artistStr.toLowerCase().includes('pandora')) {
     const albLower = albumStr.toLowerCase();
     if (albLower.includes('wicked')) return '/images/albums/pandora-raven/Wicked.jpg';
     if (albLower.includes('corrupted')) return '/images/albums/pandora-raven/Corrupted.jpg';
-    if (albLower.includes('horrors') || albLower.includes('box')) return encodeURI("/images/albums/pandora-raven/Pandora's Box of Little Horrors.jpg");
+    if (albLower.includes('horrors') || albLower.includes('box')) return '/images/albums/pandora-raven/Pandora\'s Box of Little Horrors.jpg';
     if (albLower.includes('sede vacante')) return '/images/albums/pandora-raven/Sede Vacante.jpg';
-    if (albLower.includes('raven\'s light') || albLower.includes('ravens light')) return encodeURI("/images/albums/pandora-raven/The Raven's Light.jpg");
-    if (albLower.includes('shadow')) return encodeURI("/images/albums/pandora-raven/The Raven's Shadow.jpg");
-    if (albLower.includes('spirit') || albLower.includes('twins')) return encodeURI("/images/albums/pandora-raven/The Spirit of the Raven Twins.jpg");
-    if (albLower.includes('pandora raven')) return encodeURI("/images/albums/pandora-raven/Pandora Raven.jpg");
+    if (albLower.includes('raven\'s light') || albLower.includes('ravens light')) return '/images/albums/pandora-raven/The Raven\'s Light.jpg';
+    if (albLower.includes('shadow')) return '/images/albums/pandora-raven/The Raven\'s Shadow.jpg';
+    if (albLower.includes('spirit') || albLower.includes('twins')) return '/images/albums/pandora-raven/The Spirit of the Raven Twins.jpg';
+    if (albLower.includes('pandora raven')) return '/images/albums/pandora-raven/Pandora Raven.jpg';
   }
   return '/images/default-album.jpg';
 }
@@ -52,33 +53,54 @@ let albumSongs = allSongs.filter(song => {
   return aSlug === artist && alSlug === album;
 });
 
-// Extract track number safely from title or slug for strict 1 -> 12 canon order
-function extractTrackNumber(song: any): number {
+// Master Canon Order Mapping to ensure strict 1 -> 12 album sequence
+const canonTrackOrders: Record<string, string[]> = {
+  "wicked": [
+    "sinister", "wicked", "die lullaby", "hide and seek", "hope's desperate end",
+    "contented torments", "a world without witness", "blind faith", "book of jezebel",
+    "the 5th rider", "corrupted", "is this the end or the beginning"
+  ]
+};
+
+// Robust track number extractor
+function getTrackOrder(song: any): number {
   if (song.data.trackNumber) return Number(song.data.trackNumber);
-  
-  const titleMatch = song.data.title.match(/^(\d+)[._\s-]/);
+  if (song.data.track) return Number(song.data.track);
+
+  // Check frontmatter/title number e.g. "1. Sinister" or "01 - Sinister"
+  const titleMatch = (song.data.title || '').match(/^(\d+)[._\s-]/);
   if (titleMatch) return parseInt(titleMatch[1], 10);
 
+  // Check slug prefix e.g. "01-sinister"
   const slugMatch = song.slug.match(/^(\d+)[-_.]/);
   if (slugMatch) return parseInt(slugMatch[1], 10);
+
+  // Fallback to canonical track array lookup
+  const albumKey = (song.data.album || '').toLowerCase().replace(/[^a-z0-9]+/g, '');
+  for (const [key, trackList] of Object.entries(canonTrackOrders)) {
+    if (albumKey.includes(key)) {
+      const idx = trackList.findIndex(t => song.data.title.toLowerCase().includes(t));
+      if (idx !== -1) return idx + 1;
+    }
+  }
 
   return 99;
 }
 
-// Sort tracks numerically in ascending order
-albumSongs.sort((a, b) => extractTrackNumber(a) - extractTrackNumber(b));
+// Sort tracks strictly by track order
+albumSongs.sort((a, b) => getTrackOrder(a) - getTrackOrder(b));
 
 const coverImage = getAlbumCover(artistName, albumName);
 ---
 
 <Layout title={`${albumName} | ${artistName} — The Cosmos`}>
   <main class="max-w-5xl mx-auto px-6 py-12">
-    <!-- Navigation Back Link -->
+    <!-- Back Navigation -->
     <a href="/music" class="text-sm text-purple-400 hover:text-purple-300 mb-8 inline-flex items-center gap-2 transition-colors font-mono">
       ← Back to Discography
     </a>
 
-    <!-- Album Header Header -->
+    <!-- Album Header Card -->
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-center mb-12 bg-slate-900/60 p-8 rounded-2xl border border-slate-800/80 shadow-2xl backdrop-blur-sm">
       <div class="aspect-square relative rounded-xl overflow-hidden shadow-2xl border border-slate-700/50 bg-slate-950 w-full max-w-[280px] mx-auto md:max-w-none">
         <img src={coverImage} alt={albumName} class="object-cover w-full h-full block" />
@@ -94,7 +116,7 @@ const coverImage = getAlbumCover(artistName, albumName);
       </div>
     </div>
 
-    <!-- Tracklist -->
+    <!-- Sequenced Tracklist -->
     <section class="space-y-4">
       <h2 class="text-2xl font-bold tracking-tight text-purple-400 border-b border-slate-800 pb-3 flex items-center justify-between">
         <span>Official Tracklist</span>
@@ -103,7 +125,6 @@ const coverImage = getAlbumCover(artistName, albumName);
       
       <div class="space-y-3 pt-2">
         {albumSongs.map((song, index) => {
-          // Route matching src/pages/music/[slug].astro
           const songUrl = `/music/${song.slug}`;
           const displayTrackNum = (index + 1).toString().padStart(2, '0');
 
