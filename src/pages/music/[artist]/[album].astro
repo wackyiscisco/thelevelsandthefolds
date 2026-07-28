@@ -1,5 +1,8 @@
 ---
+import fs from 'fs';
+import path from 'path';
 import { getCollection } from 'astro:content';
+import Layout from '../../../layouts/Layout.astro';
 
 export async function getStaticPaths() {
   const allSongs = await getCollection('songs');
@@ -120,7 +123,7 @@ albumSongs.sort((a, b) => {
 
             return (
               <a 
-                href={`/music/${artist}/${album}/${songSlug}`}
+                href={`/music/${songSlug}`}
                 class="block p-4 md:p-5 rounded-xl bg-slate-900/40 hover:bg-slate-900/90 border border-purple-900/20 hover:border-purple-500/50 transition-all shadow-md"
               >
                 <div class="flex items-center justify-between gap-4">
