@@ -36,12 +36,12 @@ function getAlbumCover(artistStr: string, albumStr: string): string {
     const albLower = albumStr.toLowerCase();
     if (albLower.includes('wicked')) return '/images/albums/pandora-raven/Wicked.jpg';
     if (albLower.includes('corrupted')) return '/images/albums/pandora-raven/Corrupted.jpg';
-    if (albLower.includes('little horrors')) return '/images/albums/pandora-raven/Pandora\'s Box of Little Horrors.jpg';
+    if (albLower.includes('horrors') || albLower.includes('box')) return encodeURI("/images/albums/pandora-raven/Pandora's Box of Little Horrors.jpg");
     if (albLower.includes('sede vacante')) return '/images/albums/pandora-raven/Sede Vacante.jpg';
-    if (albLower.includes('raven\'s light') || albLower.includes('ravens light')) return '/images/albums/pandora-raven/The Raven\'s Light.jpg';
-    if (albLower.includes('raven\'s shadow') || albLower.includes('ravens shadow')) return '/images/albums/pandora-raven/The Raven\'s Shadow.jpg';
-    if (albLower.includes('spirit of the raven')) return '/images/albums/pandora-raven/The Spirit of the Raven Twins.jpg';
-    if (albLower.includes('pandora raven')) return '/images/albums/pandora-raven/Pandora Raven.jpg';
+    if (albLower.includes('raven\'s light') || albLower.includes('ravens light') || albLower.includes('raven')) return encodeURI("/images/albums/pandora-raven/The Raven's Light.jpg");
+    if (albLower.includes('shadow')) return encodeURI("/images/albums/pandora-raven/The Raven's Shadow.jpg");
+    if (albLower.includes('spirit') || albLower.includes('twins')) return encodeURI("/images/albums/pandora-raven/The Spirit of the Raven Twins.jpg");
+    if (albLower.includes('pandora raven')) return encodeURI("/images/albums/pandora-raven/Pandora Raven.jpg");
   }
   return '/images/default-album.jpg';
 }
@@ -53,22 +53,22 @@ let albumSongs = allSongs.filter(song => {
   return aSlug === artist && alSlug === album;
 });
 
-// Parse track number to ensure strict 1 -> 12 numerical order for canon preservation
+// Canonical Track Order Extraction (Reads track numbers from title or slug)
 function extractTrackNumber(song: any): number {
   if (song.data.trackNumber) return Number(song.data.trackNumber);
   
-  // Check for numbers at start of slug/filename e.g. "1-contented-torments" or "12-the-repossession"
-  const slugMatch = song.slug.match(/^(\d+)[-_.]/);
-  if (slugMatch) return parseInt(slugMatch[1], 10);
-  
-  // Check for numbers inside title e.g. "7. Blinding Silhouette"
-  const titleMatch = song.data.title.match(/^(\d+)[-_.]/);
+  // Check title e.g. "7. Blinding Silhouette" or "1. The Final Command"
+  const titleMatch = song.data.title.match(/^(\d+)[._\s-]/);
   if (titleMatch) return parseInt(titleMatch[1], 10);
 
-  return 99; // Fallback
+  // Check slug/file ID e.g. "7-blinding-silhouette" or "12-the-repossession"
+  const slugMatch = song.slug.match(/^(\d+)[-_.]/);
+  if (slugMatch) return parseInt(slugMatch[1], 10);
+
+  return 99;
 }
 
-// Sort tracks strictly ascending
+// Sort tracks numerical 1 -> 12 order
 albumSongs.sort((a, b) => extractTrackNumber(a) - extractTrackNumber(b));
 
 const coverImage = getAlbumCover(artistName, albumName);
@@ -84,7 +84,7 @@ const coverImage = getAlbumCover(artistName, albumName);
     <!-- Album Header Card -->
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-center mb-12 bg-slate-900/60 p-8 rounded-2xl border border-slate-800/80 shadow-2xl backdrop-blur-sm">
       <div class="aspect-square relative rounded-xl overflow-hidden shadow-2xl border border-slate-700/50 bg-slate-950 w-full max-w-[280px] mx-auto md:max-w-none">
-        <img src={coverImage} alt={albumName} class="object-cover w-full h-full" />
+        <img src={coverImage} alt={albumName} class="object-cover w-full h-full block" />
       </div>
       <div class="md:col-span-2 space-y-4 text-center md:text-left">
         <span class="px-3.5 py-1.5 rounded-full text-xs font-semibold bg-purple-950/80 text-purple-300 border border-purple-800/50 font-mono inline-block">
