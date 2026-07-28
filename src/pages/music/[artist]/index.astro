@@ -29,13 +29,24 @@ const artistSongs = allSongs.filter((song: any) => {
 
 const artistName = artistSongs[0]?.data?.artist || 'Artist';
 
-// Extract numerical album value for ascending timeline ordering (1 -> 2 -> 3 -> 4 -> 5.5 -> 6.5)
+// Helper: Extract numerical album value for ascending timeline ordering (1 -> 2 -> 3 -> 4 -> 5.5 -> 6.5)
 function extractAlbumNumber(albumTitle: string): number {
   const match = albumTitle.match(/Album\s+([\d.]+)/i) || albumTitle.match(/([\d.]+)/);
   if (match && match[1]) {
     return parseFloat(match[1]);
   }
-  return 999; // Fallback for unnumbered releases
+  return 999;
+}
+
+// Helper: Resolve album cover image with fallbacks
+function resolveAlbumCover(albumTitle: string, frontmatterImage?: string): string {
+  if (frontmatterImage && frontmatterImage.trim() !== '') {
+    return frontmatterImage;
+  }
+  
+  // Slugify album title for automatic fallback mapping
+  const albumSlug = albumTitle.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+  return `/images/albums/${artistParam}/${albumSlug}.jpg`;
 }
 
 // Group tracks by album
@@ -43,19 +54,22 @@ const albumMap: Record<string, { title: string; coverImage: string; count: numbe
 
 artistSongs.forEach((song: any) => {
   const albumTitle = song.data.album || 'Singles';
-  const coverImage = song.data.coverImage || '/images/default-album.jpg';
 
   if (!albumMap[albumTitle]) {
     albumMap[albumTitle] = {
       title: albumTitle,
-      coverImage: coverImage,
+      coverImage: resolveAlbumCover(albumTitle, song.data.coverImage),
       count: 0
     };
+  } else if (!albumMap[albumTitle].coverImage && song.data.coverImage) {
+    // If a subsequent track has the cover image, grab it!
+    albumMap[albumTitle].coverImage = song.data.coverImage;
   }
+
   albumMap[albumTitle].count += 1;
 });
 
-// Sort albums ASCENDING by number (Album 5.5 before Album 6.5)
+// Sort albums ASCENDING by number (1 -> 2 -> 3 -> 4 -> 5.5 -> 6.5)
 const sortedAlbums = Object.values(albumMap).sort((a, b) => {
   return extractAlbumNumber(a.title) - extractAlbumNumber(b.title);
 });
@@ -90,6 +104,7 @@ const sortedAlbums = Object.values(albumMap).sort((a, b) => {
                 src={album.coverImage}
                 alt={album.title}
                 class="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500 opacity-90 group-hover:opacity-100 block"
+                onerror="this.onerror=null; this.src='/images/default-artist.jpg';"
               />
               <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/10 to-transparent opacity-80 pointer-events-none"></div>
               
