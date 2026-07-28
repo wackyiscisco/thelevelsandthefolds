@@ -26,13 +26,11 @@ const { artistName } = Astro.props;
 
 const allSongs = await getCollection('songs');
 
-// Filter songs for this artist
 const artistSongs = allSongs.filter(song => {
   const aSlug = String(song.data?.artist || '').toLowerCase().replace(/[^a-z0-9]+/g, '-');
   return aSlug === artist;
 });
 
-// Map album titles to uploaded image files
 function getAlbumCover(artistStr: string, albumStr: string): string {
   const albLower = String(albumStr || '').toLowerCase();
   if (albLower.includes('wicked')) return '/images/albums/pandora-raven/Wicked.jpg';
@@ -46,7 +44,6 @@ function getAlbumCover(artistStr: string, albumStr: string): string {
   return '/images/default-album.jpg';
 }
 
-// Group songs into albums
 const albumsMap: Record<string, { coverImage: string; songs: any[] }> = {};
 
 artistSongs.forEach((song: any) => {
@@ -60,55 +57,50 @@ artistSongs.forEach((song: any) => {
   albumsMap[albumName].songs.push(song);
 });
 
-// Canonical Album Order Table
+// Master Canonical Ranking System
 function getAlbumCanonRank(albumTitle: string): number {
   const title = albumTitle.toLowerCase();
 
-  // Pandora Raven / Elara Dawn Order
   if (title.includes('0.5') || title.includes('beginning')) return 0.5;
-  if (title.includes('1:') || title.includes('wicked') || title.includes('mercy')) return 1;
-  if (title.includes('2:') || title.includes('corrupted') || title.includes('unbroken')) return 2;
-  if (title.includes('3:') || title.includes('horrors') || title.includes('miracles')) return 3;
-  if (title.includes('4:') || title.includes('sede vacante') || title.includes('fides')) return 4;
+  if (title.includes('1:') || title.includes('wicked') || title.includes('mercy') || title.includes('first spark') || title.includes('preflight') || title.includes('unus')) return 1;
+  if (title.includes('2:') || title.includes('corrupted') || title.includes('unbroken') || title.includes('wheels up') || title.includes('centum')) return 2;
+  if (title.includes('3:') || title.includes('horrors') || title.includes('miracles') || title.includes('crash and burn') || title.includes('turbulence') || title.includes('duo')) return 3;
+  if (title.includes('4:') || title.includes('sede vacante') || title.includes('fides') || title.includes('ignite') || title.includes('crash') || title.includes('nonaginta novem')) return 4;
   if (title.includes('5.5') || title.includes('raven\'s light')) return 5.5;
-  if (title.includes('5:') || title.includes('rise of war')) return 5;
+  if (title.includes('5:') || title.includes('rise of war') || title.includes('crimson five') || title.includes('stripped') || title.includes('tria')) return 5;
   if (title.includes('6.5') || title.includes('raven\'s shadow')) return 6.5;
-  if (title.includes('6:') || title.includes('age of destruction')) return 6;
+  if (title.includes('6:') || title.includes('age of destruction') || title.includes('wildfire') || title.includes('strings and theories') || title.includes('nonaginta octo')) return 6;
   if (title.includes('7.5') || title.includes('spirit of the raven')) return 7.5;
-  if (title.includes('7:') || title.includes('polaris')) return 7;
+  if (title.includes('7:') || title.includes('polaris') || title.includes('embers') || title.includes('quattuor')) return 7;
   if (title.includes('8.5') || title.includes('elara dawn')) return 8.5;
   if (title.includes('8:') || title.includes('pandora raven')) return 8;
+  if (title.includes('9') || title.includes('convergence') || title.includes('solara')) return 9;
 
-  // Extract trailing/leading number if available
   const numMatch = title.match(/album\s*(\d+(\.\d+)?)/i) || title.match(/^(\d+(\.\d+)?)/);
   if (numMatch) return parseFloat(numMatch[1]);
 
   return 99;
 }
 
-// Sort albums canonically
 const sortedAlbums = Object.entries(albumsMap).sort(([aName], [bName]) => {
-  return getAlbumCanonRank(aName) - getCanonRank(bName);
+  return getAlbumCanonRank(aName) - getAlbumCanonRank(bName);
 });
 ---
 
 <Layout title={`${artistName} Discography | The Cosmos`}>
   <main class="max-w-7xl mx-auto px-6 py-12">
-    <!-- Back to Roster -->
     <a href="/music" class="text-sm text-purple-400 hover:text-purple-300 mb-8 inline-flex items-center gap-2 transition-colors font-mono">
       ← Back to Artists Roster
     </a>
 
-    <!-- Header -->
     <div class="border-b border-slate-800 pb-6 mb-12">
       <span class="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-purple-950/80 text-purple-300 border border-purple-800/50">
-        Official Discography
+        Official Canonical Discography
       </span>
       <h1 class="text-4xl md:text-5xl font-black text-white mt-3">{artistName}</h1>
-      <p class="text-slate-400 text-sm mt-2">{sortedAlbums.length} Canonical Albums in release order.</p>
+      <p class="text-slate-400 text-sm mt-2">{sortedAlbums.length} Canonical Releases arranged in timeline sequence.</p>
     </div>
 
-    <!-- Album Cards Grid (In Strict Canon Order) -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
       {sortedAlbums.map(([albumName, albumData]) => {
         const albumSlug = albumName.toLowerCase().replace(/[^a-z0-9]+/g, '-');
