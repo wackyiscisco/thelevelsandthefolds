@@ -53,6 +53,32 @@ artistSongs.forEach((song) => {
 });
 
 const albums = Array.from(albumMap.values());
+
+// Canonical album ordering: ensure albums render in the intended timeline order for artists like Pandora Raven.
+// If an album slug isn't in the preferred list, it will be pushed to the end and sorted alphabetically.
+const preferredOrder = [
+  'album-1-wicked',
+  'album-2-corrupted',
+  'album-3-pandoras-box-of-little-horrors',
+  'album-4-sede-vacante',
+  'album-5-5-the-ravens-light',
+  'album-6-5-the-ravens-shadow',
+  'album-7-5-the-spirit-of-the-raven-twins',
+  'album-8-pandora-raven',
+];
+
+albums.sort((a, b) => {
+  const iA = preferredOrder.indexOf(a.albumSlug);
+  const iB = preferredOrder.indexOf(b.albumSlug);
+
+  if (iA === -1 && iB === -1) {
+    // Neither album is in the preferred list: fall back to alphabetical by albumName
+    return a.albumName.localeCompare(b.albumName);
+  }
+  if (iA === -1) return 1; // a should come after b
+  if (iB === -1) return -1; // b should come after a
+  return iA - iB;
+});
 ---
 
 <!DOCTYPE html>
@@ -95,7 +121,7 @@ const albums = Array.from(albumMap.values());
         {albums.map((album) => (
           <a 
             href={`/music/${artist}/${album.albumSlug}`}
-            class="group p-6 rounded-2xl bg-slate-900/60 border border-purple-900/40 backdrop-blur flex flex-col justify-between shadow-2xl hover:border-purple-500/80 hover:bg-slate-900/90 transit[...]
+            class="group p-6 rounded-2xl bg-slate-900/60 border border-purple-900/40 backdrop-blur flex flex-col justify-between shadow-2xl hover:border-purple-500/80 hover:bg-slate-900/90 transit[...]"
           >
             <div class="space-y-4">
               {album.coverImage ? (
