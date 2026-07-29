@@ -28,12 +28,27 @@ const artistSongs = allSongs.filter((song) => {
   return currentArtistSlug === artist;
 });
 
+// Helper: normalize album names into stable slugs
+const normalizeAlbumSlug = (raw) => {
+  if (!raw) return 'album-unknown';
+  let s = String(raw).toLowerCase();
+  // remove smart quotes/apostrophes
+  s = s.replace(/['’]/g, '');
+  // strip leading 'album' word
+  s = s.replace(/^\s*album\s*/i, '');
+  // strip leading numeric prefixes like "3.0", "3", "1.5", optionally followed by : - – —
+  s = s.replace(/^\s*\d+(?:\.\d+)?\s*[:\-–—]?\s*/, '');
+  // now slugify remainder
+  s = s.replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+  // prefix for consistency
+  return `album-${s}`;
+};
+
 // Group songs by album and robustly locate cover images & track counts
 const albumMap = new Map();
 artistSongs.forEach((song) => {
   const albumName = song.data.album || 'Unknown Album';
-  // Remove apostrophes before slugifying so "Pandora's" -> "pandoras" (matches preferredOrder)
-  const albumSlug = albumName.toLowerCase().replace(/['’]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+  const albumSlug = normalizeAlbumSlug(albumName);
 
   if (!albumMap.has(albumSlug)) {
     albumMap.set(albumSlug, {
@@ -55,17 +70,16 @@ artistSongs.forEach((song) => {
 
 const albums = Array.from(albumMap.values());
 
-// Canonical album ordering: ensure albums render in the intended timeline order for artists like Pandora Raven.
-// If an album slug isn't in the preferred list, it will be pushed to the end and sorted alphabetically.
+// Canonical album ordering: use normalized keys that match normalizeAlbumSlug output
 const preferredOrder = [
-  'album-1-wicked',
-  'album-2-corrupted',
-  'album-3-pandoras-box-of-little-horrors',
-  'album-4-sede-vacante',
-  'album-5-5-the-ravens-light',
-  'album-6-5-the-ravens-shadow',
-  'album-7-5-the-spirit-of-the-raven-twins',
-  'album-8-pandora-raven',
+  'album-wicked',
+  'album-corrupted',
+  'album-pandoras-box-of-little-horrors',
+  'album-sede-vacante',
+  'album-the-ravens-light',
+  'album-the-ravens-shadow',
+  'album-the-spirit-of-the-raven-twins',
+  'album-pandora-raven',
 ];
 
 albums.sort((a, b) => {
