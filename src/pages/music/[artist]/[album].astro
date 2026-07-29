@@ -8,9 +8,24 @@ export async function getStaticPaths() {
   const allSongs = await getCollection('songs');
   const albumMap = new Map();
 
+  // Helper to normalize album names into stable slugs (must match artist index normalization)
+  const normalizeAlbumSlug = (raw) => {
+    if (!raw) return 'album-unknown';
+    let s = String(raw).toLowerCase();
+    // remove smart quotes/apostrophes
+    s = s.replace(/['’]/g, '');
+    // strip leading 'album' word
+    s = s.replace(/^\s*album\s*/i, '');
+    // strip leading numeric prefixes like "3.0", "3", "1.5", optionally followed by : - – —
+    s = s.replace(/^\s*\d+(?:\.\d+)?\s*[:\-–—]?\s*/, '');
+    // slugify remainder
+    s = s.replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+    return `album-${s}`;
+  };
+
   allSongs.forEach((song) => {
-    const artistSlug = song.data.artist ? song.data.artist.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '') : 'artist';
-    const albumSlug = song.data.album ? song.data.album.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '') : 'album';
+    const artistSlug = song.data.artist ? String(song.data.artist).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '') : 'artist';
+    const albumSlug = song.data.album ? normalizeAlbumSlug(song.data.album) : 'album-unknown';
     
     const key = `${artistSlug}/${albumSlug}`;
     if (!albumMap.has(key)) {
@@ -30,16 +45,16 @@ export async function getStaticPaths() {
 const { artist, album } = Astro.params;
 const { artistName, albumName } = Astro.props;
 
-// Direct physical asset path mapping based on your public/images/albums/ structure
-const coverImageMap: Record<string, string> = {
-  'album-1-wicked': '/images/albums/pandora-raven/Wicked.jpg',
-  'album-2-corrupted': '/images/albums/pandora-raven/Corrupted.jpg',
-  'album-3-pandoras-box-of-little-horrors': "/images/albums/pandora-raven/Pandora's Box of Little Horrors.jpg",
-  'album-4-sede-vacante': '/images/albums/pandora-raven/Sede Vacante.jpg',
-  'album-5-5-the-ravens-light': "/images/albums/pandora-raven/The Raven's Light.jpg",
-  'album-6-5-the-ravens-shadow': "/images/albums/pandora-raven/The Raven's Shadow.jpg",
-  'album-7-5-the-spirit-of-the-raven-twins': "/images/albums/pandora-raven/The Spirit of the Raven Twins.jpg",
-  'album-8-pandora-raven': '/images/albums/pandora-raven/Pandora Raven.jpg',
+// Direct physical asset path mapping based on your public/images/albums/ structure (normalized keys)
+const coverImageMap = {
+  'album-wicked': '/images/albums/pandora-raven/Wicked.jpg',
+  'album-corrupted': '/images/albums/pandora-raven/Corrupted.jpg',
+  'album-pandoras-box-of-little-horrors': "/images/albums/pandora-raven/Pandora's Box of Little Horrors.jpg",
+  'album-sede-vacante': '/images/albums/pandora-raven/Sede Vacante.jpg',
+  'album-the-ravens-light': "/images/albums/pandora-raven/The Raven's Light.jpg",
+  'album-the-ravens-shadow': "/images/albums/pandora-raven/The Raven's Shadow.jpg",
+  'album-the-spirit-of-the-raven-twins': "/images/albums/pandora-raven/The Spirit of the Raven Twins.jpg",
+  'album-pandora-raven': '/images/albums/pandora-raven/Pandora Raven.jpg',
 };
 
 const coverImage = coverImageMap[album] || '';
@@ -47,8 +62,14 @@ const coverImage = coverImageMap[album] || '';
 // Fetch all songs and filter for this specific album
 const allSongs = await getCollection('songs');
 const albumSongs = allSongs.filter((song) => {
-  const currentAlbumSlug = song.data.album ? song.data.album.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '') : '';
-  return currentAlbumSlug === album;
+  if (!song.data?.album) return false;
+  const normalizedInner = String(song.data.album).toLowerCase()
+    .replace(/['’]/g, '')
+    .replace(/^\s*album\s*/i, '')
+    .replace(/^\s*\d+(?:\.\d+)?\s*[:\-–—]?\s*/, '')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/(^-|-$)/g, '');
+  return `album-${normalizedInner}` === album;
 });
 
 // Sort songs by trackNumber numerically, falling back to title alphabetical order
@@ -71,87 +92,87 @@ albumSongs.sort((a, b) => {
   </head>
   <body class="bg-slate-950 text-slate-100 font-sans antialiased">
     
-    <header class="border-b border-purple-900/30 bg-slate-950/80 backdrop-blur sticky top-0 z-50">
-      <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-        <a href="/" class="text-2xl font-black tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-400 to-amber-300">
-          COSMOS
-        </a>
-        <nav class="hidden md:flex items-center gap-6 text-sm font-medium tracking-wide text-slate-300">
-          <a href="/" class="hover:text-purple-400 transition-colors">HOME</a>
-          <a href="/music" class="hover:text-purple-400 transition-colors text-purple-400">MUSIC</a>
-        </nav>
-      </div>
-    </header>
+      <header class="border-b border-purple-900/30 bg-slate-950/80 backdrop-blur sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+          <a href="/" class="text-2xl font-black tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-400 to-amber-300">
+            COSMOS
+          </a>
+          <nav class="hidden md:flex items-center gap-6 text-sm font-medium tracking-wide text-slate-300">
+            <a href="/" class="hover:text-purple-400 transition-colors">HOME</a>
+            <a href="/music" class="hover:text-purple-400 transition-colors text-purple-400">MUSIC</a>
+          </nav>
+        </div>
+      </header>
 
-    <main class="max-w-5xl mx-auto px-6 py-12 space-y-12">
-      
-      <div class="p-8 md:p-10 rounded-2xl bg-slate-900/60 border border-purple-900/40 flex flex-col md:flex-row gap-8 items-center md:items-start shadow-2xl">
-        {coverImage ? (
-          <img 
-            src={coverImage} 
-            alt={albumName} 
-            class="w-56 h-56 md:w-64 md:h-64 object-cover rounded-xl shadow-2xl border border-purple-500/20"
-          />
-        ) : (
-          <div class="w-56 h-56 md:w-64 md:h-64 bg-slate-800 rounded-xl flex items-center justify-center text-slate-500 font-mono text-xs">
-            No Cover Image
+      <main class="max-w-5xl mx-auto px-6 py-12 space-y-12">
+        
+        <div class="p-8 md:p-10 rounded-2xl bg-slate-900/60 border border-purple-900/40 flex flex-col md:flex-row gap-8 items-center md:items-start shadow-2xl">
+          {coverImage ? (
+            <img 
+              src={coverImage} 
+              alt={albumName} 
+              class="w-56 h-56 md:w-64 md:h-64 object-cover rounded-xl shadow-2xl border border-purple-500/20"
+            />
+          ) : (
+            <div class="w-56 h-56 md:w-64 md:h-64 bg-slate-800 rounded-xl flex items-center justify-center text-slate-500 font-mono text-xs">
+              No Cover Image
+            </div>
+          )}
+          <div class="space-y-4 text-center md:text-left flex-1">
+            <span class="inline-block px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider bg-purple-950/80 text-purple-300 border border-purple-700/40">
+              {artistName}
+            </span>
+            <h1 class="text-3xl md:text-5xl font-extrabold tracking-tight text-slate-50">
+              {albumName}
+            </h1>
+            <p class="text-sm text-slate-400 leading-relaxed max-w-2xl">
+              {albumSongs.length} Tracks in official release sequence. Select any song below to read full lyrics.
+            </p>
           </div>
-        )}
-        <div class="space-y-4 text-center md:text-left flex-1">
-          <span class="inline-block px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider bg-purple-950/80 text-purple-300 border border-purple-700/40">
-            {artistName}
-          </span>
-          <h1 class="text-3xl md:text-5xl font-extrabold tracking-tight text-slate-50">
-            {albumName}
-          </h1>
-          <p class="text-sm text-slate-400 leading-relaxed max-w-2xl">
-            {albumSongs.length} Tracks in official release sequence. Select any song below to read full lyrics.
-          </p>
         </div>
-      </div>
 
-      <section class="space-y-4">
-        <h2 class="text-2xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">
-          Official Tracklist
-        </h2>
+        <section class="space-y-4">
+          <h2 class="text-2xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">
+            Official Tracklist
+          </h2>
 
-        <div class="space-y-3">
-          {albumSongs.map((song, index) => {
-            const songSlug = song.slug;
-            const trackNum = typeof song.data.trackNumber === 'number' ? song.data.trackNumber : (index + 1);
-            const formattedTrackNum = String(trackNum).padStart(2, '0');
+          <div class="space-y-3">
+            {albumSongs.map((song, index) => {
+              const songSlug = song.slug;
+              const trackNum = typeof song.data.trackNumber === 'number' ? song.data.trackNumber : (index + 1);
+              const formattedTrackNum = String(trackNum).padStart(2, '0');
 
-            return (
-              <a 
-                href={`/music/${songSlug}`}
-                class="block p-4 md:p-5 rounded-xl bg-slate-900/40 hover:bg-slate-900/90 border border-purple-900/20 hover:border-purple-500/50 transition-all shadow-md"
-              >
-                <div class="flex items-center justify-between gap-4">
-                  <div class="flex items-center gap-4 md:gap-6 min-w-0">
-                    <span class="text-lg md:text-xl font-mono font-bold text-purple-400">
-                      {formattedTrackNum}
-                    </span>
-                    <div class="min-w-0">
-                      <h3 class="text-base md:text-lg font-semibold text-slate-100 truncate">
-                        {song.data.title}
-                      </h3>
-                      {song.data.quote && (
-                        <p class="text-xs md:text-sm italic text-slate-400 truncate mt-0.5">
-                          "{song.data.quote}"
-                        </p>
-                      )}
+              return (
+                <a 
+                  href={`/music/${songSlug}`}
+                  class="block p-4 md:p-5 rounded-xl bg-slate-900/40 hover:bg-slate-900/90 border border-purple-900/20 hover:border-purple-500/50 transition-all shadow-md"
+                >
+                  <div class="flex items-center justify-between gap-4">
+                    <div class="flex items-center gap-4 md:gap-6 min-w-0">
+                      <span class="text-lg md:text-xl font-mono font-bold text-purple-400">
+                        {formattedTrackNum}
+                      </span>
+                      <div class="min-w-0">
+                        <h3 class="text-base md:text-lg font-semibold text-slate-100 truncate">
+                          {song.data.title}
+                        </h3>
+                        {song.data.quote && (
+                          <p class="text-xs md:text-sm italic text-slate-400 truncate mt-0.5">
+                            "{song.data.quote}"
+                          </p>
+                        )}
+                      </div>
                     </div>
+                    <span class="text-xs font-mono text-purple-400/80 shrink-0">
+                      Read Lyrics &rarr;
+                    </span>
                   </div>
-                  <span class="text-xs font-mono text-purple-400/80 shrink-0">
-                    Read Lyrics &rarr;
-                  </span>
-                </div>
-              </a>
-            );
-          })}
-        </div>
-      </section>
+                </a>
+              );
+            })}
+          </div>
+        </section>
 
-    </main>
+      </main>
   </body>
 </html>
