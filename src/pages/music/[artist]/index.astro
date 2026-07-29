@@ -32,7 +32,8 @@ const artistSongs = allSongs.filter((song) => {
 const albumMap = new Map();
 artistSongs.forEach((song) => {
   const albumName = song.data.album || 'Unknown Album';
-  const albumSlug = albumName.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+  // Remove apostrophes before slugifying so "Pandora's" -> "pandoras" (matches preferredOrder)
+  const albumSlug = albumName.toLowerCase().replace(/['’]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
 
   if (!albumMap.has(albumSlug)) {
     albumMap.set(albumSlug, {
@@ -121,7 +122,7 @@ albums.sort((a, b) => {
         {albums.map((album) => (
           <a 
             href={`/music/${artist}/${album.albumSlug}`}
-            class="group p-6 rounded-2xl bg-slate-900/60 border border-purple-900/40 backdrop-blur flex flex-col justify-between shadow-2xl hover:border-purple-500/80 hover:bg-slate-900/90 transit[...]"
+            class="group p-6 rounded-2xl bg-slate-900/60 border border-purple-900/40 backdrop-blur flex flex-col justify-between shadow-2xl hover:border-purple-500/80 hover:bg-slate-900/90 transi[...]"
           >
             <div class="space-y-4">
               {album.coverImage ? (
