@@ -1,11 +1,14 @@
 ---
+
 title: "Voices"
 artist: "Pandora Raven"
 album: "Album 2: Corrupted"
 levelFold: "Level 1 Fold 1"
 featured: false
-coverImage: "/images/albums/pandora-raven/corrupted.jpg"
+coverImage: "/images/albums/pandora-raven/Corrupted.jpg"
 quote: "The worst part isn't hearing them... the worst part is I am all of them."
+trackNumber: 4
+
 ---
 
 ### Verse 1

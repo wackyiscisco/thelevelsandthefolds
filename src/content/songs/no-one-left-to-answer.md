@@ -1,11 +1,14 @@
 ---
+
 title: "No One Left to Answer"
 artist: "Pandora Raven"
 album: "Album 4: Sede Vacante"
 levelFold: "Level 1 Fold 1"
 featured: false
-coverImage: "/images/albums/pandora-raven/sede-vacante.jpg"
+coverImage: "/images/albums/pandora-raven/Sede Vacante.jpg"
 quote: "What is victory... without a voice to respond?"
+trackNumber: 2
+
 ---
 
 [Intro — almost silence, faint tone]

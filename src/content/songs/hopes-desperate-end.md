@@ -1,11 +1,14 @@
 ---
+
 title: "Hope's Desperate End"
 artist: "Pandora Raven"
 album: "Album 4: Sede Vacante"
 levelFold: "Level 1 Fold 1"
 featured: true
-coverImage: "/images/albums/pandora-raven/sede-vacante.jpg"
+coverImage: "/images/albums/pandora-raven/Sede Vacante.jpg"
 quote: "I found her and she ran me through... Close your eyes now. This is what hope costs you."
+trackNumber: 12
+
 ---
 
 [Intro - atmospheric, no drums, low strings and distant choir]

@@ -1,0 +1,218 @@
+<!DOCTYPE html><html lang="en" class="dark bg-slate-950 text-slate-100 scroll-smooth"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>LIGHT AND DARK | Solara Lyrics | The Levels and The Folds</title><!-- Google Fonts: Orbitron, Inter, & JetBrains Mono --><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600;800&family=Orbitron:wght@600;800;900&display=swap" rel="stylesheet"><!-- Theme Enforcer Script (Forces Dark Mode & Clears Light Cache) --><script>
+			(function() {
+				localStorage.removeItem('theme');
+				document.documentElement.classList.add('dark');
+				document.documentElement.classList.remove('light');
+			})();
+		</script><!-- Tailwind CSS Engine with is:inline (CRITICAL FOR ASTRO) --><script src="https://cdn.tailwindcss.com"></script><script>
+			tailwind.config = {
+				darkMode: 'class',
+				theme: {
+					extend: {
+						fontFamily: {
+							sans: ['Inter', 'sans-serif'],
+							orbitron: ['Orbitron', 'sans-serif'],
+							mono: ['JetBrains Mono', 'monospace'],
+						},
+						animation: {
+							'pulse-slow': 'pulse 6s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+							'float': 'float 3s ease-in-out infinite',
+						},
+						keyframes: {
+							float: {
+								'0%, 100%': { transform: 'translateY(0px)' },
+								'50%': { transform: 'translateY(-8px)' },
+							}
+						}
+					}
+				}
+			}
+		</script><link rel="stylesheet" href="/_astro/about.C47HJ6vD.css"></head> <body class="min-h-screen flex flex-col bg-black text-slate-100 font-sans antialiased selection:bg-purple-500 selection:text-white relative overflow-x-hidden"> <!-- Starfield Layer --> <div class="stars-container"> <div class="stars-layer1"></div> <div class="stars-layer2"></div> <div class="stars-layer3"></div> <div class="comet"></div> <div class="comet-2"></div> <div class="comet-3"></div> </div> <!-- Ambient Background Glow Orbs --> <div class="fixed top-0 left-1/4 w-[600px] h-[600px] bg-purple-600/10 rounded-full blur-[120px] pointer-events-none -z-10 animate-pulse-slow"></div> <div class="fixed bottom-0 right-1/4 w-[500px] h-[500px] bg-amber-500/10 rounded-full blur-[120px] pointer-events-none -z-10 animate-pulse-slow"></div> <!-- Sticky Glassmorphism Header with Full Navigation --> <header class="sticky top-0 z-50 backdrop-blur-xl bg-black/80 border-b border-purple-900/30 shadow-lg shadow-purple-950/20 transition-colors"> <div class="max-w-[1600px] mx-auto px-6 h-20 flex items-center justify-between"> <!-- Brand Logo --> <a href="/" class="flex items-center space-x-3 group"> <span class="font-orbitron text-2xl font-black tracking-widest bg-gradient-to-r from-purple-400 via-pink-500 to-amber-300 bg-clip-text text-transparent group-hover:opacity-90 transition">
+COSMOS
+</span> <span class="text-[10px] px-3 py-0.5 bg-purple-950/90 border border-purple-700/50 rounded-full text-purple-300 font-mono hidden sm:inline-block tracking-wide shadow-[0_0_12px_rgba(168,85,247,0.2)]">
+The Levels and The Folds
+</span> </a> <!-- Desktop Navigation Links --> <nav class="hidden md:flex items-center space-x-8 text-xs uppercase tracking-widest font-mono font-semibold text-slate-300"> <a href="/" class="hover:text-purple-400 transition hover:scale-105">Home</a> <a href="/about" class="hover:text-pink-400 transition hover:scale-105">About</a> <a href="/artists" class="hover:text-purple-400 transition hover:scale-105">Artists</a> <a href="/music" class="hover:text-amber-400 transition hover:scale-105">Music</a> <a href="/books" class="hover:text-pink-400 transition hover:scale-105">Books</a> <a href="/lore" class="hover:text-cyan-400 transition hover:scale-105">Lore</a> <a href="/patreon" class="hover:text-emerald-400 transition hover:scale-105">Patreon</a> </nav> <!-- Action Controls: Cosmic Dark Badge & Patreon CTA --> <div class="flex items-center gap-3"> <!-- Cosmic Sovereign Status Badge --> <div class="px-3 py-1.5 rounded-full bg-purple-950/80 border border-purple-700/60 text-purple-300 transition shadow-md flex items-center gap-2 font-mono text-[11px] font-bold shadow-[0_0_15px_rgba(147,51,234,0.2)]"> <span class="w-2 h-2 rounded-full bg-purple-400 animate-pulse"></span> <span>COSMIC DARK</span> </div> <!-- Patreon CTA Button --> <a href="https://www.patreon.com/c/wackyciscorecords/" target="_blank" class="font-mono text-xs font-bold uppercase tracking-wider bg-gradient-to-r from-purple-600 via-pink-600 to-amber-500 hover:from-purple-500 hover:to-amber-400 text-white px-5 py-2.5 rounded-full shadow-lg shadow-purple-950/50 transition hover:scale-105 border border-purple-400/30 flex items-center gap-2"> <span>Join Vault</span> <span class="text-amber-300">&rarr;</span> </a> </div> </div> </header> <!-- Dynamic Page Content Slot --> <main class="flex-grow">  <main class="max-w-4xl mx-auto px-6 py-10"> <!-- Navigation Back Link Bar (Sticky Top Sub-Header Bar) --> <div class="sticky top-[80px] z-40 -mx-6 px-6 py-3.5 mb-8 bg-black/85 backdrop-blur-xl border-b border-purple-900/40 shadow-2xl flex items-center justify-between flex-wrap gap-4 font-mono text-xs"> <a href="/music/solara" class="px-5 py-2.5 rounded-xl text-xs uppercase tracking-wider font-mono font-extrabold bg-purple-950/95 text-purple-200 border-2 border-purple-500/60 hover:bg-purple-900 hover:text-white transition-all shadow-xl hover:shadow-purple-900/60 hover:scale-105 flex items-center gap-2.5"> <span class="text-purple-400 font-bold text-sm">&larr;</span> <span>Back to Solara Discography</span> </a> <a href="/music" class="px-4 py-2 rounded-xl text-xs uppercase tracking-wider font-mono font-bold bg-slate-900/90 text-slate-300 border border-slate-700/50 hover:bg-slate-800 hover:text-white transition-all flex items-center gap-2 shadow-lg"> <span>All Releases</span> <span class="text-slate-400 font-bold text-sm">&rarr;</span> </a> </div> <!-- Header Card --> <div class="bg-slate-900/60 p-8 rounded-2xl border border-slate-800/80 shadow-2xl mb-10 backdrop-blur-sm flex flex-col md:flex-row gap-6 items-center"> <img src="/images/albums/solara/9.8 Solstice.jpg" alt="LIGHT AND DARK" class="w-32 h-32 rounded-xl object-cover shadow-lg border border-slate-700/50 flex-shrink-0"> <div class="space-y-2 text-center md:text-left"> <span class="px-3 py-1 rounded-full text-xs font-semibold bg-purple-950/80 text-purple-300 border border-purple-800/50 font-mono"> Solara — (9.8) SOLSTICE </span> <h1 class="text-3xl md:text-5xl font-black text-white">LIGHT AND DARK</h1> <p class="text-slate-400 text-sm italic">"Light and dark"</p> </div> </div> <!-- Lyrics Content Box (Preserves Line Breaks and Formatting) --> <article class="prose prose-invert max-w-none bg-slate-900/40 p-8 rounded-2xl border border-slate-800/60 shadow-xl whitespace-pre-line text-slate-200 leading-relaxed font-sans"> <p>[Verse 1]</p>
+<p>The egg opened the gate</p>
+<p>(the way the star said it would)</p>
+<p>Sigma Octantis glowed behind them</p>
+<p>(still weak)</p>
+<p>(but waking)</p>
+<p>(my child)</p>
+<p>(I will be back)</p>
+<p>They stepped through the gate</p>
+<p>And they were not at Level negative forty-five anymore</p>
+<p>They expected Level negative forty six -</p>
+<p>BUT —</p>
+<p>I think this was a portal gate says Aldric</p>
+<p>[Pre-Chorus]</p>
+<p>The air was wrong</p>
+<p>The light was wrong</p>
+<p>Everything was dark territory</p>
+<p>Enemy territory</p>
+<p>This was a prison level</p>
+<p>[Spoken]</p>
+<p>[Solara:] Where are we</p>
+<p>[Aldric:] I have several maps for this</p>
+<p>[Aldric:] None of them are for this</p>
+<p>[Solara:] Aldric</p>
+<p>[Aldric:] We are somewhere the maps do not go</p>
+<p>[Solara:] I gathered that</p>
+<p>[Aldric:] I am simply noting it -</p>
+<p>I think we are at Level nine hundred and nine - My maps just confirmed it</p>
+<p>[Chorus]</p>
+<p>Light and dark</p>
+<p>The old war</p>
+<p>The one that never ended</p>
+<p>Only paused</p>
+<p>Light and dark</p>
+<p>We walked into the wrong side</p>
+<p>Of a very old fight</p>
+<p>[Verse 2]</p>
+<p>They moved through the cells</p>
+<p>Careful</p>
+<p>Quiet</p>
+<p>And they found them</p>
+<p>The council</p>
+<p>[Solara:] You are here</p>
+<p>[Solara:] You are all here</p>
+<p>[Solara:] You are safe</p>
+<p>[Solara:] All accounted for</p>
+<p>(Solara counted them)</p>
+<p>(Asala was not there)</p>
+<p>(Asala was with the other group)</p>
+<p>(Solara did not know what was happening with the other group)</p>
+<p>(all she knew was they were tricked)</p>
+<p>(led to a trap)</p>
+<p>(the rest were trapped in the Hole at Level two hundred eighty)</p>
+<p>(Solara had teleported with Void and Aldric)</p>
+<p>(back to the hidden level where the council camp was)</p>
+<p>(to inform the council)</p>
+<p>(but the council was not there)</p>
+<p>(and she ended up in Fold seven)</p>
+<p>(the chicken field)</p>
+<p>[Pre-Chorus 2]</p>
+<p>But that was before</p>
+<p>That was the report she came to make</p>
+<p>And the council was not there to hear it</p>
+<p>Because the council was here</p>
+<p>In a prison</p>
+<p>[Chorus 2]</p>
+<p>Light and dark</p>
+<p>The old war</p>
+<p>The one that never ended</p>
+<p>Only paused</p>
+<p>Light and dark</p>
+<p>The council taken in the pause</p>
+<p>Between two breaths of the same fight</p>
+<p>[Bridge - Helena speaks]</p>
+<p>Then Helena spoke</p>
+<p>(Helena did not sit)</p>
+<p>(Helena did not need to)</p>
+<p>[Spoken]</p>
+<p>[Helena:] You came to report</p>
+<p>[Helena:] Report</p>
+<p>[Helena:] Then I will explain</p>
+<p>(Helena looked at nothing in particular)</p>
+<p>(that was somehow worse)</p>
+<p>[Helena:] Light and dark</p>
+<p>[Helena:] Have been in a territory war</p>
+<p>[Helena:] For a long time</p>
+<p>[Helena:] The pact held it</p>
+<p>[Helena:] Not really</p>
+<p>[Helena:] The pact paused it</p>
+<p>(Solara said nothing)</p>
+<p>(She knew about the pact)</p>
+<p>(she had broken it herself)</p>
+<p>(she was what came after both)</p>
+<p>[Pre-Chorus 3]</p>
+<p>[Helena:] They have broken the pact</p>
+<p>[Helena:] Completely</p>
+<p>[Helena:] They are coming down</p>
+<p>[Helena:] Toward light territory</p>
+<p>[Helena:] Level one hundred and below</p>
+<p>[Helena:] We need to leave</p>
+<p>[Helena:] Now</p>
+<p>[Solara:] How</p>
+<p>[Final Chorus - key lift]</p>
+<p>Light and dark</p>
+<p>The war is moving</p>
+<p>The pact is broken</p>
+<p>We are in a prison</p>
+<p>In enemy territory</p>
+<p>And we need to go home</p>
+<p>Light and dark</p>
+<p>How do we leave</p>
+<p>[Outro]</p>
+<p>Then Aldric went still</p>
+<p>(the way Aldric goes still when his map tells him something)</p>
+<p>[Spoken]</p>
+<p>[Aldric:] I have a thing</p>
+<p>[Solara:] You have a thing</p>
+<p>[Aldric:] A feather</p>
+<p>[Solara:] A feather</p>
+<p>[Aldric:] From the field</p>
+<p>[Solara:] From the chicken field</p>
+<p>[Aldric:] My map told me to take it</p>
+<p>[Solara:] Your map told you to take a feather</p>
+<p>[Aldric:] From the chicken field</p>
+<p>[Solara:] Aldric</p>
+<p>[Aldric:] I catalogue everything</p>
+<p>[Aldric:] I carry what I catalogue</p>
+<p>[Aldric:] The feather is glowing</p>
+<p>[Solara:] Of course it is</p>
+<p>(they looked at the feather)</p>
+<p>(they looked at Aldric)</p>
+<p>(they looked at Helena)</p>
+<p>[Helena:] Use it</p>
+<p>They used it</p>
+<p>The feather glowed</p>
+<p>The prison opened</p>
+<p>The light came through</p>
+<p>Level one</p>
+<p>Fold one</p>
+<p>They were out</p>
+<p>But they were not alone</p>
+<p>(the council came through behind them)</p>
+<p>(all of them)</p>
+<p>(Basala, Carala, Darala, Ebala, Farala, Golo)</p>
+<p>(Helena came last)</p>
+<p>(Helena did not look back)</p>
+<p>(there was nothing worth looking back at)</p>
+<p>[Spoken]</p>
+<p>[Helena:] Where are we</p>
+<p>[Solara:] My system</p>
+<p>[Solara:] Level one</p>
+<p>[Solara:] Fold one</p>
+<p>[Solara:] Where everything started</p>
+<p>(Helena looked at it)</p>
+<p>(Helena looked at nothing in particular)</p>
+<p>(then Helena looked at Solara)</p>
+<p>[Helena:] This will do</p>
+<p>[Helena:] This is where we plan</p>
+<p>[Helena:] This is where we fight back</p>
+<p>(the council had found its new base)</p>
+<p>(not the hidden level)</p>
+<p>(not the old camp)</p>
+<p>(her system)</p>
+<p>(the one she built)</p>
+<p>(the one that held)</p>
+<p>Light and dark</p>
+<p>The war is coming down</p>
+<p>Level one hundred and below</p>
+<p>But the council was here now</p>
+<p>All of them</p>
+<p>Together</p>
+<p>At Level one</p>
+<p>Fold one</p>
+<p>Where everything started</p>
+<p>And where everything would be planned</p>
+<p>The egg had been the key to the gate</p>
+<p>The feather had been the way home</p>
+<p>Aldric had carried both</p>
+<p>Without knowing why</p>
+<p>Because Aldric catalogue everything</p>
+<p>Now, we need to go back to level 280 -</p>
+<p>To get the rest -</p>
+<p>The real fight -</p>
+<p>Is about to start</p>
+<hr> </article> <!-- Bottom Navigation Actions --> <div class="mt-10 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-purple-900/40"> <a href="/music/solara" class="w-full sm:w-auto px-6 py-3.5 rounded-xl text-xs uppercase tracking-wider font-mono font-bold bg-purple-950/90 text-purple-200 border border-purple-500/50 hover:bg-purple-900 hover:text-white transition-all flex items-center justify-center gap-2 shadow-xl hover:shadow-purple-900/50 hover:-translate-x-1"> <span class="text-purple-400 font-bold text-sm">&larr;</span> <span>Back to Solara Discography</span> </a> <a href="/artists" class="w-full sm:w-auto px-6 py-3.5 rounded-xl text-xs uppercase tracking-wider font-mono font-bold bg-slate-900/90 text-slate-300 border border-slate-700/50 hover:bg-slate-800 hover:text-white transition-all flex items-center justify-center gap-2 shadow-xl"> <span>Back to Roster</span> <span class="text-slate-400 font-bold text-sm">&rarr;</span> </a> </div> </main>  </main> <!-- Global Footer --> <footer class="py-12 border-t border-slate-900 bg-black/80 text-center text-xs font-mono text-slate-500"> <p class="tracking-wider">&copy; 2026 The Cosmos Ecosystem. Built for Francisco de Leon (Wacky).</p> <p class="text-[10px] text-slate-600 mt-1">All Levels & Folds Exist Simultaneously across 300,000 Years.</p> </footer> </body></html>

@@ -1,11 +1,14 @@
 ---
+
 title: "Six Ticks to Six"
 artist: "Pandora Raven"
 album: "Album 2: Corrupted"
 levelFold: "Level 1 Fold 1"
 featured: false
-coverImage: "/images/albums/pandora-raven/corrupted.jpg"
+coverImage: "/images/albums/pandora-raven/Corrupted.jpg"
 quote: "Count the seconds down... the clock is running out of light."
+trackNumber: 10
+
 ---
 
 [Mechanical clock ticking loudly: Tick... Tock... Tick... Tock...]

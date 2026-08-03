@@ -1,4 +1,5 @@
 ---
+
 title: "The Last Bastion II"
 artist: "Pandora Raven"
 album: "Album 7.5: The Spirit of the Raven Twins"
@@ -6,7 +7,8 @@ levelFold: "Level 1 Fold 1"
 featured: false
 coverImage: "/images/albums/pandora-raven/The Spirit of the Raven Twins.jpg"
 trackNumber: 6
-quote: ""
+quote: "No warmth left alive"
+
 ---
 
 [Verse 1]

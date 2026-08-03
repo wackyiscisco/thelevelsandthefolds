@@ -1,0 +1,115 @@
+<!DOCTYPE html><html lang="en" class="dark bg-slate-950 text-slate-100 scroll-smooth"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>VEGA | Solara Lyrics | The Levels and The Folds</title><!-- Google Fonts: Orbitron, Inter, & JetBrains Mono --><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600;800&family=Orbitron:wght@600;800;900&display=swap" rel="stylesheet"><!-- Theme Enforcer Script (Forces Dark Mode & Clears Light Cache) --><script>
+			(function() {
+				localStorage.removeItem('theme');
+				document.documentElement.classList.add('dark');
+				document.documentElement.classList.remove('light');
+			})();
+		</script><!-- Tailwind CSS Engine with is:inline (CRITICAL FOR ASTRO) --><script src="https://cdn.tailwindcss.com"></script><script>
+			tailwind.config = {
+				darkMode: 'class',
+				theme: {
+					extend: {
+						fontFamily: {
+							sans: ['Inter', 'sans-serif'],
+							orbitron: ['Orbitron', 'sans-serif'],
+							mono: ['JetBrains Mono', 'monospace'],
+						},
+						animation: {
+							'pulse-slow': 'pulse 6s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+							'float': 'float 3s ease-in-out infinite',
+						},
+						keyframes: {
+							float: {
+								'0%, 100%': { transform: 'translateY(0px)' },
+								'50%': { transform: 'translateY(-8px)' },
+							}
+						}
+					}
+				}
+			}
+		</script><link rel="stylesheet" href="/_astro/about.C47HJ6vD.css"></head> <body class="min-h-screen flex flex-col bg-black text-slate-100 font-sans antialiased selection:bg-purple-500 selection:text-white relative overflow-x-hidden"> <!-- Starfield Layer --> <div class="stars-container"> <div class="stars-layer1"></div> <div class="stars-layer2"></div> <div class="stars-layer3"></div> <div class="comet"></div> <div class="comet-2"></div> <div class="comet-3"></div> </div> <!-- Ambient Background Glow Orbs --> <div class="fixed top-0 left-1/4 w-[600px] h-[600px] bg-purple-600/10 rounded-full blur-[120px] pointer-events-none -z-10 animate-pulse-slow"></div> <div class="fixed bottom-0 right-1/4 w-[500px] h-[500px] bg-amber-500/10 rounded-full blur-[120px] pointer-events-none -z-10 animate-pulse-slow"></div> <!-- Sticky Glassmorphism Header with Full Navigation --> <header class="sticky top-0 z-50 backdrop-blur-xl bg-black/80 border-b border-purple-900/30 shadow-lg shadow-purple-950/20 transition-colors"> <div class="max-w-[1600px] mx-auto px-6 h-20 flex items-center justify-between"> <!-- Brand Logo --> <a href="/" class="flex items-center space-x-3 group"> <span class="font-orbitron text-2xl font-black tracking-widest bg-gradient-to-r from-purple-400 via-pink-500 to-amber-300 bg-clip-text text-transparent group-hover:opacity-90 transition">
+COSMOS
+</span> <span class="text-[10px] px-3 py-0.5 bg-purple-950/90 border border-purple-700/50 rounded-full text-purple-300 font-mono hidden sm:inline-block tracking-wide shadow-[0_0_12px_rgba(168,85,247,0.2)]">
+The Levels and The Folds
+</span> </a> <!-- Desktop Navigation Links --> <nav class="hidden md:flex items-center space-x-8 text-xs uppercase tracking-widest font-mono font-semibold text-slate-300"> <a href="/" class="hover:text-purple-400 transition hover:scale-105">Home</a> <a href="/about" class="hover:text-pink-400 transition hover:scale-105">About</a> <a href="/artists" class="hover:text-purple-400 transition hover:scale-105">Artists</a> <a href="/music" class="hover:text-amber-400 transition hover:scale-105">Music</a> <a href="/books" class="hover:text-pink-400 transition hover:scale-105">Books</a> <a href="/lore" class="hover:text-cyan-400 transition hover:scale-105">Lore</a> <a href="/patreon" class="hover:text-emerald-400 transition hover:scale-105">Patreon</a> </nav> <!-- Action Controls: Cosmic Dark Badge & Patreon CTA --> <div class="flex items-center gap-3"> <!-- Cosmic Sovereign Status Badge --> <div class="px-3 py-1.5 rounded-full bg-purple-950/80 border border-purple-700/60 text-purple-300 transition shadow-md flex items-center gap-2 font-mono text-[11px] font-bold shadow-[0_0_15px_rgba(147,51,234,0.2)]"> <span class="w-2 h-2 rounded-full bg-purple-400 animate-pulse"></span> <span>COSMIC DARK</span> </div> <!-- Patreon CTA Button --> <a href="https://www.patreon.com/c/wackyciscorecords/" target="_blank" class="font-mono text-xs font-bold uppercase tracking-wider bg-gradient-to-r from-purple-600 via-pink-600 to-amber-500 hover:from-purple-500 hover:to-amber-400 text-white px-5 py-2.5 rounded-full shadow-lg shadow-purple-950/50 transition hover:scale-105 border border-purple-400/30 flex items-center gap-2"> <span>Join Vault</span> <span class="text-amber-300">&rarr;</span> </a> </div> </div> </header> <!-- Dynamic Page Content Slot --> <main class="flex-grow">  <main class="max-w-4xl mx-auto px-6 py-10"> <!-- Navigation Back Link Bar (Sticky Top Sub-Header Bar) --> <div class="sticky top-[80px] z-40 -mx-6 px-6 py-3.5 mb-8 bg-black/85 backdrop-blur-xl border-b border-purple-900/40 shadow-2xl flex items-center justify-between flex-wrap gap-4 font-mono text-xs"> <a href="/music/solara" class="px-5 py-2.5 rounded-xl text-xs uppercase tracking-wider font-mono font-extrabold bg-purple-950/95 text-purple-200 border-2 border-purple-500/60 hover:bg-purple-900 hover:text-white transition-all shadow-xl hover:shadow-purple-900/60 hover:scale-105 flex items-center gap-2.5"> <span class="text-purple-400 font-bold text-sm">&larr;</span> <span>Back to Solara Discography</span> </a> <a href="/music" class="px-4 py-2 rounded-xl text-xs uppercase tracking-wider font-mono font-bold bg-slate-900/90 text-slate-300 border border-slate-700/50 hover:bg-slate-800 hover:text-white transition-all flex items-center gap-2 shadow-lg"> <span>All Releases</span> <span class="text-slate-400 font-bold text-sm">&rarr;</span> </a> </div> <!-- Header Card --> <div class="bg-slate-900/60 p-8 rounded-2xl border border-slate-800/80 shadow-2xl mb-10 backdrop-blur-sm flex flex-col md:flex-row gap-6 items-center"> <img src="/images/albums/solara/9.7 Syzygy.jpg" alt="VEGA" class="w-32 h-32 rounded-xl object-cover shadow-lg border border-slate-700/50 flex-shrink-0"> <div class="space-y-2 text-center md:text-left"> <span class="px-3 py-1 rounded-full text-xs font-semibold bg-purple-950/80 text-purple-300 border border-purple-800/50 font-mono"> Solara — (9.7) SYZYGY </span> <h1 class="text-3xl md:text-5xl font-black text-white">VEGA</h1> <p class="text-slate-400 text-sm italic">"Vega — we were lost"</p> </div> </div> <!-- Lyrics Content Box (Preserves Line Breaks and Formatting) --> <article class="prose prose-invert max-w-none bg-slate-900/40 p-8 rounded-2xl border border-slate-800/60 shadow-xl whitespace-pre-line text-slate-200 leading-relaxed font-sans"> <p>[Verse 1]</p>
+<p>Three of them — the camp behind them burning</p>
+<p>280 behind that — they walked forward</p>
+<p>Because forward was the only direction left</p>
+<p>Day one: nothing — Day two: nothing</p>
+<p>Day three: Aldric checked the map</p>
+<p>The map said nothing</p>
+<p>The map had never said nothing before</p>
+<p>[Pre-Chorus]</p>
+<p>“The map shows no level” — “We are going the right way”</p>
+<p>“How do you know” — “I know”</p>
+<p>“The map says nothing” — “The map is wrong”</p>
+<p>Aldric looked at Void — Aldric looked at the map — kept walking</p>
+<p>[Chorus]</p>
+<p>Vega — we were lost</p>
+<p>Vega — nothing on the map</p>
+<p>Vega — she cannot reach anyone</p>
+<p>Three in the empty — moving anyway</p>
+<p>Vega — we are going somewhere — we have to be</p>
+<p>[Verse 2]</p>
+<p>Solara tried her council — silence</p>
+<p>She tried Fate — silence</p>
+<p>She tried Time — silence</p>
+<p>She stood still in a place with no level</p>
+<p>No system — no fold number</p>
+<p>Just the three of them</p>
+<p>And the dark between things</p>
+<p>And Void looking confident</p>
+<p>“Are you actually sure,” said Solara</p>
+<p>“Yes,” said Void</p>
+<p>“About what, specifically”</p>
+<p>He considered this — “The direction”</p>
+<p>“Which direction” — “This one”</p>
+<p>Aldric checked the map again — still wrong — kept walking</p>
+<p>[Bridge — VEGA]</p>
+<p>Then: light — not the wrong kind — not fire</p>
+<p>A star. Present. Old. Amused.</p>
+<p>“You are not of the council”</p>
+<p>“No — we are—” [Aldric] “We are stranded” [Void]</p>
+<p>“That is also true”</p>
+<p>“How did you come to be here”</p>
+<p>“A trap. Level 280.”</p>
+<p>“You entered 280”</p>
+<p>“Yes”</p>
+<p>“280 has not had a level in four thousand years”</p>
+<p>Pause — “We know that now”</p>
+<p>Vega tilted — the star equivalent of a head tilt</p>
+<p>“You seek a way back to your systems”</p>
+<p>“Yes”</p>
+<p>“I can take you to the nearest one I know”</p>
+<p>“What do you call it”</p>
+<p>“The Place With The Loud Ones”</p>
+<p>Void: “That is not a level designation”</p>
+<p>“I do not use your designations”</p>
+<p>“What do the loud ones sound like”</p>
+<p>Vega made a sound — it was a cluck</p>
+<p>Aldric and Solara looked at each other</p>
+<p>Void: “We accept”</p>
+<p>[Final Chorus]</p>
+<p>Vega — she takes us somewhere</p>
+<p>Vega — the map doesn’t know this place</p>
+<p>Vega — the nearest level she knows</p>
+<p>Is the place with the loud ones</p>
+<p>[Outro — FOLD 7]</p>
+<p>The warp was quick — the landing was not</p>
+<p>Three of them — in a field</p>
+<p>Warm light — grass</p>
+<p>And chickens — many chickens</p>
+<p>One chicken looked at Solara</p>
+<p>Solara looked at the chicken</p>
+<p>Aldric checked the map — FOLD 7</p>
+<p>Void: “This is not a level”</p>
+<p>Aldric: “This is Fold 7”</p>
+<p>Solara: “Lorn was watching this place the entire time”</p>
+<p>“Yes” — “During the meetings” — “During every meeting”</p>
+<p>One chicken walked over Aldric’s map</p>
+<p>It had more context now — Lorn had been right about that</p>
+<p>Solara sat down in Fold 7</p>
+<p>Surrounded by chickens</p>
+<p>No council — no signal — no orb</p>
+<p>Just Void, Aldric, and the loudest level Vega knew</p>
+<p>“Alright,” she said — “Now what</p> </article> <!-- Bottom Navigation Actions --> <div class="mt-10 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-purple-900/40"> <a href="/music/solara" class="w-full sm:w-auto px-6 py-3.5 rounded-xl text-xs uppercase tracking-wider font-mono font-bold bg-purple-950/90 text-purple-200 border border-purple-500/50 hover:bg-purple-900 hover:text-white transition-all flex items-center justify-center gap-2 shadow-xl hover:shadow-purple-900/50 hover:-translate-x-1"> <span class="text-purple-400 font-bold text-sm">&larr;</span> <span>Back to Solara Discography</span> </a> <a href="/artists" class="w-full sm:w-auto px-6 py-3.5 rounded-xl text-xs uppercase tracking-wider font-mono font-bold bg-slate-900/90 text-slate-300 border border-slate-700/50 hover:bg-slate-800 hover:text-white transition-all flex items-center justify-center gap-2 shadow-xl"> <span>Back to Roster</span> <span class="text-slate-400 font-bold text-sm">&rarr;</span> </a> </div> </main>  </main> <!-- Global Footer --> <footer class="py-12 border-t border-slate-900 bg-black/80 text-center text-xs font-mono text-slate-500"> <p class="tracking-wider">&copy; 2026 The Cosmos Ecosystem. Built for Francisco de Leon (Wacky).</p> <p class="text-[10px] text-slate-600 mt-1">All Levels & Folds Exist Simultaneously across 300,000 Years.</p> </footer> </body></html>

@@ -1,4 +1,5 @@
 ---
+
 title: "Flight of the Raven"
 artist: "Pandora Raven"
 album: "Album 7.5: The Spirit of the Raven Twins"
@@ -6,7 +7,8 @@ levelFold: "Level 1 Fold 1"
 featured: false
 coverImage: "/images/albums/pandora-raven/The Spirit of the Raven Twins.jpg"
 trackNumber: 11
-quote: ""
+quote: "But not the same alone"
+
 ---
 
 [Verse 1 — opening the door, quiet horror]
@@ -110,4 +112,3 @@ I am not waiting
 I am not frozen
 
 I fly
-

@@ -1,11 +1,14 @@
 ---
+
 title: "Scream Dream"
 artist: "Pandora Raven"
 album: "Album 3: Pandora's Box of Little Horrors"
 levelFold: "Level 1 Fold 1"
 featured: false
-coverImage: "/images/albums/pandora-raven/pandoras-box.jpg"
+coverImage: "/images/albums/pandora-raven/Pandora's Box of Little Horrors.jpg"
 quote: "You know the danger... and you stay anyway."
+trackNumber: 5
+
 ---
 
 ### Verse 1

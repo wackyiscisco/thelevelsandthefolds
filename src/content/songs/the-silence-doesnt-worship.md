@@ -1,11 +1,14 @@
 ---
+
 title: "The Silence Doesn't Worship"
 artist: "Pandora Raven"
 album: "Album 4: Sede Vacante"
 levelFold: "Level 1 Fold 1"
 featured: false
-coverImage: "/images/albums/pandora-raven/sede-vacante.jpg"
+coverImage: "/images/albums/pandora-raven/Sede Vacante.jpg"
 quote: "Was power ever present, or just reflected back in place?"
+trackNumber: 5
+
 ---
 
 ### Verse 1

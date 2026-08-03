@@ -1,4 +1,5 @@
 ---
+
 title: "Pandora Raven"
 artist: "Pandora Raven"
 album: "Album 8: Pandora Raven"
@@ -7,6 +8,7 @@ featured: false
 coverImage: "/images/albums/pandora-raven/Pandora Raven.jpg"
 trackNumber: 12
 quote: "Pandora Raven — this is her name."
+
 ---
 
 THE LAST PANDORA RAVEN SONG

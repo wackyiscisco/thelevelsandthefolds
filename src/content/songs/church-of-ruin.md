@@ -1,11 +1,14 @@
 ---
+
 title: "Church of Ruin"
 artist: "Pandora Raven"
 album: "Album 5.5: The Raven's Light"
 levelFold: "Level 1 Fold 1"
 featured: true
-coverImage: "/images/albums/pandora-raven/the-ravens-light.jpg"
+coverImage: "/images/albums/pandora-raven/The Raven's Light.jpg"
 quote: "She says you are the light... I've always known you were the light."
+trackNumber: 10
+
 ---
 
 [Intro - sparse strings, large ruined space, she's waking]

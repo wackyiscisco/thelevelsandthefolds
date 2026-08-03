@@ -1,11 +1,14 @@
 ---
+
 title: "A Road Less Travelled"
 artist: "Pandora Raven"
 album: "Album 4: Sede Vacante"
 levelFold: "Level 1 Fold 1"
 featured: true
-coverImage: "/images/albums/pandora-raven/sede-vacante.jpg"
+coverImage: "/images/albums/pandora-raven/Sede Vacante.jpg"
 quote: "I am going somewhere I have never been... To see my sister?"
+trackNumber: 11
+
 ---
 
 [Intro - single sustained string, barely there]

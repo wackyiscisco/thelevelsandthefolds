@@ -1,12 +1,14 @@
 ---
+
 title: "Unlikely Encounter"
 artist: "Pandora Raven"
 album: "Album 6.5: The Raven's Shadow"
 levelFold: "Level 1 Fold 1"
 featured: true
-coverImage: "/images/albums/pandora-raven/the-ravens-shadow.jpg"
+coverImage: "/images/albums/pandora-raven/The Raven's Shadow.jpg"
 trackNumber: 4
 quote: "I left a map to send her away, I did not know I needed her to stay."
+
 ---
 
 [Verse 1]

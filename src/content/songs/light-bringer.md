@@ -1,12 +1,14 @@
 ---
+
 title: "Light Bringer"
 artist: "Pandora Raven"
 album: "Album 5.5: The Raven's Light"
 levelFold: "Level 1 Fold 1"
 featured: true
-coverImage: "/images/albums/pandora-raven/the-ravens-light.jpg"
+coverImage: "/images/albums/pandora-raven/The Raven's Light.jpg"
 trackNumber: 1
 quote: "So Am I the Light Bringer? Maybe.....but not yet."
+
 ---
 
 [Verse 1 - barely above a whisper, sparse piano, dark and low]

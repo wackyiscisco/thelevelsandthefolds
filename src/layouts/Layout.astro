@@ -18,6 +18,15 @@ const { title } = Astro.props;
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600;800&family=Orbitron:wght@600;800;900&display=swap" rel="stylesheet">
 		
+		<!-- Theme Enforcer Script (Forces Dark Mode & Clears Light Cache) -->
+		<script is:inline>
+			(function() {
+				localStorage.removeItem('theme');
+				document.documentElement.classList.add('dark');
+				document.documentElement.classList.remove('light');
+			})();
+		</script>
+
 		<!-- Tailwind CSS Engine with is:inline (CRITICAL FOR ASTRO) -->
 		<script is:inline src="https://cdn.tailwindcss.com"></script>
 		<script is:inline>
@@ -46,35 +55,158 @@ const { title } = Astro.props;
 		</script>
 		
 		<style is:global>
-			/* Direct Dark Base Fallback so site is NEVER white even if offline */
-			html, body {
-				background-color: #020617 !important;
+			/* Direct Dark Base Fallback so site is ALWAYS deep cosmic black */
+			html {
+				background-color: #000000 !important;
+				color: #f8fafc !important;
+			}
+			body {
+				background-color: #000000 !important;
 				color: #f8fafc !important;
 			}
 
-			/* Custom Cosmic Scrollbar & Background Grid */
+			/* Custom Cosmic Scrollbar */
 			::-webkit-scrollbar { width: 8px; }
-			::-webkit-scrollbar-track { background: #020617; }
+			::-webkit-scrollbar-track { background: #000000; }
 			::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
 			::-webkit-scrollbar-thumb:hover { background: #a855f7; }
 
-			.bg-grid-pattern {
-				background-size: 40px 40px;
+			/* CSS Starfield Background */
+			.stars-container {
+				position: fixed;
+				inset: 0;
+				z-index: -20;
+				pointer-events: none;
+				background-color: #000000;
+				overflow: hidden;
+			}
+			
+			.stars-layer1, .stars-layer2, .stars-layer3 {
+				position: absolute;
+				inset: 0;
+				background-repeat: repeat;
+				pointer-events: none;
+			}
+
+			.stars-layer1 {
+				background-size: 550px 550px;
 				background-image: 
-					linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-					linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+					radial-gradient(1.5px 1.5px at 50px 100px, #ffffff 100%, transparent),
+					radial-gradient(2px 2px at 150px 300px, #ffffff 100%, transparent),
+					radial-gradient(1px 1px at 250px 50px, #e2e8f0 100%, transparent),
+					radial-gradient(2.5px 2.5px at 350px 450px, #ffffff 100%, transparent),
+					radial-gradient(1.5px 1.5px at 450px 200px, #cbd5e1 100%, transparent),
+					radial-gradient(2px 2px at 500px 100px, #ffffff 100%, transparent);
+				animation: starTwinkle1 14s ease-in-out infinite alternate;
+			}
+
+			.stars-layer2 {
+				background-size: 700px 700px;
+				background-image: 
+					radial-gradient(2px 2px at 100px 250px, #f1f5f9 100%, transparent),
+					radial-gradient(1.5px 1.5px at 300px 150px, #ffffff 100%, transparent),
+					radial-gradient(2.5px 2.5px at 400px 600px, #ffffff 100%, transparent),
+					radial-gradient(1.5px 1.5px at 550px 350px, #e2e8f0 100%, transparent),
+					radial-gradient(2px 2px at 650px 200px, #ffffff 100%, transparent);
+				animation: starTwinkle2 20s ease-in-out infinite alternate;
+			}
+
+			.stars-layer3 {
+				background-size: 900px 900px;
+				background-image: 
+					radial-gradient(1.5px 1.5px at 150px 450px, #cbd5e1 100%, transparent),
+					radial-gradient(2px 2px at 350px 250px, #ffffff 100%, transparent),
+					radial-gradient(1.5px 1.5px at 550px 550px, #ffffff 100%, transparent),
+					radial-gradient(3px 3px at 750px 100px, #f8fafc 100%, transparent),
+					radial-gradient(2px 2px at 850px 400px, #ffffff 100%, transparent);
+				animation: starTwinkle3 28s ease-in-out infinite alternate;
+			}
+
+			/* CSS Comet / Shooting Star Elements */
+			.comet {
+				position: absolute;
+				top: -100px;
+				left: 20%;
+				width: 2px;
+				height: 100px;
+				background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0.9) 50%, rgba(168,85,247,0.3) 80%, rgba(255,255,255,0));
+				opacity: 0;
+				transform: rotate(-45deg);
+				pointer-events: none;
+				animation: shootComet 12s linear infinite;
+			}
+
+			.comet-2 {
+				position: absolute;
+				top: -100px;
+				left: 55%;
+				width: 2px;
+				height: 120px;
+				background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0.9) 50%, rgba(236,72,153,0.3) 80%, rgba(255,255,255,0));
+				opacity: 0;
+				transform: rotate(-45deg);
+				pointer-events: none;
+				animation: shootComet 18s linear infinite;
+				animation-delay: 5s;
+			}
+
+			.comet-3 {
+				position: absolute;
+				top: -100px;
+				left: 80%;
+				width: 1.5px;
+				height: 80px;
+				background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0.8) 50%, rgba(59,130,246,0.3) 80%, rgba(255,255,255,0));
+				opacity: 0;
+				transform: rotate(-45deg);
+				pointer-events: none;
+				animation: shootComet 15s linear infinite;
+				animation-delay: 8s;
+			}
+
+			@keyframes starTwinkle1 {
+				0% { opacity: 0.3; transform: scale(0.98); }
+				100% { opacity: 1; transform: scale(1.02); }
+			}
+			
+			@keyframes starTwinkle2 {
+				0% { opacity: 0.4; transform: scale(1.01); }
+				100% { opacity: 0.9; transform: scale(0.99); }
+			}
+
+			@keyframes starTwinkle3 {
+				0% { opacity: 0.35; transform: translate(0px, 0px); }
+				50% { opacity: 0.95; }
+				100% { opacity: 0.25; transform: translate(-6px, -10px); }
+			}
+
+			@keyframes shootComet {
+				0% { transform: translate(0, 0) rotate(-45deg); opacity: 0; }
+				2% { opacity: 0.9; }
+				12% { transform: translate(450px, 450px) rotate(-45deg); opacity: 0; }
+				100% { transform: translate(450px, 450px) rotate(-45deg); opacity: 0; }
 			}
 		</style>
 	</head>
-	<body class="min-h-screen flex flex-col bg-slate-950 text-slate-100 font-sans antialiased selection:bg-purple-500 selection:text-white bg-grid-pattern relative overflow-x-hidden">
+	<body class="min-h-screen flex flex-col bg-black text-slate-100 font-sans antialiased selection:bg-purple-500 selection:text-white relative overflow-x-hidden">
 		
+		<!-- Starfield Layer -->
+		<div class="stars-container">
+			<div class="stars-layer1"></div>
+			<div class="stars-layer2"></div>
+			<div class="stars-layer3"></div>
+			<div class="comet"></div>
+			<div class="comet-2"></div>
+			<div class="comet-3"></div>
+		</div>
+
 		<!-- Ambient Background Glow Orbs -->
 		<div class="fixed top-0 left-1/4 w-[600px] h-[600px] bg-purple-600/10 rounded-full blur-[120px] pointer-events-none -z-10 animate-pulse-slow"></div>
 		<div class="fixed bottom-0 right-1/4 w-[500px] h-[500px] bg-amber-500/10 rounded-full blur-[120px] pointer-events-none -z-10 animate-pulse-slow"></div>
 
 		<!-- Sticky Glassmorphism Header with Full Navigation -->
-		<header class="sticky top-0 z-50 backdrop-blur-xl bg-slate-950/80 border-b border-purple-900/30 shadow-lg shadow-purple-950/20">
-			<div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+		<header class="sticky top-0 z-50 backdrop-blur-xl bg-black/80 border-b border-purple-900/30 shadow-lg shadow-purple-950/20 transition-colors">
+			<div class="max-w-[1600px] mx-auto px-6 h-20 flex items-center justify-between">
 				
 				<!-- Brand Logo -->
 				<a href="/" class="flex items-center space-x-3 group">
@@ -82,7 +214,7 @@ const { title } = Astro.props;
 						COSMOS
 					</span>
 					<span class="text-[10px] px-3 py-0.5 bg-purple-950/90 border border-purple-700/50 rounded-full text-purple-300 font-mono hidden sm:inline-block tracking-wide shadow-[0_0_12px_rgba(168,85,247,0.2)]">
-						Level 1 Fold 1 &bull; Level 15 Fold 15
+						The Levels and The Folds
 					</span>
 				</a>
 
@@ -97,11 +229,20 @@ const { title } = Astro.props;
 					<a href="/patreon" class="hover:text-emerald-400 transition hover:scale-105">Patreon</a>
 				</nav>
 
-				<!-- Patreon CTA Button -->
-				<a href="https://www.patreon.com/c/wackyciscorecords/" target="_blank" class="font-mono text-xs font-bold uppercase tracking-wider bg-gradient-to-r from-purple-600 via-pink-600 to-amber-500 hover:from-purple-500 hover:to-amber-400 text-white px-5 py-2.5 rounded-full shadow-lg shadow-purple-950/50 transition hover:scale-105 border border-purple-400/30 flex items-center gap-2">
-					<span>Join Vault</span>
-					<span class="text-amber-300">&rarr;</span>
-				</a>
+				<!-- Action Controls: Cosmic Dark Badge & Patreon CTA -->
+				<div class="flex items-center gap-3">
+					<!-- Cosmic Sovereign Status Badge -->
+					<div class="px-3 py-1.5 rounded-full bg-purple-950/80 border border-purple-700/60 text-purple-300 transition shadow-md flex items-center gap-2 font-mono text-[11px] font-bold shadow-[0_0_15px_rgba(147,51,234,0.2)]">
+						<span class="w-2 h-2 rounded-full bg-purple-400 animate-pulse"></span>
+						<span>COSMIC DARK</span>
+					</div>
+
+					<!-- Patreon CTA Button -->
+					<a href="https://www.patreon.com/c/wackyciscorecords/" target="_blank" class="font-mono text-xs font-bold uppercase tracking-wider bg-gradient-to-r from-purple-600 via-pink-600 to-amber-500 hover:from-purple-500 hover:to-amber-400 text-white px-5 py-2.5 rounded-full shadow-lg shadow-purple-950/50 transition hover:scale-105 border border-purple-400/30 flex items-center gap-2">
+						<span>Join Vault</span>
+						<span class="text-amber-300">&rarr;</span>
+					</a>
+				</div>
 			</div>
 		</header>
 
@@ -111,7 +252,7 @@ const { title } = Astro.props;
 		</main>
 
 		<!-- Global Footer -->
-		<footer class="py-12 border-t border-slate-900 bg-slate-950/80 text-center text-xs font-mono text-slate-500">
+		<footer class="py-12 border-t border-slate-900 bg-black/80 text-center text-xs font-mono text-slate-500">
 			<p class="tracking-wider">&copy; 2026 The Cosmos Ecosystem. Built for Francisco de Leon (Wacky).</p>
 			<p class="text-[10px] text-slate-600 mt-1">All Levels & Folds Exist Simultaneously across 300,000 Years.</p>
 		</footer>

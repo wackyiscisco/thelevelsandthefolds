@@ -1,11 +1,14 @@
 ---
+
 title: "Let Me In (Knock, Knock)"
 artist: "Pandora Raven"
 album: "Album 3: Pandora's Box of Little Horrors"
 levelFold: "Level 1 Fold 1"
 featured: false
-coverImage: "/images/albums/pandora-raven/pandoras-box.jpg"
+coverImage: "/images/albums/pandora-raven/Pandora's Box of Little Horrors.jpg"
+trackNumber: 7
 quote: "I am not asking for a key... I am telling you the door is already opening."
+
 ---
 
 [Sound: Slow, heavy knock on wood... Knock. Knock. Knock.]

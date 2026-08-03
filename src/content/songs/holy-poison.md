@@ -1,11 +1,14 @@
 ---
+
 title: "Holy Poison"
 artist: "Pandora Raven"
 album: "Album 3: Pandora's Box of Little Horrors"
 levelFold: "Level 1 Fold 1"
 featured: false
-coverImage: "/images/albums/pandora-raven/pandoras-box.jpg"
+coverImage: "/images/albums/pandora-raven/Pandora's Box of Little Horrors.jpg"
 quote: "Drink from the chalice... it's blessed with ruin."
+trackNumber: 9
+
 ---
 
 ### Verse 1

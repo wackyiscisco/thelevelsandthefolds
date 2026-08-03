@@ -1,12 +1,14 @@
 ---
+
 title: "Path To Salvation"
 artist: "Pandora Raven"
 album: "Album 5.5: The Raven's Light"
 levelFold: "Level 1 Fold 1"
 featured: true
-coverImage: "/images/albums/pandora-raven/the-ravens-light.jpg"
+coverImage: "/images/albums/pandora-raven/The Raven's Light.jpg"
 trackNumber: 2
 quote: "One thing at a time. One breath, one memory."
+
 ---
 
 [Verse 1 - violin and piano, sparse, walking tempo]

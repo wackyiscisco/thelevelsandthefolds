@@ -1,11 +1,14 @@
 ---
+
 title: "The Priest"
 artist: "Pandora Raven"
 album: "Album 4: Sede Vacante"
 levelFold: "Level 1 Fold 1"
 featured: false
-coverImage: "/images/albums/pandora-raven/sede-vacante.jpg"
+coverImage: "/images/albums/pandora-raven/Sede Vacante.jpg"
 quote: "The Raven and the Dawn -- The Dark and the Light -- The Beginning and The End."
+trackNumber: 10
+
 ---
 
 [Intro - quiet, alone]

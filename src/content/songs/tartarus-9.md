@@ -1,11 +1,14 @@
 ---
+
 title: "Tartarus 9"
 artist: "Pandora Raven"
 album: "Album 2: Corrupted"
 levelFold: "Level 1 Fold 1"
 featured: false
-coverImage: "/images/albums/pandora-raven/corrupted.jpg"
+coverImage: "/images/albums/pandora-raven/Corrupted.jpg"
 quote: "Descending into the place where even the shadows are afraid to breathe."
+trackNumber: 9
+
 ---
 
 ### Verse 1

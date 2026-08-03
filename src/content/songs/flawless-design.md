@@ -1,11 +1,14 @@
 ---
+
 title: "Flawless Design"
 artist: "Pandora Raven"
 album: "Album 4: Sede Vacante"
 levelFold: "Level 1 Fold 1"
 featured: false
-coverImage: "/images/albums/pandora-raven/sede-vacante.jpg"
+coverImage: "/images/albums/pandora-raven/Sede Vacante.jpg"
 quote: "Seek no mercy in the crimson line I designed."
+trackNumber: 8
+
 ---
 
 [Intro — cold, certain]

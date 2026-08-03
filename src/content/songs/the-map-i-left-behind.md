@@ -1,12 +1,14 @@
 ---
+
 title: "The Map I Left Behind"
 artist: "Pandora Raven"
 album: "Album 6.5: The Raven's Shadow"
 levelFold: "Level 1 Fold 1"
 featured: true
-coverImage: "/images/albums/pandora-raven/the-ravens-shadow.jpg"
+coverImage: "/images/albums/pandora-raven/The Raven's Shadow.jpg"
 trackNumber: 1
 quote: "Please let the map be enough to turn her back."
+
 ---
 
 [Intro — the sound of waking up, stone floor, total silence]

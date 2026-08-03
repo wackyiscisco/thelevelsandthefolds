@@ -1,11 +1,14 @@
 ---
+
 title: "Corrupted"
 artist: "Pandora Raven"
 album: "Album 2: Corrupted"
 levelFold: "Level 1 Fold 1"
 featured: true
-coverImage: "/images/albums/pandora-raven/corrupted.jpg"
+coverImage: "/images/albums/pandora-raven/Corrupted.jpg"
 quote: "You call it corruption... I call it clarity."
+trackNumber: 6
+
 ---
 
 ### Verse 1

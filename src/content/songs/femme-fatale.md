@@ -1,11 +1,14 @@
 ---
+
 title: "Femme Fatale"
 artist: "Pandora Raven"
 album: "Album 3: Pandora's Box of Little Horrors"
 levelFold: "Level 1 Fold 1"
 featured: false
-coverImage: "/images/albums/pandora-raven/pandoras-box.jpg"
+coverImage: "/images/albums/pandora-raven/Pandora's Box of Little Horrors.jpg"
 quote: "She doesn't collect the willing. She collects the ones who tried to leave."
+trackNumber: 3
+
 ---
 
 ### Verse 1

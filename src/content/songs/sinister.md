@@ -1,4 +1,5 @@
 ---
+
 title: "Sinister"
 artist: "Pandora Raven"
 album: "Album 1: Wicked"
@@ -7,6 +8,7 @@ featured: true
 coverImage: "/images/albums/pandora-raven/Wicked.jpg"
 trackNumber: 1
 quote: "They needed a villain. So they made one."
+
 ---
 
 [spoken, barely a whisper]

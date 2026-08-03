@@ -1,11 +1,14 @@
 ---
+
 title: "Dark Trinity"
 artist: "Pandora Raven"
 album: "Album 2: Corrupted"
 levelFold: "Level 1 Fold 1"
 featured: false
-coverImage: "/images/albums/pandora-raven/corrupted.jpg"
+coverImage: "/images/albums/pandora-raven/Corrupted.jpg"
 quote: "The darkest part isn't what they did... it's that they were rewarded for it."
+trackNumber: 1
+
 ---
 
 ### Verse 1 — Narcissism

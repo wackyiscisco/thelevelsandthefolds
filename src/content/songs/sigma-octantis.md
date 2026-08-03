@@ -1,4 +1,5 @@
 ---
+
 title: "Sigma Octantis"
 artist: "Pandora Raven"
 album: "Album 6.5: The Raven's Shadow"
@@ -7,6 +8,7 @@ levelFold: "Level 1 Fold 1"
 featured: false
 coverImage: "/images/albums/pandora-raven/The Raven's Shadow.jpg"
 quote: "Sigma Octantis — the anchor of the south, the seal that holds the darkness at the bottom of creation."
+
 ---
 
 [Verse 1]

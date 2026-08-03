@@ -1,11 +1,14 @@
 ---
+
 title: "A World Without Witness"
 artist: "Pandora Raven"
 album: "Album 4: Sede Vacante"
 levelFold: "Level 1 Fold 1"
 featured: false
-coverImage: "/images/albums/pandora-raven/sede-vacante.jpg"
+coverImage: "/images/albums/pandora-raven/Sede Vacante.jpg"
 quote: "What is power... without a name to carry it?"
+trackNumber: 3
+
 ---
 
 [Intro — distant, almost hollow]

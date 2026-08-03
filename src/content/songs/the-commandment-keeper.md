@@ -1,12 +1,14 @@
 ---
+
 title: "The Commandment Keeper"
 artist: "Pandora Raven"
 album: "Album 6.5: The Raven's Shadow"
 levelFold: "Level 1 Fold 1"
 featured: true
-coverImage: "/images/albums/pandora-raven/the-ravens-shadow.jpg"
+coverImage: "/images/albums/pandora-raven/The Raven's Shadow.jpg"
 trackNumber: 3
 quote: "And the commandments he carries are not the only ones."
+
 ---
 
 [Intro — footsteps stop outside the door. She is still.]
@@ -173,4 +175,4 @@ And something inside me
 That had been silent for a very long time
 
 Said —
-Good. 
+Good.

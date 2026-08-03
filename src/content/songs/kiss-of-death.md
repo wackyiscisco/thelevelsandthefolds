@@ -1,11 +1,14 @@
 ---
+
 title: "Kiss of Death"
 artist: "Pandora Raven"
 album: "Album 3: Pandora's Box of Little Horrors"
 levelFold: "Level 1 Fold 1"
 featured: false
-coverImage: "/images/albums/pandora-raven/pandoras-box.jpg"
+coverImage: "/images/albums/pandora-raven/Pandora's Box of Little Horrors.jpg"
 quote: "The last mistake you'll ever make... and you'll thank me for it."
+trackNumber: 2
+
 ---
 
 [Sound: Kiss]

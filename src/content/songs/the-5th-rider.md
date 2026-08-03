@@ -1,11 +1,14 @@
 ---
+
 title: "The 5th Rider"
 artist: "Pandora Raven"
 album: "Album 2: Corrupted"
 levelFold: "Level 1 Fold 1"
 featured: true
-coverImage: "/images/albums/pandora-raven/corrupted.jpg"
+coverImage: "/images/albums/pandora-raven/Corrupted.jpg"
 quote: "Four rode before me... but the Fifth brings the end."
+trackNumber: 12
+
 ---
 
 [Distant galloping hooves echoing in thunder, dark apocalyptic orchestra]

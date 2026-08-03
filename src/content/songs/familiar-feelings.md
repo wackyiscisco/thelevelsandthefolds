@@ -1,12 +1,14 @@
 ---
+
 title: "Familiar Feelings"
 artist: "Pandora Raven"
 album: "Album 6.5: The Raven's Shadow"
 levelFold: "Level 1 Fold 1"
 featured: true
-coverImage: "/images/albums/pandora-raven/the-ravens-shadow.jpg"
+coverImage: "/images/albums/pandora-raven/The Raven's Shadow.jpg"
 trackNumber: 2
 quote: "These familiar feelings will be unfamiliar this time."
+
 ---
 
 [Intro — footsteps, stone floor, she is walking the room]
@@ -152,4 +154,4 @@ He will understand
 The difference of then and now
 The Raven will fly - 
 
-And these familiar feelings will be unfamiliar this time - 
+And these familiar feelings will be unfamiliar this time -

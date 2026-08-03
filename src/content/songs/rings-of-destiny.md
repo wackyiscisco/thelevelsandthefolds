@@ -1,4 +1,5 @@
 ---
+
 title: "Rings of Destiny"
 artist: "Pandora Raven"
 album: "Album 7.5: The Spirit of the Raven Twins"
@@ -6,7 +7,8 @@ levelFold: "Level 1 Fold 1"
 featured: false
 coverImage: "/images/albums/pandora-raven/The Spirit of the Raven Twins.jpg"
 trackNumber: 8
-quote: ""
+quote: "But there is a chapel in my head"
+
 ---
 
 [Verse 1]

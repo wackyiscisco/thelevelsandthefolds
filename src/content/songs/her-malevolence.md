@@ -1,11 +1,14 @@
 ---
+
 title: "Her Malevolence"
 artist: "Pandora Raven"
 album: "Album 3: Pandora's Box of Little Horrors"
 levelFold: "Level 1 Fold 1"
 featured: true
-coverImage: "/images/albums/pandora-raven/pandoras-box.jpg"
+coverImage: "/images/albums/pandora-raven/Pandora's Box of Little Horrors.jpg"
 quote: "She is not the villain you constructed... She is the one that you chose."
+trackNumber: 1
+
 ---
 
 ### Verse 1

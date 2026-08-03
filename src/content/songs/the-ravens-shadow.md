@@ -1,12 +1,14 @@
 ---
+
 title: "The Raven's Shadow"
 artist: "Pandora Raven"
 album: "Album 6.5: The Raven's Shadow"
 levelFold: "Level 1 Fold 1"
 featured: true
-coverImage: "/images/albums/pandora-raven/the-ravens-shadow.jpg"
+coverImage: "/images/albums/pandora-raven/The Raven's Shadow.jpg"
 trackNumber: 6
 quote: "The shadow of the raven at the break of dawn is the closest thing to light from where I stand."
+
 ---
 
 [Verse 1]

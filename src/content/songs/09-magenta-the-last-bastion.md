@@ -1,4 +1,5 @@
 ---
+
 title: "Magenta (The Last Bastion)"
 artist: "Pandora Raven"
 album: "Album 8: Pandora Raven"
@@ -7,6 +8,7 @@ featured: false
 coverImage: "/images/albums/pandora-raven/Pandora Raven.jpg"
 trackNumber: 9
 quote: "The last bastion — the last warmth left alive."
+
 ---
 
 [Intro — the castle, nearly empty, stars above]

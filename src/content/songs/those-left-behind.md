@@ -1,11 +1,14 @@
 ---
+
 title: "Those Left Behind"
 artist: "Pandora Raven"
 album: "Album 5.5: The Raven's Light"
 levelFold: "Level 1 Fold 1"
 featured: true
-coverImage: "/images/albums/pandora-raven/the-ravens-light.jpg"
+coverImage: "/images/albums/pandora-raven/The Raven's Light.jpg"
 quote: "The ones I passed through like a storm... I owe them something."
+trackNumber: 7
+
 ---
 
 [Verse 1 - strings, close and intimate, walking through a town]

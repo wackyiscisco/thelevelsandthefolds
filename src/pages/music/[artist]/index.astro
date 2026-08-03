@@ -1,51 +1,52 @@
 ---
 import { getCollection } from 'astro:content';
+import Layout from '../../../layouts/Layout.astro';
+import cosmosData from '../../../data/cosmos.json';
 
 export async function getStaticPaths() {
-  const allSongs = await getCollection('songs');
-  const artistMap = new Map();
-
-  allSongs.forEach((song) => {
-    const artistSlug = song.data.artist ? song.data.artist.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '') : 'artist';
-    if (!artistMap.has(artistSlug)) {
-      artistMap.set(artistSlug, {
-        params: { artist: artistSlug },
-        props: { artistName: song.data.artist || 'Artist' },
-      });
-    }
-  });
-
-  return Array.from(artistMap.values());
+  return cosmosData.artists.map((artist) => ({
+    params: { artist: artist.id },
+    props: { artistData: artist },
+  }));
 }
 
 const { artist } = Astro.params;
-const { artistName } = Astro.props;
+const { artistData } = Astro.props;
+const { name: artistName, description, lineup, keyQuote, status, levelFold, spotify, youtube } = artistData;
 
-// Fetch all songs for this artist
+// Fetch all songs for this artist (matching them to their canonical ID)
 const allSongs = await getCollection('songs');
+
+const getArtistSlugFromSong = (artistName: string) => {
+  const name = String(artistName || '').toLowerCase().trim();
+  if (name.includes('crimson')) return 'crimson-sparks';
+  if (name.includes('maya')) return 'maya';
+  if (name.includes('guy')) return 'that-guy';
+  if (name.includes('pandora')) return 'pandora-raven';
+  if (name.includes('elara')) return 'elara-dawn';
+  if (name.includes('solara')) return 'solara';
+  if (name.includes('prima')) return 'prima-timo';
+  return 'artist';
+};
+
 const artistSongs = allSongs.filter((song) => {
-  const currentArtistSlug = song.data.artist ? song.data.artist.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '') : '';
-  return currentArtistSlug === artist;
+  return getArtistSlugFromSong(song.data.artist) === artist;
 });
 
 // Helper: normalize album names into stable slugs
-const normalizeAlbumSlug = (raw) => {
+const normalizeAlbumSlug = (raw: any) => {
   if (!raw) return 'album-unknown';
   let s = String(raw).toLowerCase();
-  // remove smart quotes/apostrophes
   s = s.replace(/['’]/g, '');
-  // strip leading 'album' word
   s = s.replace(/^\s*album\s*/i, '');
-  // strip leading numeric prefixes like "3.0", "3", "1.5", optionally followed by : - – —
   s = s.replace(/^\s*\d+(?:\.\d+)?\s*[:\-–—]?\s*/, '');
-  // now slugify remainder
   s = s.replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
-  // prefix for consistency
   return `album-${s}`;
 };
 
-// Group songs by album and robustly locate cover images & track counts
-const albumMap = new Map();
+// Group songs by album
+const albumMap = new Map<string, { albumName: string; albumSlug: string; coverImage: string | null; trackCount: number }>();
+
 artistSongs.forEach((song) => {
   const albumName = song.data.album || 'Unknown Album';
   const albumSlug = normalizeAlbumSlug(albumName);
@@ -59,10 +60,9 @@ artistSongs.forEach((song) => {
     });
   }
 
-  const albumData = albumMap.get(albumSlug);
+  const albumData = albumMap.get(albumSlug)!;
   albumData.trackCount++;
-  
-  // Robust image fallback: grab the first valid coverImage found across the album's songs
+
   if (song.data.coverImage && !albumData.coverImage) {
     albumData.coverImage = song.data.coverImage;
   }
@@ -70,7 +70,7 @@ artistSongs.forEach((song) => {
 
 const albums = Array.from(albumMap.values());
 
-// Canonical album ordering: use normalized keys that match normalizeAlbumSlug output
+// Canonical album ordering list
 const preferredOrder = [
   'album-wicked',
   'album-corrupted',
@@ -80,95 +80,1534 @@ const preferredOrder = [
   'album-the-ravens-shadow',
   'album-the-spirit-of-the-raven-twins',
   'album-pandora-raven',
+  // Elara Dawn
+  'album-mercy',
+  // Maya
+  'album-preflight',
+  // That Guy
+  'album-saevit-animo',
+  // Prima & Timo
+  'album-prima-ver-1-0-unus',
+  'album-timo-ver-2-0-centum',
+  'album-prima-ver-3-0-duo',
+  'album-timo-ver-4-0-nonaginta-novem',
+  'album-prima-ver-5-0-tria',
+  'album-timo-ver-6-0-nonaginta-octo',
+  'album-prima-ver-7-0-quattuor',
 ];
 
 albums.sort((a, b) => {
   const iA = preferredOrder.indexOf(a.albumSlug);
   const iB = preferredOrder.indexOf(b.albumSlug);
-
-  if (iA === -1 && iB === -1) {
-    // Neither album is in the preferred list: fall back to alphabetical by albumName
-    return a.albumName.localeCompare(b.albumName);
-  }
-  if (iA === -1) return 1; // a should come after b
-  if (iB === -1) return -1; // b should come after a
+  if (iA === -1 && iB === -1) return a.albumName.localeCompare(b.albumName);
+  if (iA === -1) return 1;
+  if (iB === -1) return -1;
   return iA - iB;
 });
+
+// Dynamic banner background image mapping per artist
+const getArtistBannerImage = (artistId: string) => {
+  if (artistId === 'pandora-raven') return '/images/artists/pandora-raven-banner.jpg';
+  return `/images/artists/${artistId}-banner.jpg`;
+};
+
+// Dynamic banner background image class alignment per artist
+const getArtistBannerImageClass = (artistId: string) => {
+  if (artistId === 'pandora-raven') return 'object-cover object-[center_40%] scale-100 opacity-80';
+  if (artistId === 'crimson-sparks') return 'object-cover object-center scale-100 opacity-85';
+  if (artistId === 'elara-dawn') return 'object-cover object-center scale-100 opacity-80';
+  if (artistId === 'maya') return 'object-cover object-[center_35%] scale-100 opacity-80';
+  if (artistId === 'that-guy') return 'object-cover object-[center_35%] scale-100 opacity-80';
+  if (artistId === 'solara') return 'object-cover object-[center_15%] scale-100 opacity-85';
+  if (artistId === 'prima-timo') return 'object-cover object-[center_35%] scale-100 opacity-80';
+  return 'object-cover object-[center_25%] opacity-70';
+};
+
+// Dynamic banner backgrounds matching faction themes
+const getFactionBanner = (artistId: string) => {
+  if (artistId === 'pandora-raven') return 'from-purple-950 via-slate-900 to-indigo-950';
+  if (artistId === 'elara-dawn') return 'from-amber-950/60 via-slate-900 to-yellow-950/40';
+  if (artistId === 'crimson-sparks') return 'from-rose-950 via-slate-900 to-zinc-900';
+  if (artistId === 'maya') return 'from-cyan-950 via-slate-900 to-indigo-950';
+  if (artistId === 'that-guy') return 'from-emerald-950 via-slate-900 to-stone-900';
+  if (artistId === 'prima-timo') return 'from-teal-950 via-slate-900 to-orange-950/40';
+  if (artistId === 'solara') return 'from-purple-950 via-slate-900 to-amber-950/40';
+  return 'from-slate-900 via-slate-900 to-slate-900';
+};
+
+// Profile avatar image mapping
+const getArtistAvatar = (artistId: string) => {
+  if (artistId === 'pandora-raven') return '/images/artists/pandora-box.jpg';
+  if (artistId === 'elara-dawn') return '/images/artists/elara-box.jpg';
+  if (artistId === 'crimson-sparks') return '/images/artists/the-crimson-sparks.jpg';
+  if (artistId === 'prima-timo') return '/images/artists/prime-and-timo.jpg';
+  if (artistId === 'solara') return '/images/artists/Solara.jpg';
+  return `/images/artists/${artistId}.jpg`;
+};
+
+// Dynamic styling configuration per artist faction
+const getFactionClasses = (artistId: string) => {
+  switch (artistId) {
+    case 'pandora-raven':
+      return {
+        activeTab: 'bg-purple-900/60 text-purple-200 border-purple-500 shadow-purple-900/20',
+        panelBg: 'bg-purple-950/20 border-purple-900/30',
+        accentGlow: 'bg-purple-500/5',
+        themeBorder: 'border-purple-900/40',
+        textGlow: 'text-purple-300 drop-shadow-[0_0_10px_rgba(168,85,247,0.3)]',
+        accentColor: 'purple'
+      };
+    case 'elara-dawn':
+      return {
+        activeTab: 'bg-amber-900/60 text-amber-200 border-amber-500 shadow-amber-900/20',
+        panelBg: 'bg-amber-950/10 border-amber-900/30',
+        accentGlow: 'bg-amber-500/5',
+        themeBorder: 'border-amber-900/40',
+        textGlow: 'text-amber-300 drop-shadow-[0_0_10px_rgba(245,158,11,0.3)]',
+        accentColor: 'amber'
+      };
+    case 'crimson-sparks':
+      return {
+        activeTab: 'bg-red-900/60 text-red-200 border-red-500 shadow-red-900/20',
+        panelBg: 'bg-slate-900/60 border-slate-800/80',
+        accentGlow: 'bg-red-500/5',
+        themeBorder: 'border-slate-800',
+        textGlow: 'text-red-400',
+        accentColor: 'red'
+      };
+    case 'maya':
+      return {
+        activeTab: 'bg-cyan-900/60 text-cyan-200 border-cyan-500 shadow-cyan-900/20',
+        panelBg: 'bg-slate-900/40 border-cyan-950/30 backdrop-blur-md',
+        accentGlow: 'bg-cyan-500/5',
+        themeBorder: 'border-cyan-950/40',
+        textGlow: 'text-cyan-400 drop-shadow-[0_0_10px_rgba(34,211,238,0.3)]',
+        accentColor: 'cyan'
+      };
+    case 'that-guy':
+      return {
+        activeTab: 'bg-emerald-950 text-emerald-300 border-emerald-500 shadow-emerald-950/40',
+        panelBg: 'bg-slate-950/80 border-emerald-950/40 font-mono',
+        accentGlow: 'bg-emerald-500/5',
+        themeBorder: 'border-emerald-950/30',
+        textGlow: 'text-emerald-400',
+        accentColor: 'emerald'
+      };
+    case 'prima-timo':
+      return {
+        activeTab: 'bg-teal-900/50 text-teal-200 border-teal-500 shadow-teal-900/20',
+        panelBg: 'bg-slate-900/50 border-orange-950/30',
+        accentGlow: 'bg-teal-500/5',
+        themeBorder: 'border-orange-950/20',
+        textGlow: 'text-teal-400',
+        accentColor: 'teal'
+      };
+    case 'solara':
+      return {
+        activeTab: 'bg-indigo-900/50 text-indigo-200 border-indigo-500 shadow-indigo-900/20',
+        panelBg: 'bg-slate-900/40 border-indigo-900/30',
+        accentGlow: 'bg-indigo-500/5',
+        themeBorder: 'border-indigo-900/30',
+        textGlow: 'text-indigo-400 drop-shadow-[0_0_10px_rgba(99,102,241,0.3)]',
+        accentColor: 'indigo'
+      };
+    default:
+      return {
+        activeTab: 'bg-purple-900/60 text-purple-200 border-purple-500 shadow-purple-900/20',
+        panelBg: 'bg-slate-900/40 border-slate-800',
+        accentGlow: 'bg-purple-500/5',
+        themeBorder: 'border-slate-800',
+        textGlow: 'text-purple-400',
+        accentColor: 'purple'
+      };
+  }
+};
+
+const fx = getFactionClasses(artist);
 ---
 
-<!DOCTYPE html>
-<html lang="en" class="bg-slate-950 text-slate-100 min-h-screen">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{artistName} — Official Discography | The Cosmos</title>
-  </head>
-  <body class="bg-slate-950 text-slate-100 font-sans antialiased selection:bg-purple-500 selection:text-white">
+<Layout title={`${artistName} | Official Space`}>
+  <main class="w-full max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-10 py-6 sm:py-10">
     
-    <!-- Navigation Header -->
-    <header class="border-b border-purple-900/30 bg-slate-950/80 backdrop-blur sticky top-0 z-50">
-      <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-        <a href="/" class="text-2xl font-black tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-400 to-amber-300">
-          COSMOS
-        </a>
-        <nav class="hidden md:flex items-center gap-6 text-sm font-medium tracking-wide text-slate-300">
-          <a href="/" class="hover:text-purple-400 transition-colors">HOME</a>
-          <a href="/music" class="hover:text-purple-400 transition-colors text-purple-400">MUSIC</a>
-        </nav>
-      </div>
-    </header>
+    <!-- Navigation Back Link Bar (Sticky Top Sub-Header Bar) -->
+    <div class="sticky top-[80px] z-40 -mx-4 sm:-mx-6 lg:-mx-10 px-4 sm:px-6 lg:px-10 py-3.5 mb-6 bg-black/85 backdrop-blur-xl border-b border-purple-900/40 shadow-2xl flex items-center justify-between transition-all">
+      <a href="/artists" class="px-5 py-2.5 rounded-xl text-xs uppercase tracking-wider font-mono font-extrabold bg-purple-950/95 text-purple-200 border-2 border-purple-500/60 hover:bg-purple-900 hover:text-white transition-all shadow-xl hover:shadow-purple-900/60 hover:scale-105 flex items-center gap-2.5">
+        <span class="text-purple-400 font-bold text-sm">&larr;</span>
+        <span>Back to Roster</span>
+      </a>
+      <span class="text-[11px] font-mono text-purple-300/90 uppercase px-3.5 py-1.5 rounded-full bg-purple-950/80 border border-purple-700/50 backdrop-blur-md shadow-md">
+        Cosmos Node :: {artist.replace('-', '_').toUpperCase()}
+      </span>
+    </div>
 
-    <main class="max-w-7xl mx-auto px-6 py-12 space-y-12">
-      <div class="space-y-4">
-        <span class="px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider bg-purple-950/80 text-purple-300 border border-purple-700/40">
-          Official Canonical Discography
-        </span>
-        <h1 class="text-4xl md:text-6xl font-black tracking-tight text-slate-50">
-          {artistName}
-        </h1>
-        <p class="text-slate-400 max-w-xl text-sm leading-relaxed">
-          {albums.length} Canonical Releases arranged in timeline sequence. Click any album card to explore official tracklists and lyric archives.
-        </p>
+    <!-- Cinematic Header Banner (Centered & Open) -->
+    <div class={`relative w-full rounded-3xl overflow-hidden bg-slate-950 border border-purple-900/30 shadow-2xl h-80 sm:h-96 flex items-center justify-center p-6 md:p-10 mb-8 group text-center`}>
+      <!-- Banner Image (pandora_raven_36.jpg placeholder) -->
+      <img 
+        src={getArtistBannerImage(artist)} 
+        alt="" 
+        class={`absolute inset-0 w-full h-full ${getArtistBannerImageClass(artist)} group-hover:scale-105 transition-all duration-700 z-0`} 
+        onerror="this.style.display='none'"
+      />
+      <!-- Gradient Overlays for Centered Readability -->
+      <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent z-10"></div>
+      <div class="absolute inset-0 bg-radial from-transparent via-black/40 to-black/80 z-10"></div>
+      
+      <!-- Glowing atmospheric orb -->
+      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-purple-500/15 rounded-full blur-[100px] pointer-events-none z-0"></div>
+
+      <!-- Centered Artist Info Overlay -->
+      <div class="relative z-20 flex flex-col items-center justify-center text-center space-y-4 max-w-2xl mx-auto">
+        <!-- Circular Profile Avatar -->
+        <img 
+          src={getArtistAvatar(artist)} 
+          alt={artistName}
+          class="w-24 h-24 sm:w-28 sm:h-28 rounded-full border-4 border-purple-500/40 shadow-[0_0_30px_rgba(168,85,247,0.4)] object-cover bg-slate-900 flex-shrink-0"
+        />
+        <div class="space-y-2">
+          <div class="flex flex-wrap items-center justify-center gap-2">
+            <span class="px-3 py-0.5 rounded-full text-[10px] font-semibold uppercase tracking-wider bg-purple-950/90 text-purple-300 border border-purple-800/50 font-mono shadow-md">
+              {levelFold}
+            </span>
+            <span class="px-3 py-0.5 rounded-full text-[10px] font-semibold uppercase tracking-wider bg-slate-900/90 text-slate-300 border border-slate-700/50 font-mono shadow-md">
+              {status}
+            </span>
+          </div>
+          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight text-white leading-tight font-orbitron drop-shadow-lg">
+            {artistName}
+          </h1>
+        </div>
+
+        <!-- Streaming links in centered header -->
+        <div class="flex flex-wrap items-center justify-center gap-3 z-30 pt-1">
+          {spotify && (
+            <a href={spotify} target="_blank" class="bg-emerald-600/90 hover:bg-emerald-500 text-white text-xs font-bold px-5 py-2.5 rounded-xl transition shadow-lg flex items-center gap-1.5 border border-emerald-500/30 hover:scale-105">
+              <span>Spotify</span> &rarr;
+            </a>
+          )}
+          {youtube && (
+            <a href={youtube} target="_blank" class="bg-red-600/90 hover:bg-red-500 text-white text-xs font-bold px-5 py-2.5 rounded-xl transition shadow-lg flex items-center gap-1.5 border border-red-500/30 hover:scale-105">
+              <span>YouTube</span> &rarr;
+            </a>
+          )}
+        </div>
+      </div>
+    </div>
+
+    <!-- Dossier Sub-Navigation Tabs -->
+    <div class="flex items-center justify-start gap-1 overflow-x-auto scrollbar-none py-1 border-b border-slate-900 mb-8 font-mono text-[11px] uppercase tracking-wider">
+      <button 
+        data-tab="releases" 
+        class={`px-4 py-2 rounded-xl font-bold border border-transparent transition-all shadow-md active-tab ${fx.activeTab}`}
+      >
+        💽 Releases
+      </button>
+      <button 
+        data-tab="profile" 
+        class="px-4 py-2 rounded-xl font-bold border border-transparent text-slate-400 hover:text-slate-200 transition-all"
+      >
+        📑 Profile Sheet
+      </button>
+      <button 
+        data-tab="history" 
+        class="px-4 py-2 rounded-xl font-bold border border-transparent text-slate-400 hover:text-slate-200 transition-all"
+      >
+        📜 History & Lore
+      </button>
+      <button 
+        data-tab="media" 
+        class="px-4 py-2 rounded-xl font-bold border border-transparent text-slate-400 hover:text-slate-200 transition-all"
+      >
+        🎬 Media & BTS
+      </button>
+    </div>
+
+    <!-- TAB PANEL: RELEASES (SCATTERED VINYL LP RECORDS) -->
+    <div data-panel="releases" class="space-y-12">
+      
+      <!-- Top Overview Bar & Key Quote -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        <div class="lg:col-span-8 bg-slate-950/60 border border-purple-900/30 p-6 sm:p-8 rounded-3xl backdrop-blur-md space-y-3">
+          <span class="text-xs font-mono uppercase tracking-widest text-purple-400 font-semibold">Artist Overview</span>
+          <p class="text-sm sm:text-base text-slate-200 leading-relaxed font-light">
+            {description}
+          </p>
+        </div>
+
+        <div class="lg:col-span-4 bg-purple-950/20 border-l-4 border-purple-500/80 p-6 rounded-r-3xl italic text-purple-200 font-serif text-base sm:text-lg leading-relaxed shadow-lg">
+          "{keyQuote}"
+        </div>
       </div>
 
-      <!-- Fully Clickable Album Grid Cards -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {albums.map((album) => (
-          <a 
-            href={`/music/${artist}/${album.albumSlug}`}
-            class="group p-6 rounded-2xl bg-slate-900/60 border border-purple-900/40 backdrop-blur flex flex-col justify-between shadow-2xl hover:border-purple-500/80 hover:bg-slate-900/90 transi[...]"
-          >
-            <div class="space-y-4">
-              {album.coverImage ? (
-                <img 
-                  src={album.coverImage} 
-                  alt={album.albumName} 
-                  class="w-full h-72 object-cover rounded-xl shadow-lg border border-purple-500/20 group-hover:scale-[1.02] transition-transform duration-300"
-                />
-              ) : (
-                <div class="w-full h-72 bg-slate-800/80 rounded-xl flex items-center justify-center border border-purple-500/20 text-slate-500 font-mono text-xs">
-                  Cover Art Pending
+      <!-- Scattered Vinyl Record Spread (Canonically L-R 1 to N) -->
+      <div class="space-y-6 pt-2">
+        <div class="flex items-center justify-between border-b border-purple-900/30 pb-4">
+          <div>
+            <span class="text-xs font-mono uppercase tracking-widest text-purple-400 font-semibold">Canonical Discography</span>
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-white font-orbitron tracking-tight mt-1">Official LP Vinyl Releases</h2>
+          </div>
+          <span class="text-xs font-mono text-purple-300/80 px-3 py-1.5 rounded-full bg-purple-950/60 border border-purple-800/40 shadow-sm">
+            {albums.length} Vinyl LPs • Ordered L ➔ R
+          </span>
+        </div>
+
+        <!-- Scattered Vinyl Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-12 py-6 px-2">
+          {albums.map((album, idx) => {
+            // Organic tilt angles and subtle offsets for realistic scattered vinyl crate feel
+            const tilts = [
+              'rotate-[-3deg]',
+              'rotate-[3deg]',
+              'rotate-[-2deg]',
+              'rotate-[4deg]',
+              'rotate-[-4deg]',
+              'rotate-[2deg]',
+              'rotate-[-3deg]',
+              'rotate-[3deg]'
+            ];
+            const offsets = [
+              'translate-y-0',
+              'translate-y-2 sm:translate-y-4',
+              'translate-y-1',
+              'translate-y-3 sm:translate-y-5',
+              'translate-y-0',
+              'translate-y-3 sm:translate-y-4',
+              'translate-y-1',
+              'translate-y-2'
+            ];
+            const currentTilt = tilts[idx % tilts.length];
+            const currentOffset = offsets[idx % offsets.length];
+
+            return (
+              <a
+                href={`/music/${artist}/${album.albumSlug}`}
+                class={`group relative flex flex-col items-center text-center transition-transform duration-300 hover:z-40 cursor-pointer ${currentTilt} ${currentOffset}`}
+              >
+                <!-- Realistic Black LP Vinyl Disc sliding out from behind the sleeve -->
+                <div class="w-48 h-48 sm:w-56 sm:h-56 rounded-full bg-gradient-to-tr from-neutral-950 via-zinc-900 to-black border-4 border-zinc-800/80 shadow-2xl relative flex items-center justify-center -mb-28 group-hover:-translate-y-10 transition-transform duration-500 pointer-events-none z-0 overflow-hidden">
+                  
+                  <!-- Vinyl Grooves Lines -->
+                  <div class="absolute inset-2 rounded-full border border-zinc-800/60 pointer-events-none"></div>
+                  <div class="absolute inset-5 rounded-full border border-zinc-800/40 pointer-events-none"></div>
+                  <div class="absolute inset-9 rounded-full border border-zinc-800/40 pointer-events-none"></div>
+                  <div class="absolute inset-14 rounded-full border border-zinc-800/40 pointer-events-none"></div>
+                  <div class="absolute inset-20 rounded-full border border-zinc-800/30 pointer-events-none"></div>
+                  
+                  <!-- Vinyl Center Label Artwork -->
+                  <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full overflow-hidden border-2 border-amber-500/60 relative flex items-center justify-center shadow-lg bg-black">
+                    {album.coverImage ? (
+                      <img src={album.coverImage} alt="" class="w-full h-full object-cover" />
+                    ) : (
+                      <div class="w-full h-full bg-purple-950 flex items-center justify-center text-[10px] font-mono text-purple-300">LP</div>
+                    )}
+                    <!-- Center Spindle Hole -->
+                    <div class="w-3.5 h-3.5 rounded-full bg-slate-950 border border-slate-700 absolute inset-auto z-10 shadow-inner"></div>
+                  </div>
                 </div>
-              )}
-              <div class="space-y-2">
-                <span class="inline-block px-2.5 py-0.5 rounded-full text-[10px] font-mono uppercase bg-purple-950 text-purple-300 border border-purple-800/50">
-                  {album.trackCount} Tracks
-                </span>
-                <h3 class="text-xl font-bold text-slate-100 group-hover:text-purple-300 transition-colors">
-                  {album.albumName}
-                </h3>
-                <p class="text-xs text-slate-400">Canonical Release</p>
+
+                <!-- Vinyl Jacket Cover Sleeve -->
+                <div class="w-full max-w-[270px] aspect-square rounded-2xl overflow-hidden bg-slate-950 border border-purple-500/30 shadow-2xl group-hover:shadow-[0_0_40px_rgba(168,85,247,0.45)] group-hover:border-purple-400/90 group-hover:scale-[1.03] transition-all duration-300 relative z-10">
+                  
+                  <!-- Album Cover Image -->
+                  {album.coverImage ? (
+                    <img
+                      src={album.coverImage}
+                      alt={album.albumName}
+                      class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                  ) : (
+                    <div class="w-full h-full bg-slate-900/90 flex items-center justify-center text-slate-500 font-mono text-xs">
+                      Cover Pending
+                    </div>
+                  )}
+
+                  <!-- Glossy Vinyl Sheen Gradient Overlay -->
+                  <div class="absolute inset-0 bg-gradient-to-tr from-transparent via-white/10 to-transparent pointer-events-none opacity-40 group-hover:opacity-80 transition-opacity"></div>
+
+                  <!-- Album Number & Track Count Badge -->
+                  <div class="absolute top-3 left-3 right-3 flex items-center justify-between pointer-events-none">
+                    <span class="px-2.5 py-1 rounded-full text-[10px] font-mono font-bold bg-slate-950/85 text-purple-200 border border-purple-500/40 backdrop-blur-md shadow-md">
+                      {album.albumName.startsWith('Album') ? album.albumName.split(':')[0] : (album.albumName.startsWith('(') ? album.albumName.split(')')[0] + ')' : `LP ${idx + 1}`)}
+                    </span>
+                    <span class="px-2 py-0.5 rounded-full text-[9px] font-mono bg-purple-950/90 text-purple-300 border border-purple-800/40 backdrop-blur-md">
+                      {album.trackCount} Tracks
+                    </span>
+                  </div>
+
+                  <!-- Bottom Title & Hover Prompt -->
+                  <div class="absolute inset-x-0 bottom-0 p-3.5 bg-gradient-to-t from-black via-black/85 to-transparent flex flex-col justify-end text-left">
+                    <h3 class="text-sm font-bold text-white group-hover:text-purple-300 transition-colors line-clamp-1">
+                      {album.albumName}
+                    </h3>
+                    <span class="text-[10px] font-mono text-purple-400 group-hover:text-pink-300 transition-colors flex items-center gap-1 mt-0.5">
+                      <span>Open Album & Tracklist</span>
+                      <span class="group-hover:translate-x-1 transition-transform">→</span>
+                    </span>
+                  </div>
+                </div>
+
+              </a>
+            );
+          })}
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB PANEL: PROFILE SHEET (CHARACTER DOSSIER) -->
+    <div data-panel="profile" class="hidden">
+      
+      <!-- PANDORA RAVEN: Official Master Character Sheet & Grimoire -->
+      {artist === 'pandora-raven' && (
+        <div class="space-y-12">
+          
+          <!-- Master Character Sheet Poster (Unconstrained Full Page View) -->
+          <div class="space-y-4">
+            
+            <!-- Clean Floating Control Header -->
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 px-1">
+              <div class="flex items-center gap-3">
+                <span class="w-2.5 h-2.5 rounded-full bg-purple-400 animate-pulse"></span>
+                <h3 class="text-xl font-extrabold font-orbitron text-purple-300 tracking-wide">Pandora Raven • Master Character Sheet</h3>
+              </div>
+              <div class="flex flex-wrap items-center gap-2">
+                <button 
+                  onclick="openSheetModal('/images/character-sheets/pandora_raven_character_sheet_master.jpg')"
+                  class="px-4 py-2.5 rounded-xl text-xs font-mono font-bold bg-purple-950/50 hover:bg-purple-900/70 border border-purple-700/40 text-purple-300 transition flex items-center justify-center gap-2"
+                >
+                  <span>🔍 4K Sheet</span>
+                </button>
+                <button 
+                  onclick="openSheetModal('/images/character-sheets/pandora_raven_companions_master.jpg')"
+                  class="px-5 py-2.5 rounded-xl text-xs font-mono font-bold bg-gradient-to-r from-purple-900 via-pink-900 to-purple-950 hover:from-purple-800 hover:to-pink-800 border border-purple-500/50 text-purple-100 transition flex items-center justify-center gap-2 shadow-lg hover:shadow-purple-900/50"
+                >
+                  <span>👥 The Purple Lineage - Pandora's Companions</span>
+                  <span class="text-amber-300">→</span>
+                </button>
               </div>
             </div>
-            
-            <div class="pt-6 mt-6 border-t border-purple-900/30 flex items-center justify-between">
-              <span class="text-xs font-mono font-semibold text-purple-400 group-hover:text-pink-400 flex items-center gap-1 transition-colors">
-                View Tracklist &rarr;
-              </span>
+
+            <!-- Borderless Full Page Poster Canvas (100% Sharp & Crystal Clear) -->
+            <div class="relative overflow-hidden rounded-2xl shadow-[0_0_60px_rgba(168,85,247,0.25)]">
+              <img 
+                src="/images/character-sheets/pandora_raven_character_sheet_master.jpg" 
+                alt="Pandora Raven Master Character Sheet" 
+                class="w-full h-auto object-contain rounded-2xl"
+              />
             </div>
-          </a>
-        ))}
+          </div>
+
+          <!-- Coded 3-Column Dossier Breakdown -->
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          
+          <!-- Column 1: Dark Form -->
+          <div class="bg-purple-950/15 border border-purple-900/30 p-8 rounded-2xl shadow-xl backdrop-blur-sm space-y-6">
+            <div class="border-b border-purple-900/40 pb-4 text-center">
+              <span class="text-[10px] uppercase font-mono tracking-widest text-purple-400">The Shadow Form</span>
+              <h3 class="text-2xl font-black font-orbitron text-purple-300 mt-1">Dark Pandora</h3>
+              <p class="text-xs italic text-slate-400 mt-1">"The darkness she was taught to be."</p>
+            </div>
+            
+            <div class="space-y-4">
+              <h4 class="text-xs font-bold uppercase tracking-widest text-slate-400 font-mono">Dark Abilities</h4>
+              <div class="space-y-3 font-mono text-xs text-slate-300 bg-slate-950/60 p-4 rounded-xl border border-purple-950/50">
+                <div><span class="text-purple-400 font-bold">01. Purple Gaze:</span> Mind-breaking stare that unravels will.</div>
+                <div><span class="text-purple-400 font-bold">02. Dark Mass:</span> Gravitational pull that crushes and corrupts.</div>
+                <div><span class="text-purple-400 font-bold">03. Mist of Ruination:</span> Corruptive mist that decays and blinds.</div>
+                <div><span class="text-purple-400 font-bold">04. String Theory:</span> Threads of chaos that bind, distort, and sever.</div>
+                <div><span class="text-purple-400 font-bold">05. Femme Fatale:</span> Allure as a weapon. Love turned to ruin.</div>
+                <div><span class="text-purple-400 font-bold">06. Kiss of Death:</span> A touch that steals life and silences the soul.</div>
+              </div>
+            </div>
+
+            <div class="space-y-2">
+              <h4 class="text-xs font-bold uppercase tracking-widest text-slate-400 font-mono">Aesthetic & Motifs</h4>
+              <div class="flex flex-wrap gap-2 text-[10px] font-mono">
+                <span class="px-2.5 py-1 bg-purple-950/40 border border-purple-900/30 text-purple-300 rounded-full">Gothic Cathedrals</span>
+                <span class="px-2.5 py-1 bg-purple-950/40 border border-purple-900/30 text-purple-300 rounded-full">Ancient Ruins</span>
+                <span class="px-2.5 py-1 bg-purple-950/40 border border-purple-900/30 text-purple-300 rounded-full">Ravens</span>
+                <span class="px-2.5 py-1 bg-purple-950/40 border border-purple-900/30 text-purple-300 rounded-full">Shadow Energy</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Column 2: Central Core Profile -->
+          <div class="bg-slate-900/50 border border-slate-800 p-8 rounded-2xl shadow-2xl space-y-6">
+            <div class="text-center space-y-3">
+              <img src="/images/artists/pandora-box.jpg" alt="Pandora Profile" class="w-32 h-32 rounded-full mx-auto border-4 border-purple-950 shadow-2xl object-cover" />
+              <div>
+                <h3 class="text-3xl font-black font-orbitron text-white">Pandora Raven</h3>
+                <p class="text-xs font-mono text-purple-400 uppercase mt-1">Light Twin &bull; Raised in Darkness</p>
+              </div>
+            </div>
+
+            <div class="space-y-3 border-t border-slate-800 pt-6">
+              <h4 class="text-xs font-bold uppercase tracking-widest text-slate-400 font-mono">Basic Information</h4>
+              <ul class="space-y-2 font-mono text-xs text-slate-300">
+                <li class="flex justify-between border-b border-slate-950 pb-1.5"><span>Age:</span> <span class="text-white">22-24 (Appears)</span></li>
+                <li class="flex justify-between border-b border-slate-950 pb-1.5"><span>Ethnicity:</span> <span class="text-white">Croatian Descent</span></li>
+                <li class="flex justify-between border-b border-slate-950 pb-1.5"><span>Height:</span> <span class="text-white">170 cm (5'7")</span></li>
+                <li class="flex justify-between border-b border-slate-950 pb-1.5"><span>Build:</span> <span class="text-white">Tall, Slender, Graceful</span></li>
+                <li class="flex justify-between border-b border-slate-950 pb-1.5"><span>Eyes (Dark):</span> <span class="text-purple-400">Purple</span></li>
+                <li class="flex justify-between border-b border-slate-950 pb-1.5"><span>Eyes (Light):</span> <span class="text-teal-300">Grey-Green</span></li>
+                <li class="flex justify-between"><span>Skin:</span> <span class="text-white">Porcelain Pale</span></li>
+              </ul>
+            </div>
+
+            <div class="space-y-2 border-t border-slate-800 pt-6 text-xs text-slate-300 leading-relaxed font-light">
+              <h4 class="text-xs font-bold uppercase tracking-widest text-slate-400 font-mono">Saga Brief</h4>
+              <p>Born the twin who carried light—warmth, the sun's half. Taken during wartime and raised as a weapon. Given a name that meant catastrophe. Taught that she was the darkness, and believed it. Over time, she transitions from a corrupted instrument to a self-aware force, eventually reclaiming her light.</p>
+            </div>
+          </div>
+
+          <!-- Column 3: Light Form -->
+          <div class="bg-teal-950/10 border border-teal-900/20 p-8 rounded-2xl shadow-xl backdrop-blur-sm space-y-6">
+            <div class="border-b border-teal-900/30 pb-4 text-center">
+              <span class="text-[10px] uppercase font-mono tracking-widest text-teal-400">The Purified Form</span>
+              <h3 class="text-2xl font-black font-orbitron text-teal-300 mt-1">Light Pandora</h3>
+              <p class="text-xs italic text-slate-400 mt-1">"The light she was born to be."</p>
+            </div>
+
+            <div class="space-y-4">
+              <h4 class="text-xs font-bold uppercase tracking-widest text-slate-400 font-mono">Light Abilities</h4>
+              <div class="space-y-3 font-mono text-xs text-slate-300 bg-slate-950/60 p-4 rounded-xl border border-teal-950/30">
+                <div><span class="text-teal-300 font-bold">01. Searing Gaze:</span> Blazing light that purifies and burns evil.</div>
+                <div><span class="text-teal-300 font-bold">02. Radiance Burst:</span> Explosive wave of holy radiance.</div>
+                <div><span class="text-teal-300 font-bold">03. Light Tether:</span> Tether of light that binds and protects.</div>
+                <div><span class="text-teal-300 font-bold">04. Purifying Touch:</span> Heals, cleanses, and removes corruption.</div>
+                <div><span class="text-teal-300 font-bold">05. Illuminate:</span> Reveals truth, hidden paths, and illusions.</div>
+                <div><span class="text-teal-300 font-bold">06. Soul Read:</span> Reads intentions and sees beyond the veil.</div>
+              </div>
+            </div>
+
+            <div class="space-y-2">
+              <h4 class="text-xs font-bold uppercase tracking-widest text-slate-400 font-mono">Aesthetic & Motifs</h4>
+              <div class="flex flex-wrap gap-2 text-[10px] font-mono">
+                <span class="px-2.5 py-1 bg-teal-950/30 border border-teal-900/20 text-teal-300 rounded-full">Sacred Cathedrals</span>
+                <span class="px-2.5 py-1 bg-teal-950/30 border border-teal-900/20 text-teal-300 rounded-full">Sunlight</span>
+                <span class="px-2.5 py-1 bg-teal-950/30 border border-teal-900/20 text-teal-300 rounded-full">Radiance</span>
+                <span class="px-2.5 py-1 bg-teal-950/30 border border-teal-900/20 text-teal-300 rounded-full">Holy Magic</span>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-    </main>
-  </body>
-</html>
+      )}
+
+      <!-- ELARA DAWN: Golden Tactical Command Deck & Master Sheet -->
+      {artist === 'elara-dawn' && (
+        <div class="space-y-12">
+          
+          <!-- Master Character Sheet Poster (Unconstrained Full Page View) -->
+          <div class="space-y-4">
+            
+            <!-- Clean Floating Control Header -->
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 px-1">
+              <div class="flex items-center gap-3">
+                <span class="w-2.5 h-2.5 rounded-full bg-amber-400 animate-pulse"></span>
+                <h3 class="text-xl font-extrabold font-orbitron text-amber-300 tracking-wide">Elara Dawn • Master Character Sheet</h3>
+              </div>
+              <div class="flex flex-wrap items-center gap-2">
+                <button 
+                  onclick="openSheetModal('/images/character-sheets/elara_dawn_character_sheet_master.png')"
+                  class="px-4 py-2.5 rounded-xl text-xs font-mono font-bold bg-amber-950/60 hover:bg-amber-900/80 border border-amber-700/40 text-amber-200 transition flex items-center justify-center gap-2 shadow-lg hover:shadow-amber-900/40"
+                >
+                  <span>🔍 4K Sheet</span>
+                </button>
+                <button 
+                  onclick="openSheetModal('/images/character-sheets/elara_dawn_circle_master.png')"
+                  class="px-5 py-2.5 rounded-xl text-xs font-mono font-bold bg-gradient-to-r from-red-900 via-rose-900 to-red-950 hover:from-red-800 hover:to-rose-800 border border-red-500/50 text-red-100 transition flex items-center justify-center gap-2 shadow-lg hover:shadow-red-900/50"
+                >
+                  <span>👥 The Red Lineage - Elara's Circle</span>
+                  <span class="text-rose-300">→</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Borderless Full Page Poster Canvas (100% Sharp & Crystal Clear) -->
+            <div class="relative overflow-hidden rounded-2xl shadow-[0_0_60px_rgba(245,158,11,0.25)]">
+              <img 
+                src="/images/character-sheets/elara_dawn_character_sheet_master.png" 
+                alt="Elara Dawn Master Character Sheet" 
+                class="w-full h-auto object-contain rounded-2xl"
+              />
+            </div>
+          </div>
+
+          <!-- Coded Tactical 3-Column Command Deck -->
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          
+          <!-- Column 1: Tactical Loadout -->
+          <div class="bg-amber-950/15 border border-amber-900/30 p-8 rounded-2xl shadow-xl backdrop-blur-sm space-y-6">
+            <div class="border-b border-amber-900/40 pb-4 text-center">
+              <span class="text-[10px] uppercase font-mono tracking-widest text-amber-400">Battle Loadout</span>
+              <h3 class="text-2xl font-black font-orbitron text-amber-300 mt-1">Shield & Armory</h3>
+              <p class="text-xs italic text-slate-400 mt-1">"The Sentinel of the South."</p>
+            </div>
+            
+            <div class="space-y-4">
+              <h4 class="text-xs font-bold uppercase tracking-widest text-slate-400 font-mono">Defensive Form</h4>
+              <div class="space-y-3 font-mono text-xs text-slate-300 bg-slate-950/60 p-4 rounded-xl border border-amber-950/50">
+                <div><span class="text-amber-400 font-bold">01. Aegis Shield:</span> An impenetrable solar barrier that absorbs impact.</div>
+                <div><span class="text-amber-400 font-bold">02. Light Bastion:</span> Creates a safe zone shielding allies in Level 1 Fold 1.</div>
+                <div><span class="text-amber-400 font-bold">03. Polaris Ward:</span> A tracking anchor that guides lost soldiers home.</div>
+                <div><span class="text-amber-400 font-bold">04. Unbroken Resolve:</span> Passive boost increasing defense under stress.</div>
+              </div>
+            </div>
+
+            <div class="space-y-2">
+              <h4 class="text-xs font-bold uppercase tracking-widest text-slate-400 font-mono">Aesthetic Motifs</h4>
+              <div class="flex flex-wrap gap-2 text-[10px] font-mono">
+                <span class="px-2.5 py-1 bg-amber-950/40 border border-amber-900/30 text-amber-300 rounded-full">Gold Armor</span>
+                <span class="px-2.5 py-1 bg-amber-950/40 border border-amber-900/30 text-amber-300 rounded-full">Northern Star</span>
+                <span class="px-2.5 py-1 bg-amber-950/40 border border-amber-900/30 text-amber-300 rounded-full">White Steed</span>
+                <span class="px-2.5 py-1 bg-amber-950/40 border border-amber-900/30 text-amber-300 rounded-full">Solar Flares</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Column 2: Central Commander Profile -->
+          <div class="bg-slate-900/50 border border-slate-800 p-8 rounded-2xl shadow-2xl space-y-6">
+            <div class="text-center space-y-3">
+              <img src="/images/artists/elara-box.jpg" alt="Elara Profile" class="w-32 h-32 rounded-full mx-auto border-4 border-amber-950 shadow-2xl object-cover" />
+              <div>
+                <h3 class="text-3xl font-black font-orbitron text-white">Elara Dawn</h3>
+                <p class="text-xs font-mono text-amber-400 uppercase mt-1">Lead Commander &bull; Shield of the South</p>
+              </div>
+            </div>
+
+            <div class="space-y-3 border-t border-slate-800 pt-6">
+              <h4 class="text-xs font-bold uppercase tracking-widest text-slate-400 font-mono">Commander Profile</h4>
+              <ul class="space-y-2 font-mono text-xs text-slate-300">
+                <li class="flex justify-between border-b border-slate-950 pb-1.5"><span>Rank:</span> <span class="text-white">Grand Commander</span></li>
+                <li class="flex justify-between border-b border-slate-950 pb-1.5"><span>Height:</span> <span class="text-white">170 cm (5'7")</span></li>
+                <li class="flex justify-between border-b border-slate-950 pb-1.5"><span>Vessel/Mount:</span> <span class="text-white">Dawn Charger (Steed)</span></li>
+                <li class="flex justify-between border-b border-slate-950 pb-1.5"><span>Eyes (Solar):</span> <span class="text-amber-400">Blue-Gold</span></li>
+                <li class="flex justify-between"><span>Origin Faction:</span> <span class="text-white">Light Alliance (1_1)</span></li>
+              </ul>
+            </div>
+
+            <div class="space-y-2 border-t border-slate-800 pt-6 text-xs text-slate-300 leading-relaxed font-light">
+              <h4 class="text-xs font-bold uppercase tracking-widest text-slate-400 font-mono">Commander's Oath</h4>
+              <p>"I ride as Elara. Not as War. The northern light guides my shield, and the southern gates will hold until the convergence." She represents the solar energy of Solara, acting as the guardian against the destructive corruption of the Folds.</p>
+            </div>
+          </div>
+
+          <!-- Column 3: Offensive Star Power -->
+          <div class="bg-yellow-950/10 border border-yellow-900/20 p-8 rounded-2xl shadow-xl backdrop-blur-sm space-y-6">
+            <div class="border-b border-yellow-900/30 pb-4 text-center">
+              <span class="text-[10px] uppercase font-mono tracking-widest text-yellow-400">Offensive Command</span>
+              <h3 class="text-2xl font-black font-orbitron text-yellow-300 mt-1">Solar Offense</h3>
+              <p class="text-xs italic text-slate-400 mt-1">"The light she was born to wield."</p>
+            </div>
+
+            <div class="space-y-4">
+              <h4 class="text-xs font-bold uppercase tracking-widest text-slate-400 font-mono">Offensive Abilities</h4>
+              <div class="space-y-3 font-mono text-xs text-slate-300 bg-slate-950/60 p-4 rounded-xl border border-yellow-950/30">
+                <div><span class="text-yellow-300 font-bold">01. Sun Strike:</span> Devastating beam of focused solar energy.</div>
+                <div><span class="text-yellow-300 font-bold">02. Polaris Spear:</span> Hurls a glowing spear of pure starlight.</div>
+                <div><span class="text-yellow-300 font-bold">03. Dawn's Awakening:</span> Instantly dispels darkness in a wide area.</div>
+                <div><span class="text-yellow-300 font-bold">04. Convergence Spark:</span> Prepares a massive synergy burst.</div>
+              </div>
+            </div>
+
+            <div class="space-y-2">
+              <h4 class="text-xs font-bold uppercase tracking-widest text-slate-400 font-mono">Tactical Motifs</h4>
+              <div class="flex flex-wrap gap-2 text-[10px] font-mono">
+                <span class="px-2.5 py-1 bg-yellow-950/30 border border-yellow-900/20 text-yellow-300 rounded-full">Sacred Sun</span>
+                <span class="px-2.5 py-1 bg-yellow-950/30 border border-yellow-900/20 text-yellow-300 rounded-full">Northern Spear</span>
+                <span class="px-2.5 py-1 bg-yellow-950/30 border border-yellow-900/20 text-yellow-300 rounded-full">Alliance Shields</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      )}
+
+      <!-- THE CRIMSON SPARKS: Band Member Profile Sheet Selector Architecture -->
+      {artist === 'crimson-sparks' && (
+        <div class="space-y-10">
+          
+          <!-- Band Member Selector Header Bar -->
+          <div class="bg-zinc-950/90 border border-red-900/60 p-6 rounded-2xl shadow-2xl backdrop-blur-md space-y-4">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-red-900/40 pb-4">
+              <div>
+                <span class="text-[10px] uppercase font-mono tracking-widest text-red-500 font-bold">The Crimson Five • Band Roster</span>
+                <h3 class="text-2xl font-black font-orbitron text-white mt-0.5">Select Band Member Dossier</h3>
+              </div>
+              <span class="text-xs font-mono text-slate-400">Level 12 Fold 15 • Underground Ska-Punk Faction</span>
+            </div>
+
+            <!-- Member Selector Tabs -->
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 pt-2">
+              <button 
+                data-sparks-member="suki"
+                class="sparks-member-tab active-sparks-tab px-4 py-3 rounded-xl border font-mono text-xs text-left transition-all duration-200 shadow-md bg-red-950/90 border-red-500 text-white shadow-red-900/40"
+              >
+                <div class="font-bold text-sm text-red-300">🎤 Suki Moreau</div>
+                <div class="text-[10px] text-slate-300 mt-0.5">Vocals & Songwriter</div>
+              </button>
+
+              <button 
+                data-sparks-member="soren"
+                class="sparks-member-tab px-4 py-3 rounded-xl border font-mono text-xs text-left transition-all duration-200 shadow-md bg-zinc-950 border-slate-800 text-slate-400 hover:border-red-800 hover:text-slate-200"
+              >
+                <div class="font-bold text-sm text-white">🎸 Soren Crane</div>
+                <div class="text-[10px] text-slate-400 mt-0.5">Bass & Co-Founder</div>
+              </button>
+
+              <button 
+                data-sparks-member="sky"
+                class="sparks-member-tab px-4 py-3 rounded-xl border font-mono text-xs text-left transition-all duration-200 shadow-md bg-zinc-950 border-slate-800 text-slate-400 hover:border-red-800 hover:text-slate-200"
+              >
+                <div class="font-bold text-sm text-white">⚡ Sky Delacroix</div>
+                <div class="text-[10px] text-slate-400 mt-0.5">Lead Guitar</div>
+              </button>
+
+              <button 
+                data-sparks-member="sol"
+                class="sparks-member-tab px-4 py-3 rounded-xl border font-mono text-xs text-left transition-all duration-200 shadow-md bg-zinc-950 border-slate-800 text-slate-400 hover:border-red-800 hover:text-slate-200"
+              >
+                <div class="font-bold text-sm text-white">🥁 Sol Kovic</div>
+                <div class="text-[10px] text-slate-400 mt-0.5">Drums</div>
+              </button>
+
+              <button 
+                data-sparks-member="sienna"
+                class="sparks-member-tab px-4 py-3 rounded-xl border font-mono text-xs text-left transition-all duration-200 shadow-md bg-zinc-950 border-slate-800 text-slate-400 hover:border-red-800 hover:text-slate-200"
+              >
+                <div class="font-bold text-sm text-white">🎹 Sienna Aramaki</div>
+                <div class="text-[10px] text-slate-400 mt-0.5">Rhythm Guitar & Keys</div>
+              </button>
+            </div>
+          </div>
+
+          <!-- Dynamic Member Profile Sheet Panel Container -->
+          <div class="space-y-8">
+            
+            <!-- MEMBER 1: SUKI MOREAU -->
+            <div data-sparks-panel="suki" class="sparks-member-panel space-y-8">
+              <!-- Control Bar -->
+              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 px-1">
+                <div class="flex items-center gap-3">
+                  <span class="w-2.5 h-2.5 rounded-full bg-red-500 animate-pulse"></span>
+                  <h3 class="text-xl font-extrabold font-orbitron text-red-400 tracking-wide">Suki Moreau • Master Character Sheet</h3>
+                </div>
+                <button 
+                  onclick="openSheetModal('/images/character-sheets/suki_moreau_character_sheet_master.png')"
+                  class="px-5 py-2.5 rounded-xl text-xs font-mono font-bold bg-red-950/80 hover:bg-red-900 border border-red-700/50 text-red-100 transition flex items-center justify-center gap-2 shadow-lg hover:shadow-red-900/50"
+                >
+                  <span>🔍 Expand 4K Fullscreen Sheet</span>
+                </button>
+              </div>
+
+              <!-- Borderless Full Page Master Poster Canvas -->
+              <div class="relative overflow-hidden rounded-2xl shadow-[0_0_60px_rgba(225,29,72,0.25)]">
+                <img 
+                  src="/images/character-sheets/suki_moreau_character_sheet_master.png" 
+                  alt="Suki Moreau Master Character Sheet" 
+                  class="w-full h-auto object-contain rounded-2xl"
+                />
+              </div>
+
+              <!-- Detailed Member Dossier Grid -->
+              <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 text-slate-200 font-mono">
+                <div class="bg-zinc-950 border border-red-900/60 p-6 rounded-2xl space-y-4">
+                  <h4 class="text-xs uppercase font-bold text-red-400 border-b border-red-900/50 pb-2">01. Member Dossier</h4>
+                  <div class="space-y-2 text-xs text-slate-300">
+                    <p><span class="text-white font-bold">Role:</span> Lead Vocalist & Songwriter</p>
+                    <p><span class="text-white font-bold">Age Appearance:</span> 24 years old</p>
+                    <p><span class="text-white font-bold">Discovery:</span> Discovered by Soren Crane at The Rusty Nail dive bar while singing a personal song about her father leaving to an empty room.</p>
+                  </div>
+                </div>
+
+                <div class="bg-zinc-950 border border-red-900/60 p-6 rounded-2xl space-y-4">
+                  <h4 class="text-xs uppercase font-bold text-red-400 border-b border-red-900/50 pb-2">02. Key Symbols & Gear</h4>
+                  <div class="space-y-2 text-xs text-slate-300">
+                    <p><span class="text-white font-bold">Leather Notebooks:</span> Never-thrown-away worn notebooks filled with lyrics, scratches, and multilingual notes.</p>
+                    <p><span class="text-white font-bold">Mic:</span> Vintage Shure SM58 stage microphone.</p>
+                    <p><span class="text-white font-bold">The Rusty Nail:</span> The dive bar where her journey began.</p>
+                  </div>
+                </div>
+
+                <div class="bg-zinc-950 border border-red-900/60 p-6 rounded-2xl space-y-4">
+                  <h4 class="text-xs uppercase font-bold text-red-400 border-b border-red-900/50 pb-2">03. Core Philosophy</h4>
+                  <p class="text-xs italic text-slate-300">"I don't write songs to be famous. I write to record what people are afraid to say."</p>
+                  <div class="pt-2 border-t border-zinc-900">
+                    <span class="text-[10px] text-red-500 uppercase font-bold block">Ember Legacy</span>
+                    <p class="text-[11px] text-slate-400">The spark passed on—her songs, journal, and lessons now live in Maya's hands.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- MEMBER 2: SOREN CRANE -->
+            <div data-sparks-panel="soren" class="sparks-member-panel hidden space-y-8">
+              <!-- Control Bar -->
+              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 px-1">
+                <div class="flex items-center gap-3">
+                  <span class="w-2.5 h-2.5 rounded-full bg-red-500 animate-pulse"></span>
+                  <h3 class="text-xl font-extrabold font-orbitron text-red-400 tracking-wide">Soren Crane • Master Character Sheet</h3>
+                </div>
+                <button 
+                  onclick="openSheetModal('/images/character-sheets/soren_crane_character_sheet_master.png')"
+                  class="px-5 py-2.5 rounded-xl text-xs font-mono font-bold bg-red-950/80 hover:bg-red-900 border border-red-700/50 text-red-100 transition flex items-center justify-center gap-2 shadow-lg hover:shadow-red-900/50"
+                >
+                  <span>🔍 Expand 4K Fullscreen Sheet</span>
+                </button>
+              </div>
+
+              <!-- Borderless Full Page Master Poster Canvas -->
+              <div class="relative overflow-hidden rounded-2xl shadow-[0_0_60px_rgba(225,29,72,0.25)]">
+                <img 
+                  src="/images/character-sheets/soren_crane_character_sheet_master.png" 
+                  alt="Soren Crane Master Character Sheet" 
+                  class="w-full h-auto object-contain rounded-2xl"
+                />
+              </div>
+
+              <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 text-slate-200 font-mono">
+                <div class="bg-zinc-950 border border-red-900/60 p-6 rounded-2xl space-y-3">
+                  <h4 class="text-xs uppercase font-bold text-red-400 border-b border-red-900/50 pb-2">Role & Instrument</h4>
+                  <p class="text-xs text-slate-300">Bass Guitarist, Co-Founder, and steady anchor of The Crimson Sparks.</p>
+                </div>
+                <div class="bg-zinc-950 border border-red-900/60 p-6 rounded-2xl space-y-3">
+                  <h4 class="text-xs uppercase font-bold text-red-400 border-b border-red-900/50 pb-2">Gear Setup</h4>
+                  <p class="text-xs text-slate-300">1978 Modified Sunburst Bass, Ampeg SVT Stack, vintage distortion pedals.</p>
+                </div>
+                <div class="bg-zinc-950 border border-red-900/60 p-6 rounded-2xl space-y-3">
+                  <h4 class="text-xs uppercase font-bold text-red-400 border-b border-red-900/50 pb-2">Core Moto</h4>
+                  <p class="text-xs italic text-slate-300">"Protect the music from the suits at all costs."</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- MEMBER 3: SKY DELACROIX -->
+            <div data-sparks-panel="sky" class="sparks-member-panel hidden space-y-8">
+              <!-- Control Bar -->
+              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 px-1">
+                <div class="flex items-center gap-3">
+                  <span class="w-2.5 h-2.5 rounded-full bg-red-500 animate-pulse"></span>
+                  <h3 class="text-xl font-extrabold font-orbitron text-red-400 tracking-wide">Sky Delacroix • Master Character Sheet</h3>
+                </div>
+                <button 
+                  onclick="openSheetModal('/images/character-sheets/sky_delacroix_character_sheet_master.png')"
+                  class="px-5 py-2.5 rounded-xl text-xs font-mono font-bold bg-red-950/80 hover:bg-red-900 border border-red-700/50 text-red-100 transition flex items-center justify-center gap-2 shadow-lg hover:shadow-red-900/50"
+                >
+                  <span>🔍 Expand 4K Fullscreen Sheet</span>
+                </button>
+              </div>
+
+              <!-- Borderless Full Page Master Poster Canvas -->
+              <div class="relative overflow-hidden rounded-2xl shadow-[0_0_60px_rgba(225,29,72,0.25)]">
+                <img 
+                  src="/images/character-sheets/sky_delacroix_character_sheet_master.png" 
+                  alt="Sky Delacroix Master Character Sheet" 
+                  class="w-full h-auto object-contain rounded-2xl"
+                />
+              </div>
+
+              <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 text-slate-200 font-mono">
+                <div class="bg-zinc-950 border border-red-900/60 p-6 rounded-2xl space-y-3">
+                  <h4 class="text-xs uppercase font-bold text-red-400 border-b border-red-900/50 pb-2">Role & Instrument</h4>
+                  <p class="text-xs text-slate-300">Lead Guitarist bringing screaming solos and energetic riffs to every show.</p>
+                </div>
+                <div class="bg-zinc-950 border border-red-900/60 p-6 rounded-2xl space-y-3">
+                  <h4 class="text-xs uppercase font-bold text-red-400 border-b border-red-900/50 pb-2">Gear Setup</h4>
+                  <p class="text-xs text-slate-300">Custom Red Stratocaster, Marshall JCM800 head, dual wah pedals.</p>
+                </div>
+                <div class="bg-zinc-950 border border-red-900/60 p-6 rounded-2xl space-y-3">
+                  <h4 class="text-xs uppercase font-bold text-red-400 border-b border-red-900/50 pb-2">Stage Persona</h4>
+                  <p class="text-xs italic text-slate-300">"Play fast, play loud, and tear down every wall in the room."</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- MEMBER 4: SOL KOVIC -->
+            <div data-sparks-panel="sol" class="sparks-member-panel hidden space-y-8">
+              <!-- Control Bar -->
+              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 px-1">
+                <div class="flex items-center gap-3">
+                  <span class="w-2.5 h-2.5 rounded-full bg-red-500 animate-pulse"></span>
+                  <h3 class="text-xl font-extrabold font-orbitron text-red-400 tracking-wide">Sol Kovic • Master Character Sheet</h3>
+                </div>
+                <button 
+                  onclick="openSheetModal('/images/character-sheets/sol_kovic_character_sheet_master.png')"
+                  class="px-5 py-2.5 rounded-xl text-xs font-mono font-bold bg-red-950/80 hover:bg-red-900 border border-red-700/50 text-red-100 transition flex items-center justify-center gap-2 shadow-lg hover:shadow-red-900/50"
+                >
+                  <span>🔍 Expand 4K Fullscreen Sheet</span>
+                </button>
+              </div>
+
+              <!-- Borderless Full Page Master Poster Canvas -->
+              <div class="relative overflow-hidden rounded-2xl shadow-[0_0_60px_rgba(225,29,72,0.25)]">
+                <img 
+                  src="/images/character-sheets/sol_kovic_character_sheet_master.png" 
+                  alt="Sol Kovic Master Character Sheet" 
+                  class="w-full h-auto object-contain rounded-2xl"
+                />
+              </div>
+
+              <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 text-slate-200 font-mono">
+                <div class="bg-zinc-950 border border-red-900/60 p-6 rounded-2xl space-y-3">
+                  <h4 class="text-xs uppercase font-bold text-red-400 border-b border-red-900/50 pb-2">Role & Instrument</h4>
+                  <p class="text-xs text-slate-300">Drummer and rhythmic engine driving the fast-paced Ska-punk tempo.</p>
+                </div>
+                <div class="bg-zinc-950 border border-red-900/60 p-6 rounded-2xl space-y-3">
+                  <h4 class="text-xs uppercase font-bold text-red-400 border-b border-red-900/50 pb-2">Gear Setup</h4>
+                  <p class="text-xs text-slate-300">Custom 4-Piece Birch Kit, Zildjian K Cymbals, heavy hickory sticks.</p>
+                </div>
+                <div class="bg-zinc-950 border border-red-900/60 p-6 rounded-2xl space-y-3">
+                  <h4 class="text-xs uppercase font-bold text-red-400 border-b border-red-900/50 pb-2">Rhythm Philosophy</h4>
+                  <p class="text-xs italic text-slate-300">"Keep the heartbeat relentless and the crowd moving."</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- MEMBER 5: SIENNA ARAMAKI -->
+            <div data-sparks-panel="sienna" class="sparks-member-panel hidden space-y-8">
+              <!-- Control Bar -->
+              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 px-1">
+                <div class="flex items-center gap-3">
+                  <span class="w-2.5 h-2.5 rounded-full bg-red-500 animate-pulse"></span>
+                  <h3 class="text-xl font-extrabold font-orbitron text-red-400 tracking-wide">Sienna Aramaki • Master Character Sheet</h3>
+                </div>
+                <button 
+                  onclick="openSheetModal('/images/character-sheets/sienna_aramaki_character_sheet_master.png')"
+                  class="px-5 py-2.5 rounded-xl text-xs font-mono font-bold bg-red-950/80 hover:bg-red-900 border border-red-700/50 text-red-100 transition flex items-center justify-center gap-2 shadow-lg hover:shadow-red-900/50"
+                >
+                  <span>🔍 Expand 4K Fullscreen Sheet</span>
+                </button>
+              </div>
+
+              <!-- Borderless Full Page Master Poster Canvas -->
+              <div class="relative overflow-hidden rounded-2xl shadow-[0_0_60px_rgba(225,29,72,0.25)]">
+                <img 
+                  src="/images/character-sheets/sienna_aramaki_character_sheet_master.png" 
+                  alt="Sienna Aramaki Master Character Sheet" 
+                  class="w-full h-auto object-contain rounded-2xl"
+                />
+              </div>
+
+              <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 text-slate-200 font-mono">
+                <div class="bg-zinc-950 border border-red-900/60 p-6 rounded-2xl space-y-3">
+                  <h4 class="text-xs uppercase font-bold text-red-400 border-b border-red-900/50 pb-2">Role & Instrument</h4>
+                  <p class="text-xs text-slate-300">Rhythm Guitarist & Keyboardist blending classical harmonic progressions with punk energy.</p>
+                </div>
+                <div class="bg-zinc-950 border border-red-900/60 p-6 rounded-2xl space-y-3">
+                  <h4 class="text-xs uppercase font-bold text-red-400 border-b border-red-900/50 pb-2">Gear Setup</h4>
+                  <p class="text-xs text-slate-300">Gibson Les Paul Special, Nord Stage Synth, Vox AC30 combo amp.</p>
+                </div>
+                <div class="bg-zinc-950 border border-red-900/60 p-6 rounded-2xl space-y-3">
+                  <h4 class="text-xs uppercase font-bold text-red-400 border-b border-red-900/50 pb-2">Harmonic Vision</h4>
+                  <p class="text-xs italic text-slate-300">"Classical precision meets raw street truth."</p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      )}
+
+      <!-- MAYA: Master Character Sheet & Stadium Pop Portfolio -->
+      {artist === 'maya' && (
+        <div class="space-y-8">
+          
+          <!-- Control Bar -->
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 px-1">
+            <div class="flex items-center gap-3">
+              <span class="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-pulse"></span>
+              <h3 class="text-xl font-extrabold font-orbitron text-cyan-300 tracking-wide">Maya • Master Character Sheet</h3>
+            </div>
+            <button 
+              onclick="openSheetModal('/images/character-sheets/maya_character_sheet_master.png')"
+              class="px-5 py-2.5 rounded-xl text-xs font-mono font-bold bg-cyan-950/80 hover:bg-cyan-900 border border-cyan-700/50 text-cyan-100 transition flex items-center justify-center gap-2 shadow-lg hover:shadow-cyan-900/50"
+            >
+              <span>🔍 Expand 4K Fullscreen Sheet</span>
+            </button>
+          </div>
+
+          <!-- Borderless Full Page Master Poster Canvas -->
+          <div class="relative overflow-hidden rounded-2xl shadow-[0_0_60px_rgba(6,182,212,0.25)]">
+            <img 
+              src="/images/character-sheets/maya_character_sheet_master.png" 
+              alt="Maya Master Character Sheet" 
+              class="w-full h-auto object-contain rounded-2xl"
+            />
+          </div>
+
+          <!-- 3-Column Legacy Portfolio Grid -->
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            
+            <!-- Column 1: Legacy Bio -->
+            <div class="bg-slate-900/35 border border-cyan-900/30 p-8 rounded-2xl shadow-xl backdrop-blur-md space-y-4">
+              <span class="text-[10px] uppercase font-mono tracking-widest text-cyan-400 font-bold">The Inheritor</span>
+              <h3 class="text-2xl font-black font-orbitron text-white">Stadium Pop Legacy</h3>
+              <p class="text-sm text-slate-300 leading-relaxed font-light">
+                Maya represents the continuation of the musical spark in Level 12 Fold 15. Inheriting the legacy guitar from Suki Moreau, she brings the intimate storytelling of the Crimson Sparks to massive stadium crowds, blending pop sensibilities with deep guitar theories.
+              </p>
+            </div>
+
+            <!-- Column 2: Tour Stats -->
+            <div class="bg-slate-900/35 border border-cyan-900/30 p-8 rounded-2xl shadow-xl backdrop-blur-md space-y-6">
+              <h3 class="text-center font-bold tracking-widest text-xs text-cyan-400 font-mono uppercase">TOUR ARCHIVE</h3>
+              <div class="space-y-3 font-mono text-xs">
+                <div class="flex justify-between border-b border-cyan-950/40 pb-2">
+                  <span class="text-slate-400">Vocal Range:</span>
+                  <span class="text-white">Mezzo-Soprano</span>
+                </div>
+                <div class="flex justify-between border-b border-cyan-950/40 pb-2">
+                  <span class="text-slate-400">Legacy Guitar:</span>
+                  <span class="text-white">Suki's Legacy Acoustic & Journal</span>
+                </div>
+                <div class="flex justify-between border-b border-cyan-950/40 pb-2">
+                  <span class="text-slate-400">Main Genre:</span>
+                  <span class="text-white">Stadium Pop / Acoustic Rock</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Column 3: Motifs -->
+            <div class="bg-slate-900/35 border border-cyan-900/30 p-8 rounded-2xl shadow-xl backdrop-blur-md space-y-4">
+              <h3 class="text-xs font-bold uppercase tracking-widest text-slate-400 font-mono">Visual Palette</h3>
+              <div class="flex items-center gap-3">
+                <span class="w-8 h-8 rounded-full bg-cyan-500 shadow-lg shadow-cyan-500/20"></span>
+                <span class="w-8 h-8 rounded-full bg-pink-500 shadow-lg shadow-pink-500/20"></span>
+                <span class="w-8 h-8 rounded-full bg-indigo-900 shadow-lg shadow-indigo-900/20"></span>
+              </div>
+              <p class="text-xs text-slate-400 font-mono mt-4">
+                Vibrant cyan and neon pink represent stadium light arrays, while indigo hues represent the deep space between theories.
+              </p>
+            </div>
+
+          </div>
+
+        </div>
+      )}
+
+      <!-- THAT GUY: Master Character Sheet & Matrix Hacker Terminal -->
+      {artist === 'that-guy' && (
+        <div class="space-y-8">
+          
+          <!-- Control Bar -->
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 px-1">
+            <div class="flex items-center gap-3">
+              <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+              <h3 class="text-xl font-extrabold font-orbitron text-emerald-400 tracking-wide">That Guy • Master Character Sheet</h3>
+            </div>
+            <button 
+              onclick="openSheetModal('/images/character-sheets/that_guy_character_sheet_master.png')"
+              class="px-5 py-2.5 rounded-xl text-xs font-mono font-bold bg-emerald-950/80 hover:bg-emerald-900 border border-emerald-700/50 text-emerald-100 transition flex items-center justify-center gap-2 shadow-lg hover:shadow-emerald-900/50"
+            >
+              <span>🔍 Expand 4K Fullscreen Sheet</span>
+            </button>
+          </div>
+
+          <!-- Borderless Full Page Master Poster Canvas -->
+          <div class="relative overflow-hidden rounded-2xl shadow-[0_0_60px_rgba(16,185,129,0.25)]">
+            <img 
+              src="/images/character-sheets/that_guy_character_sheet_master.png" 
+              alt="That Guy Master Character Sheet" 
+              class="w-full h-auto object-contain rounded-2xl"
+            />
+          </div>
+
+          <!-- Matrix-Green Hacker Terminal Grid -->
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 font-mono text-emerald-300">
+            
+            <!-- Column 1: Meltdown Logs -->
+            <div class="bg-slate-950 border border-emerald-900/40 p-8 rounded-2xl shadow-2xl relative">
+              <div class="absolute top-3 right-3 text-red-500 text-xs animate-pulse">● ERROR_LOUD</div>
+              <h3 class="text-lg font-bold border-b border-emerald-900/40 pb-3 text-emerald-400 uppercase">System Meltdown</h3>
+              <p class="text-xs mt-4 leading-relaxed">
+                LOG: Angry all the time. Subject hates corporate contracts, mosquitoes, and system limits. Rants are fully recorded across Saevit Animo. Consequences are imminent.
+              </p>
+              <div class="bg-emerald-950/30 p-4 border border-emerald-900/30 rounded mt-4 text-[10px]">
+                <span class="text-red-400">WARNING:</span> Do not trigger verbal responses.
+              </div>
+            </div>
+
+            <!-- Column 2: User Stats -->
+            <div class="bg-slate-950 border border-emerald-900/40 p-8 rounded-2xl shadow-2xl">
+              <h3 class="text-center font-bold text-xs text-emerald-400 uppercase border-b border-emerald-900/40 pb-3">Checked Profile</h3>
+              <ul class="space-y-3 text-xs mt-4">
+                <li>USER: <span class="text-white">That Guy</span></li>
+                <li>ROLE: <span class="text-white">Vocal Screamer / Rants</span></li>
+                <li>STATUS: <span class="text-red-500 uppercase">Cage Broken</span></li>
+                <li>ERA: <span class="text-white">Level 12 Fold 15</span></li>
+              </ul>
+            </div>
+
+            <!-- Column 3: Warning codes -->
+            <div class="bg-slate-950 border border-emerald-900/40 p-8 rounded-2xl shadow-2xl space-y-4">
+              <h3 class="text-xs font-bold text-emerald-400 uppercase">Broken Systems</h3>
+              <div class="space-y-2 text-[10px]">
+                <div>CODE 403: Corporate Chains Broken</div>
+                <div>CODE 502: Mosquito infestation detected</div>
+                <div>CODE 401: Consequences Unlocked</div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      )}
+
+      <!-- PRIMA & TIMO: Scavenger Duo Dossier Selector Architecture -->
+      {artist === 'prima-timo' && (
+        <div class="space-y-10">
+          
+          <!-- Duo Member Selector Header Bar -->
+          <div class="bg-slate-950/90 border border-orange-900/60 p-6 rounded-2xl shadow-2xl backdrop-blur-md space-y-4 font-mono">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-orange-900/40 pb-4">
+              <div>
+                <span class="text-[10px] uppercase tracking-widest text-teal-400 font-bold">Level 15 Fold 15 • Scavenger Duo</span>
+                <h3 class="text-2xl font-black font-orbitron text-white mt-0.5">Select Duo Member Dossier</h3>
+              </div>
+              <span class="text-xs text-orange-400 font-bold">Primatown Scrap Node Coordinates Active</span>
+            </div>
+
+            <!-- Member Selector Tabs -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+              <button 
+                data-duo-member="prima"
+                class="duo-member-tab active-duo-tab px-5 py-3.5 rounded-xl border text-left transition-all duration-200 shadow-lg bg-teal-950/90 border-teal-500 text-white shadow-teal-950/50"
+              >
+                <div class="font-bold text-sm text-teal-300">⚙️ Prima • Master Character Sheet</div>
+                <div class="text-[11px] text-slate-300 mt-0.5">Core 2 Awakened Machine • Scrap Matrix</div>
+              </button>
+
+              <button 
+                data-duo-member="timo"
+                class="duo-member-tab px-5 py-3.5 rounded-xl border text-left transition-all duration-200 shadow-md bg-slate-950 border-slate-800 text-slate-400 hover:border-orange-800 hover:text-slate-200"
+              >
+                <div class="font-bold text-sm text-white">🔧 Timo • Master Character Sheet</div>
+                <div class="text-[11px] text-slate-400 mt-0.5">Core 1 Human Anchor • Primatown Leader</div>
+              </button>
+            </div>
+          </div>
+
+          <!-- Dynamic Member Profile Sheet Panel Container -->
+          <div class="space-y-8">
+            
+            <!-- MEMBER 1: PRIMA -->
+            <div data-duo-panel="prima" class="duo-member-panel space-y-8">
+              <!-- Control Bar -->
+              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 px-1">
+                <div class="flex items-center gap-3">
+                  <span class="w-2.5 h-2.5 rounded-full bg-teal-400 animate-pulse"></span>
+                  <h3 class="text-xl font-extrabold font-orbitron text-teal-300 tracking-wide">Prima • Master Character Sheet</h3>
+                </div>
+                <button 
+                  onclick="openSheetModal('/images/character-sheets/prima_character_sheet_master.png')"
+                  class="px-5 py-2.5 rounded-xl text-xs font-mono font-bold bg-teal-950/80 hover:bg-teal-900 border border-teal-700/50 text-teal-100 transition flex items-center justify-center gap-2 shadow-lg hover:shadow-teal-900/50"
+                >
+                  <span>🔍 Expand 4K Fullscreen Sheet</span>
+                </button>
+              </div>
+
+              <!-- Borderless Full Page Master Poster Canvas -->
+              <div class="relative overflow-hidden rounded-2xl shadow-[0_0_60px_rgba(20,184,166,0.25)] border border-teal-900/40">
+                <img 
+                  src="/images/character-sheets/prima_character_sheet_master.png" 
+                  alt="Prima Master Character Sheet" 
+                  class="w-full h-auto object-contain rounded-2xl"
+                />
+              </div>
+
+              <!-- Prima Scavenger Dossier & Upgrade Specs -->
+              <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 text-teal-300 pt-2 font-mono">
+                <div class="bg-slate-950/80 border border-teal-900/50 p-8 rounded-2xl shadow-xl space-y-4">
+                  <h3 class="text-lg font-bold text-teal-400 border-b border-teal-900/50 pb-3">Machine Core Specifications</h3>
+                  <p class="text-xs leading-relaxed text-slate-300">
+                    Prima is the Awakened Machine (Core 2) of Level 15 Fold 15. Born from discarded scrap and given sentient purpose alongside Timo, her body evolves through modular chassis configurations as they traverse the wasteland towards Gate 17.
+                  </p>
+                </div>
+
+                <div class="bg-slate-950/80 border border-teal-900/50 p-8 rounded-2xl shadow-xl space-y-4">
+                  <h3 class="font-bold text-sm text-teal-400 border-b border-teal-900/50 pb-3">Core Upgrade Roadmaps</h3>
+                  <div class="space-y-3 text-xs text-slate-300">
+                    <div><span class="text-teal-400 font-bold">Ver 1.0:</span> CRT Wheels (Base Chassis)</div>
+                    <div><span class="text-teal-400 font-bold">Ver 4.0:</span> Primatown Treads (Treads chassis)</div>
+                    <div><span class="text-teal-400 font-bold">Ver 7.0:</span> Martial Chassis (Armored combat chassis)</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- MEMBER 2: TIMO -->
+            <div data-duo-panel="timo" class="duo-member-panel hidden space-y-8">
+              <!-- Control Bar -->
+              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 px-1">
+                <div class="flex items-center gap-3">
+                  <span class="w-2.5 h-2.5 rounded-full bg-orange-400 animate-pulse"></span>
+                  <h3 class="text-xl font-extrabold font-orbitron text-orange-300 tracking-wide">Timo • Master Character Sheet</h3>
+                </div>
+                <button 
+                  onclick="openSheetModal('/images/character-sheets/timo_character_sheet_master.png')"
+                  class="px-5 py-2.5 rounded-xl text-xs font-mono font-bold bg-orange-950/80 hover:bg-orange-900 border border-orange-700/50 text-orange-100 transition flex items-center justify-center gap-2 shadow-lg hover:shadow-orange-900/50"
+                >
+                  <span>🔍 Expand 4K Fullscreen Sheet</span>
+                </button>
+              </div>
+
+              <!-- Borderless Full Page Master Poster Canvas -->
+              <div class="relative overflow-hidden rounded-2xl shadow-[0_0_60px_rgba(249,115,22,0.25)] border border-orange-900/40">
+                <img 
+                  src="/images/character-sheets/timo_character_sheet_master.png" 
+                  alt="Timo Master Character Sheet" 
+                  class="w-full h-auto object-contain rounded-2xl"
+                />
+              </div>
+
+              <!-- Timo Scavenger Dossier & Found Family -->
+              <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 text-orange-300 pt-2 font-mono">
+                <div class="bg-slate-950/80 border border-orange-950 p-8 rounded-2xl shadow-xl space-y-4">
+                  <h3 class="text-lg font-bold text-orange-400 border-b border-orange-950 pb-3">Human Soul Anchor Dossier</h3>
+                  <p class="text-xs leading-relaxed text-slate-300">
+                    Timo is the Human Soul Anchor (Core 1) and leader of Primatown. Raised in the junk yards of Level 15 Fold 15, he refused to treat machines as trash, fixing up Prima V1.0 and building a sanctuary for lost souls.
+                  </p>
+                </div>
+
+                <div class="bg-slate-950/80 border border-orange-950 p-8 rounded-2xl shadow-xl space-y-4">
+                  <h3 class="font-bold text-sm text-orange-400 border-b border-orange-950 pb-3">Found Family & Circle</h3>
+                  <p class="text-[10px] text-slate-400 uppercase">Registered Alliance:</p>
+                  <p class="text-xs text-slate-300">Prima (Machine Soulmate), Ronnie (Fallen Mentor), Ma (Wasteland Mother), Vendo (Chaos & Comedy Machine), and Exiled Sun God Ra.</p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      )}
+
+      <!-- SOLARA: Purple & Gold Celestial Convergence -->
+      {artist === 'solara' && (
+        <div class="space-y-8">
+          
+          <!-- Solara Master Character Sheet -->
+          <div class="space-y-4">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 px-1">
+              <div class="flex items-center gap-3">
+                <span class="w-2.5 h-2.5 rounded-full bg-indigo-400 animate-pulse"></span>
+                <h3 class="text-xl font-extrabold font-orbitron text-indigo-300 tracking-wide">Solara • Master Character Sheet</h3>
+              </div>
+              <button 
+                onclick="openSheetModal('/images/character-sheets/solara_character_sheet_master.jpg')"
+                class="px-5 py-2.5 rounded-xl text-xs font-mono font-bold bg-indigo-950/80 hover:bg-indigo-900 border border-indigo-700/50 text-indigo-100 transition flex items-center justify-center gap-2 shadow-lg hover:shadow-indigo-900/50"
+              >
+                <span>🔍 Expand 4K Fullscreen Sheet</span>
+              </button>
+            </div>
+
+            <!-- Borderless Full Page Master Poster Canvas -->
+            <div class="relative overflow-hidden rounded-2xl shadow-[0_0_60px_rgba(99,102,241,0.25)]">
+              <img 
+                src="/images/character-sheets/solara_character_sheet_master.jpg" 
+                alt="Solara Master Character Sheet" 
+                class="w-full h-auto object-contain rounded-2xl"
+              />
+            </div>
+          </div>
+
+          <!-- 3-Column Heritage Grid -->
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 pt-4">
+            
+            <!-- Column 1: Time Heritage -->
+            <div class="bg-purple-950/10 border border-purple-900/30 p-8 rounded-2xl shadow-xl backdrop-blur-sm space-y-4">
+              <span class="text-[10px] uppercase font-mono tracking-widest text-purple-400">Lunar Heritage</span>
+              <h3 class="text-2xl font-black font-orbitron text-purple-300">Time Thread</h3>
+              <p class="text-sm text-slate-300 leading-relaxed font-light">
+                Inherited from Pandora Raven, Solara possesses the capability to peer backwards and forwards through timelines, allowing her to synchronize past memories with future configurations across the Folds.
+              </p>
+            </div>
+
+            <!-- Column 2: Convergence Core -->
+            <div class="bg-slate-900/50 border border-slate-800 p-8 rounded-2xl shadow-2xl space-y-6 text-center">
+              <img src="/images/artists/Solara.jpg" alt="Solara Profile" class="w-32 h-32 rounded-full mx-auto border-4 border-indigo-950 shadow-2xl object-cover" />
+              <div>
+                <h3 class="text-3xl font-black font-orbitron text-white">SOLARA</h3>
+                <p class="text-xs font-mono text-indigo-400 uppercase mt-1">The Convergence Entity &bull; Post-9.0</p>
+              </div>
+              <p class="text-xs text-slate-300 font-light leading-relaxed border-t border-slate-800 pt-6">
+                Born 300k years ago from the union of Time & Fate blessed by Ra in Level 1 Fold 1. Separated into Pandora and Elara, Solara is the converged whole that emerges at Album 9.0 to unite all levels.
+              </p>
+            </div>
+
+            <!-- Column 3: Fate Heritage -->
+            <div class="bg-amber-950/10 border border-amber-900/20 p-8 rounded-2xl shadow-xl backdrop-blur-sm space-y-4">
+              <span class="text-[10px] uppercase font-mono tracking-widest text-amber-400">Solar Heritage</span>
+              <h3 class="text-2xl font-black font-orbitron text-amber-300">Fate Shield</h3>
+              <p class="text-sm text-slate-300 leading-relaxed font-light">
+                Inherited from Elara Dawn, Solara holds the North Star's protection shield, acting as the final catalyst that welds Folds together and prevents the timelines from breaking during the final collision.
+              </p>
+            </div>
+
+          </div>
+
+        </div>
+      )}
+
+    </div>
+
+    <!-- TAB PANEL: HISTORY & LORE -->
+    <div data-panel="history" class="hidden">
+      <div class="max-w-4xl mx-auto space-y-8">
+        
+        <div class="bg-slate-900/40 border border-slate-800 p-8 rounded-2xl shadow-xl space-y-4">
+          <h2 class="text-2xl font-bold tracking-tight text-white font-orbitron">Cosmic Timeline & Chronicles</h2>
+          <p class="text-sm text-slate-400 leading-relaxed">
+            The historical record of {artistName} mapped across the levels and folds of the Wacky Cosmos ecosystem.
+          </p>
+        </div>
+
+        <!-- Timeline Scroll -->
+        <div class="relative border-l border-purple-900/30 ml-4 md:ml-6 space-y-8 py-4">
+          
+          <!-- L1 F1 -->
+          <div class="relative pl-8 md:pl-10">
+            <span class="absolute -left-2 top-1.5 w-4 h-4 rounded-full bg-purple-500 border-4 border-slate-950 shadow-[0_0_10px_rgba(168,85,247,0.5)]"></span>
+            <span class="px-2.5 py-0.5 rounded-full text-[9px] font-mono uppercase bg-purple-950 text-purple-300 border border-purple-800/40">
+              Level 1 Fold 1 (1_1)
+            </span>
+            <h3 class="text-lg font-bold text-slate-100 mt-2 font-orbitron">The Origin & The Blessing</h3>
+            <p class="text-xs text-slate-400 mt-1">300,000 Years Ago</p>
+            <p class="text-sm text-slate-300 leading-relaxed font-light mt-3">
+              The union of Time and Fate (blessed by Ra) results in the birth of Pandora Raven and Elara Dawn. Ra is exiled to Level 15 Fold 15 for blessing this convergence. The twins are split across dimensions.
+            </p>
+          </div>
+
+          <!-- L12 F15 -->
+          <div class="relative pl-8 md:pl-10">
+            <span class="absolute -left-2 top-1.5 w-4 h-4 rounded-full bg-cyan-500 border-4 border-slate-950 shadow-[0_0_10px_rgba(34,211,238,0.5)]"></span>
+            <span class="px-2.5 py-0.5 rounded-full text-[9px] font-mono uppercase bg-cyan-950 text-cyan-300 border border-cyan-900/40">
+              Level 12 Fold 15 (12_15)
+            </span>
+            <h3 class="text-lg font-bold text-slate-100 mt-2 font-orbitron">The Indie Rock & Pop Legends</h3>
+            <p class="text-xs text-slate-400 mt-1">Modern Era</p>
+            <p class="text-sm text-slate-300 leading-relaxed font-light mt-3">
+              The Sparks ignite, playing raw underground ska-punk. Maya inherits the legacy and builds stadium pop. That Guy rants and breaks cages. A vibrant age of musical and emotional expression.
+            </p>
+          </div>
+
+          <!-- L15 F15 -->
+          <div class="relative pl-8 md:pl-10">
+            <span class="absolute -left-2 top-1.5 w-4 h-4 rounded-full bg-teal-500 border-4 border-slate-950 shadow-[0_0_10px_rgba(20,184,166,0.5)]"></span>
+            <span class="px-2.5 py-0.5 rounded-full text-[9px] font-mono uppercase bg-teal-950 text-teal-300 border border-teal-800/40">
+              Level 15 Fold 15 (15_15)
+            </span>
+            <h3 class="text-lg font-bold text-slate-100 mt-2 font-orbitron">The Scavenger End Game</h3>
+            <p class="text-xs text-slate-400 mt-1">Wasteland Era</p>
+            <p class="text-sm text-slate-300 leading-relaxed font-light mt-3">
+              Timo and Prima scavenging scrap tech. Ra joins their crew. Solara will eventually travel to this fold to reunite all levels and folds in the cosmos.
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+    <!-- TAB PANEL: MEDIA & BTS -->
+    <div data-panel="media" class="hidden">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        
+        <!-- Video Embed Placeholder -->
+        <div class="bg-slate-900/40 border border-slate-800 p-6 rounded-2xl shadow-xl backdrop-blur-sm space-y-4">
+          <h3 class="text-xs font-bold uppercase tracking-widest text-slate-400 font-mono">Official Videos</h3>
+          <div class="aspect-video w-full rounded-xl bg-slate-950 flex items-center justify-center border border-slate-800 relative group overflow-hidden">
+            <div class="absolute inset-0 bg-gradient-to-tr from-purple-950/20 to-transparent"></div>
+            <span class="text-xs text-slate-500 font-mono z-10">YouTube Player Placeholder</span>
+            <div class="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center z-20">
+              <span class="bg-purple-600 hover:bg-purple-500 text-white font-mono text-xs font-bold px-4 py-2 rounded-full cursor-pointer shadow-md">Play Preview</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- BTS / Sketchbook Placeholder -->
+        <div class="bg-slate-900/40 border border-slate-800 p-6 rounded-2xl shadow-xl backdrop-blur-sm space-y-4">
+          <h3 class="text-xs font-bold uppercase tracking-widest text-slate-400 font-mono">Behind-The-Scenes Sketches</h3>
+          <div class="aspect-video w-full rounded-xl bg-slate-950 flex items-center justify-center border border-slate-800 relative overflow-hidden group">
+            <span class="text-xs text-slate-500 font-mono z-10">Kamira's Concept Sketches Pending</span>
+            <div class="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center z-20">
+              <span class="bg-purple-600 text-white font-mono text-xs font-bold px-4 py-2 rounded-full cursor-pointer shadow-md">Open Gallery</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Lightbox Gallery -->
+        <div class="bg-slate-900/40 border border-slate-800 p-6 rounded-2xl shadow-xl backdrop-blur-sm space-y-4 md:col-span-2">
+          <h3 class="text-xs font-bold uppercase tracking-widest text-slate-400 font-mono">Media Gallery</h3>
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div class="aspect-square bg-slate-950 border border-slate-800 rounded-xl flex items-center justify-center text-slate-500 font-mono text-[10px]">Photo Slot 1</div>
+            <div class="aspect-square bg-slate-950 border border-slate-800 rounded-xl flex items-center justify-center text-slate-500 font-mono text-[10px]">Photo Slot 2</div>
+            <div class="aspect-square bg-slate-950 border border-slate-800 rounded-xl flex items-center justify-center text-slate-500 font-mono text-[10px]">Photo Slot 3</div>
+            <div class="aspect-square bg-slate-950 border border-slate-800 rounded-xl flex items-center justify-center text-slate-500 font-mono text-[10px]">Photo Slot 4</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Navigation Actions -->
+    <div class="mt-12 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-purple-900/40">
+      <a href="/artists" class="w-full sm:w-auto px-6 py-3.5 rounded-xl text-xs uppercase tracking-wider font-mono font-bold bg-purple-950/90 text-purple-200 border border-purple-500/50 hover:bg-purple-900 hover:text-white transition-all flex items-center justify-center gap-2 shadow-xl hover:shadow-purple-900/50 hover:-translate-x-1">
+        <span class="text-purple-400 font-bold text-sm">&larr;</span>
+        <span>Back to Roster</span>
+      </a>
+      <a href="/music" class="w-full sm:w-auto px-6 py-3.5 rounded-xl text-xs uppercase tracking-wider font-mono font-bold bg-slate-900/90 text-slate-300 border border-slate-700/50 hover:bg-slate-800 hover:text-white transition-all flex items-center justify-center gap-2 shadow-xl">
+        <span>View All Cosmos Releases</span>
+        <span class="text-slate-400 font-bold text-sm">&rarr;</span>
+      </a>
+    </div>
+
+  </main>
+</Layout>
+
+<script is:inline define:vars={{ activeColor: fx.activeTab }}>
+  // Simple client-side tab switching script
+  const tabs = document.querySelectorAll('[data-tab]');
+  const panels = document.querySelectorAll('[data-panel]');
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      const target = tab.getAttribute('data-tab');
+
+      // Hide all panels
+      panels.forEach(panel => {
+        panel.classList.add('hidden');
+      });
+
+      // Show the selected panel
+      const targetPanel = document.querySelector(`[data-panel="${target}"]`);
+      if (targetPanel) {
+        targetPanel.classList.remove('hidden');
+      }
+
+      // Reset all tab styles
+      tabs.forEach(t => {
+        t.className = 'px-4 py-2 rounded-xl font-bold border border-transparent text-slate-400 hover:text-slate-200 transition-all';
+      });
+
+      // Apply active style to clicked tab
+      tab.className = `px-4 py-2 rounded-xl font-bold border border-transparent transition-all shadow-md active-tab ${activeColor}`;
+    });
+  });
+
+  // Client-side Crimson Sparks Band Member Switcher
+  const sparksTabs = document.querySelectorAll('[data-sparks-member]');
+  const sparksPanels = document.querySelectorAll('[data-sparks-panel]');
+
+  sparksTabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      const targetMember = tab.getAttribute('data-sparks-member');
+
+      // Hide all sparks member panels
+      sparksPanels.forEach(panel => {
+        panel.classList.add('hidden');
+      });
+
+      // Show selected member panel
+      const targetPanel = document.querySelector(`[data-sparks-panel="${targetMember}"]`);
+      if (targetPanel) {
+        targetPanel.classList.remove('hidden');
+      }
+
+      // Reset all sparks member tab styling
+      sparksTabs.forEach(t => {
+        t.className = 'sparks-member-tab px-4 py-3 rounded-xl border font-mono text-xs text-left transition-all duration-200 shadow-md bg-zinc-950 border-slate-800 text-slate-400 hover:border-red-800 hover:text-slate-200';
+        const titleDiv = t.querySelector('div:first-child');
+        const roleDiv = t.querySelector('div:last-child');
+        if (titleDiv) titleDiv.className = 'font-bold text-sm text-white';
+        if (roleDiv) roleDiv.className = 'text-[10px] text-slate-400 mt-0.5';
+      });
+
+      // Set active style for clicked member tab
+      tab.className = 'sparks-member-tab active-sparks-tab px-4 py-3 rounded-xl border font-mono text-xs text-left transition-all duration-200 shadow-md bg-red-950/90 border-red-500 text-white shadow-red-900/40';
+      const activeTitleDiv = tab.querySelector('div:first-child');
+      const activeRoleDiv = tab.querySelector('div:last-child');
+    });
+  });
+
+  // Client-side Scavenger Duo Member Switcher (Prima & Timo)
+  const duoTabs = document.querySelectorAll('[data-duo-member]');
+  const duoPanels = document.querySelectorAll('[data-duo-panel]');
+
+  duoTabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      const targetMember = tab.getAttribute('data-duo-member');
+
+      // Hide all duo member panels
+      duoPanels.forEach(panel => {
+        panel.classList.add('hidden');
+      });
+
+      // Show selected member panel
+      const targetPanel = document.querySelector(`[data-duo-panel="${targetMember}"]`);
+      if (targetPanel) {
+        targetPanel.classList.remove('hidden');
+      }
+
+      // Reset all duo member tab styling
+      duoTabs.forEach(t => {
+        t.className = 'duo-member-tab px-5 py-3.5 rounded-xl border text-left transition-all duration-200 shadow-md bg-slate-950 border-slate-800 text-slate-400 hover:border-orange-800 hover:text-slate-200';
+        const titleDiv = t.querySelector('div:first-child');
+        const roleDiv = t.querySelector('div:last-child');
+        if (titleDiv) titleDiv.className = 'font-bold text-sm text-white';
+        if (roleDiv) roleDiv.className = 'text-[11px] text-slate-400 mt-0.5';
+      });
+
+      // Set active style for clicked member tab
+      const isPrima = targetMember === 'prima';
+      tab.className = isPrima
+        ? 'duo-member-tab active-duo-tab px-5 py-3.5 rounded-xl border text-left transition-all duration-200 shadow-lg bg-teal-950/90 border-teal-500 text-white shadow-teal-950/50'
+        : 'duo-member-tab active-duo-tab px-5 py-3.5 rounded-xl border text-left transition-all duration-200 shadow-lg bg-orange-950/90 border-orange-500 text-white shadow-orange-950/50';
+
+      const activeTitleDiv = tab.querySelector('div:first-child');
+      const activeRoleDiv = tab.querySelector('div:last-child');
+      if (activeTitleDiv) activeTitleDiv.className = isPrima ? 'font-bold text-sm text-teal-300' : 'font-bold text-sm text-orange-300';
+      if (activeRoleDiv) activeRoleDiv.className = 'text-[11px] text-slate-300 mt-0.5';
+    });
+  });
+
+  // Global Lightbox Modal Functions for Character Sheets
+  window.openSheetModal = function(src) {
+    const modal = document.getElementById('sheet-modal');
+    const img = document.getElementById('sheet-modal-img');
+    if (modal && img) {
+      img.src = src;
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      document.body.style.overflow = 'hidden';
+    }
+  };
+
+  window.closeSheetModal = function() {
+    const modal = document.getElementById('sheet-modal');
+    if (modal) {
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+      document.body.style.overflow = '';
+    }
+  };
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      if (typeof window.closeSheetModal === 'function') {
+        window.closeSheetModal();
+      }
+    }
+  });
+</script>
+
+<!-- Lightbox Modal for 4K Character Sheets -->
+<div id="sheet-modal" class="fixed inset-0 z-[100] bg-black/95 backdrop-blur-xl hidden items-center justify-center p-4 sm:p-8" onclick="if(event.target === this) closeSheetModal()">
+  <div class="relative max-w-7xl w-full max-h-[92vh] flex flex-col items-center justify-center space-y-4">
+    <button onclick="closeSheetModal()" class="absolute -top-12 right-0 text-white font-mono text-xs font-bold bg-slate-900 hover:bg-slate-800 border border-slate-700 px-4 py-2 rounded-xl transition shadow-xl flex items-center gap-2">
+      <span>✕ Close (ESC)</span>
+    </button>
+    <div class="w-full max-h-[88vh] overflow-auto rounded-2xl border border-purple-500/40 shadow-2xl flex justify-center bg-black/80 p-2">
+      <img id="sheet-modal-img" src="" alt="Character Sheet 4K View" class="max-w-full h-auto object-contain rounded-xl shadow-2xl" />
+    </div>
+  </div>
+</div>

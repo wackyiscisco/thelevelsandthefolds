@@ -1,0 +1,97 @@
+---
+
+title: "Far Sighted"
+artist: "The Crimson Sparks"
+album: "Album 1: The First Spark"
+levelFold: "Level 12 Fold 15"
+featured: false
+coverImage: "/images/albums/crimson-sparks/The First Spark.jpg"
+trackNumber: 7
+quote: "visions of you and me"
+
+---
+
+Verse 1
+
+it's slowly fading
+visions of you and me
+grasping tightly
+heading to oblivion
+
+Refrain
+
+well i don't need your sympathy
+and i can't stand my frailty
+all i need and all i want
+is in your eyes
+
+Chorus
+
+since that day i can't move on
+like a line on a love song
+keeps repeating inside of my head
+my emotions are dead from the tears that i've shed
+with these eyes i know i'll see you
+if only in dreams where you can't see me bleed
+i'll be waiting
+
+Verse 2
+
+it's plunging deeper
+like a knife cutting through my heart
+i hear you calling
+find me here i'm running to you now
+
+Refrain
+
+well i don't need your sympathy
+and i can't stand my frailty
+all i need and all i want
+is in your eyes
+
+Chorus
+
+since that day i can't move on
+like a line on a love song
+keeps repeating inside of my head
+my emotions are dead from the tears that i've shed
+with these eyes i know i'll see you
+if only in dreams where you can't see me bleed
+i'll be waiting
+
+Bridge
+
+look at me now i'm falling apart 
+but i'll be just fine
+if heaven forbids i'll be out of this bed
+before i'm done with you
+
+Chorus
+
+since that day i can't move on
+like a line on a love song
+keeps repeating inside of my head
+my emotions are dead from the tears that i've shed
+
+
+since that day i can't move on
+like a line on a love song
+keeps repeating inside of my head
+my emotions are dead from the tears that i've shed
+with these eyes i know i'll see you
+if only in dreams where you can't see me bleed
+i'll be waiting
+
+since that day i can't move on
+like a line on a love song
+keeps repeating inside of my head
+my emotions are dead from the tears that i've shed
+with these eyes i know i'll see you
+if only in dreams where you can't see me bleed
+i'll be waiting
+
+CODA
+
+i'll be waiting
+i'll be waiting
+i'll be waiting

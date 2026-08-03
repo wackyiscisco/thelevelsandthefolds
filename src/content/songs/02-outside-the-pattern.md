@@ -1,4 +1,5 @@
 ---
+
 title: "Outside the Pattern"
 artist: "Pandora Raven"
 album: "Album 8: Pandora Raven"
@@ -7,6 +8,7 @@ featured: false
 coverImage: "/images/albums/pandora-raven/Pandora Raven.jpg"
 trackNumber: 2
 quote: "Outside the pattern, but I know the song."
+
 ---
 
 [Verse 1]

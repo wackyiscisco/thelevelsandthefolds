@@ -40,6 +40,28 @@ allSongs.forEach((song: any) => {
   artistCatalog[artist].songCount += 1;
   artistCatalog[artist].albums.add(album);
 });
+
+const preferredArtistOrder = [
+  // TOP ROW (L → R)
+  'The Crimson Sparks',
+  'Maya',
+  'That Guy',
+  // ROW 2 (L → R)
+  'Pandora Raven',
+  'Elara Dawn',
+  'Solara',
+  // ROW 3
+  'Prima & Timo',
+];
+
+const sortedArtists = Object.entries(artistCatalog).sort((a, b) => {
+  const idxA = preferredArtistOrder.indexOf(a[0]);
+  const idxB = preferredArtistOrder.indexOf(b[0]);
+  if (idxA === -1 && idxB === -1) return a[0].localeCompare(b[0]);
+  if (idxA === -1) return 1;
+  if (idxB === -1) return -1;
+  return idxA - idxB;
+});
 ---
 
 <Layout title="The Cosmos Roster | Music Artists">
@@ -58,8 +80,18 @@ allSongs.forEach((song: any) => {
     </div>
 
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-      {Object.entries(artistCatalog).map(([artistName, data]) => {
-        const artistSlug = artistName.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+      {sortedArtists.map(([artistName, data]) => {
+        const artistSlug = (() => {
+          const name = String(artistName || '').toLowerCase().trim();
+          if (name.includes('crimson')) return 'crimson-sparks';
+          if (name.includes('maya')) return 'maya';
+          if (name.includes('guy')) return 'that-guy';
+          if (name.includes('pandora')) return 'pandora-raven';
+          if (name.includes('elara')) return 'elara-dawn';
+          if (name.includes('solara')) return 'solara';
+          if (name.includes('prima')) return 'prima-timo';
+          return 'artist';
+        })();
 
         return (
           <a

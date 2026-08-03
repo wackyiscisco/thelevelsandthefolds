@@ -1,12 +1,14 @@
 ---
+
 title: "Child Of Light"
 artist: "Pandora Raven"
 album: "Album 6.5: The Raven's Shadow"
 levelFold: "Level 1 Fold 1"
 featured: true
-coverImage: "/images/albums/pandora-raven/the-ravens-shadow.jpg"
+coverImage: "/images/albums/pandora-raven/The Raven's Shadow.jpg"
 trackNumber: 5
 quote: "We are the children of light, two halves of what the darkness fears most."
+
 ---
 
 [Verse 1]

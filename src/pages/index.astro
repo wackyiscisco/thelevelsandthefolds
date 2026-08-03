@@ -1,34 +1,320 @@
 ---
-// src/pages/index.astro (Notice: ONE '../' because it sits directly in src/pages/)
+// src/pages/index.astro
 import Layout from '../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
+import cosmosData from '../data/cosmos.json';
 
 const allSongs = await getCollection('songs');
+const songCount = allSongs.length || 620;
+
+const factionStyles: Record<string, { bg: string; border: string; glow: string; text: string; badge: string }> = {
+  'crimson-sparks': {
+    bg: 'bg-gradient-to-br from-orange-950/40 via-slate-950/80 to-slate-950',
+    border: 'border-orange-500/30 hover:border-orange-500/70',
+    glow: 'hover:shadow-orange-950/50',
+    text: 'from-orange-400 to-amber-300',
+    badge: 'bg-orange-950/80 text-orange-300 border-orange-800/50'
+  },
+  'maya': {
+    bg: 'bg-gradient-to-br from-cyan-950/40 via-slate-950/80 to-slate-950',
+    border: 'border-cyan-500/30 hover:border-cyan-500/70',
+    glow: 'hover:shadow-cyan-950/50',
+    text: 'from-cyan-300 to-teal-200',
+    badge: 'bg-cyan-950/80 text-cyan-300 border-cyan-800/50'
+  },
+  'that-guy': {
+    bg: 'bg-gradient-to-br from-emerald-950/40 via-slate-950/80 to-slate-950',
+    border: 'border-emerald-500/30 hover:border-emerald-500/70',
+    glow: 'hover:shadow-emerald-950/50',
+    text: 'from-emerald-400 to-green-300',
+    badge: 'bg-emerald-950/80 text-emerald-300 border-emerald-800/50'
+  },
+  'pandora-raven': {
+    bg: 'bg-gradient-to-br from-purple-950/40 via-slate-950/80 to-slate-950',
+    border: 'border-purple-500/30 hover:border-purple-500/70',
+    glow: 'hover:shadow-purple-950/50',
+    text: 'from-purple-400 to-pink-300',
+    badge: 'bg-purple-950/80 text-purple-300 border-purple-800/50'
+  },
+  'elara-dawn': {
+    bg: 'bg-gradient-to-br from-amber-950/40 via-slate-950/80 to-slate-950',
+    border: 'border-amber-500/30 hover:border-amber-500/70',
+    glow: 'hover:shadow-amber-950/50',
+    text: 'from-amber-300 to-yellow-200',
+    badge: 'bg-amber-950/80 text-amber-300 border-amber-800/50'
+  },
+  'prima-timo': {
+    bg: 'bg-gradient-to-br from-teal-950/40 via-slate-950/80 to-slate-950',
+    border: 'border-teal-500/30 hover:border-teal-500/70',
+    glow: 'hover:shadow-teal-950/50',
+    text: 'from-teal-300 to-emerald-200',
+    badge: 'bg-teal-950/80 text-teal-300 border-teal-800/50'
+  },
+  'solara': {
+    bg: 'bg-gradient-to-br from-indigo-950/40 via-purple-950/30 to-slate-950',
+    border: 'border-indigo-500/30 hover:border-indigo-500/70',
+    glow: 'hover:shadow-indigo-950/50',
+    text: 'from-indigo-300 via-purple-300 to-pink-300',
+    badge: 'bg-indigo-950/80 text-indigo-300 border-indigo-800/50'
+  }
+};
 ---
 
 <Layout title="The Cosmos Ecosystem | Home">
-  <main class="max-w-7xl mx-auto px-6 py-16 space-y-12">
+  <main class="w-full max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-10 py-8 lg:py-14 space-y-20">
     
-    <!-- Hero Banner -->
-    <div class="text-center space-y-6 max-w-3xl mx-auto">
-      <span class="px-3.5 py-1 rounded-full text-xs font-mono font-semibold bg-purple-950/80 text-purple-300 border border-purple-800/50">
-        Level 1 Fold 1 • Level 15 Fold 15
-      </span>
-      <h1 class="text-5xl md:text-7xl font-black tracking-tight text-white">
-        Welcome to <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-400 to-amber-300">The Cosmos</span>
-      </h1>
-      <p class="text-slate-400 text-base md:text-lg leading-relaxed">
-        Explore a multi-layered universe where music, lore, stories, and digital worlds exist simultaneously across all Levels and Folds.
-      </p>
-      <div class="flex items-center justify-center gap-4 pt-4">
-        <a href="/music" class="px-6 py-3 rounded-xl font-bold bg-purple-600 hover:bg-purple-500 text-white transition shadow-lg shadow-purple-900/30">
-          Explore Discography →
-        </a>
-        <a href="https://www.patreon.com/c/wackyciscorecords/" target="_blank" class="px-6 py-3 rounded-xl font-bold bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-200 transition">
-          Join Vault
+    <!-- Hero Row: Side-by-Side Split Hero & Holographic Vault Card -->
+    <section class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center min-h-[70vh]">
+      
+      <!-- Left Column: Hero Text & Actions -->
+      <div class="lg:col-span-6 space-y-6 text-left">
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-mono font-semibold bg-purple-950/80 text-purple-300 border border-purple-800/50 shadow-md">
+          <span class="w-2 h-2 rounded-full bg-purple-400 animate-ping"></span>
+          The Levels and The Folds
+        </div>
+
+        <h1 class="text-4xl sm:text-6xl lg:text-7xl font-black tracking-tight text-white leading-[1.08]">
+          Welcome to <br class="hidden sm:inline" />
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-400 to-amber-300">The Cosmos</span>
+        </h1>
+
+        <p class="text-slate-300 text-base sm:text-lg leading-relaxed max-w-2xl">
+          Explore a multi-layered universe spanning 300,000 years, where music, lore, chronicles, and digital worlds exist simultaneously across all Levels and Folds.
+        </p>
+
+        <!-- Main Action Buttons -->
+        <div class="flex flex-wrap items-center gap-4 pt-2">
+          <a href="/music" class="px-7 py-3.5 rounded-xl font-bold bg-purple-600 hover:bg-purple-500 text-white transition shadow-lg shadow-purple-900/40 hover:shadow-purple-700/50 flex items-center gap-2">
+            <span>Explore Discography</span>
+            <span class="text-lg">→</span>
+          </a>
+          <a href="/artists" class="px-6 py-3.5 rounded-xl font-bold bg-slate-900/90 hover:bg-slate-800 border border-slate-700/80 text-slate-200 transition">
+            View Roster
+          </a>
+          <a href="https://www.patreon.com/c/wackyciscorecords/membership" target="_blank" class="px-6 py-3.5 rounded-xl font-bold bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/40 text-amber-300 transition flex items-center gap-2">
+            <span>Patreon Vault</span>
+            <span class="text-xs px-2 py-0.5 rounded-full bg-amber-400/20 font-mono">7 Days Free</span>
+          </a>
+        </div>
+
+        <!-- Metric Stat Badges -->
+        <div class="pt-6 border-t border-slate-800/80 grid grid-cols-2 sm:grid-cols-4 gap-4">
+          <div class="space-y-0.5">
+            <div class="text-2xl lg:text-3xl font-black text-purple-300">{songCount}+</div>
+            <div class="text-xs font-mono text-slate-400 uppercase tracking-wider">Ingested Tracks</div>
+          </div>
+          <div class="space-y-0.5">
+            <div class="text-2xl lg:text-3xl font-black text-pink-300">7</div>
+            <div class="text-xs font-mono text-slate-400 uppercase tracking-wider">Unique Factions</div>
+          </div>
+          <div class="space-y-0.5">
+            <div class="text-2xl lg:text-3xl font-black text-amber-300">17</div>
+            <div class="text-xs font-mono text-slate-400 uppercase tracking-wider">Twin Albums</div>
+          </div>
+          <div class="space-y-0.5">
+            <div class="text-2xl lg:text-3xl font-black text-teal-300">300k</div>
+            <div class="text-xs font-mono text-slate-400 uppercase tracking-wider">Years Lore</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: Holographic Patreon 7-Day Free Trial VIP Card -->
+      <div class="lg:col-span-6 w-full">
+        <div class="p-6 sm:p-8 lg:p-10 rounded-3xl bg-slate-950/85 border border-purple-500/40 shadow-2xl shadow-purple-950/60 backdrop-blur-2xl relative overflow-hidden group text-left">
+          
+          <!-- Ambient Glowing Orbs -->
+          <div class="absolute -top-28 -right-28 w-80 h-80 bg-purple-600/25 rounded-full blur-3xl group-hover:bg-purple-500/35 transition duration-700 pointer-events-none"></div>
+          <div class="absolute -bottom-28 -left-28 w-80 h-80 bg-amber-500/20 rounded-full blur-3xl group-hover:bg-amber-500/30 transition duration-700 pointer-events-none"></div>
+
+          <div class="relative z-10 space-y-6">
+            <!-- Header Badge -->
+            <div class="flex items-center justify-between flex-wrap gap-2">
+              <span class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-mono font-semibold bg-amber-500/15 text-amber-300 border border-amber-500/40 shadow-sm">
+                <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+                ✦ 7-DAY FREE TRIAL AVAILABLE
+              </span>
+              <span class="text-xs font-mono text-purple-300/80">The Levels and The Folds • Patreon Vault</span>
+            </div>
+
+            <!-- Headline & Description -->
+            <div>
+              <h2 class="text-2xl sm:text-4xl font-extrabold text-white tracking-tight">
+                Unlock <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-300 to-amber-300">The Master Vault</span>
+              </h2>
+              <p class="text-slate-300 text-sm sm:text-base mt-2 leading-relaxed">
+                Experience deep podcast episodes on Cosmos lore, hidden realm histories, unreleased tracks, and exclusive creator drafts for 7 days—100% free.
+              </p>
+            </div>
+
+            <!-- Perk Chips Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div class="flex items-center gap-3 p-3 rounded-xl bg-purple-950/50 border border-purple-800/50 text-xs sm:text-sm font-medium text-purple-200 shadow-inner">
+                <span class="text-lg">🎙️</span>
+                <span>Deep Lore Podcasts & History</span>
+              </div>
+              <div class="flex items-center gap-3 p-3 rounded-xl bg-purple-950/50 border border-purple-800/50 text-xs sm:text-sm font-medium text-purple-200 shadow-inner">
+                <span class="text-lg">🎧</span>
+                <span>Unreleased Master Tracks</span>
+              </div>
+              <div class="flex items-center gap-3 p-3 rounded-xl bg-purple-950/50 border border-purple-800/50 text-xs sm:text-sm font-medium text-purple-200 shadow-inner">
+                <span class="text-lg">📖</span>
+                <span>Exclusive Lore & Book Drafts</span>
+              </div>
+              <div class="flex items-center gap-3 p-3 rounded-xl bg-purple-950/50 border border-purple-800/50 text-xs sm:text-sm font-medium text-purple-200 shadow-inner">
+                <span class="text-lg">🎨</span>
+                <span>4K Art Vault & Wallpapers</span>
+              </div>
+            </div>
+
+            <!-- Action Button & Micro-copy -->
+            <div class="pt-2 flex flex-col sm:flex-row items-center gap-4">
+              <a href="https://www.patreon.com/c/wackyciscorecords/membership" target="_blank" class="w-full sm:w-auto px-8 py-4 rounded-2xl font-extrabold bg-gradient-to-r from-purple-600 via-pink-600 to-amber-500 hover:from-purple-500 hover:via-pink-500 hover:to-amber-400 text-white transition shadow-xl shadow-purple-900/50 hover:shadow-purple-700/60 text-center flex items-center justify-center gap-2.5 text-base">
+                <span>Start 7-Day Free Trial</span>
+                <span class="text-xl">→</span>
+              </a>
+              <p class="text-xs font-mono text-slate-400 text-center sm:text-left leading-tight">
+                Cancel anytime on Patreon.<br class="hidden sm:inline" /> Zero charge during your 7-day trial.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- Section 2: The 7 Factions Showcase Grid -->
+    <section class="space-y-8 pt-6">
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-slate-800/80 pb-6">
+        <div>
+          <span class="text-xs font-mono font-bold uppercase tracking-widest text-purple-400">The Roster</span>
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight mt-1">
+            7 Unique Factions & Artists
+          </h2>
+        </div>
+        <a href="/artists" class="text-sm font-bold text-purple-400 hover:text-purple-300 transition flex items-center gap-1">
+          <span>Explore All Profile Sheets</span>
+          <span>→</span>
         </a>
       </div>
-    </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        {cosmosData.artists.map((artist) => {
+          const style = factionStyles[artist.id] || factionStyles['solara'];
+          return (
+            <a 
+              href={`/music/${artist.id}`}
+              class={`p-6 rounded-2xl ${style.bg} border ${style.border} ${style.glow} transition duration-300 shadow-lg group relative flex flex-col justify-between space-y-4`}
+            >
+              <div class="space-y-3">
+                <div class="flex items-center justify-between gap-2">
+                  <span class={`px-2.5 py-0.5 rounded-full text-[11px] font-mono font-bold border ${style.badge}`}>
+                    {artist.levelFold}
+                  </span>
+                  <span class="text-[11px] font-mono text-slate-400">
+                    {artist.albums.length} Albums
+                  </span>
+                </div>
+
+                <h3 class={`text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r ${style.text} group-hover:scale-[1.02] transition transform origin-left`}>
+                  {artist.name}
+                </h3>
+
+                <p class="text-slate-300 text-xs sm:text-sm line-clamp-3 leading-relaxed">
+                  {artist.description}
+                </p>
+              </div>
+
+              <div class="pt-3 border-t border-slate-800/60 flex items-center justify-between text-xs font-mono font-semibold text-slate-400 group-hover:text-slate-200">
+                <span>Enter Space</span>
+                <span class="group-hover:translate-x-1 transition transform">→</span>
+              </div>
+            </a>
+          );
+        })}
+      </div>
+    </section>
+
+    <!-- Section 3: The 4 Pillars of The Cosmos Ecosystem -->
+    <section class="space-y-8 pt-6">
+      <div class="text-center max-w-2xl mx-auto space-y-2">
+        <span class="text-xs font-mono font-bold uppercase tracking-widest text-amber-400">Ecosystem Architecture</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+          Four Pillars of The Cosmos
+        </h2>
+        <p class="text-slate-400 text-sm sm:text-base">
+          From music collections to lore chronicles and podcasts, explore how the universe connects.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        
+        <!-- Pillar 1: Music -->
+        <a href="/music" class="p-6 rounded-2xl bg-slate-950/70 border border-purple-900/40 hover:border-purple-500/60 transition group space-y-4">
+          <div class="w-12 h-12 rounded-xl bg-purple-950/80 border border-purple-800/50 flex items-center justify-center text-2xl">
+            🎧
+          </div>
+          <h3 class="text-xl font-bold text-white group-hover:text-purple-300 transition">Music & Lyric Vault</h3>
+          <p class="text-slate-300 text-xs leading-relaxed">
+            Over {songCount}+ canonical tracks across twin albums. Read smart lyric quotes, explore releases, and discover lore connections.
+          </p>
+        </a>
+
+        <!-- Pillar 2: Books -->
+        <a href="/books" class="p-6 rounded-2xl bg-slate-950/70 border border-amber-900/40 hover:border-amber-500/60 transition group space-y-4">
+          <div class="w-12 h-12 rounded-xl bg-amber-950/80 border border-amber-800/50 flex items-center justify-center text-2xl">
+            📖
+          </div>
+          <h3 class="text-xl font-bold text-white group-hover:text-amber-300 transition">Chronicles & Books</h3>
+          <p class="text-slate-300 text-xs leading-relaxed">
+            Twin album narrative symmetry written by Head Writer Lyra. Dialogue chapters mirroring destructive exposure vs. protective healing.
+          </p>
+        </a>
+
+        <!-- Pillar 3: Lore -->
+        <a href="/lore" class="p-6 rounded-2xl bg-slate-950/70 border border-teal-900/40 hover:border-teal-500/60 transition group space-y-4">
+          <div class="w-12 h-12 rounded-xl bg-teal-950/80 border border-teal-800/50 flex items-center justify-center text-2xl">
+            🌌
+          </div>
+          <h3 class="text-xl font-bold text-white group-hover:text-teal-300 transition">World Forge & Map</h3>
+          <p class="text-slate-300 text-xs leading-relaxed">
+            Historical timelines, physical laws of realms, and interactive sandbox environments managed by Grand Lorekeeper Serah & Yuki.
+          </p>
+        </a>
+
+        <!-- Pillar 4: Podcasts -->
+        <a href="https://www.patreon.com/c/wackyciscorecords/membership" target="_blank" class="p-6 rounded-2xl bg-slate-950/70 border border-pink-900/40 hover:border-pink-500/60 transition group space-y-4">
+          <div class="w-12 h-12 rounded-xl bg-pink-950/80 border border-pink-800/50 flex items-center justify-center text-2xl">
+            🎙️
+          </div>
+          <h3 class="text-xl font-bold text-white group-hover:text-pink-300 transition">Nyan-Cast Live</h3>
+          <p class="text-slate-300 text-xs leading-relaxed">
+            Foxxie's media broadcasts diving into deep Cosmos history, secret lore discussions, host interviews, and audio reveals.
+          </p>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- Bottom Full-Bleed Patreon Vault CTA Banner -->
+    <section class="p-8 sm:p-12 rounded-3xl bg-gradient-to-r from-purple-950/60 via-slate-950 to-amber-950/40 border border-purple-500/30 text-center relative overflow-hidden space-y-6">
+      <div class="max-w-3xl mx-auto space-y-4 relative z-10">
+        <span class="px-3.5 py-1 rounded-full text-xs font-mono font-bold bg-amber-400/10 text-amber-300 border border-amber-400/30">
+          ✦ DIRECT MEMBER VAULT ACCESS
+        </span>
+        <h2 class="text-3xl sm:text-5xl font-black text-white tracking-tight">
+          Ready to Step Into <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-300 to-amber-300">The Vault</span>?
+        </h2>
+        <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+          Start your 7-day free trial on Patreon today. Get instant access to exclusive podcasts, unreleased master tracks, book chapter drafts, and private Discord studio channels.
+        </p>
+        <div class="pt-2 flex justify-center">
+          <a href="https://www.patreon.com/c/wackyciscorecords/membership" target="_blank" class="px-9 py-4 rounded-2xl font-black bg-gradient-to-r from-purple-600 via-pink-600 to-amber-500 hover:from-purple-500 hover:via-pink-500 hover:to-amber-400 text-white transition shadow-xl shadow-purple-900/50 hover:shadow-purple-700/60 flex items-center gap-3 text-lg">
+            <span>Claim Your 7-Day Free Pass Now</span>
+            <span class="text-2xl">→</span>
+          </a>
+        </div>
+      </div>
+    </section>
 
   </main>
 </Layout>

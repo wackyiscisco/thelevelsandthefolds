@@ -1,4 +1,5 @@
 ---
+
 title: "The Red Warrior"
 artist: "Pandora Raven"
 album: "Album 8: Pandora Raven"
@@ -7,6 +8,7 @@ featured: false
 coverImage: "/images/albums/pandora-raven/Pandora Raven.jpg"
 trackNumber: 4
 quote: "Standing in a room that was built to use you."
+
 ---
 
 [Verse 1]

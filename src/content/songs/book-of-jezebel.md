@@ -1,11 +1,14 @@
 ---
+
 title: "Book of Jezebel"
 artist: "Pandora Raven"
 album: "Album 2: Corrupted"
 levelFold: "Level 1 Fold 1"
 featured: false
-coverImage: "/images/albums/pandora-raven/corrupted.jpg"
+coverImage: "/images/albums/pandora-raven/Corrupted.jpg"
 quote: "Write my name in red... I'll give you a chapter worth reading."
+trackNumber: 7
+
 ---
 
 ### Verse 1

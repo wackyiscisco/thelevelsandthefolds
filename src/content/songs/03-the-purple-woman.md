@@ -1,4 +1,5 @@
 ---
+
 title: "The Purple Woman"
 artist: "Pandora Raven"
 album: "Album 8: Pandora Raven"
@@ -7,6 +8,7 @@ featured: false
 coverImage: "/images/albums/pandora-raven/Pandora Raven.jpg"
 trackNumber: 3
 quote: "Sitting in the ruin of the light you were born to carry."
+
 ---
 
 [Verse 1]

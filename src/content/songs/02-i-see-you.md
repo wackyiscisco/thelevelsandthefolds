@@ -1,0 +1,89 @@
+---
+
+title: "I See You"
+artist: "The Crimson Sparks"
+album: "Album 1: The First Spark"
+levelFold: "Level 12 Fold 15"
+featured: false
+coverImage: "/images/albums/crimson-sparks/The First Spark.jpg"
+trackNumber: 2
+quote: "2. I See You"
+
+---
+
+2. I See You
+
+Verse 1
+
+i see you
+everything's ok
+just going my own way
+
+living in a dream
+in an extraordinary world
+where the two of us can come together
+
+Pre Chorus
+
+it's something i believe
+that love will never fade keeps growing everyday
+
+it's something i have known
+found a love that's true i know coz i found you
+
+Chorus
+
+i see you right now
+i don't wanna fight anymore
+is there something i can do
+for you to make this right
+
+
+Verse
+
+it's impossible
+not to show i know
+i won't give up on you
+
+i know i can't have you now
+but i will wait until i'm holding you in my arms, in my arms
+
+Chorus
+
+i see you right now
+i don't wanna fight anymore
+is there something i can do
+for you to make this right
+
+Chorus
+
+i see you right now
+i don't wanna fight anymore
+is there something i can do
+for you to make this right
+
+CODA
+
+don't wanna fight 
+(don't wanna) 
+don't wanna fight 
+(don't wanna) 
+don't wanna fight 
+(don't wanna) 
+i don't wanna fight anymore
+
+don't wanna fight 
+(don't wanna) 
+don't wanna fight 
+(don't wanna) 
+don't wanna fight 
+(don't wanna) 
+i don't wanna fight anymore
+
+don't wanna fight 
+(don't wanna) 
+don't wanna fight 
+(don't wanna) 
+don't wanna fight 
+(don't wanna) 
+i don't wanna fight -  anymore

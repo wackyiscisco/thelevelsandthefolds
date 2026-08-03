@@ -1,11 +1,14 @@
 ---
+
 title: "Blind Faith"
 artist: "Pandora Raven"
 album: "Album 2: Corrupted"
 levelFold: "Level 1 Fold 1"
 featured: false
-coverImage: "/images/albums/pandora-raven/corrupted.jpg"
+coverImage: "/images/albums/pandora-raven/Corrupted.jpg"
 quote: "Close your eyes... it's easier to believe when you can't see."
+trackNumber: 8
+
 ---
 
 ### Verse 1

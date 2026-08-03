@@ -1,11 +1,14 @@
 ---
+
 title: "Throne Of Everything"
 artist: "Pandora Raven"
 album: "Album 4: Sede Vacante"
 levelFold: "Level 1 Fold 1"
 featured: true
-coverImage: "/images/albums/pandora-raven/sede-vacante.jpg"
+coverImage: "/images/albums/pandora-raven/Sede Vacante.jpg"
 quote: "I hold the shape of all of it... and it is mine."
+trackNumber: 4
+
 ---
 
 [Intro — low organ, steady]

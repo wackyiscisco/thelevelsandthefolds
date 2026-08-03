@@ -1,4 +1,5 @@
 ---
+
 title: "The Time Fate Guided"
 artist: "Pandora Raven"
 album: "Album 8: Pandora Raven"
@@ -7,6 +8,7 @@ featured: false
 coverImage: "/images/albums/pandora-raven/Pandora Raven.jpg"
 trackNumber: 1
 quote: "The time fate guided was never in the book."
+
 ---
 
 [Verse 1]

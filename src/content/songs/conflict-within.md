@@ -1,11 +1,14 @@
 ---
+
 title: "Conflict Within"
 artist: "Pandora Raven"
 album: "Album 5.5: The Raven's Light"
 levelFold: "Level 1 Fold 1"
 featured: true
-coverImage: "/images/albums/pandora-raven/the-ravens-light.jpg"
+coverImage: "/images/albums/pandora-raven/The Raven's Light.jpg"
 quote: "Whatever I was, I was... but I'm still alive, and I have to try."
+trackNumber: 3
+
 ---
 
 [Verse 1 - piano, intimate, like a journal entry]

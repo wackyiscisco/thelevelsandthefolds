@@ -1,4 +1,5 @@
 ---
+
 title: "The Ones Below"
 artist: "Pandora Raven"
 album: "Album 6.5: The Raven's Shadow"
@@ -7,6 +8,7 @@ levelFold: "Level 1 Fold 1"
 featured: false
 coverImage: "/images/albums/pandora-raven/The Raven's Shadow.jpg"
 quote: "The Ones Below are older than the Order, the Ones Below were here before the Sins."
+
 ---
 
 [Intro]

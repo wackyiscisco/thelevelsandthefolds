@@ -1,11 +1,14 @@
 ---
+
 title: "East Rising"
 artist: "Pandora Raven"
 album: "Album 5.5: The Raven's Light"
 levelFold: "Level 1 Fold 1"
 featured: true
-coverImage: "/images/albums/pandora-raven/the-ravens-light.jpg"
+coverImage: "/images/albums/pandora-raven/The Raven's Light.jpg"
 quote: "The east is rising, and something pulls me forward."
+trackNumber: 4
+
 ---
 
 [Verse 1 - violin + first harp notes, tentative, morning quiet]

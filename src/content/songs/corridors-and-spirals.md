@@ -1,4 +1,5 @@
 ---
+
 title: "Corridors and Spirals"
 artist: "Pandora Raven"
 album: "Album 6.5: The Raven's Shadow"
@@ -6,6 +7,8 @@ levelFold: "Level 1 Fold 1"
 featured: false
 coverImage: "/images/albums/pandora-raven/The Raven's Shadow.jpg"
 quote: "I reached for dark and found a thread of white."
+trackNumber: 7
+
 ---
 
 [Verse 1]

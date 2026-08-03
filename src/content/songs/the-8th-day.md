@@ -1,4 +1,5 @@
 ---
+
 title: "The 8th Day"
 artist: "Pandora Raven"
 album: "Album 1: Wicked"
@@ -7,6 +8,7 @@ featured: false
 coverImage: "/images/albums/pandora-raven/Wicked.jpg"
 trackNumber: 8
 quote: "On the seventh... rest. On the eighth... He never rested."
+
 ---
 
 ... file content truncated for brevity ...

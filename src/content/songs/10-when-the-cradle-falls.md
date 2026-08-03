@@ -1,4 +1,5 @@
 ---
+
 title: "When the Cradle Falls"
 artist: "Pandora Raven"
 album: "Album 8: Pandora Raven"
@@ -7,6 +8,7 @@ featured: false
 coverImage: "/images/albums/pandora-raven/Pandora Raven.jpg"
 trackNumber: 10
 quote: "When the cradle falls, she does not let him fall with it."
+
 ---
 
 [Intro — the battle in the final minute]

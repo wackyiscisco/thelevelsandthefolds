@@ -1,4 +1,5 @@
 ---
+
 title: "Down Is Up"
 artist: "Pandora Raven"
 album: "Album 6.5: The Raven's Shadow"
@@ -6,6 +7,8 @@ levelFold: "Level 1 Fold 1"
 featured: false
 coverImage: "/images/albums/pandora-raven/The Raven's Shadow.jpg"
 quote: "Down is up and up is falling, every wall a trick and every floor a lie."
+trackNumber: 8
+
 ---
 
 [Verse 1]

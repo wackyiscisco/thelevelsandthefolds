@@ -1,11 +1,14 @@
 ---
+
 title: "The Final Command"
 artist: "Pandora Raven"
 album: "Album 4: Sede Vacante"
 levelFold: "Level 1 Fold 1"
 featured: true
-coverImage: "/images/albums/pandora-raven/sede-vacante.jpg"
+coverImage: "/images/albums/pandora-raven/Sede Vacante.jpg"
 quote: "One command is all it takes... and everything complies."
+trackNumber: 1
+
 ---
 
 [Intro — minimal, distant tone]

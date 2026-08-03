@@ -1,11 +1,14 @@
 ---
+
 title: "Forbidden Fruit"
 artist: "Pandora Raven"
 album: "Album 2: Corrupted"
 levelFold: "Level 1 Fold 1"
 featured: false
-coverImage: "/images/albums/pandora-raven/corrupted.jpg"
+coverImage: "/images/albums/pandora-raven/Corrupted.jpg"
 quote: "You didn't eat it because you were hungry. You ate it because they told you not to."
+trackNumber: 5
+
 ---
 
 ### Verse 1

@@ -1,4 +1,5 @@
 ---
+
 title: "Olan the Brave"
 artist: "Pandora Raven"
 album: "Album 8: Pandora Raven"
@@ -7,6 +8,7 @@ featured: false
 coverImage: "/images/albums/pandora-raven/Pandora Raven.jpg"
 trackNumber: 7
 quote: "Olan the Brave — for the staying when the staying is the hardest thing."
+
 ---
 
 [Intro]

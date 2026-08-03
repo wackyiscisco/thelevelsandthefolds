@@ -1,11 +1,14 @@
 ---
+
 title: "Sede Vacante"
 artist: "Pandora Raven"
 album: "Album 4: Sede Vacante"
 levelFold: "Level 1 Fold 1"
 featured: true
-coverImage: "/images/albums/pandora-raven/sede-vacante.jpg"
+coverImage: "/images/albums/pandora-raven/Sede Vacante.jpg"
 quote: "A vacant seat, the seat remains. Whom do I rule? Who serves me?"
+trackNumber: 6
+
 ---
 
 ### Verse 1

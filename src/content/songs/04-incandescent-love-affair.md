@@ -1,0 +1,90 @@
+---
+
+title: "Incandescent Love Affair"
+artist: "The Crimson Sparks"
+album: "Album 6: Wildfire"
+levelFold: "Level 12 Fold 15"
+featured: false
+coverImage: "/images/albums/crimson-sparks/Wildfire.jpg"
+trackNumber: 4
+quote: "This is incandescent"
+
+---
+
+[Verse 1]
+You remember when I said I couldn't find the formula
+I had all the elements but kept on getting stuck
+And then you walked across the room and something clicked
+And suddenly the numbers started adding up
+
+Turns out you were the current
+Running through my filament
+I didn't know that I could run this hot
+At six thousand Kelvin
+I am finally luminous
+And I think I've found the temperature I've got
+
+[Pre-Chorus]
+This isn't just a reaction anymore
+This is something that sustains
+Every atom of me is running at the core
+And nothing about this has remained the same
+
+[Chorus]
+This is incandescent
+This is you and me
+Running at full spectrum
+Everything you see
+I used to chase the formula
+Now the formula is you
+This is incandescent
+And I'm glowing through
+
+[Verse 2]
+I calculated all the variables before
+I knew the periodic table front to back
+But nothing in my data had prepared me for
+The way you make me radiate like that
+I'm not flustered anymore
+I've done the math
+I've run it seventeen times, the answer's you
+At maximum luminance
+I see the path
+And every wavelength resolves to you
+
+[Pre-Chorus]
+This isn't just a reaction anymore
+This is something that sustains
+Every atom of me is running at the core
+And nothing about this has remained the same
+
+[Chorus]
+This is incandescent
+This is you and me
+Running at full spectrum
+Everything you see
+I used to chase the formula
+Now the formula is you
+This is incandescent
+And I'm glowing through
+
+[Fun Solo]
+
+[Bridge]
+In Combustion Reaction you were unknown X
+Now I've solved for you
+And I don't want to stop
+Every measurement confirms it
+Every test
+The data doesn't lie
+You're the reason I'm this bright
+
+[Final Chorus - key lift]
+This is incandescent
+This is you and me
+Running at full spectrum
+Everything you see
+I used to chase the formula
+Now the formula is you
+This is incandescent
+And WE'RE glowing through

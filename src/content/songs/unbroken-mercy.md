@@ -1,11 +1,14 @@
 ---
+
 title: "Unbroken Mercy"
 artist: "Pandora Raven"
 album: "Album 5.5: The Raven's Light"
 levelFold: "Level 1 Fold 1"
 featured: true
-coverImage: "/images/albums/pandora-raven/the-ravens-light.jpg"
+coverImage: "/images/albums/pandora-raven/The Raven's Light.jpg"
 quote: "Every storm I ever swallowed... Come down!"
+trackNumber: 9
+
 ---
 
 [Verse 1 - urgency, faster tempo, she's already moving]

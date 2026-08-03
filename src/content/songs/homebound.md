@@ -1,11 +1,14 @@
 ---
+
 title: "Homebound"
 artist: "Pandora Raven"
 album: "Album 5.5: The Raven's Light"
 levelFold: "Level 1 Fold 1"
 featured: false
-coverImage: "/images/albums/pandora-raven/the-ravens-light.jpg"
+coverImage: "/images/albums/pandora-raven/The Raven's Light.jpg"
 quote: "I am empty... and empty feels like morning."
+trackNumber: 11
+
 ---
 
 [Verse 1 - walking east, something is missing, she notices]

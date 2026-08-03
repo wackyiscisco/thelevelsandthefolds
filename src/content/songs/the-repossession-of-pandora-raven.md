@@ -1,11 +1,14 @@
 ---
+
 title: "The Repossession of Pandora Raven"
 artist: "Pandora Raven"
 album: "Album 5.5: The Raven's Light"
 levelFold: "Level 1 Fold 1"
 featured: true
-coverImage: "/images/albums/pandora-raven/the-ravens-light.jpg"
+coverImage: "/images/albums/pandora-raven/The Raven's Light.jpg"
 quote: "They think I'm still the weapon... I'm not who I was anymore."
+trackNumber: 12
+
 ---
 
 [Verse 1 - celestial, warm, the peak of everything we built]

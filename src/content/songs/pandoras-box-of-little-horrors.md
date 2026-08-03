@@ -1,11 +1,14 @@
 ---
+
 title: "Pandora's Box of Little Horrors"
 artist: "Pandora Raven"
 album: "Album 3: Pandora's Box of Little Horrors"
 levelFold: "Level 1 Fold 1"
 featured: true
-coverImage: "/images/albums/pandora-raven/pandoras-box.jpg"
+coverImage: "/images/albums/pandora-raven/Pandora's Box of Little Horrors.jpg"
 quote: "You think the box is a warning. It's a portfolio."
+trackNumber: 6
+
 ---
 
 ### Verse 1

@@ -1,11 +1,14 @@
 ---
+
 title: "I Lust You"
 artist: "Pandora Raven"
 album: "Album 2: Corrupted"
 levelFold: "Level 1 Fold 1"
 featured: false
-coverImage: "/images/albums/pandora-raven/corrupted.jpg"
+coverImage: "/images/albums/pandora-raven/Corrupted.jpg"
 quote: "Who needs love... when you lust me too."
+trackNumber: 3
+
 ---
 
 ### Verse 1

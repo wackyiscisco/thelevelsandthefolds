@@ -1,11 +1,14 @@
 ---
+
 title: "Pandora's Box of Forgotten Things"
 artist: "Pandora Raven"
 album: "Album 4: Sede Vacante"
 levelFold: "Level 1 Fold 1"
 featured: false
-coverImage: "/images/albums/pandora-raven/sede-vacante.jpg"
+coverImage: "/images/albums/pandora-raven/Sede Vacante.jpg"
 quote: "Something was always there... Something was always — Her."
+trackNumber: 9
+
 ---
 
 ### Verse 1

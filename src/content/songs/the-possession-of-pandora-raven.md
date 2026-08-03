@@ -1,11 +1,14 @@
 ---
+
 title: "The Possession of Pandora Raven"
 artist: "Pandora Raven"
 album: "Album 2: Corrupted"
 levelFold: "Level 1 Fold 1"
 featured: true
-coverImage: "/images/albums/pandora-raven/corrupted.jpg"
+coverImage: "/images/albums/pandora-raven/Corrupted.jpg"
 quote: "I was not dragged or tricked into the dark... I opened the door myself."
+trackNumber: 11
+
 ---
 
 [Intro — heavy organ, deep choral chanting, breathing]

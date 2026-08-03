@@ -1,11 +1,14 @@
 ---
+
 title: "The Raven's Light"
 artist: "Pandora Raven"
 album: "Album 5.5: The Raven's Light"
 levelFold: "Level 1 Fold 1"
 featured: true
-coverImage: "/images/albums/pandora-raven/the-ravens-light.jpg"
+coverImage: "/images/albums/pandora-raven/The Raven's Light.jpg"
 quote: "The dark bird carrying what the morning needs."
+trackNumber: 6
+
 ---
 
 [Verse 1 - strings + harp, conviction forming]

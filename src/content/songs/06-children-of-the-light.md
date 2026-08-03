@@ -1,4 +1,5 @@
 ---
+
 title: "Children of the Light"
 artist: "Pandora Raven"
 album: "Album 8: Pandora Raven"
@@ -7,6 +8,7 @@ featured: false
 coverImage: "/images/albums/pandora-raven/Pandora Raven.jpg"
 trackNumber: 6
 quote: "Children of the light — they are so full of it still."
+
 ---
 
 [Intro]

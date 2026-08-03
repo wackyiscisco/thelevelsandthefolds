@@ -1,11 +1,14 @@
 ---
+
 title: "Blinding Silhouette"
 artist: "Pandora Raven"
 album: "Album 4: Sede Vacante"
 levelFold: "Level 1 Fold 1"
 featured: false
-coverImage: "/images/albums/pandora-raven/sede-vacante.jpg"
+coverImage: "/images/albums/pandora-raven/Sede Vacante.jpg"
 quote: "A blinding silhouette -- I saw it clearly -- and then it was gone."
+trackNumber: 7
+
 ---
 
 ### Verse 1

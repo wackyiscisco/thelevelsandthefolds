@@ -14,7 +14,24 @@
       "featuredTrack": "We Are The Crimson Sparks",
       "status": "Legendary Era",
       "spotify": "https://open.spotify.com/artist/6xgaUUsvV5q8DlOyC9AmgV?si=RM5ns_81STSTGI7MHFsbpw",
-      "youtube": "https://www.youtube.com/@thecrimsonsparks"
+      "youtube": "https://www.youtube.com/@thecrimsonsparks",
+      "lineup": [
+        "Suki Moreau (Vocals & Songwriter) — The observer and narrative center.",
+        "Soren Crane (Bass & Co-Founder) — The silent mentor who values integrity over corporate deals.",
+        "Sky Delacroix (Lead Guitar) — Chaotic creative energy who plays with raw passion.",
+        "Sol Kovic (Drums) — Self-taught drummer bringing ska-punk roots and infectious energy.",
+        "Sienna Aramaki (Rhythm Guitar & Keys) — Classically trained prodigy seeking authentic creation."
+      ],
+      "albums": [
+        "(1) The First Spark",
+        "(2) We Are The Crimson Sparks",
+        "(3) Crash and Burn",
+        "(4) Ignite - Catching Fire",
+        "(5) The Crimson Five",
+        "(6) Wildfire",
+        "(7) Embers - Origins"
+      ],
+      "keyQuote": "The music was never about us. It was always about what came next."
     },
     {
       "id": "maya",
@@ -24,7 +41,19 @@
       "featuredTrack": "Take Me Away",
       "status": "Active Era",
       "spotify": "https://open.spotify.com/artist/2UPh7kDWkHjvoVw4WPWCFC?si=K7RHXhDOSYeL16nCrgsPUA",
-      "youtube": "https://www.youtube.com/@MaryAnnMAYAYanez"
+      "youtube": "https://www.youtube.com/@MaryAnnMAYAYanez",
+      "lineup": [
+        "Maya (Lead Vocals & Guitar)"
+      ],
+      "albums": [
+        "(1) Preflight",
+        "(2) Wheels Up",
+        "(3) Turbulence",
+        "(4) Crash",
+        "(5) Stripped",
+        "(6) Strings and Theories"
+      ],
+      "keyQuote": "Inheriting the spark and playing it for stadium crowds."
     },
     {
       "id": "that-guy",
@@ -34,7 +63,14 @@
       "featuredTrack": "Corporate Chains",
       "status": "Active Era",
       "spotify": "",
-      "youtube": ""
+      "youtube": "",
+      "lineup": [
+        "That Guy (Vocals, Rants & Meltdown)"
+      ],
+      "albums": [
+        "Saevit Animo (Act I: Break The Cage, Act II: Real Life, Act III: Love?, Act IV: Consequences!)"
+      ],
+      "keyQuote": "FUCK!"
     },
     {
       "id": "pandora-raven",
@@ -44,7 +80,21 @@
       "featuredTrack": "Wicked",
       "status": "Active Era",
       "spotify": "",
-      "youtube": "https://www.youtube.com/@PandoraRaven"
+      "youtube": "https://www.youtube.com/@PandoraRaven",
+      "lineup": [
+        "Pandora Raven (Vocals, Raven Messenger, Dark & Light Magic)"
+      ],
+      "albums": [
+        "1.0 Wicked",
+        "2.0 Corrupted",
+        "3.0 Pandora's Box of Little Horrors",
+        "4.0 Sede Vacante",
+        "5.5 The Raven's Light",
+        "6.5 The Raven's Shadow",
+        "7.5 The Spirit of the Raven Twins",
+        "8.0 Pandora Raven"
+      ],
+      "keyQuote": "Observe, Question, Record, Understand."
     },
     {
       "id": "elara-dawn",
@@ -54,7 +104,20 @@
       "featuredTrack": "Flicker, Flicker North Star",
       "status": "Active Era",
       "spotify": "",
-      "youtube": "https://www.youtube.com/@Elara_Dawn"
+      "youtube": "https://www.youtube.com/@Elara_Dawn",
+      "lineup": [
+        "Elara Dawn (Lead Commander, Shield of the South, Light Bearer)"
+      ],
+      "albums": [
+        "1.5 Mercy",
+        "2.5 Unbroken",
+        "3.5 House of Miracles",
+        "4.5 Fides Fracta",
+        "6.0 Age of Destruction",
+        "7.0 Polaris",
+        "8.5 Elara Dawn"
+      ],
+      "keyQuote": "I ride as Elara. Not as War."
     },
     {
       "id": "solara",
@@ -64,7 +127,24 @@
       "featuredTrack": "Album 9 Convergence",
       "status": "Awaiting Convergence",
       "spotify": "",
-      "youtube": "https://www.youtube.com/@Solara_the_next_saga"
+      "youtube": "https://www.youtube.com/@Solara_the_next_saga",
+      "lineup": [
+        "SOLARA (Unified Cosmic Entity)"
+      ],
+      "albums": [
+        "(9.0) THE ONE",
+        "(9.1) NOVA",
+        "(9.2) NEBULA",
+        "(9.3) CORONA",
+        "(9.4) QUASAR",
+        "(9.5) PULSAR",
+        "(9.6) INTERGALACTIC SUPERNOVA",
+        "(9.7) SYZYGY",
+        "(9.8) SOLSTICE",
+        "(9.9) PROTOSTAR",
+        "(9.9.1) GRAVASTAR"
+      ],
+      "keyQuote": "Allowed. The new configuration arrives."
     },
     {
       "id": "prima-timo",
@@ -74,7 +154,22 @@
       "featuredTrack": "Up Where I Belong",
       "status": "Active Era",
       "spotify": "",
-      "youtube": ""
+      "youtube": "",
+      "lineup": [
+        "Prima (Ver. 1.0 CRT Wheels → Primatown Treads → Ver. 7.0 Martial Chassis)",
+        "Timo (Human Scavenger, Core 1, Emotional Anchor)",
+        "Found Family: Vendo, Ronnie, Toes, Kai, Bernard, Stoney, Sofia, Shelly, Vellum"
+      ],
+      "albums": [
+        "(1) Prima (Ver. 1.0) Unus",
+        "(2) Timo (Ver. 2.0) Centum",
+        "(3) Prima (Ver. 3.0) Duo",
+        "(4) Timo (Ver. 4.0) Nonaginta Novem",
+        "(5) Prima (Ver. 5.0) Tria",
+        "(6) Timo (Ver. 6.0) Nonaginta Octo",
+        "(7) Prima (Ver. 7.0) Quattuor"
+      ],
+      "keyQuote": "Same Core, Different House."
     }
   ],
   "patreonTiers": [
