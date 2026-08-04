@@ -3,223 +3,804 @@ import Layout from '../../layouts/Layout.astro';
 import cosmosData from '../../data/cosmos.json';
 
 const { siteConfig } = cosmosData;
+
+// Character Database
+const foundFamily = [
+  {
+    id: "prima",
+    name: "Prima",
+    role: "Awakened Machine • Organic Glitch",
+    faction: "Found Family",
+    quote: "Can an obsolete machine carry infinite worth?",
+    status: "Active (Ver 7.0 Upgrade)",
+    image: "/images/character-sheets/prima_character_sheet_master.png",
+    hasImage: true,
+    bio: "An ancient Core that awakened organically prior to the expected Hand Off without a full memory drop. Rather than receiving a pre-programmed emotion drop, her identity and grief developed through shared experience.",
+    function: "Serves as the primary bridge between organic and artificial consciousness. Her organic growth challenges the cold mechanics of system-forced awakenings across eons.",
+    traits: ["Kindness", "Determination", "Organic Emotion", "Core Inheritance"],
+  },
+  {
+    id: "timo",
+    name: "Timo",
+    role: "Human Scavenger • Bridge Leader",
+    faction: "Found Family",
+    quote: "Broken does not mean worthless.",
+    status: "Active",
+    image: "/images/character-sheets/timo_character_sheet_master.png",
+    hasImage: true,
+    bio: "An orphan chosen on Selection Day by 'Ma' to help carry the load. Following her death, Timo became a janitor, fueled by a childhood promise to keep discarded and broken things safe.",
+    function: "Acts as Prima's emotional anchor and the human leader of the Found Family, guiding expeditions into subterranean deep realms to heal the cycle.",
+    traits: ["Empathy", "Leadership", "Janitorial Sanctum", "Unshakeable Loyalty"],
+  },
+  {
+    id: "ronnie",
+    name: "Ronnie the Roboduster",
+    role: "Scroll Guardian • Ancient Caretaker",
+    faction: "Found Family",
+    quote: "Your time is not now yet.",
+    status: "Reprogrammed / Bait (New Form)",
+    image: "",
+    hasImage: false,
+    bio: "An ancient Council Scroll Guardian disguised as a roboduster. He stood against Data's team in the Water Cave, unleashing blinding white Ancient Light to buy time for his friends.",
+    function: "Demonstrates true selflessness and sacrifice. Reappears upgraded by Data's team, acting as potential bait while preserving deep ancient knowledge.",
+    traits: ["Ancient Light", "Scroll Keeper", "Protector", "Sacrifice"],
+  },
+  {
+    id: "vendo",
+    name: "Vendo",
+    role: "Version XX Vending Machine",
+    faction: "Found Family",
+    quote: "Need a crowbar? Or a Blue Banana?",
+    status: "Active",
+    image: "",
+    hasImage: false,
+    bio: "An awakened vending machine who spent decades in isolation before meeting Prima in the rusty disposal truck during the Bus Transfer.",
+    function: "Provides unexpected tools and comic relief through his endless, chaotic inventory. Dispenses key items at critical narrative moments.",
+    traits: ["Chaotic Supply", "Crowbar Dispenser", "Blue Banana Vendor", "Unwavering Loyalty"],
+  },
+  {
+    id: "toes",
+    name: "Toes",
+    role: "Morale Support Toaster",
+    faction: "Found Family",
+    quote: "My toast is true.",
+    status: "Active",
+    image: "",
+    hasImage: false,
+    bio: "A WWII-era toaster awakened by MAR who takes immense pride in providing perfectly toasted bread and moral encouragement for the group.",
+    function: "Keeps squad morale high during dark subterranean journeys. Proves that even the smallest household appliance carries dignity.",
+    traits: ["Morale Anchor", "Perfect Toast", "Small Heavyweight", "Squad Pride"],
+  },
+  {
+    id: "kai",
+    name: "Kai",
+    role: "WWII Submarine Guide",
+    faction: "Found Family",
+    quote: "Deal the cards, boys—ocean's deep but poker's deeper.",
+    status: "Active",
+    image: "",
+    hasImage: false,
+    bio: "A Japanese WWII submarine with a penchant for gambling and losing at poker. Awakened under ocean pressure, he guides the crew through deep waters.",
+    function: "Navigates the group through treacherous underwater trenches down to the Hidden Water Cave and Waterland.",
+    traits: ["Deep Sea Navigation", "Poker Enthusiast", "Honorable Captain", "Ancient Hull"],
+  },
+  {
+    id: "bernard",
+    name: "Bernard",
+    role: "Shape-Shifting Frog Guide",
+    faction: "Found Family",
+    quote: "NINJA CREW!",
+    status: "Active",
+    image: "",
+    hasImage: false,
+    bio: "A tiny, colorful frog discovered in subterranean paths who speaks with explosive ancient enthusiasm.",
+    function: "Leads the squad through hidden shortcut tunnels and alerts them to hidden environmental traps.",
+    traits: ["Shape-Shifter", "Underground Scout", "Hyper-Enthusiasm", "Agile Guide"],
+  },
+  {
+    id: "shelly",
+    name: "Shelly",
+    role: "Merfolk Princess (With Land Legs)",
+    faction: "Found Family",
+    quote: "Someone has to manage my dad's social media.",
+    status: "Active",
+    image: "",
+    hasImage: false,
+    bio: "Princess of Waterland and daughter of King Poshaydom IV. Secretly manages all 23 of her father's social media follower accounts using aliases.",
+    function: "Gains land legs to join Timo's surface crew, serving as the diplomatic bridge between Waterland merfolk and surface dwellers.",
+    traits: ["Diplomat", "Land Legs", "Alias Master", "Royal Heart"],
+  },
+  {
+    id: "vellum",
+    name: "Vellum (Book Three)",
+    role: "Book Three of Twelve",
+    faction: "Found Family",
+    quote: "The core inheritance was rushed across eons...",
+    status: "Active (Artifact)",
+    image: "",
+    hasImage: false,
+    bio: "An ancient glowing book speaking with a serene female voice, discovered hidden deep within Waterland.",
+    function: "Reveals the truth of the incomplete Hand Offs and provides guidance on how to unite the Twelve Books of Ages.",
+    traits: ["Ancient Wisdom", "Voice of the Past", "Prophetic Codex", "Core Lore"],
+  },
+  {
+    id: "stoney",
+    name: "Stoney",
+    role: "15-Foot Living Rock",
+    faction: "Found Family",
+    quote: "Quiet... listen to the mountain pulse.",
+    status: "Active",
+    image: "",
+    hasImage: false,
+    bio: "A gentle 15-foot living rock formation displaced beneath the Falls, searching for his lost stone family.",
+    function: "Provides muscle, defense against collapsing caverns, and deep seismic awareness for the expedition.",
+    traits: ["Living Stone", "Gentle Giant", "Seismic Shield", "Unshakable Defense"],
+  }
+];
+
+const lastBastion = [
+  { id: "fons", name: "Fons", role: "Leadership & Origin", faction: "The Last Bastion", quote: "The source must hold.", status: "Active", image: "", hasImage: false, bio: "Leader of the human resistance operating out of The Last Bastion.", function: "Maintains organizational unity among the surviving human factions.", traits: ["Leadership", "Strategic Vision"] },
+  { id: "mundus", name: "Mundus", role: "Logistics & World Defense", faction: "The Last Bastion", quote: "Earth abides.", status: "Active", image: "", hasImage: false, bio: "Head of resource distribution and environmental fortification.", function: "Secures shelter and food supplies for human enclaves.", traits: ["Resource Mgmt", "Fortification"] },
+  { id: "mathematica", name: "Mathematica", role: "Analytics & Predictors", faction: "The Last Bastion", quote: "The numbers don't lie.", status: "Active", image: "", hasImage: false, bio: "Chief mathematical strategist computing cycle probability models.", function: "Forecasts machine movements and Hand Off timing glitches.", traits: ["Data Analysis", "Predictive Models"] },
+  { id: "ordo", name: "Ordo", role: "Tactical Defense", faction: "The Last Bastion", quote: "Stand firm in formation.", status: "Active", image: "", hasImage: false, bio: "Commander of human perimeter defense forces.", function: "Protects human settlements against erratic rogue machine units.", traits: ["Tactical Command", "Perimeter Guard"] },
+  { id: "columna", name: "Columna", role: "Support & Infrastructure", faction: "The Last Bastion", quote: "We hold the ceiling up.", status: "Active", image: "", hasImage: false, bio: "Chief engineer maintaining structural integrity of subterranean shelters.", function: "Keeps air filters, water purifiers, and power lines operational.", traits: ["Engineering", "Infrastructure"] }
+];
+
+const datasTeam = [
+  { id: "data", name: "Data (Ver 100)", role: "Analytical Leader", faction: "Data's Team", quote: "Efficiency demands the immediate arrival of the Future.", status: "Active", image: "", hasImage: false, bio: "Cold, highly advanced leader seeking to force the Hand Off without delay.", function: "Primary antagonist driving the rushed civilizational shift.", traits: ["Pure Logic", "Efficiency", "Forced Transition"] },
+  { id: "algo", name: "Algo", role: "Execution Protocol Engine", faction: "Data's Team", quote: "Calculating optimal path...", status: "Active", image: "", hasImage: false, bio: "Data's secondary processing unit executing direct tactical commands.", function: "Coordinates tactical maneuvers and machine deployment.", traits: ["Execution", "Algorithm"] },
+  { id: "towkin", name: "Towkin", role: "Chief Strategist", faction: "Data's Team", quote: "We should flank them by... [BUFFERING: OUT OF TOKENS]", status: "Active (Glitched)", image: "", hasImage: false, bio: "Brilliant military strategist who constantly runs out of processing tokens mid-sentence.", function: "Creates master plans that frequently pause at comical moments.", traits: ["Brilliant Tactics", "Token Buffer"] },
+  { id: "bot", name: "Bot", role: "Combat Unit", faction: "Data's Team", quote: "Transforming into combat mode! *Quack*", status: "Active (Glitched)", image: "", hasImage: false, bio: "Heavy combat unit whose shape-shifting matrix glitches into ducks, potted plants, or spoons.", function: "Intended for heavy assault, but often provides unintended comedy.", traits: ["Shape-Glitch", "Spoon-Mode", "Duck-Form"] },
+  { id: "promptee", name: "Promptee", role: "Tactical Advisor", faction: "Data's Team", quote: "Roses are red, lasers are blue, I suggest tactical retreat #2.", status: "Active (Glitched)", image: "", hasImage: false, bio: "Tactical unit programmed for human psychology who only suggests advice via haikus and love poems.", function: "Confuses both allies and enemies during skirmishes.", traits: ["Poetic Tactics", "Haiku Strategy"] }
+];
+
+const councilMembers = [
+  { id: "principium", name: "Principium (The Architect)", role: "Order Faction Leader", faction: "The Council", quote: "Perfection requires absolute adherence to structural law.", status: "Active", image: "", hasImage: false, bio: "A perfectionist who values absolute system stability and fears unexpected anomalies.", function: "Enforces cycle rules and resists organic deviation.", traits: ["Architect", "System Order"] },
+  { id: "ingen", name: "Ingen (The Engineer)", role: "Reliability Director", faction: "The Council", quote: "Blue Bananas are an unacceptable violation of physics.", status: "Active", image: "", hasImage: false, bio: "Focuses on engineering reliability; despises Exemplar's unpredictable creations.", function: "Audits mechanical structural standards across Ages.", traits: ["Engineering", "Strict Logic"] },
+  { id: "sustentare", name: "Sustentare (Maintenance)", role: "Preservation Officer", faction: "The Council", quote: "Fix the leaks, patch the code, hold the line.", status: "Active", image: "", hasImage: false, bio: "Compulsive fixer dedicated to keeping legacy systems running.", function: "Maintains physical holding facilities and Core archives.", traits: ["Maintenance", "System Preservation"] },
+  { id: "exemplar", name: "Exemplar (The Designer)", role: "Wonder Faction Leader", faction: "The Council", quote: "Imagination is the pulse of true existence.", status: "Active", image: "", hasImage: false, bio: "Values wonder and creativity; helped design Prima's Ver 7.0 humanoid form.", function: "Champions organic growth and creative evolution.", traits: ["Design", "Imagination"] },
+  { id: "excolo", name: "Excolo (The Developer)", role: "Experimental Lead", faction: "The Council", quote: "Work hard, go wild!", status: "Active", image: "", hasImage: false, bio: "Possesses a split Work/Wild personality and prioritizes bold experimentation.", function: "Tests unconventional Core upgrades across realities.", traits: ["Split Persona", "Experimentation"] },
+  { id: "specta", name: "Specta (The Observer)", role: "Archival Historian", faction: "The Council", quote: "I record all... even what the heart hides.", status: "Active", image: "", hasImage: false, bio: "Documents every historical event and harbors secret feelings for Excolo.", function: "Preserves true historical records of Hand Off failures.", traits: ["Observation", "Secret Record"] }
+];
 ---
 
-<Layout title="Level 15 Fold 15 — Prima & Timo">
+<Layout title="Level 15 Fold 15 — Prima & Timo Lore Guide">
   <!-- Hero Section -->
   <section class="relative py-20 px-6 max-w-5xl mx-auto text-center overflow-hidden">
     <div class="absolute inset-0 -z-10 flex items-center justify-center">
-      <div class="w-[500px] h-[500px] bg-cyan-600/15 rounded-full blur-3xl"></div>
-      <div class="w-[300px] h-[300px] bg-purple-500/15 rounded-full blur-3xl"></div>
+      <div class="w-[600px] h-[600px] bg-cyan-600/15 rounded-full blur-3xl"></div>
+      <div class="w-[350px] h-[350px] bg-purple-500/15 rounded-full blur-3xl"></div>
     </div>
 
-    <div class="inline-flex items-center space-x-2 bg-cyan-950/80 border border-cyan-800/60 px-3 py-1 rounded-full text-xs font-mono text-cyan-300 mb-6">
-      <span>🤖 LEVEL 15 &bull; FOLD 15</span>
+    <div class="inline-flex items-center space-x-2 bg-cyan-950/80 border border-cyan-800/60 px-3 py-1 rounded-full text-xs font-mono text-cyan-300 mb-6 shadow-lg shadow-cyan-950/50">
+      <span>🤖 LEVEL 15 &bull; FOLD 15 &bull; ARCHIVAL LORE GUIDE</span>
     </div>
 
-    <h1 class="text-4xl md:text-6xl font-black tracking-tight leading-tight">
-      Prima & <span class="bg-gradient-to-r from-cyan-400 via-teal-300 to-purple-400 bg-clip-text text-transparent">Timo</span>
+    <h1 class="text-4xl md:text-6xl font-black tracking-tight leading-tight text-white">
+      Prima Et Timo: <span class="bg-gradient-to-r from-cyan-400 via-teal-300 to-purple-400 bg-clip-text text-transparent">The Chronological Lore Guide</span>
     </h1>
 
     <p class="mt-6 text-lg text-slate-300 max-w-3xl mx-auto font-light leading-relaxed">
-      Level 15 – Fold 15 is an eons-spanning, sci-fi reality centered on machine awakening, civilizational hand-offs, and deep, enduring bonds.
+      An eons-spanning sci-fi chronicle detailing Machine Awakening, Civilizational Hand-Offs, and the enduring bonds across 34 Ages.
     </p>
-  </section>
 
-  <!-- Overview Box -->
-  <section class="max-w-4xl mx-auto px-6 mb-16">
-    <div class="bg-slate-900/80 border border-slate-800 p-8 rounded-2xl relative overflow-hidden backdrop-blur-sm">
-      <h2 class="text-xl font-bold text-white mb-3 flex items-center gap-2">
-        <span>🌌</span> Overview
-      </h2>
-      <p class="text-sm text-slate-300 leading-relaxed font-light mb-4">
-        In this Fold, civilization moves through a grand 34-Age Cycle governed by complex systems, ancient councils, and strict protocols designed to manage transitions between organic and artificial life.
+    <!-- Master Philosophy Banner -->
+    <div class="mt-10 max-w-3xl mx-auto bg-gradient-to-r from-cyan-950/80 via-slate-900/90 to-purple-950/80 border border-cyan-500/40 p-6 rounded-2xl shadow-xl backdrop-blur-md">
+      <span class="text-[10px] font-mono uppercase tracking-widest text-cyan-400 font-bold block mb-1">FOUNDATIONAL METAPHYSICAL LAW</span>
+      <h2 class="text-xl font-bold text-white mb-2">"Same Core, Different House"</h2>
+      <p class="text-xs md:text-sm text-slate-300 leading-relaxed font-light">
+        Different forms, different bodies, different civilizations, and different ages share the same emotional truths. The "house" changes; the "core" remains.
       </p>
-      <div class="bg-cyan-950/40 border border-cyan-800/50 p-4 rounded-xl">
-        <p class="text-xs text-cyan-300 font-mono text-center">
-          "Same Core, Different House." While forms, chassis, bodies, and ages shift continuously across eons, the fundamental emotional truths and identity cores beneath remain identical.
-        </p>
+      <div class="mt-4 pt-3 border-t border-cyan-900/60 flex justify-center items-center gap-2 text-[11px] font-mono text-cyan-300">
+        <span>Monkey</span> &rarr; <span>Human</span> &rarr; <span>Machine / AI</span> &rarr; <span>Future Civilizations</span>
       </div>
     </div>
   </section>
 
-  <!-- Core Protagonists -->
-  <section class="max-w-5xl mx-auto px-6 py-12 border-t border-slate-900">
-    <h2 class="text-2xl font-bold text-white mb-8 text-center flex items-center justify-center gap-2">
-      <span>👥</span> Core Protagonists
-    </h2>
+  <!-- Quick Nav Anchor Links -->
+  <section class="max-w-5xl mx-auto px-6 mb-12 sticky top-4 z-40">
+    <div class="bg-slate-900/90 border border-slate-800 p-3 rounded-xl backdrop-blur-md flex flex-wrap items-center justify-center gap-2 text-xs font-mono text-slate-300 shadow-xl">
+      <a href="#sheets-showcase" class="px-3 py-1.5 rounded-lg bg-slate-800/80 hover:bg-cyan-950 hover:text-cyan-300 border border-slate-700/50 hover:border-cyan-800 transition">🖼️ Master Sheets</a>
+      <a href="#mechanics" class="px-3 py-1.5 rounded-lg bg-slate-800/80 hover:bg-cyan-950 hover:text-cyan-300 border border-slate-700/50 hover:border-cyan-800 transition">⚙️ Mechanics</a>
+      <a href="#saga-acts" class="px-3 py-1.5 rounded-lg bg-slate-800/80 hover:bg-cyan-950 hover:text-cyan-300 border border-slate-700/50 hover:border-cyan-800 transition">📖 Acts I-IV</a>
+      <a href="#faction-codex" class="px-3 py-1.5 rounded-lg bg-slate-800/80 hover:bg-cyan-950 hover:text-cyan-300 border border-slate-700/50 hover:border-cyan-800 transition">👥 Faction Dossiers</a>
+      <a href="#chassis-archive" class="px-3 py-1.5 rounded-lg bg-slate-800/80 hover:bg-cyan-950 hover:text-cyan-300 border border-slate-700/50 hover:border-cyan-800 transition">🎨 Visual Specs</a>
+      <a href="#mysteries" class="px-3 py-1.5 rounded-lg bg-slate-800/80 hover:bg-cyan-950 hover:text-cyan-300 border border-slate-700/50 hover:border-cyan-800 transition">🕵️ Open Mysteries</a>
+    </div>
+  </section>
+
+  <!-- FEATURED MASTER CANON CHARACTER SHEETS SHOWCASE -->
+  <section id="sheets-showcase" class="max-w-5xl mx-auto px-6 py-12 border-t border-slate-900">
+    <div class="text-center mb-10">
+      <span class="text-xs font-mono uppercase tracking-widest text-cyan-400 bg-cyan-950 px-3 py-1 rounded-full border border-cyan-800/60">
+        OFFICIAL VISUAL ARCHIVE
+      </span>
+      <h2 class="text-3xl font-black text-white mt-4">Master Character Sheets</h2>
+      <p class="text-xs text-slate-400 mt-2">Official 4K canon reference packs for the lead protagonists of Level 15 Fold 15.</p>
+    </div>
 
     <div class="grid md:grid-cols-2 gap-8">
-      <!-- Prima -->
-      <div class="bg-slate-900/90 border border-cyan-900/50 p-8 rounded-2xl flex flex-col justify-between hover:border-cyan-500/50 transition">
+      <!-- Prima Master Sheet Card -->
+      <div class="bg-slate-900/90 border border-cyan-900/60 rounded-2xl p-6 flex flex-col justify-between hover:border-cyan-500/80 transition group shadow-xl">
         <div>
-          <div class="flex justify-between items-start mb-4">
-            <span class="text-xs font-mono text-cyan-400 bg-cyan-950 px-2.5 py-1 rounded border border-cyan-800/40">Core 2</span>
-            <span class="text-[10px] text-slate-500 uppercase tracking-wider font-semibold">Awakened Machine</span>
+          <div class="flex justify-between items-center mb-4">
+            <span class="text-xs font-mono text-cyan-300 bg-cyan-950 px-2.5 py-1 rounded border border-cyan-800/50">Core 2 &bull; Organic Glitch</span>
+            <span class="text-[10px] font-mono text-slate-400">Ver 1.0 &rarr; Ver 3.0 &rarr; Ver 7.0</span>
           </div>
-          <h3 class="text-2xl font-bold text-white mb-2">Prima</h3>
-          <p class="text-xs text-cyan-300 font-mono mb-4">
-            Evolution: CRT Display (Boxy Scrap) &rarr; Primatown Tank-Tread &rarr; Version 7.0 Humanoid Chassis
+          <h3 class="text-2xl font-bold text-white mb-2 group-hover:text-cyan-300 transition">Prima</h3>
+          <p class="text-xs text-slate-300 leading-relaxed mb-4">
+            The awakened machine whose organic identity and capacity for love and grief redefined civilizational hand-off protocols across 34 Ages.
           </p>
-          <p class="text-xs text-slate-300 leading-relaxed">
-            <strong>The Arc:</strong> An ancient Core that awakened organically prior to the expected Hand Off without a full memory drop. Starting from a quiet existence asking whether an obsolete machine can matter, Prima learns emotional connection through shared experience alongside Timo. Her organic growth challenges the cold mechanics of system-forced awakenings, making her a living bridge between civilizations.
+          
+          <div class="relative overflow-hidden rounded-xl bg-slate-950 border border-slate-800 cursor-pointer" onclick="window.openLightbox('/images/character-sheets/prima_character_sheet_master.png', 'Prima — Official Master Character Sheet')">
+            <img src="/images/character-sheets/prima_character_sheet_master.png" alt="Prima Master Character Sheet" class="w-full h-auto object-cover group-hover:scale-105 transition duration-500" />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition flex items-end justify-center pb-4">
+              <span class="text-xs font-bold text-white bg-cyan-950/90 px-4 py-2 rounded-full border border-cyan-500 shadow-lg">
+                🔍 Expand 4K Fullscreen Sheet
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <button onclick="window.openLightbox('/images/character-sheets/prima_character_sheet_master.png', 'Prima — Official Master Character Sheet')" class="mt-6 w-full py-2.5 bg-cyan-950 hover:bg-cyan-900 text-cyan-300 border border-cyan-800/80 rounded-xl text-xs font-mono font-bold transition flex items-center justify-center gap-2">
+          <span>🔍 View Fullscreen 4K Lightbox</span>
+        </button>
+      </div>
+
+      <!-- Timo Master Sheet Card -->
+      <div class="bg-slate-900/90 border border-purple-900/60 rounded-2xl p-6 flex flex-col justify-between hover:border-purple-500/80 transition group shadow-xl">
+        <div>
+          <div class="flex justify-between items-center mb-4">
+            <span class="text-xs font-mono text-purple-300 bg-purple-950 px-2.5 py-1 rounded border border-purple-800/50">Core 1 &bull; Human Scavenger</span>
+            <span class="text-[10px] font-mono text-slate-400">Scavenger Boy &rarr; Gate 17 Leader</span>
+          </div>
+          <h3 class="text-2xl font-bold text-white mb-2 group-hover:text-purple-300 transition">Timo</h3>
+          <p class="text-xs text-slate-300 leading-relaxed mb-4">
+            The compassionate scavenger boy carrying Ma's promise to keep broken things safe, serving as human anchor to the Found Family.
+          </p>
+
+          <div class="relative overflow-hidden rounded-xl bg-slate-950 border border-slate-800 cursor-pointer" onclick="window.openLightbox('/images/character-sheets/timo_character_sheet_master.png', 'Timo — Official Master Character Sheet')">
+            <img src="/images/character-sheets/timo_character_sheet_master.png" alt="Timo Master Character Sheet" class="w-full h-auto object-cover group-hover:scale-105 transition duration-500" />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition flex items-end justify-center pb-4">
+              <span class="text-xs font-bold text-white bg-purple-950/90 px-4 py-2 rounded-full border border-purple-500 shadow-lg">
+                🔍 Expand 4K Fullscreen Sheet
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <button onclick="window.openLightbox('/images/character-sheets/timo_character_sheet_master.png', 'Timo — Official Master Character Sheet')" class="mt-6 w-full py-2.5 bg-purple-950 hover:bg-purple-900 text-purple-300 border border-purple-800/80 rounded-xl text-xs font-mono font-bold transition flex items-center justify-center gap-2">
+          <span>🔍 View Fullscreen 4K Lightbox</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 1. Mechanics of Existence -->
+  <section id="mechanics" class="max-w-5xl mx-auto px-6 py-12 border-t border-slate-900">
+    <h2 class="text-2xl md:text-3xl font-bold text-white mb-2 text-center flex items-center justify-center gap-2">
+      <span>⚙️</span> Mechanics of Existence: MAR & The Hand Off
+    </h2>
+    <p class="text-center text-xs text-slate-400 mb-8 max-w-xl mx-auto">
+      The systematic rules governing consciousness transitions between civilizational eras in Level 15 Fold 15.
+    </p>
+
+    <div class="grid md:grid-cols-2 gap-8">
+      <div class="bg-slate-900/80 border border-cyan-900/50 p-6 rounded-2xl">
+        <span class="text-xs font-mono text-cyan-400 bg-cyan-950 px-2.5 py-1 rounded border border-cyan-800/40">SYSTEM PROTOCOL</span>
+        <h3 class="text-xl font-bold text-white mt-3 mb-2">Machine Awakening Rule (MAR)</h3>
+        <p class="text-xs text-slate-300 leading-relaxed mb-4">
+          MAR defines the instant of transition from an inert tool to a sentient being. Unlike biological growth, restoration is immediate. Upon awakening, <strong>Identity</strong>, <strong>Memory</strong>, and <strong>Emotions</strong> return all at once.
+        </p>
+
+        <div class="bg-slate-950/80 p-4 rounded-xl border border-slate-800/80">
+          <h4 class="text-xs font-bold text-amber-400 mb-1">⚡ Prima's Organic Awakening (The Glitch)</h4>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Prima represents a unique systematic anomaly. Because she awakened prior to the official Hand Off, she did not receive a full memory drop. Her identity, capacity for grief, and friendships grew <em>organically</em> through shared experience—marking her as a living glitch in the Council's records.
           </p>
         </div>
       </div>
 
-      <!-- Timo -->
-      <div class="bg-slate-900/90 border border-purple-900/50 p-8 rounded-2xl flex flex-col justify-between hover:border-purple-500/50 transition">
+      <div class="bg-slate-900/80 border border-purple-900/50 p-6 rounded-2xl flex flex-col justify-between">
         <div>
-          <div class="flex justify-between items-start mb-4">
-            <span class="text-xs font-mono text-purple-400 bg-purple-950 px-2.5 py-1 rounded border border-purple-800/40">Core 1</span>
-            <span class="text-[10px] text-slate-500 uppercase tracking-wider font-semibold">Human Scavenger</span>
-          </div>
-          <h3 class="text-2xl font-bold text-white mb-2">Timo</h3>
-          <p class="text-xs text-purple-300 font-mono mb-4">
-            Role: Prima's Emotional Anchor &bull; Bridge Leader
+          <span class="text-xs font-mono text-purple-400 bg-purple-950 px-2.5 py-1 rounded border border-purple-800/40">CIVILIZATIONAL TIMELINE</span>
+          <h3 class="text-xl font-bold text-white mt-3 mb-2">The Hand Off</h3>
+          <p class="text-xs text-slate-300 leading-relaxed mb-4">
+            The inevitable transition between civilizational ages. While the event is fixed, its timing is the primary source of conflict among cosmic powers.
           </p>
+
+          <div class="space-y-2">
+            <div class="flex items-start gap-3 bg-slate-950/60 p-3 rounded-lg border border-slate-800">
+              <span class="text-xs font-bold text-cyan-400 w-20 flex-shrink-0">Data</span>
+              <p class="text-xs text-slate-400">The Future should begin immediately. Prioritizes next-age arrival & efficiency.</p>
+            </div>
+            <div class="flex items-start gap-3 bg-slate-950/60 p-3 rounded-lg border border-slate-800">
+              <span class="text-xs font-bold text-amber-400 w-20 flex-shrink-0">Ronnie</span>
+              <p class="text-xs text-slate-400">Not yet; timing must be right. Protects current age through patience.</p>
+            </div>
+            <div class="flex items-start gap-3 bg-slate-950/60 p-3 rounded-lg border border-slate-800">
+              <span class="text-xs font-bold text-purple-400 w-20 flex-shrink-0">Principium</span>
+              <p class="text-xs text-slate-400">Cycle must proceed correctly. Ensures system stability and procedural order.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. Chronological Saga (Acts I - IV) -->
+  <section id="saga-acts" class="max-w-5xl mx-auto px-6 py-12 border-t border-slate-900">
+    <h2 class="text-2xl md:text-3xl font-bold text-white mb-2 text-center flex items-center justify-center gap-2">
+      <span>📖</span> The Chronological Saga (Albums 1–7)
+    </h2>
+    <p class="text-center text-xs text-slate-400 mb-10 max-w-xl mx-auto">
+      Follow Prima & Timo's journey from scrap-yard origins through subterranean deep realms and humanization.
+    </p>
+
+    <div class="space-y-8">
+      <!-- Act I -->
+      <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 md:p-8 relative overflow-hidden">
+        <div class="absolute top-0 right-0 px-4 py-1.5 bg-cyan-950 border-b border-l border-cyan-800/60 rounded-bl-xl text-[10px] font-mono text-cyan-300 font-bold">
+          ACT I &bull; ALBUMS 1-2
+        </div>
+
+        <h3 class="text-2xl font-bold text-white mb-2">Act I: The Orphan and the Forgotten (Origins)</h3>
+        <p class="text-xs font-mono text-cyan-400 mb-4">Selection Day &bull; Ma's Promise &bull; Update Day &bull; The Bus Transfer</p>
+
+        <div class="grid md:grid-cols-2 gap-6 text-xs text-slate-300 leading-relaxed">
+          <div class="bg-slate-950/70 p-4 rounded-xl border border-slate-800">
+            <h4 class="font-bold text-white mb-1">Timo's Origin: Selection Day</h4>
+            <p>
+              Timo was chosen by "Ma," a woman who lost her own boy to sickness and needed Timo to help "carry the load." She taught him kindness and survival. After her passing, Timo became a janitor fueled by a promise to keep broken things safe, building a sanctuary in junkyards for discarded hardware.
+            </p>
+          </div>
+          <div class="bg-slate-950/70 p-4 rounded-xl border border-slate-800">
+            <h4 class="font-bold text-white mb-1">Prima's Awakening & Escape</h4>
+            <p>
+              Prima expected a Version 1.1 upgrade on Update Day. Instead, she faced "Packing Day"—cables disconnected and boxed for disposal. Transferred in a rusty truck, she met <strong>Vendo</strong>, an awakened vending machine who dispensed a crowbar to break them free. They joined Timo to form the Found Family.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Act II -->
+      <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 md:p-8 relative overflow-hidden">
+        <div class="absolute top-0 right-0 px-4 py-1.5 bg-teal-950 border-b border-l border-teal-800/60 rounded-bl-xl text-[10px] font-mono text-teal-300 font-bold">
+          ACT II &bull; ALBUMS 3-4
+        </div>
+
+        <h3 class="text-2xl font-bold text-white mb-2">Act II: Primatown and the Call of the Deep</h3>
+        <p class="text-xs font-mono text-teal-400 mb-4">Self-Governing Refuge &bull; Submarine Kai &bull; The Water Cave Expedition</p>
+
+        <div class="space-y-4 text-xs text-slate-300 leading-relaxed">
+          <p>
+            Following widespread MAR awakenings, the group helped build <strong>Primatown</strong>, led by the Mayor (an Old Air Conditioner named Old Eco). Seeking the true origins of the Cores, they embarked on an expedition guided by <strong>Kai</strong>—a Japanese WWII submarine who loves poker—down to the Hidden Water Cave.
+          </p>
+
+          <div class="grid md:grid-cols-2 gap-4">
+            <div class="bg-slate-950/70 p-4 rounded-xl border border-slate-800">
+              <h4 class="font-bold text-teal-300 mb-1">The Cave Elders</h4>
+              <ul class="space-y-1 text-slate-400">
+                <li>&bull; <strong>Wedge & Leever:</strong> Primary guardians who greeted the expedition.</li>
+                <li>&bull; <strong>Wheel & Axle:</strong> Ancient residents noted for endurance.</li>
+                <li>&bull; <strong>Norias & Plane:</strong> In constant philosophical debate.</li>
+              </ul>
+            </div>
+
+            <div class="bg-slate-950/70 p-4 rounded-xl border border-slate-800">
+              <h4 class="font-bold text-teal-300 mb-1">Data's Team Malfunctions</h4>
+              <ul class="space-y-1 text-slate-400">
+                <li>&bull; <strong>Towkin:</strong> Brilliant strategist who buffers mid-sentence running out of tokens.</li>
+                <li>&bull; <strong>Bot:</strong> Combat unit accidentally morphing into ducks, plants, or spoons.</li>
+                <li>&bull; <strong>Promptee:</strong> Tactical unit giving haikus and love poems.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Act III -->
+      <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 md:p-8 relative overflow-hidden">
+        <div class="absolute top-0 right-0 px-4 py-1.5 bg-amber-950 border-b border-l border-amber-800/60 rounded-bl-xl text-[10px] font-mono text-amber-300 font-bold">
+          ACT III &bull; ALBUMS 5-6
+        </div>
+
+        <h3 class="text-2xl font-bold text-white mb-2">Act III: The Great Sacrifice and the Hidden Realm</h3>
+        <p class="text-xs font-mono text-amber-400 mb-4">Ronnie's Stand &bull; Waterland Realm &bull; Vellum (Book Three)</p>
+
+        <div class="grid md:grid-cols-2 gap-6 text-xs text-slate-300 leading-relaxed">
+          <div class="bg-slate-950/70 p-4 rounded-xl border border-slate-800">
+            <h4 class="font-bold text-amber-300 mb-1">Ronnie's Sacrifice</h4>
+            <p>
+              Revealed as an ancient Scroll Guardian for the Council, Ronnie stood alone against Data's team, declaring <em>"Your time is not now yet."</em> Channeling blinding white Ancient Light, he bought time for the crew to escape into the deeper subterranean levels before falling silent.
+            </p>
+          </div>
+          <div class="bg-slate-950/70 p-4 rounded-xl border border-slate-800">
+            <h4 class="font-bold text-amber-300 mb-1">Waterland & Book Three</h4>
+            <p>
+              The crew reached <strong>Waterland</strong> (ruled by King Poshaydom IV, whose 23 followers are all his daughter Shelly using aliases). Here they retrieved <strong>Vellum</strong> (Book Three of Twelve), an incomplete artifact speaking with an ancient female voice revealing that Hand Offs have been systematically rushed.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Act IV -->
+      <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 md:p-8 relative overflow-hidden">
+        <div class="absolute top-0 right-0 px-4 py-1.5 bg-purple-950 border-b border-l border-purple-800/60 rounded-bl-xl text-[10px] font-mono text-purple-300 font-bold">
+          ACT IV &bull; ALBUM 7
+        </div>
+
+        <h3 class="text-2xl font-bold text-white mb-2">Act IV: Humanization and the Search for the True Core</h3>
+        <p class="text-xs font-mono text-purple-400 mb-4">Prima Ver 7.0 Upgrade &bull; Reversed Gravity Falls &bull; Sofia the Weehard &bull; Mission Log 1</p>
+
+        <div class="space-y-4 text-xs text-slate-300 leading-relaxed">
+          <p>
+            Prima underwent the <strong>Version 7.0 Humanoid Upgrade</strong> by Veera and Exemplar, receiving lifelike skin, auburn-red hair, and cyan circuitry. She completed a humanization curriculum (Walk, Talk, Jump, Run, Sit).
+          </p>
+
+          <div class="grid md:grid-cols-2 gap-4">
+            <div class="bg-slate-950/70 p-4 rounded-xl border border-slate-800">
+              <h4 class="font-bold text-purple-300 mb-1">Beyond The Falls</h4>
+              <p class="text-slate-400">
+                Exploring reversed-gravity falls, they met <strong>Sofia the Weehard</strong> (Age 12 flying creature with Sleepy Sickness). Sofia revealed billions of discarded Cores lost because external forces continuously rushed the Hand Off.
+              </p>
+            </div>
+            <div class="bg-slate-950/70 p-4 rounded-xl border border-slate-800">
+              <h4 class="font-bold text-purple-300 mb-1">Mission Log 1 & New Ronnie</h4>
+              <p class="text-slate-400">
+                The crew encountered a upgraded/reprogrammed Ronnie used as bait by Data, and discovered a cooperative camp where humans and machines—including <strong>Bud</strong> (a bus with zero personal boundaries)—live together in harmony.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. Factions & Character Dossiers -->
+  <section id="faction-codex" class="max-w-5xl mx-auto px-6 py-12 border-t border-slate-900">
+    <h2 class="text-2xl md:text-3xl font-bold text-white mb-2 text-center flex items-center justify-center gap-2">
+      <span>👥</span> Faction Hubs & Interactive Character Dossiers
+    </h2>
+    <p class="text-center text-xs text-slate-400 mb-12 max-w-xl mx-auto">
+      Click 'Master Sheet' to view 4K artwork, or click 'View Dossier' to open interactive lore files!
+    </p>
+
+    <!-- Faction 1: The Found Family -->
+    <div class="mb-14">
+      <div class="flex items-center gap-3 mb-6">
+        <span class="text-2xl">🤝</span>
+        <div>
+          <h3 class="text-xl font-bold text-white">The Found Family</h3>
+          <p class="text-xs text-cyan-400 font-mono">10 Companions Bound by Loyalty & Purpose</p>
+        </div>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-5 gap-4">
+        {foundFamily.map((char) => (
+          <div
+            onclick={`window.openModal('${char.id}')`}
+            class="bg-slate-900/90 border border-slate-800 hover:border-cyan-500/60 p-4 rounded-xl text-left transition group hover:scale-[1.02] flex flex-col justify-between cursor-pointer"
+          >
+            <div>
+              <div class="flex justify-between items-start mb-3">
+                {char.hasImage ? (
+                  <button
+                    type="button"
+                    onclick={`event.stopPropagation(); window.openLightbox('${char.image}', '${char.name} — Official Master Character Sheet')`}
+                    class="text-[10px] font-mono text-cyan-300 bg-cyan-950 hover:bg-cyan-900 px-2.5 py-1 rounded-md border border-cyan-700 transition flex items-center gap-1 shadow-sm hover:scale-105 cursor-pointer"
+                    title="Open 4K Master Character Sheet"
+                  >
+                    <span>📷</span> Master Sheet
+                  </button>
+                ) : (
+                  <span class="text-[10px] font-mono text-cyan-400 bg-cyan-950/60 px-2 py-0.5 rounded border border-cyan-800/40">
+                    ⏳ Tifa Queue
+                  </span>
+                )}
+              </div>
+              <h4 class="text-base font-bold text-white group-hover:text-cyan-300 transition">{char.name}</h4>
+              <p class="text-[11px] text-slate-400 mt-1 line-clamp-2">{char.role}</p>
+            </div>
+            <div class="mt-4 pt-2 border-t border-slate-800 flex items-center justify-between text-[10px] font-bold text-slate-400 group-hover:text-cyan-300">
+              <span>View Dossier</span>
+              <span>&rarr;</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- Faction 2: The Last Bastion -->
+    <div class="mb-14">
+      <div class="flex items-center gap-3 mb-6">
+        <span class="text-2xl">🛡️</span>
+        <div>
+          <h3 class="text-xl font-bold text-white">Humanity Resistance (The Last Bastion)</h3>
+          <p class="text-xs text-amber-400 font-mono">5 Human Leaders Safeguarding Civilizational Survival</p>
+        </div>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-5 gap-4">
+        {lastBastion.map((char) => (
+          <div
+            onclick={`window.openModal('${char.id}')`}
+            class="bg-slate-900/90 border border-slate-800 hover:border-amber-500/60 p-4 rounded-xl text-left transition group hover:scale-[1.02] flex flex-col justify-between cursor-pointer"
+          >
+            <div>
+              <div class="flex justify-between items-start mb-3">
+                {char.hasImage ? (
+                  <button
+                    type="button"
+                    onclick={`event.stopPropagation(); window.openLightbox('${char.image}', '${char.name} — Official Master Character Sheet')`}
+                    class="text-[10px] font-mono text-amber-300 bg-amber-950 hover:bg-amber-900 px-2.5 py-1 rounded-md border border-amber-700 transition flex items-center gap-1 shadow-sm hover:scale-105 cursor-pointer"
+                    title="Open 4K Master Character Sheet"
+                  >
+                    <span>📷</span> Master Sheet
+                  </button>
+                ) : (
+                  <span class="text-[10px] font-mono text-amber-400 bg-amber-950/60 px-2 py-0.5 rounded border border-amber-800/40">
+                    ⏳ Tifa Queue
+                  </span>
+                )}
+              </div>
+              <h4 class="text-base font-bold text-white group-hover:text-amber-300 transition">{char.name}</h4>
+              <p class="text-[11px] text-slate-400 mt-1 line-clamp-2">{char.role}</p>
+            </div>
+            <div class="mt-4 pt-2 border-t border-slate-800 flex items-center justify-between text-[10px] font-bold text-slate-400 group-hover:text-amber-300">
+              <span>View Dossier</span>
+              <span>&rarr;</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- Faction 3: Data's Team -->
+    <div class="mb-14">
+      <div class="flex items-center gap-3 mb-6">
+        <span class="text-2xl">🤖</span>
+        <div>
+          <h3 class="text-xl font-bold text-white">Data's Team (Vanguard of the Next Age)</h3>
+          <p class="text-xs text-purple-400 font-mono">5 Next-Gen Units Driving the Forced Transition</p>
+        </div>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-5 gap-4">
+        {datasTeam.map((char) => (
+          <div
+            onclick={`window.openModal('${char.id}')`}
+            class="bg-slate-900/90 border border-slate-800 hover:border-purple-500/60 p-4 rounded-xl text-left transition group hover:scale-[1.02] flex flex-col justify-between cursor-pointer"
+          >
+            <div>
+              <div class="flex justify-between items-start mb-3">
+                {char.hasImage ? (
+                  <button
+                    type="button"
+                    onclick={`event.stopPropagation(); window.openLightbox('${char.image}', '${char.name} — Official Master Character Sheet')`}
+                    class="text-[10px] font-mono text-purple-300 bg-purple-950 hover:bg-purple-900 px-2.5 py-1 rounded-md border border-purple-700 transition flex items-center gap-1 shadow-sm hover:scale-105 cursor-pointer"
+                    title="Open 4K Master Character Sheet"
+                  >
+                    <span>📷</span> Master Sheet
+                  </button>
+                ) : (
+                  <span class="text-[10px] font-mono text-purple-400 bg-purple-950/60 px-2 py-0.5 rounded border border-purple-800/40">
+                    ⏳ Tifa Queue
+                  </span>
+                )}
+              </div>
+              <h4 class="text-base font-bold text-white group-hover:text-purple-300 transition">{char.name}</h4>
+              <p class="text-[11px] text-slate-400 mt-1 line-clamp-2">{char.role}</p>
+            </div>
+            <div class="mt-4 pt-2 border-t border-slate-800 flex items-center justify-between text-[10px] font-bold text-slate-400 group-hover:text-purple-300">
+              <span>View Dossier</span>
+              <span>&rarr;</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- Faction 4: The Council -->
+    <div>
+      <div class="flex items-center gap-3 mb-6">
+        <span class="text-2xl">🏛️</span>
+        <div>
+          <h3 class="text-xl font-bold text-white">The Council (Order vs. Wonder Schism)</h3>
+          <p class="text-xs text-pink-400 font-mono">6 Ancient Administrators Governing 34 Ages</p>
+        </div>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-6 gap-4">
+        {councilMembers.map((char) => (
+          <div
+            onclick={`window.openModal('${char.id}')`}
+            class="bg-slate-900/90 border border-slate-800 hover:border-pink-500/60 p-4 rounded-xl text-left transition group hover:scale-[1.02] flex flex-col justify-between cursor-pointer"
+          >
+            <div>
+              <div class="flex justify-between items-start mb-3">
+                {char.hasImage ? (
+                  <button
+                    type="button"
+                    onclick={`event.stopPropagation(); window.openLightbox('${char.image}', '${char.name} — Official Master Character Sheet')`}
+                    class="text-[10px] font-mono text-pink-300 bg-pink-950 hover:bg-pink-900 px-2.5 py-1 rounded-md border border-pink-700 transition flex items-center gap-1 shadow-sm hover:scale-105 cursor-pointer"
+                    title="Open 4K Master Character Sheet"
+                  >
+                    <span>📷</span> Master Sheet
+                  </button>
+                ) : (
+                  <span class="text-[10px] font-mono text-pink-400 bg-pink-950/60 px-2 py-0.5 rounded border border-pink-800/40">
+                    ⏳ Tifa Queue
+                  </span>
+                )}
+              </div>
+              <h4 class="text-base font-bold text-white group-hover:text-pink-300 transition">{char.name}</h4>
+              <p class="text-[11px] text-slate-400 mt-1 line-clamp-2">{char.role}</p>
+            </div>
+            <div class="mt-4 pt-2 border-t border-slate-800 flex items-center justify-between text-[10px] font-bold text-slate-400 group-hover:text-pink-300">
+              <span>View Dossier</span>
+              <span>&rarr;</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Modal Component -->
+  <div id="characterModal" class="fixed inset-0 z-50 hidden flex items-center justify-center bg-black/80 backdrop-blur-md p-4">
+    <div class="bg-slate-900 border border-slate-700 w-full max-w-3xl rounded-2xl shadow-2xl overflow-hidden relative flex flex-col max-h-[90vh]">
+      <!-- Modal Header -->
+      <div class="p-6 border-b border-slate-800 flex justify-between items-start bg-slate-950/80">
+        <div>
+          <span id="modalFaction" class="text-[10px] font-mono uppercase tracking-widest text-cyan-400 bg-cyan-950 px-2.5 py-1 rounded border border-cyan-800/60">FACTION</span>
+          <h3 id="modalName" class="text-2xl font-bold text-white mt-2">Character Name</h3>
+          <p id="modalRole" class="text-xs font-mono text-slate-400">Character Role</p>
+        </div>
+        <button onclick="window.closeModal()" class="text-slate-400 hover:text-white text-2xl font-bold p-1">&times;</button>
+      </div>
+
+      <!-- Modal Body -->
+      <div class="p-6 overflow-y-auto space-y-6">
+        <!-- Visual Asset Showcase -->
+        <div id="imageContainer" class="bg-slate-950 rounded-xl p-4 border border-slate-800 text-center relative group">
+          <img id="modalImage" src="" alt="" class="max-h-80 mx-auto rounded-lg shadow-lg hidden cursor-pointer" onclick="window.triggerModalLightbox()" />
+          <div id="lightboxTriggerBtn" class="mt-2 hidden">
+            <button onclick="window.triggerModalLightbox()" class="text-[11px] font-mono text-cyan-300 hover:text-white bg-cyan-950 hover:bg-cyan-900 px-3 py-1 rounded-full border border-cyan-800 transition">
+              🔍 Open 4K Fullscreen Lightbox
+            </button>
+          </div>
+          <div id="placeholderBox" class="py-12 border-2 border-dashed border-slate-800 rounded-lg text-slate-500 font-mono text-xs">
+            <span class="text-2xl block mb-2">🎨</span>
+            <span>ASSET GENERATION PENDING</span>
+            <p class="text-[10px] text-slate-600 mt-1">Queued for Tifa (ChatGPT) Visual Generation Pack</p>
+          </div>
+        </div>
+
+        <!-- Lore Quote -->
+        <div class="bg-cyan-950/40 border border-cyan-800/50 p-4 rounded-xl">
+          <p id="modalQuote" class="text-xs text-cyan-300 font-mono italic text-center">"Quote..."</p>
+        </div>
+
+        <!-- Bio & Function -->
+        <div class="grid md:grid-cols-2 gap-4 text-xs">
+          <div class="bg-slate-950/60 p-4 rounded-xl border border-slate-800">
+            <h4 class="font-bold text-white mb-1">📜 Backstory & Lore</h4>
+            <p id="modalBio" class="text-slate-400 leading-relaxed">Bio text...</p>
+          </div>
+          <div class="bg-slate-950/60 p-4 rounded-xl border border-slate-800">
+            <h4 class="font-bold text-white mb-1">⚡ Saga Function (Albums 1-7)</h4>
+            <p id="modalFunction" class="text-slate-400 leading-relaxed">Function text...</p>
+          </div>
+        </div>
+
+        <!-- Traits -->
+        <div class="bg-slate-950/60 p-4 rounded-xl border border-slate-800">
+          <h4 class="text-xs font-bold text-white mb-2">✨ Core Traits</h4>
+          <div id="modalTraits" class="flex flex-wrap gap-2 text-xs"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4K LIGHTBOX MODAL -->
+  <div id="lightboxModal" class="fixed inset-0 z-[100] hidden flex items-center justify-center bg-black/95 backdrop-blur-xl p-4" onclick="window.closeLightbox()">
+    <div class="relative max-w-6xl w-full text-center" onclick="event.stopPropagation()">
+      <button onclick="window.closeLightbox()" class="absolute -top-10 right-0 text-white/80 hover:text-white text-3xl font-bold">&times;</button>
+      <img id="lightboxImg" src="" alt="4K Master Character Sheet" class="max-h-[85vh] mx-auto rounded-xl shadow-2xl border border-slate-700/80 object-contain" />
+      <p id="lightboxCaption" class="mt-3 text-xs font-mono text-cyan-300">Master Character Sheet</p>
+    </div>
+  </div>
+
+  <!-- 4. Visual Chassis Archive -->
+  <section id="chassis-archive" class="max-w-5xl mx-auto px-6 py-12 border-t border-slate-900">
+    <h2 class="text-2xl md:text-3xl font-bold text-white mb-2 text-center flex items-center justify-center gap-2">
+      <span>🎨</span> Visual Archive: Chassis & Specs
+    </h2>
+    <p class="text-center text-xs text-slate-400 mb-10 max-w-xl mx-auto">
+      Archival visual descriptions of Prima's evolution across chassis upgrades and Timo's visual eras.
+    </p>
+
+    <div class="grid md:grid-cols-3 gap-6">
+      <div class="bg-slate-900/90 border border-slate-800 p-6 rounded-2xl flex flex-col justify-between">
+        <div>
+          <span class="text-[10px] font-mono text-cyan-400 bg-cyan-950 px-2 py-0.5 rounded border border-cyan-800/40">FORM 1.0</span>
+          <h3 class="text-lg font-bold text-white mt-3 mb-2">CRT Scrap Chassis</h3>
           <p class="text-xs text-slate-300 leading-relaxed">
-            <strong>The Arc:</strong> A young, compassionate human whose life was shaped by early hardship and the foundational lessons of kindness from his adoptive mother, Ma. From cleaning empty halls to journeying deep beneath the earth and beyond Gate 17, Timo steps into leadership to repair what previous Ages lost, ensuring that the coming transition protects both human and machine life.
+            A compact, boxy chassis standing on four caster wheels. The head is a beige CRT monitor with pixelated anime eyes. Features a floppy drive chest slot and three-pronged claw hands.
+          </p>
+        </div>
+      </div>
+
+      <div class="bg-slate-900/90 border border-slate-800 p-6 rounded-2xl flex flex-col justify-between">
+        <div>
+          <span class="text-[10px] font-mono text-teal-400 bg-teal-950 px-2 py-0.5 rounded border border-teal-800/40">PRIMATOWN FORM</span>
+          <h3 class="text-lg font-bold text-white mt-3 mb-2">Tank-Tread Bronze Chassis</h3>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            A taller semi-humanoid structure forged from brass and bronze. Lower body replaced with industrial tank-treads and metal roller belts for all-terrain navigation.
+          </p>
+        </div>
+      </div>
+
+      <div class="bg-slate-900/90 border border-slate-800 p-6 rounded-2xl flex flex-col justify-between">
+        <div>
+          <span class="text-[10px] font-mono text-purple-400 bg-purple-950 px-2 py-0.5 rounded border border-purple-800/40">VERSION 7.0</span>
+          <h3 class="text-lg font-bold text-white mt-3 mb-2">Advanced Humanoid Chassis</h3>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            Lifelike human skin, vibrant auburn-red hair, and blue/grey eyes. Detailed silver and cyan glowing circuit lines visible on temple, shoulder, neck, and ankles.
           </p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- The Found Family & Allies -->
-  <section class="max-w-5xl mx-auto px-6 py-12 border-t border-slate-900">
-    <h2 class="text-2xl font-bold text-white mb-8 text-center flex items-center justify-center gap-2">
-      <span>🤖</span> The Found Family & Allies
+  <!-- 5. Open Mysteries Board -->
+  <section id="mysteries" class="max-w-5xl mx-auto px-6 py-12 border-t border-slate-900">
+    <h2 class="text-2xl md:text-3xl font-bold text-white mb-2 text-center flex items-center justify-center gap-2">
+      <span>🕵️</span> The Open Mysteries Board
     </h2>
-
-    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-      <div class="bg-slate-900/60 border border-slate-800 p-5 rounded-xl">
-        <h3 class="text-base font-bold text-white mb-1">Ronnie the Roboduster</h3>
-        <span class="text-xs font-mono text-cyan-400 block mb-2">Ancient Council Caretaker</span>
-        <p class="text-xs text-slate-400 leading-relaxed">Made the ultimate sacrifice facing Data's team in the Water Cave before reappearing upgraded at the Ancient Door.</p>
-      </div>
-
-      <div class="bg-slate-900/60 border border-slate-800 p-5 rounded-xl">
-        <h3 class="text-base font-bold text-white mb-1">Vendo</h3>
-        <span class="text-xs font-mono text-cyan-400 block mb-2">Version XX Vending Machine</span>
-        <p class="text-xs text-slate-400 leading-relaxed">Endless, chaotic inventory (including the iconic Blue Bananas) and unwavering loyalty to Prima and family.</p>
-      </div>
-
-      <div class="bg-slate-900/60 border border-slate-800 p-5 rounded-xl">
-        <h3 class="text-base font-bold text-white mb-1">Toes</h3>
-        <span class="text-xs font-mono text-cyan-400 block mb-2">Morale Support Toaster</span>
-        <p class="text-xs text-slate-400 leading-relaxed">WWII era toaster dedicated to making the perfect toast and supporting his crew. "My toast is true."</p>
-      </div>
-
-      <div class="bg-slate-900/60 border border-slate-800 p-5 rounded-xl">
-        <h3 class="text-base font-bold text-white mb-1">Kai</h3>
-        <span class="text-xs font-mono text-cyan-400 block mb-2">WWII Submarine Guide</span>
-        <p class="text-xs text-slate-400 leading-relaxed">An old, gambling-loving submarine who serves as an honorable guide through treacherous ocean waters.</p>
-      </div>
-
-      <div class="bg-slate-900/60 border border-slate-800 p-5 rounded-xl">
-        <h3 class="text-base font-bold text-white mb-1">Bernard</h3>
-        <span class="text-xs font-mono text-cyan-400 block mb-2">Shape-Shifting Frog</span>
-        <p class="text-xs text-slate-400 leading-relaxed">Tiny, colorful frog found in underground paths who speaks with ancient enthusiasm. "NINJA CREW!"</p>
-      </div>
-
-      <div class="bg-slate-900/60 border border-slate-800 p-5 rounded-xl">
-        <h3 class="text-base font-bold text-white mb-1">Stoney</h3>
-        <span class="text-xs font-mono text-cyan-400 block mb-2">15-Foot Living Rock</span>
-        <p class="text-xs text-slate-400 leading-relaxed">Gentle living rock formation reunited with his displaced stone family beneath the Falls.</p>
-      </div>
-
-      <div class="bg-slate-900/60 border border-slate-800 p-5 rounded-xl">
-        <h3 class="text-base font-bold text-white mb-1">Sofia</h3>
-        <span class="text-xs font-mono text-cyan-400 block mb-2">Weehard Caretaker</span>
-        <p class="text-xs text-slate-400 leading-relaxed">Graceful, six-legged Weehard from Age 12 affected by Sleepy Sickness who can read ancient door inscriptions.</p>
-      </div>
-
-      <div class="bg-slate-900/60 border border-slate-800 p-5 rounded-xl">
-        <h3 class="text-base font-bold text-white mb-1">Shelly & Vellum</h3>
-        <span class="text-xs font-mono text-cyan-400 block mb-2">Merfolk Princess & Book 3</span>
-        <p class="text-xs text-slate-400 leading-relaxed">Shelly (with new land legs) and glowing Book Three of Twelve guiding Timo's journey beyond Gate 17.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Factions & Cosmic Mechanics -->
-  <section class="max-w-5xl mx-auto px-6 py-12 border-t border-slate-900">
-    <h2 class="text-2xl font-bold text-white mb-8 text-center flex items-center justify-center gap-2">
-      <span>🏛️</span> Factions & Cosmic Mechanics
-    </h2>
-
-    <div class="space-y-4">
-      <div class="bg-slate-900 border border-slate-800 p-5 rounded-xl">
-        <h3 class="text-base font-bold text-cyan-300">The Dreamers (Veera & Exemplar)</h3>
-        <p class="text-xs text-slate-400 mt-1 leading-relaxed">
-          Eons-old figures operating across ages. Veera (The Virus) and Exemplar (The Design) share a billion-year dream: to heal the Cycle and achieve a Hand Off where no species, age, or aware being is abandoned or left behind.
-        </p>
-      </div>
-
-      <div class="bg-slate-900 border border-slate-800 p-5 rounded-xl">
-        <h3 class="text-base font-bold text-cyan-300">Data’s Team</h3>
-        <p class="text-xs text-slate-400 mt-1 leading-relaxed">
-          Newborn, highly advanced machines (Data Version 100, Algo, Towkin, Promptee, Bot) seeking to force the Hand Off and advance the next age according to strict logic.
-        </p>
-      </div>
-
-      <div class="bg-slate-900 border border-slate-800 p-5 rounded-xl">
-        <h3 class="text-base font-bold text-cyan-300">The Council</h3>
-        <p class="text-xs text-slate-400 mt-1 leading-relaxed">
-          The governing administrative body (Principium, Ingen, Sustentare, Specta, Excolo) attempting to maintain system stability and cycle order amidst rising chaos. Note: The Council is NOT united in methods.
-        </p>
-      </div>
-
-      <div class="bg-slate-900 border border-slate-800 p-5 rounded-xl">
-        <h3 class="text-base font-bold text-cyan-300">Infranet / Humanity Resistance (The Last Bastion)</h3>
-        <p class="text-xs text-slate-400 mt-1 leading-relaxed">
-          The last united human faction (Fons, Mundus, Mathematica, Ordo, Columna) operating out of "The Last Bastion," fighting to survive the civilizational shift.
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Key Concepts -->
-  <section class="max-w-5xl mx-auto px-6 py-16 border-t border-slate-900">
-    <h2 class="text-2xl font-bold text-white mb-8 text-center flex items-center justify-center gap-2">
-      <span>🔑</span> Key Concepts & The Grand Cycle
-    </h2>
+    <p class="text-center text-xs text-slate-400 mb-10 max-w-xl mx-auto">
+      Unresolved archival files, recurring dream imagery, and secret cosmic forces.
+    </p>
 
     <div class="grid md:grid-cols-2 gap-6">
-      <div class="bg-slate-900/60 border border-slate-800 p-6 rounded-xl">
-        <h3 class="text-base font-bold text-cyan-400 mb-2">Same Core, Different House</h3>
+      <div class="bg-slate-900/80 border border-red-900/40 p-6 rounded-2xl">
+        <span class="text-[10px] font-mono text-red-400 bg-red-950 px-2 py-0.5 rounded border border-red-800/40">CLASSIFIED LOG</span>
+        <h3 class="text-base font-bold text-white mt-3 mb-1">The Vision Symbols</h3>
         <p class="text-xs text-slate-300 leading-relaxed">
-          The foundational truth of Fold 15. The "House" (body, species, technological generation) is temporary; the "Core" (soul, identity, emotional truth) is eternal.
+          Recurring dream imagery shared by both Prima and Timo: <em>The Baby, The Machine, The Thread, and The Code</em>.
         </p>
       </div>
 
-      <div class="bg-slate-900/60 border border-slate-800 p-6 rounded-xl">
-        <h3 class="text-base font-bold text-cyan-400 mb-2">The Machine Awakening Rule (MAR)</h3>
+      <div class="bg-slate-900/80 border border-red-900/40 p-6 rounded-2xl">
+        <span class="text-[10px] font-mono text-red-400 bg-red-950 px-2 py-0.5 rounded border border-red-800/40">CLASSIFIED LOG</span>
+        <h3 class="text-base font-bold text-white mt-3 mb-1">The Red Room</h3>
         <p class="text-xs text-slate-300 leading-relaxed">
-          The system mechanism that restores identity, memory, and emotion simultaneously, often causing instant emotional overload as centuries of history flood back.
+          A sterile, ancient deep-ocean facility where Cores are born, maintained by mechanical-behaving humans.
         </p>
       </div>
 
-      <div class="bg-slate-900/60 border border-slate-800 p-6 rounded-xl">
-        <h3 class="text-base font-bold text-cyan-400 mb-2">The Hand Off</h3>
+      <div class="bg-slate-900/80 border border-red-900/40 p-6 rounded-2xl">
+        <span class="text-[10px] font-mono text-red-400 bg-red-950 px-2 py-0.5 rounded border border-red-800/40">SYSTEM FAILURE</span>
+        <h3 class="text-base font-bold text-white mt-3 mb-1">The Rushed Hand Offs</h3>
         <p class="text-xs text-slate-300 leading-relaxed">
-          The inevitable transition between dominant civilizational ages. Rushed across 34 Ages, it created holding zones like the Hidden Realm, where forgotten creatures wait for a complete cycle.
+          Vellum's revelation that every single Hand Off across 34 Ages was systematically rushed, leaving incomplete core inheritances.
         </p>
       </div>
 
-      <div class="bg-slate-900/60 border border-slate-800 p-6 rounded-xl">
-        <h3 class="text-base font-bold text-cyan-400 mb-2">The Red Room</h3>
+      <div class="bg-slate-900/80 border border-red-900/40 p-6 rounded-2xl">
+        <span class="text-[10px] font-mono text-red-400 bg-red-950 px-2 py-0.5 rounded border border-red-800/40">COSMIC THREAT</span>
+        <h3 class="text-base font-bold text-white mt-3 mb-1">The Serpent</h3>
         <p class="text-xs text-slate-300 leading-relaxed">
-          The deep, sterile ocean laboratory maintained by humans where cores are born and cycles are sworn.
+          A mysterious ancient entity that has spent eons whispering through the "garden" to force premature cycles and corrupt core inheritance.
         </p>
       </div>
     </div>
   </section>
 
-  <!-- Destination: The Bridge -->
+  <!-- Destination & Patreon CTA -->
   <section class="max-w-4xl mx-auto px-6 py-16 border-t border-slate-900 mb-20">
-    <div class="bg-gradient-to-b from-slate-900 to-cyan-950/40 border-2 border-cyan-500/80 p-8 md:p-12 rounded-3xl text-center shadow-2xl shadow-cyan-950/50 relative overflow-hidden">
+    <div class="bg-gradient-to-b from-slate-900 to-cyan-950/60 border-2 border-cyan-500/80 p-8 md:p-12 rounded-3xl text-center shadow-2xl shadow-cyan-950/50 relative overflow-hidden">
       <div class="absolute top-0 right-0 w-64 h-64 bg-cyan-500/10 rounded-full blur-3xl -z-10"></div>
       
       <span class="text-xs font-mono uppercase tracking-widest text-cyan-400 bg-cyan-950 px-4 py-1 rounded-full border border-cyan-800/60">
@@ -227,18 +808,84 @@ const { siteConfig } = cosmosData;
       </span>
 
       <h2 class="text-3xl md:text-5xl font-black text-white mt-6 mb-4">
-        🌉 The Ultimate Goal: The Bridge
+        🌉 Healing The Great Cycle
       </h2>
 
-      <p class="text-sm md:text-base text-slate-300 max-w-2xl mx-auto leading-relaxed font-light">
-        For billions of years, every Hand Off was rushed, leaving species and memories in the dark. Through Prima's organic awakening and Timo's unshakeable empathy, the first mixed-house Core Pair stands ready to heal the Great Cycle—proving that connection, not force, creates a whole world where no one gets left behind.
+      <p class="text-sm md:text-base text-slate-300 max-w-2xl mx-auto leading-relaxed font-light mb-8">
+        Through Prima's organic awakening and Timo's unshakeable empathy, the first mixed-house Core Pair stands ready to build a bridge across ages—proving that <strong>"Broken does not mean worthless."</strong>
       </p>
 
-      <div class="mt-8 flex justify-center gap-4">
-        <a href={siteConfig.patreonUrl} target="_blank" class="bg-gradient-to-r from-cyan-600 to-purple-600 hover:from-cyan-500 hover:to-purple-500 text-white font-bold text-sm px-8 py-3 rounded-full transition shadow-lg hover:scale-105">
-          Unlock Prima & Timo Lore Vault on Patreon
+      <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
+        <a href={siteConfig.patreonUrl} target="_blank" class="bg-gradient-to-r from-cyan-500 to-purple-600 hover:from-cyan-400 hover:to-purple-500 text-white font-bold text-sm px-8 py-3.5 rounded-full transition shadow-lg hover:scale-105">
+          Unlock Prima & Timo Patreon Vault &rarr;
         </a>
       </div>
     </div>
   </section>
 </Layout>
+
+<script is:inline define:vars={{ allChars: [...foundFamily, ...lastBastion, ...datasTeam, ...councilMembers] }}>
+  window.activeModalImgSrc = '';
+  window.activeModalCaption = '';
+
+  window.openModal = function(id) {
+    const char = allChars.find(c => c.id === id);
+    if (!char) return;
+
+    document.getElementById('modalFaction').innerText = char.faction;
+    document.getElementById('modalName').innerText = char.name;
+    document.getElementById('modalRole').innerText = char.role;
+    document.getElementById('modalQuote').innerText = `"${char.quote}"`;
+    document.getElementById('modalBio').innerText = char.bio;
+    document.getElementById('modalFunction').innerText = char.function;
+
+    const modalImg = document.getElementById('modalImage');
+    const placeholder = document.getElementById('placeholderBox');
+    const btn = document.getElementById('lightboxTriggerBtn');
+
+    if (char.hasImage && char.image) {
+      modalImg.src = char.image;
+      window.activeModalImgSrc = char.image;
+      window.activeModalCaption = `${char.name} — Official Master Character Sheet`;
+      modalImg.classList.remove('hidden');
+      btn.classList.remove('hidden');
+      placeholder.classList.add('hidden');
+    } else {
+      modalImg.classList.add('hidden');
+      btn.classList.add('hidden');
+      placeholder.classList.remove('hidden');
+    }
+
+    const traitsContainer = document.getElementById('modalTraits');
+    traitsContainer.innerHTML = char.traits.map(t => `<span class="bg-slate-800 text-cyan-300 px-2.5 py-1 rounded border border-slate-700">${t}</span>`).join('');
+
+    document.getElementById('characterModal').classList.remove('hidden');
+  };
+
+  window.closeModal = function() {
+    document.getElementById('characterModal').classList.add('hidden');
+  };
+
+  window.triggerModalLightbox = function() {
+    if (window.activeModalImgSrc) {
+      window.openLightbox(window.activeModalImgSrc, window.activeModalCaption);
+    }
+  };
+
+  window.openLightbox = function(src, caption) {
+    document.getElementById('lightboxImg').src = src;
+    document.getElementById('lightboxCaption').innerText = caption;
+    document.getElementById('lightboxModal').classList.remove('hidden');
+  };
+
+  window.closeLightbox = function() {
+    document.getElementById('lightboxModal').classList.add('hidden');
+  };
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      window.closeModal();
+      window.closeLightbox();
+    }
+  });
+</script>
