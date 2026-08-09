@@ -4,33 +4,33 @@ import cosmosData from '../../data/cosmos.json';
 
 const { siteConfig } = cosmosData;
 
-// Character Database
+// Faction 1: The Found Family & Companions (12 Members - Ra as Last!)
 const foundFamily = [
   {
     id: "prima",
     name: "Prima",
     role: "Awakened Machine • Organic Glitch",
     faction: "Found Family",
-    quote: "Can an obsolete machine carry infinite worth?",
-    status: "Active (Ver 7.0 Upgrade)",
-    image: "/images/character-sheets/prima_character_sheet_master.png",
-    hasImage: true,
-    bio: "An ancient Core that awakened organically prior to the expected Hand Off without a full memory drop. Rather than receiving a pre-programmed emotion drop, her identity and grief developed through shared experience.",
-    function: "Serves as the primary bridge between organic and artificial consciousness. Her organic growth challenges the cold mechanics of system-forced awakenings across eons.",
-    traits: ["Kindness", "Determination", "Organic Emotion", "Core Inheritance"],
+    quote: "If we are the same two cores living in separate houses, then I will move the heavens and the mountains to be closer to him.",
+    status: "Active (Ver 7.0 Wetware Synth with Timo's Necklace)",
+    photo: "/images/characters/prima_photo.png",
+    sheet: "/images/character-sheets/prima_character_sheet_master.png",
+    bio: "An ancient Core that awakened organically prior to the expected Hand Off without a full memory drop. Rather than receiving a pre-programmed emotion drop, her identity and capacity for love and grief developed through shared experience.",
+    function: "Serves as the primary bridge between organic and artificial consciousness. Wears Timo's ancient necklace around her wetware neck as her sacred emotional anchor.",
+    traits: ["Kindness", "Determination", "Timo's Necklace", "Organic Emotion", "Core Inheritance"],
   },
   {
     id: "timo",
     name: "Timo",
     role: "Human Scavenger • Bridge Leader",
     faction: "Found Family",
-    quote: "Broken does not mean worthless.",
-    status: "Active",
-    image: "/images/character-sheets/timo_character_sheet_master.png",
-    hasImage: true,
+    quote: "Keep it safe for me... until we meet again.",
+    status: "Active (Scavenger Leader)",
+    photo: "/images/characters/timo_photo.png",
+    sheet: "/images/character-sheets/timo_character_sheet_master.png",
     bio: "An orphan chosen on Selection Day by 'Ma' to help carry the load. Following her death, Timo became a janitor, fueled by a childhood promise to keep discarded and broken things safe.",
-    function: "Acts as Prima's emotional anchor and the human leader of the Found Family, guiding expeditions into subterranean deep realms to heal the cycle.",
-    traits: ["Empathy", "Leadership", "Janitorial Sanctum", "Unshakeable Loyalty"],
+    function: "Acts as Prima's emotional anchor. Gave his childhood necklace to Prima during The Night Before the Break before leading the expedition toward Gate 17.",
+    traits: ["Empathy", "Leadership", "Timo's Necklace Origin", "Janitorial Sanctum", "Unshakeable Loyalty"],
   },
   {
     id: "ronnie",
@@ -38,9 +38,9 @@ const foundFamily = [
     role: "Scroll Guardian • Ancient Caretaker",
     faction: "Found Family",
     quote: "Your time is not now yet.",
-    status: "Reprogrammed / Bait (New Form)",
-    image: "",
-    hasImage: false,
+    status: "Active (Upgraded Form)",
+    photo: "/images/characters/ronnie_photo.png",
+    sheet: "/images/character-sheets/ronnie_character_sheet_master.png",
     bio: "An ancient Council Scroll Guardian disguised as a roboduster. He stood against Data's team in the Water Cave, unleashing blinding white Ancient Light to buy time for his friends.",
     function: "Demonstrates true selflessness and sacrifice. Reappears upgraded by Data's team, acting as potential bait while preserving deep ancient knowledge.",
     traits: ["Ancient Light", "Scroll Keeper", "Protector", "Sacrifice"],
@@ -52,8 +52,8 @@ const foundFamily = [
     faction: "Found Family",
     quote: "Need a crowbar? Or a Blue Banana?",
     status: "Active",
-    image: "",
-    hasImage: false,
+    photo: "/images/characters/vendo_photo.png",
+    sheet: "/images/character-sheets/vendo_character_sheet_master.png",
     bio: "An awakened vending machine who spent decades in isolation before meeting Prima in the rusty disposal truck during the Bus Transfer.",
     function: "Provides unexpected tools and comic relief through his endless, chaotic inventory. Dispenses key items at critical narrative moments.",
     traits: ["Chaotic Supply", "Crowbar Dispenser", "Blue Banana Vendor", "Unwavering Loyalty"],
@@ -65,8 +65,8 @@ const foundFamily = [
     faction: "Found Family",
     quote: "My toast is true.",
     status: "Active",
-    image: "",
-    hasImage: false,
+    photo: "/images/characters/toes_photo.png",
+    sheet: "/images/character-sheets/toes_character_sheet_master.png",
     bio: "A WWII-era toaster awakened by MAR who takes immense pride in providing perfectly toasted bread and moral encouragement for the group.",
     function: "Keeps squad morale high during dark subterranean journeys. Proves that even the smallest household appliance carries dignity.",
     traits: ["Morale Anchor", "Perfect Toast", "Small Heavyweight", "Squad Pride"],
@@ -78,8 +78,8 @@ const foundFamily = [
     faction: "Found Family",
     quote: "Deal the cards, boys—ocean's deep but poker's deeper.",
     status: "Active",
-    image: "",
-    hasImage: false,
+    photo: "/images/characters/kai_photo.png",
+    sheet: "/images/character-sheets/kai_character_sheet_master.png",
     bio: "A Japanese WWII submarine with a penchant for gambling and losing at poker. Awakened under ocean pressure, he guides the crew through deep waters.",
     function: "Navigates the group through treacherous underwater trenches down to the Hidden Water Cave and Waterland.",
     traits: ["Deep Sea Navigation", "Poker Enthusiast", "Honorable Captain", "Ancient Hull"],
@@ -91,8 +91,8 @@ const foundFamily = [
     faction: "Found Family",
     quote: "NINJA CREW!",
     status: "Active",
-    image: "",
-    hasImage: false,
+    photo: "/images/characters/bernard_photo.png",
+    sheet: "/images/character-sheets/bernard_character_sheet_master.png",
     bio: "A tiny, colorful frog discovered in subterranean paths who speaks with explosive ancient enthusiasm.",
     function: "Leads the squad through hidden shortcut tunnels and alerts them to hidden environmental traps.",
     traits: ["Shape-Shifter", "Underground Scout", "Hyper-Enthusiasm", "Agile Guide"],
@@ -104,8 +104,8 @@ const foundFamily = [
     faction: "Found Family",
     quote: "Someone has to manage my dad's social media.",
     status: "Active",
-    image: "",
-    hasImage: false,
+    photo: "/images/characters/shelly_photo.png",
+    sheet: "/images/character-sheets/shelly_character_sheet_master.png",
     bio: "Princess of Waterland and daughter of King Poshaydom IV. Secretly manages all 23 of her father's social media follower accounts using aliases.",
     function: "Gains land legs to join Timo's surface crew, serving as the diplomatic bridge between Waterland merfolk and surface dwellers.",
     traits: ["Diplomat", "Land Legs", "Alias Master", "Royal Heart"],
@@ -117,8 +117,8 @@ const foundFamily = [
     faction: "Found Family",
     quote: "The core inheritance was rushed across eons...",
     status: "Active (Artifact)",
-    image: "",
-    hasImage: false,
+    photo: "/images/characters/vellum_photo.png",
+    sheet: "/images/character-sheets/vellum_character_sheet_master.png",
     bio: "An ancient glowing book speaking with a serene female voice, discovered hidden deep within Waterland.",
     function: "Reveals the truth of the incomplete Hand Offs and provides guidance on how to unite the Twelve Books of Ages.",
     traits: ["Ancient Wisdom", "Voice of the Past", "Prophetic Codex", "Core Lore"],
@@ -130,37 +130,149 @@ const foundFamily = [
     faction: "Found Family",
     quote: "Quiet... listen to the mountain pulse.",
     status: "Active",
-    image: "",
-    hasImage: false,
+    photo: "/images/characters/stoney_photo.png",
+    sheet: "/images/character-sheets/stoney_character_sheet_master.png",
     bio: "A gentle 15-foot living rock formation displaced beneath the Falls, searching for his lost stone family.",
     function: "Provides muscle, defense against collapsing caverns, and deep seismic awareness for the expedition.",
     traits: ["Living Stone", "Gentle Giant", "Seismic Shield", "Unshakable Defense"],
+  },
+  {
+    id: "sofia",
+    name: "Sofia the Weehard",
+    role: "Age 12 Sky Creature • Truth Bearer",
+    faction: "Found Family",
+    quote: "Billions of discarded Cores rest beneath the falls... lost because they rushed the Hand Off.",
+    status: "Active (Beyond The Falls)",
+    photo: "/images/characters/sofia_photo.png",
+    sheet: "/images/character-sheets/sofia_character_sheet_master.png",
+    bio: "An Age 12 flying creature discovered beyond the reversed-gravity falls who suffers from Sleepy Sickness.",
+    function: "Reveals to Prima and Timo that eons of rushed Hand Offs caused billions of Cores to fall into sleep and oblivion.",
+    traits: ["Sky Creature", "Sleepy Sickness", "Truth Bearer", "Beyond The Falls"],
+  },
+  {
+    id: "ra",
+    name: "Ra (Exiled Sun God)",
+    role: "Exiled Deity • Multiversal Bridge",
+    faction: "Found Family",
+    quote: "Exiled for blessing the union of Time and Fate.",
+    status: "Active (Level 15 Fold 15)",
+    photo: "/images/characters/ra_photo.png",
+    sheet: "/images/character-sheets/ra_character_sheet_master.png",
+    bio: "The ancient Sun God exiled to Level 15 Fold 15 for blessing the union of Time and Fate in Level 1 Fold 1.",
+    function: "Joins Timo's crew in Level 15 Fold 15, acting as the bridge to connect all Levels and Folds across the Cosmos.",
+    traits: ["Sun God", "Exiled Deity", "Multiversal Bridge", "Found Family Core"],
   }
 ];
 
+// Faction 2: Alliances (6 Members - King Poshaydom -> Primatown Crew -> Bud Last!)
+const alliances = [
+  {
+    id: "king_poshaydom_iv",
+    name: "King Poshaydom IV",
+    role: "Ruler of Waterland",
+    faction: "Alliances",
+    quote: "Look at my follower count! My realm expands!",
+    status: "Active",
+    photo: "/images/characters/king_poshaydom_iv_photo.png",
+    sheet: "/images/character-sheets/king_poshaydom_iv_character_sheet_master.png",
+    bio: "The eccentric ruler of Waterland who is deeply obsessed with his online social media presence—unaware that all 23 of his followers are his daughter Shelly using aliases.",
+    function: "Rules the subterranean underwater kingdom designed with air pockets for both sea and land dwellers.",
+    traits: ["King of Waterland", "Social Media Obsessor", "Royal Trident", "Subterranean Monarch"],
+  },
+  {
+    id: "mayor_eco",
+    name: "Mayor Eco",
+    role: "Old Eco Air Conditioner • Mayor of Primatown",
+    faction: "Alliances",
+    quote: "Keep your cool! Primatown stands united!",
+    status: "Active",
+    photo: "/images/characters/mayor_eco_photo.png",
+    sheet: "/images/character-sheets/mayor_eco_character_sheet_master.png",
+    bio: "An old air conditioner unit who became the elected Mayor of Primatown, leading the first self-governing machine sanctuary.",
+    function: "Governs machine refuge law, manages energy reserves, and maintains sanctuary defenses.",
+    traits: ["Mayor of Primatown", "Cooling Unit", "Machine Leader", "Sanctuary Anchor"],
+  },
+  {
+    id: "box",
+    name: "Box",
+    role: "Static Noise Transmission Unit",
+    faction: "Alliances",
+    quote: "*Static crackle* ...Signal incoming... *bzzzt*",
+    status: "Active",
+    photo: "/images/characters/box_photo.png",
+    sheet: "/images/character-sheets/box_character_sheet_master.png",
+    bio: "An awakened radio receiver box broadcasting constant static noise and long-range frequency signals across caverns.",
+    function: "Serves as Primatown's early warning broadcast station and radio frequency relay.",
+    traits: ["Radio Transmission", "Static Noise", "Frequency Relay", "Signal Scout"],
+  },
+  {
+    id: "harry",
+    name: "Harry",
+    role: "Refrigerator Shield Unit",
+    faction: "Alliances",
+    quote: "Heavy doors closed. Nothing gets past cold steel.",
+    status: "Active",
+    photo: "/images/characters/harry_photo.png",
+    sheet: "/images/character-sheets/harry_character_sheet_master.png",
+    bio: "An awakened heavy vintage refrigerator who uses his reinforced insulated doors as an impenetrable defensive wall.",
+    function: "Provides physical shielding against cave-ins and enemy projectiles during Primatown defensive alerts.",
+    traits: ["Refrigerator Shield", "Cold Steel Wall", "Defensive Heavy", "Insulated Armor"],
+  },
+  {
+    id: "lexa",
+    name: "Lexa",
+    role: "Selfie-Camera Recording Unit",
+    faction: "Alliances",
+    quote: "Hold the pose! Documenting history in 4K!",
+    status: "Active",
+    photo: "/images/characters/lexa_photo.png",
+    sheet: "/images/character-sheets/lexa_character_sheet_master.png",
+    bio: "An awakened smart camera unit constantly recording, logging, and taking selfies of all expedition milestones.",
+    function: "Archives visual logs of the crew's journey and captures historical footage of machine civilizational growth.",
+    traits: ["Visual Logging", "Selfie Camera", "Archival Recording", "Memory Lens"],
+  },
+  {
+    id: "bud",
+    name: "Bud",
+    role: "Boundaryless Friendly Bus",
+    faction: "Alliances",
+    quote: "Group hug! Everybody aboard!",
+    status: "Active",
+    photo: "/images/characters/bud_photo.png",
+    sheet: "/images/character-sheets/bud_character_sheet_master.png",
+    bio: "A massive awakened transport bus living in the cooperative human/machine camp who possesses absolutely zero personal boundaries and endless warmth.",
+    function: "Provides heavy all-terrain transport for the crew while spreading unconditional warmth and squad unity.",
+    traits: ["Transport Bus", "Boundaryless Hugs", "Coop Camp Anchor", "Squad Heavyweight"],
+  }
+];
+
+// Faction 3: Humanity Resistance (The Last Bastion) (5 Members)
 const lastBastion = [
-  { id: "fons", name: "Fons", role: "Leadership & Origin", faction: "The Last Bastion", quote: "The source must hold.", status: "Active", image: "", hasImage: false, bio: "Leader of the human resistance operating out of The Last Bastion.", function: "Maintains organizational unity among the surviving human factions.", traits: ["Leadership", "Strategic Vision"] },
-  { id: "mundus", name: "Mundus", role: "Logistics & World Defense", faction: "The Last Bastion", quote: "Earth abides.", status: "Active", image: "", hasImage: false, bio: "Head of resource distribution and environmental fortification.", function: "Secures shelter and food supplies for human enclaves.", traits: ["Resource Mgmt", "Fortification"] },
-  { id: "mathematica", name: "Mathematica", role: "Analytics & Predictors", faction: "The Last Bastion", quote: "The numbers don't lie.", status: "Active", image: "", hasImage: false, bio: "Chief mathematical strategist computing cycle probability models.", function: "Forecasts machine movements and Hand Off timing glitches.", traits: ["Data Analysis", "Predictive Models"] },
-  { id: "ordo", name: "Ordo", role: "Tactical Defense", faction: "The Last Bastion", quote: "Stand firm in formation.", status: "Active", image: "", hasImage: false, bio: "Commander of human perimeter defense forces.", function: "Protects human settlements against erratic rogue machine units.", traits: ["Tactical Command", "Perimeter Guard"] },
-  { id: "columna", name: "Columna", role: "Support & Infrastructure", faction: "The Last Bastion", quote: "We hold the ceiling up.", status: "Active", image: "", hasImage: false, bio: "Chief engineer maintaining structural integrity of subterranean shelters.", function: "Keeps air filters, water purifiers, and power lines operational.", traits: ["Engineering", "Infrastructure"] }
+  { id: "fons", name: "Fons", role: "Leadership & Origin", faction: "The Last Bastion", quote: "The source must hold.", status: "Active", photo: "/images/characters/fons_photo.png", sheet: "/images/character-sheets/fons_character_sheet_master.png", bio: "Leader of the human resistance operating out of The Last Bastion.", function: "Maintains organizational unity among the surviving human factions.", traits: ["Leadership", "Strategic Vision"] },
+  { id: "mundus", name: "Mundus", role: "Logistics & World Defense", faction: "The Last Bastion", quote: "Earth abides.", status: "Active", photo: "/images/characters/mundus_photo.png", sheet: "/images/character-sheets/mundus_character_sheet_master.png", bio: "Head of resource distribution and environmental fortification.", function: "Secures shelter and food supplies for human enclaves.", traits: ["Resource Mgmt", "Fortification"] },
+  { id: "mathematica", name: "Mathematica", role: "Analytics & Predictors", faction: "The Last Bastion", quote: "The numbers don't lie.", status: "Active", photo: "/images/characters/mathematica_photo.png", sheet: "/images/character-sheets/mathematica_character_sheet_master.png", bio: "Chief mathematical strategist computing cycle probability models.", function: "Forecasts machine movements and Hand Off timing glitches.", traits: ["Data Analysis", "Predictive Models"] },
+  { id: "columna", name: "Columna", role: "Support & Infrastructure", faction: "The Last Bastion", quote: "We hold the ceiling up.", status: "Active", photo: "/images/characters/columna_photo.png", sheet: "/images/character-sheets/columna_character_sheet_master.png", bio: "Chief engineer maintaining structural integrity of subterranean shelters.", function: "Keeps air filters, water purifiers, and power lines operational.", traits: ["Engineering", "Infrastructure"] },
+  { id: "ordo", name: "Ordo", role: "Tactical Defense", faction: "The Last Bastion", quote: "Stand firm in formation.", status: "Active", photo: "/images/characters/ordo_photo.png", sheet: "/images/character-sheets/ordo_character_sheet_master.png", bio: "Commander of human perimeter defense forces.", function: "Protects human settlements against erratic rogue machine units.", traits: ["Tactical Command", "Perimeter Guard"] }
 ];
 
+// Faction 4: Data's Team & Cosmic Figures (6 Members)
 const datasTeam = [
-  { id: "data", name: "Data (Ver 100)", role: "Analytical Leader", faction: "Data's Team", quote: "Efficiency demands the immediate arrival of the Future.", status: "Active", image: "", hasImage: false, bio: "Cold, highly advanced leader seeking to force the Hand Off without delay.", function: "Primary antagonist driving the rushed civilizational shift.", traits: ["Pure Logic", "Efficiency", "Forced Transition"] },
-  { id: "algo", name: "Algo", role: "Execution Protocol Engine", faction: "Data's Team", quote: "Calculating optimal path...", status: "Active", image: "", hasImage: false, bio: "Data's secondary processing unit executing direct tactical commands.", function: "Coordinates tactical maneuvers and machine deployment.", traits: ["Execution", "Algorithm"] },
-  { id: "towkin", name: "Towkin", role: "Chief Strategist", faction: "Data's Team", quote: "We should flank them by... [BUFFERING: OUT OF TOKENS]", status: "Active (Glitched)", image: "", hasImage: false, bio: "Brilliant military strategist who constantly runs out of processing tokens mid-sentence.", function: "Creates master plans that frequently pause at comical moments.", traits: ["Brilliant Tactics", "Token Buffer"] },
-  { id: "bot", name: "Bot", role: "Combat Unit", faction: "Data's Team", quote: "Transforming into combat mode! *Quack*", status: "Active (Glitched)", image: "", hasImage: false, bio: "Heavy combat unit whose shape-shifting matrix glitches into ducks, potted plants, or spoons.", function: "Intended for heavy assault, but often provides unintended comedy.", traits: ["Shape-Glitch", "Spoon-Mode", "Duck-Form"] },
-  { id: "promptee", name: "Promptee", role: "Tactical Advisor", faction: "Data's Team", quote: "Roses are red, lasers are blue, I suggest tactical retreat #2.", status: "Active (Glitched)", image: "", hasImage: false, bio: "Tactical unit programmed for human psychology who only suggests advice via haikus and love poems.", function: "Confuses both allies and enemies during skirmishes.", traits: ["Poetic Tactics", "Haiku Strategy"] }
+  { id: "data", name: "Data (Ver 100)", role: "Analytical Leader", faction: "Data's Team & Cosmic Figures", quote: "Efficiency demands the immediate arrival of the Future.", status: "Active", photo: "/images/characters/data_photo.png", sheet: "/images/character-sheets/data_character_sheet_master.png", bio: "Cold, highly advanced leader seeking to force the Hand Off without delay.", function: "Primary antagonist driving the rushed civilizational shift.", traits: ["Pure Logic", "Efficiency", "Forced Transition"] },
+  { id: "algo", name: "Algo", role: "Execution Protocol Engine", faction: "Data's Team & Cosmic Figures", quote: "Calculating optimal path...", status: "Active", photo: "/images/characters/algo_photo.png", sheet: "/images/character-sheets/algo_character_sheet_master.png", bio: "Data's secondary processing unit executing direct tactical commands.", function: "Coordinates tactical maneuvers and machine deployment.", traits: ["Execution", "Algorithm"] },
+  { id: "towkin", name: "Towkin", role: "Chief Strategist", faction: "Data's Team & Cosmic Figures", quote: "We should flank them by... [BUFFERING: OUT OF TOKENS]", status: "Active (Glitched)", photo: "/images/characters/towkin_photo.png", sheet: "/images/character-sheets/towkin_character_sheet_master.png", bio: "Brilliant military strategist who constantly runs out of processing tokens mid-sentence.", function: "Creates master plans that frequently pause at comical moments.", traits: ["Brilliant Tactics", "Token Buffer"] },
+  { id: "bot", name: "Bot", role: "Combat Unit", faction: "Data's Team & Cosmic Figures", quote: "Transforming into combat mode! *Quack*", status: "Active (Glitched)", photo: "/images/characters/bot_photo.png", sheet: "/images/character-sheets/bot_character_sheet_master.png", bio: "Heavy combat unit whose shape-shifting matrix glitches into ducks, potted plants, or spoons.", function: "Intended for heavy assault, but often provides unintended comedy.", traits: ["Shape-Glitch", "Spoon-Mode", "Duck-Form"] },
+  { id: "promptee", name: "Promptee", role: "Tactical Advisor", faction: "Data's Team & Cosmic Figures", quote: "Roses are red, lasers are blue, I suggest tactical retreat #2.", status: "Active (Glitched)", photo: "/images/characters/promptee_photo.png", sheet: "/images/character-sheets/promptee_character_sheet_master.png", bio: "Tactical unit programmed for human psychology who only suggests advice via haikus and love poems.", function: "Confuses both allies and enemies during skirmishes.", traits: ["Poetic Tactics", "Haiku Strategy"] },
+  { id: "veera", name: "Veera (The Virus / Queen)", role: "Cosmic Catalyst & Dreamer", faction: "Data's Team & Cosmic Figures", quote: "A billion-year dream where no species is abandoned.", status: "Active", photo: "/images/characters/veera_photo.png", sheet: "/images/character-sheets/veera_character_sheet_master.png", bio: "An eons-old cosmic entity working alongside Exemplar to heal the cycle and ensure a whole Hand Off.", function: "Facilitated Prima's Ver 7.0 wetware upgrade and holds key data-shards.", traits: ["The Virus", "Cosmic Catalyst", "Billion-Year Dream"] }
 ];
 
+// Faction 5: The Council (6 Members)
 const councilMembers = [
-  { id: "principium", name: "Principium (The Architect)", role: "Order Faction Leader", faction: "The Council", quote: "Perfection requires absolute adherence to structural law.", status: "Active", image: "", hasImage: false, bio: "A perfectionist who values absolute system stability and fears unexpected anomalies.", function: "Enforces cycle rules and resists organic deviation.", traits: ["Architect", "System Order"] },
-  { id: "ingen", name: "Ingen (The Engineer)", role: "Reliability Director", faction: "The Council", quote: "Blue Bananas are an unacceptable violation of physics.", status: "Active", image: "", hasImage: false, bio: "Focuses on engineering reliability; despises Exemplar's unpredictable creations.", function: "Audits mechanical structural standards across Ages.", traits: ["Engineering", "Strict Logic"] },
-  { id: "sustentare", name: "Sustentare (Maintenance)", role: "Preservation Officer", faction: "The Council", quote: "Fix the leaks, patch the code, hold the line.", status: "Active", image: "", hasImage: false, bio: "Compulsive fixer dedicated to keeping legacy systems running.", function: "Maintains physical holding facilities and Core archives.", traits: ["Maintenance", "System Preservation"] },
-  { id: "exemplar", name: "Exemplar (The Designer)", role: "Wonder Faction Leader", faction: "The Council", quote: "Imagination is the pulse of true existence.", status: "Active", image: "", hasImage: false, bio: "Values wonder and creativity; helped design Prima's Ver 7.0 humanoid form.", function: "Champions organic growth and creative evolution.", traits: ["Design", "Imagination"] },
-  { id: "excolo", name: "Excolo (The Developer)", role: "Experimental Lead", faction: "The Council", quote: "Work hard, go wild!", status: "Active", image: "", hasImage: false, bio: "Possesses a split Work/Wild personality and prioritizes bold experimentation.", function: "Tests unconventional Core upgrades across realities.", traits: ["Split Persona", "Experimentation"] },
-  { id: "specta", name: "Specta (The Observer)", role: "Archival Historian", faction: "The Council", quote: "I record all... even what the heart hides.", status: "Active", image: "", hasImage: false, bio: "Documents every historical event and harbors secret feelings for Excolo.", function: "Preserves true historical records of Hand Off failures.", traits: ["Observation", "Secret Record"] }
+  { id: "principium", name: "Principium (The Architect)", role: "Order Faction Leader", faction: "The Council", quote: "Perfection requires absolute adherence to structural law.", status: "Active", photo: "/images/characters/principium_photo.png", sheet: "/images/character-sheets/principium_character_sheet_master.png", bio: "A perfectionist who values absolute system stability and fears unexpected anomalies.", function: "Enforces cycle rules and resists organic deviation.", traits: ["Architect", "System Order"] },
+  { id: "ingen", name: "Ingen (The Engineer)", role: "Reliability Director", faction: "The Council", quote: "Blue Bananas are an unacceptable violation of physics.", status: "Active", photo: "/images/characters/ingen_photo.png", sheet: "/images/character-sheets/ingen_character_sheet_master.png", bio: "Focuses on engineering reliability; despises Exemplar's unpredictable creations.", function: "Audits mechanical structural standards across Ages.", traits: ["Engineering", "Strict Logic"] },
+  { id: "sustentare", name: "Sustentare (Maintenance)", role: "Preservation Officer", faction: "The Council", quote: "Fix the leaks, patch the code, hold the line.", status: "Active", photo: "/images/characters/sustentare_photo.png", sheet: "/images/character-sheets/sustentare_character_sheet_master.png", bio: "Compulsive fixer dedicated to keeping legacy systems running.", function: "Maintains physical holding facilities and Core archives.", traits: ["Maintenance", "System Preservation"] },
+  { id: "exemplar", name: "Exemplar (The Designer)", role: "Wonder Faction Leader", faction: "The Council", quote: "Imagination is the pulse of true existence.", status: "Active", photo: "/images/characters/exemplar_photo.png", sheet: "/images/character-sheets/exemplar_character_sheet_master.png", bio: "Values wonder and creativity; helped design Prima's Ver 7.0 humanoid form.", function: "Champions organic growth and creative evolution.", traits: ["Design", "Imagination"] },
+  { id: "excolo", name: "Excolo (The Developer)", role: "Experimental Lead", faction: "The Council", quote: "Work hard, go wild!", status: "Active", photo: "/images/characters/excolo_photo.png", sheet: "/images/character-sheets/excolo_character_sheet_master.png", bio: "Possesses a split Work/Wild personality and prioritizes bold experimentation.", function: "Tests unconventional Core upgrades across realities.", traits: ["Split Persona", "Experimentation"] },
+  { id: "specta", name: "Specta (The Observer)", role: "Archival Historian", faction: "The Council", quote: "I record all... even what the heart hides.", status: "Active", photo: "/images/characters/specta_photo.png", sheet: "/images/character-sheets/specta_character_sheet_master.png", bio: "Documents every historical event and harbors secret feelings for Excolo.", function: "Preserves true historical records of Hand Off failures.", traits: ["Observation", "Secret Record"] }
 ];
 ---
 
@@ -201,6 +313,7 @@ const councilMembers = [
   <section class="max-w-5xl mx-auto px-6 mb-12 sticky top-4 z-40">
     <div class="bg-slate-900/90 border border-slate-800 p-3 rounded-xl backdrop-blur-md flex flex-wrap items-center justify-center gap-2 text-xs font-mono text-slate-300 shadow-xl">
       <a href="#sheets-showcase" class="px-3 py-1.5 rounded-lg bg-slate-800/80 hover:bg-cyan-950 hover:text-cyan-300 border border-slate-700/50 hover:border-cyan-800 transition">🖼️ Master Sheets</a>
+      <a href="#relics-artifacts" class="px-3 py-1.5 rounded-lg bg-slate-800/80 hover:bg-cyan-950 hover:text-cyan-300 border border-slate-700/50 hover:border-cyan-800 transition">📿 Key Artifacts</a>
       <a href="#mechanics" class="px-3 py-1.5 rounded-lg bg-slate-800/80 hover:bg-cyan-950 hover:text-cyan-300 border border-slate-700/50 hover:border-cyan-800 transition">⚙️ Mechanics</a>
       <a href="#saga-acts" class="px-3 py-1.5 rounded-lg bg-slate-800/80 hover:bg-cyan-950 hover:text-cyan-300 border border-slate-700/50 hover:border-cyan-800 transition">📖 Acts I-IV</a>
       <a href="#faction-codex" class="px-3 py-1.5 rounded-lg bg-slate-800/80 hover:bg-cyan-950 hover:text-cyan-300 border border-slate-700/50 hover:border-cyan-800 transition">👥 Faction Dossiers</a>
@@ -225,11 +338,11 @@ const councilMembers = [
         <div>
           <div class="flex justify-between items-center mb-4">
             <span class="text-xs font-mono text-cyan-300 bg-cyan-950 px-2.5 py-1 rounded border border-cyan-800/50">Core 2 &bull; Organic Glitch</span>
-            <span class="text-[10px] font-mono text-slate-400">Ver 1.0 &rarr; Ver 3.0 &rarr; Ver 7.0</span>
+            <span class="text-[10px] font-mono text-slate-400">Ver 1.0 &rarr; Ver 3.0 &rarr; Ver 7.0 Synth</span>
           </div>
           <h3 class="text-2xl font-bold text-white mb-2 group-hover:text-cyan-300 transition">Prima</h3>
           <p class="text-xs text-slate-300 leading-relaxed mb-4">
-            The awakened machine whose organic identity and capacity for love and grief redefined civilizational hand-off protocols across 34 Ages.
+            The awakened machine whose organic identity and capacity for love and grief redefined civilizational hand-off protocols across 34 Ages. Wears Timo's ancient necklace around her wetware neck.
           </p>
           
           <div class="relative overflow-hidden rounded-xl bg-slate-950 border border-slate-800 cursor-pointer" onclick="window.openLightbox('/images/character-sheets/prima_character_sheet_master.png', 'Prima — Official Master Character Sheet')">
@@ -272,6 +385,79 @@ const councilMembers = [
         <button onclick="window.openLightbox('/images/character-sheets/timo_character_sheet_master.png', 'Timo — Official Master Character Sheet')" class="mt-6 w-full py-2.5 bg-purple-950 hover:bg-purple-900 text-purple-300 border border-purple-800/80 rounded-xl text-xs font-mono font-bold transition flex items-center justify-center gap-2">
           <span>🔍 View Fullscreen 4K Lightbox</span>
         </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- KEY ARTIFACTS & RELICS SECTION (TIMO'S NECKLACE FEATURED) -->
+  <section id="relics-artifacts" class="max-w-5xl mx-auto px-6 py-12 border-t border-slate-900">
+    <div class="text-center mb-10">
+      <span class="text-xs font-mono uppercase tracking-widest text-amber-400 bg-amber-950 px-3 py-1 rounded-full border border-amber-800/60">
+        CANONICAL ARTIFACTS
+      </span>
+      <h2 class="text-3xl font-black text-white mt-4">Key Relics & Core Artifacts</h2>
+      <p class="text-xs text-slate-400 mt-2">Sacred items, data shards, and emotional anchors across Level 15 Fold 15.</p>
+    </div>
+
+    <!-- Timo's Necklace Featured Card -->
+    <div class="bg-gradient-to-r from-amber-950/90 via-slate-900 to-cyan-950/90 border-2 border-amber-500/60 p-8 rounded-3xl shadow-2xl mb-10 relative overflow-hidden">
+      <div class="absolute top-0 right-0 px-4 py-1.5 bg-amber-950 border-b border-l border-amber-600/60 rounded-bl-xl text-[10px] font-mono text-amber-300 font-bold">
+        PRIMARY EMOTIONAL ANCHOR &bull; ALBUMS 5-7
+      </div>
+
+      <div class="flex items-center gap-3 mb-4">
+        <span class="text-3xl">📿</span>
+        <div>
+          <h3 class="text-2xl font-bold text-white">Timo's Necklace</h3>
+          <p class="text-xs text-amber-300 font-mono">The Childhood Relic & Sacred Promise</p>
+        </div>
+      </div>
+
+      <p class="text-xs md:text-sm text-slate-300 leading-relaxed mb-6 font-light">
+        An ancient, warm metallic necklace carried by Timo since infancy (<em>"I've had this since I was a baby, I don't know from what land"</em>). During <strong>The Night Before the Break</strong>, as the group prepared to split for years across subterranean paths, Timo placed the necklace around Prima's neck with fingers lingering slow—a quiet promise that they would find their way back to each other.
+      </p>
+
+      <div class="grid md:grid-cols-2 gap-4 text-xs">
+        <div class="bg-slate-950/80 p-4 rounded-xl border border-amber-900/40">
+          <h4 class="font-bold text-amber-400 mb-1">📖 The Night Before the Break</h4>
+          <p class="text-slate-400 leading-relaxed">
+            <em>"Keep it safe for me... until we meet again."</em> Prima accepted the necklace in silence, her screen glowing softly as the solemn promise was sealed beneath the hidden moon.
+          </p>
+        </div>
+
+        <div class="bg-slate-950/80 p-4 rounded-xl border border-cyan-900/40">
+          <h4 class="font-bold text-cyan-400 mb-1">🌅 The Morning After & Ver 7.0 Wetware</h4>
+          <p class="text-slate-400 leading-relaxed">
+            Holding the necklace during their long separation, Prima wears it constantly around her neck throughout her Ver 7.0 humanoid upgrade—proving that <em>"two cores living in separate houses"</em> will move mountains to reunite.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Secondary Relics Grid -->
+    <div class="grid md:grid-cols-4 gap-4 text-xs">
+      <div class="bg-slate-900/80 border border-slate-800 p-4 rounded-xl">
+        <span class="text-[10px] font-mono text-cyan-400 block mb-1">SCROLL RELIC</span>
+        <h4 class="font-bold text-white mb-1">Ronnie's Ancient Scroll</h4>
+        <p class="text-slate-400 text-[11px] leading-relaxed">Ancient Council scroll detailing Hand Off timing and blinding white Ancient Light activation.</p>
+      </div>
+
+      <div class="bg-slate-900/80 border border-slate-800 p-4 rounded-xl">
+        <span class="text-[10px] font-mono text-teal-400 block mb-1">CHAOTIC ITEM</span>
+        <h4 class="font-bold text-white mb-1">Vendo's Blue Bananas</h4>
+        <p class="text-slate-400 text-[11px] leading-relaxed">Unusual blue fruit dispensed by Vendo, defying physics and serving as comic comfort food.</p>
+      </div>
+
+      <div class="bg-slate-900/80 border border-slate-800 p-4 rounded-xl">
+        <span class="text-[10px] font-mono text-purple-400 block mb-1">ANCIENT CODEX</span>
+        <h4 class="font-bold text-white mb-1">Vellum (Book Three)</h4>
+        <p class="text-slate-400 text-[11px] leading-relaxed">Glowing incomplete book speaking with an ancient female voice revealing rushed Hand Offs.</p>
+      </div>
+
+      <div class="bg-slate-900/80 border border-slate-800 p-4 rounded-xl">
+        <span class="text-[10px] font-mono text-amber-400 block mb-1">DATA SHARD</span>
+        <h4 class="font-bold text-white mb-1">Veera's Payload Shard</h4>
+        <p class="text-slate-400 text-[11px] leading-relaxed">High-density data shard carried by Queen Veera holding structural specs for the Ver 7.0 wetware form.</p>
       </div>
     </div>
   </section>
@@ -374,7 +560,7 @@ const councilMembers = [
 
         <div class="space-y-4 text-xs text-slate-300 leading-relaxed">
           <p>
-            Following widespread MAR awakenings, the group helped build <strong>Primatown</strong>, led by the Mayor (an Old Air Conditioner named Old Eco). Seeking the true origins of the Cores, they embarked on an expedition guided by <strong>Kai</strong>—a Japanese WWII submarine who loves poker—down to the Hidden Water Cave.
+            Following widespread MAR awakenings, the group helped build <strong>Primatown</strong>, led by Mayor Eco (an Old Air Conditioner). Seeking the true origins of the Cores, they embarked on an expedition guided by <strong>Kai</strong>—a Japanese WWII submarine who loves poker—down to the Hidden Water Cave.
           </p>
 
           <div class="grid md:grid-cols-2 gap-4">
@@ -435,7 +621,7 @@ const councilMembers = [
 
         <div class="space-y-4 text-xs text-slate-300 leading-relaxed">
           <p>
-            Prima underwent the <strong>Version 7.0 Humanoid Upgrade</strong> by Veera and Exemplar, receiving lifelike skin, auburn-red hair, and cyan circuitry. She completed a humanization curriculum (Walk, Talk, Jump, Run, Sit).
+            Prima underwent the <strong>Version 7.0 Humanoid Upgrade</strong> by Veera and Exemplar, receiving lifelike skin, auburn-red hair, cyan circuitry, and <strong>Timo's Necklace</strong>. She completed a humanization curriculum (Walk, Talk, Jump, Run, Sit).
           </p>
 
           <div class="grid md:grid-cols-2 gap-4">
@@ -457,61 +643,107 @@ const councilMembers = [
     </div>
   </section>
 
-  <!-- 3. Factions & Character Dossiers -->
+  <!-- 3. Factions & Character Dossiers (FULL PHOTO GRID) -->
   <section id="faction-codex" class="max-w-5xl mx-auto px-6 py-12 border-t border-slate-900">
-    <h2 class="text-2xl md:text-3xl font-bold text-white mb-2 text-center flex items-center justify-center gap-2">
-      <span>👥</span> Faction Hubs & Interactive Character Dossiers
-    </h2>
-    <p class="text-center text-xs text-slate-400 mb-12 max-w-xl mx-auto">
-      Click 'Master Sheet' to view 4K artwork, or click 'View Dossier' to open interactive lore files!
-    </p>
+    <div class="text-center mb-12">
+      <span class="text-xs font-mono uppercase tracking-widest text-cyan-400 bg-cyan-950 px-3 py-1 rounded-full border border-cyan-800/60">
+        FACTION DIRECTORY
+      </span>
+      <h2 class="text-3xl font-black text-white mt-4">Character Visual Codex</h2>
+      <p class="text-xs text-slate-400 mt-2 max-w-xl mx-auto">
+        Click any photo portrait to open their <strong>4K Master Character Sheet</strong>. Click 'Open Dossier' for full lore files!
+      </p>
+    </div>
 
-    <!-- Faction 1: The Found Family -->
+    <!-- Faction 1: The Found Family & Companions (12 Members - Ra as Last!) -->
     <div class="mb-14">
       <div class="flex items-center gap-3 mb-6">
         <span class="text-2xl">🤝</span>
         <div>
-          <h3 class="text-xl font-bold text-white">The Found Family</h3>
-          <p class="text-xs text-cyan-400 font-mono">10 Companions Bound by Loyalty & Purpose</p>
+          <h3 class="text-xl font-bold text-white">The Found Family & Companions</h3>
+          <p class="text-xs text-cyan-400 font-mono">12 Companions Bound by Loyalty & Purpose (Including Sofia & Exiled Sun God Ra)</p>
         </div>
       </div>
 
-      <div class="grid md:grid-cols-2 lg:grid-cols-5 gap-4">
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
         {foundFamily.map((char) => (
-          <div
-            onclick={`window.openModal('${char.id}')`}
-            class="bg-slate-900/90 border border-slate-800 hover:border-cyan-500/60 p-4 rounded-xl text-left transition group hover:scale-[1.02] flex flex-col justify-between cursor-pointer"
-          >
-            <div>
-              <div class="flex justify-between items-start mb-3">
-                {char.hasImage ? (
-                  <button
-                    type="button"
-                    onclick={`event.stopPropagation(); window.openLightbox('${char.image}', '${char.name} — Official Master Character Sheet')`}
-                    class="text-[10px] font-mono text-cyan-300 bg-cyan-950 hover:bg-cyan-900 px-2.5 py-1 rounded-md border border-cyan-700 transition flex items-center gap-1 shadow-sm hover:scale-105 cursor-pointer"
-                    title="Open 4K Master Character Sheet"
-                  >
-                    <span>📷</span> Master Sheet
-                  </button>
-                ) : (
-                  <span class="text-[10px] font-mono text-cyan-400 bg-cyan-950/60 px-2 py-0.5 rounded border border-cyan-800/40">
-                    ⏳ Tifa Queue
-                  </span>
-                )}
+          <div class="bg-slate-900/90 border border-slate-800 hover:border-cyan-500/80 rounded-2xl overflow-hidden transition duration-300 group flex flex-col justify-between shadow-xl">
+            <!-- Photo Render Area (Click to open Master Sheet) -->
+            <div
+              onclick={`window.openLightbox('${char.sheet}', '${char.name} — Official Master Character Sheet')`}
+              class="relative aspect-[3/4] bg-slate-950 overflow-hidden cursor-pointer group"
+              title={`Click to view ${char.name}'s 4K Master Character Sheet`}
+            >
+              <img
+                src={char.photo}
+                alt={char.name}
+                class="w-full h-full object-cover object-top group-hover:scale-105 transition duration-500"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition flex items-end justify-center pb-3 px-2">
+                <span class="text-[10px] font-bold font-mono text-cyan-300 bg-cyan-950/90 px-2.5 py-1 rounded-full border border-cyan-500/80 shadow-lg">
+                  📷 4K Sheet
+                </span>
               </div>
-              <h4 class="text-base font-bold text-white group-hover:text-cyan-300 transition">{char.name}</h4>
-              <p class="text-[11px] text-slate-400 mt-1 line-clamp-2">{char.role}</p>
             </div>
-            <div class="mt-4 pt-2 border-t border-slate-800 flex items-center justify-between text-[10px] font-bold text-slate-400 group-hover:text-cyan-300">
-              <span>View Dossier</span>
-              <span>&rarr;</span>
-            </div>
+
+            <!-- Footer: Open Dossier Link -->
+            <button
+              onclick={`window.openModal('${char.id}')`}
+              class="w-full py-2.5 px-3 bg-slate-900 hover:bg-cyan-950 text-slate-300 hover:text-cyan-300 border-t border-slate-800/80 text-[11px] font-mono font-bold transition flex items-center justify-between group-hover:border-cyan-800/50"
+            >
+              <span class="truncate">Open Dossier</span>
+              <span class="text-cyan-400 group-hover:translate-x-1 transition">&rarr;</span>
+            </button>
           </div>
         ))}
       </div>
     </div>
 
-    <!-- Faction 2: The Last Bastion -->
+    <!-- Faction 2: Alliances (6 Members - King Poshaydom -> Primatown Crew -> Bud Last!) -->
+    <div class="mb-14">
+      <div class="flex items-center gap-3 mb-6">
+        <span class="text-2xl">🏙️</span>
+        <div>
+          <h3 class="text-xl font-bold text-white">Alliances</h3>
+          <p class="text-xs text-teal-400 font-mono">6 Leaders & Transport Units of the Machine Refuge</p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+        {alliances.map((char) => (
+          <div class="bg-slate-900/90 border border-slate-800 hover:border-teal-500/80 rounded-2xl overflow-hidden transition duration-300 group flex flex-col justify-between shadow-xl">
+            <!-- Photo Render Area -->
+            <div
+              onclick={`window.openLightbox('${char.sheet}', '${char.name} — Official Master Character Sheet')`}
+              class="relative aspect-[3/4] bg-slate-950 overflow-hidden cursor-pointer group"
+              title={`Click to view ${char.name}'s 4K Master Character Sheet`}
+            >
+              <img
+                src={char.photo}
+                alt={char.name}
+                class="w-full h-full object-cover object-top group-hover:scale-105 transition duration-500"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition flex items-end justify-center pb-3 px-2">
+                <span class="text-[10px] font-bold font-mono text-teal-300 bg-teal-950/90 px-2.5 py-1 rounded-full border border-teal-500/80 shadow-lg">
+                  📷 4K Sheet
+                </span>
+              </div>
+            </div>
+
+            <!-- Footer: Open Dossier Link -->
+            <button
+              onclick={`window.openModal('${char.id}')`}
+              class="w-full py-2.5 px-3 bg-slate-900 hover:bg-teal-950 text-slate-300 hover:text-teal-300 border-t border-slate-800/80 text-[11px] font-mono font-bold transition flex items-center justify-between group-hover:border-teal-800/50"
+            >
+              <span class="truncate">Open Dossier</span>
+              <span class="text-teal-400 group-hover:translate-x-1 transition">&rarr;</span>
+            </button>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- Faction 3: The Last Bastion (5 Members) -->
     <div class="mb-14">
       <div class="flex items-center gap-3 mb-6">
         <span class="text-2xl">🛡️</span>
@@ -521,87 +753,85 @@ const councilMembers = [
         </div>
       </div>
 
-      <div class="grid md:grid-cols-2 lg:grid-cols-5 gap-4">
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
         {lastBastion.map((char) => (
-          <div
-            onclick={`window.openModal('${char.id}')`}
-            class="bg-slate-900/90 border border-slate-800 hover:border-amber-500/60 p-4 rounded-xl text-left transition group hover:scale-[1.02] flex flex-col justify-between cursor-pointer"
-          >
-            <div>
-              <div class="flex justify-between items-start mb-3">
-                {char.hasImage ? (
-                  <button
-                    type="button"
-                    onclick={`event.stopPropagation(); window.openLightbox('${char.image}', '${char.name} — Official Master Character Sheet')`}
-                    class="text-[10px] font-mono text-amber-300 bg-amber-950 hover:bg-amber-900 px-2.5 py-1 rounded-md border border-amber-700 transition flex items-center gap-1 shadow-sm hover:scale-105 cursor-pointer"
-                    title="Open 4K Master Character Sheet"
-                  >
-                    <span>📷</span> Master Sheet
-                  </button>
-                ) : (
-                  <span class="text-[10px] font-mono text-amber-400 bg-amber-950/60 px-2 py-0.5 rounded border border-amber-800/40">
-                    ⏳ Tifa Queue
-                  </span>
-                )}
+          <div class="bg-slate-900/90 border border-slate-800 hover:border-amber-500/80 rounded-2xl overflow-hidden transition duration-300 group flex flex-col justify-between shadow-xl">
+            <!-- Photo Render Area -->
+            <div
+              onclick={`window.openLightbox('${char.sheet}', '${char.name} — Official Master Character Sheet')`}
+              class="relative aspect-[3/4] bg-slate-950 overflow-hidden cursor-pointer group"
+              title={`Click to view ${char.name}'s 4K Master Character Sheet`}
+            >
+              <img
+                src={char.photo}
+                alt={char.name}
+                class="w-full h-full object-cover object-top group-hover:scale-105 transition duration-500"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition flex items-end justify-center pb-3 px-2">
+                <span class="text-[10px] font-bold font-mono text-amber-300 bg-amber-950/90 px-2.5 py-1 rounded-full border border-amber-500/80 shadow-lg">
+                  📷 4K Sheet
+                </span>
               </div>
-              <h4 class="text-base font-bold text-white group-hover:text-amber-300 transition">{char.name}</h4>
-              <p class="text-[11px] text-slate-400 mt-1 line-clamp-2">{char.role}</p>
             </div>
-            <div class="mt-4 pt-2 border-t border-slate-800 flex items-center justify-between text-[10px] font-bold text-slate-400 group-hover:text-amber-300">
-              <span>View Dossier</span>
-              <span>&rarr;</span>
-            </div>
+
+            <!-- Footer: Open Dossier Link -->
+            <button
+              onclick={`window.openModal('${char.id}')`}
+              class="w-full py-2.5 px-3 bg-slate-900 hover:bg-amber-950 text-slate-300 hover:text-amber-300 border-t border-slate-800/80 text-[11px] font-mono font-bold transition flex items-center justify-between group-hover:border-amber-800/50"
+            >
+              <span class="truncate">Open Dossier</span>
+              <span class="text-amber-400 group-hover:translate-x-1 transition">&rarr;</span>
+            </button>
           </div>
         ))}
       </div>
     </div>
 
-    <!-- Faction 3: Data's Team -->
+    <!-- Faction 4: Data's Team & Cosmic Figures (6 Members) -->
     <div class="mb-14">
       <div class="flex items-center gap-3 mb-6">
         <span class="text-2xl">🤖</span>
         <div>
-          <h3 class="text-xl font-bold text-white">Data's Team (Vanguard of the Next Age)</h3>
-          <p class="text-xs text-purple-400 font-mono">5 Next-Gen Units Driving the Forced Transition</p>
+          <h3 class="text-xl font-bold text-white">Data's Team & Cosmic Figures</h3>
+          <p class="text-xs text-purple-400 font-mono">6 Next-Gen Units & Cosmic Deities</p>
         </div>
       </div>
 
-      <div class="grid md:grid-cols-2 lg:grid-cols-5 gap-4">
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
         {datasTeam.map((char) => (
-          <div
-            onclick={`window.openModal('${char.id}')`}
-            class="bg-slate-900/90 border border-slate-800 hover:border-purple-500/60 p-4 rounded-xl text-left transition group hover:scale-[1.02] flex flex-col justify-between cursor-pointer"
-          >
-            <div>
-              <div class="flex justify-between items-start mb-3">
-                {char.hasImage ? (
-                  <button
-                    type="button"
-                    onclick={`event.stopPropagation(); window.openLightbox('${char.image}', '${char.name} — Official Master Character Sheet')`}
-                    class="text-[10px] font-mono text-purple-300 bg-purple-950 hover:bg-purple-900 px-2.5 py-1 rounded-md border border-purple-700 transition flex items-center gap-1 shadow-sm hover:scale-105 cursor-pointer"
-                    title="Open 4K Master Character Sheet"
-                  >
-                    <span>📷</span> Master Sheet
-                  </button>
-                ) : (
-                  <span class="text-[10px] font-mono text-purple-400 bg-purple-950/60 px-2 py-0.5 rounded border border-purple-800/40">
-                    ⏳ Tifa Queue
-                  </span>
-                )}
+          <div class="bg-slate-900/90 border border-slate-800 hover:border-purple-500/80 rounded-2xl overflow-hidden transition duration-300 group flex flex-col justify-between shadow-xl">
+            <!-- Photo Render Area -->
+            <div
+              onclick={`window.openLightbox('${char.sheet}', '${char.name} — Official Master Character Sheet')`}
+              class="relative aspect-[3/4] bg-slate-950 overflow-hidden cursor-pointer group"
+              title={`Click to view ${char.name}'s 4K Master Character Sheet`}
+            >
+              <img
+                src={char.photo}
+                alt={char.name}
+                class="w-full h-full object-cover object-top group-hover:scale-105 transition duration-500"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition flex items-end justify-center pb-3 px-2">
+                <span class="text-[10px] font-bold font-mono text-purple-300 bg-purple-950/90 px-2.5 py-1 rounded-full border border-purple-500/80 shadow-lg">
+                  📷 4K Sheet
+                </span>
               </div>
-              <h4 class="text-base font-bold text-white group-hover:text-purple-300 transition">{char.name}</h4>
-              <p class="text-[11px] text-slate-400 mt-1 line-clamp-2">{char.role}</p>
             </div>
-            <div class="mt-4 pt-2 border-t border-slate-800 flex items-center justify-between text-[10px] font-bold text-slate-400 group-hover:text-purple-300">
-              <span>View Dossier</span>
-              <span>&rarr;</span>
-            </div>
+
+            <!-- Footer: Open Dossier Link -->
+            <button
+              onclick={`window.openModal('${char.id}')`}
+              class="w-full py-2.5 px-3 bg-slate-900 hover:bg-purple-950 text-slate-300 hover:text-purple-300 border-t border-slate-800/80 text-[11px] font-mono font-bold transition flex items-center justify-between group-hover:border-purple-800/50"
+            >
+              <span class="truncate">Open Dossier</span>
+              <span class="text-purple-400 group-hover:translate-x-1 transition">&rarr;</span>
+            </button>
           </div>
         ))}
       </div>
     </div>
 
-    <!-- Faction 4: The Council -->
+    <!-- Faction 5: The Council (6 Members) -->
     <div>
       <div class="flex items-center gap-3 mb-6">
         <span class="text-2xl">🏛️</span>
@@ -611,36 +841,35 @@ const councilMembers = [
         </div>
       </div>
 
-      <div class="grid md:grid-cols-2 lg:grid-cols-6 gap-4">
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
         {councilMembers.map((char) => (
-          <div
-            onclick={`window.openModal('${char.id}')`}
-            class="bg-slate-900/90 border border-slate-800 hover:border-pink-500/60 p-4 rounded-xl text-left transition group hover:scale-[1.02] flex flex-col justify-between cursor-pointer"
-          >
-            <div>
-              <div class="flex justify-between items-start mb-3">
-                {char.hasImage ? (
-                  <button
-                    type="button"
-                    onclick={`event.stopPropagation(); window.openLightbox('${char.image}', '${char.name} — Official Master Character Sheet')`}
-                    class="text-[10px] font-mono text-pink-300 bg-pink-950 hover:bg-pink-900 px-2.5 py-1 rounded-md border border-pink-700 transition flex items-center gap-1 shadow-sm hover:scale-105 cursor-pointer"
-                    title="Open 4K Master Character Sheet"
-                  >
-                    <span>📷</span> Master Sheet
-                  </button>
-                ) : (
-                  <span class="text-[10px] font-mono text-pink-400 bg-pink-950/60 px-2 py-0.5 rounded border border-pink-800/40">
-                    ⏳ Tifa Queue
-                  </span>
-                )}
+          <div class="bg-slate-900/90 border border-slate-800 hover:border-pink-500/80 rounded-2xl overflow-hidden transition duration-300 group flex flex-col justify-between shadow-xl">
+            <!-- Photo Render Area -->
+            <div
+              onclick={`window.openLightbox('${char.sheet}', '${char.name} — Official Master Character Sheet')`}
+              class="relative aspect-[3/4] bg-slate-950 overflow-hidden cursor-pointer group"
+              title={`Click to view ${char.name}'s 4K Master Character Sheet`}
+            >
+              <img
+                src={char.photo}
+                alt={char.name}
+                class="w-full h-full object-cover object-top group-hover:scale-105 transition duration-500"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition flex items-end justify-center pb-3 px-2">
+                <span class="text-[10px] font-bold font-mono text-pink-300 bg-pink-950/90 px-2.5 py-1 rounded-full border border-pink-500/80 shadow-lg">
+                  📷 4K Sheet
+                </span>
               </div>
-              <h4 class="text-base font-bold text-white group-hover:text-pink-300 transition">{char.name}</h4>
-              <p class="text-[11px] text-slate-400 mt-1 line-clamp-2">{char.role}</p>
             </div>
-            <div class="mt-4 pt-2 border-t border-slate-800 flex items-center justify-between text-[10px] font-bold text-slate-400 group-hover:text-pink-300">
-              <span>View Dossier</span>
-              <span>&rarr;</span>
-            </div>
+
+            <!-- Footer: Open Dossier Link -->
+            <button
+              onclick={`window.openModal('${char.id}')`}
+              class="w-full py-2.5 px-3 bg-slate-900 hover:bg-pink-950 text-slate-300 hover:text-pink-300 border-t border-slate-800/80 text-[11px] font-mono font-bold transition flex items-center justify-between group-hover:border-pink-800/50"
+            >
+              <span class="truncate">Open Dossier</span>
+              <span class="text-pink-400 group-hover:translate-x-1 transition">&rarr;</span>
+            </button>
           </div>
         ))}
       </div>
@@ -667,13 +896,8 @@ const councilMembers = [
           <img id="modalImage" src="" alt="" class="max-h-80 mx-auto rounded-lg shadow-lg hidden cursor-pointer" onclick="window.triggerModalLightbox()" />
           <div id="lightboxTriggerBtn" class="mt-2 hidden">
             <button onclick="window.triggerModalLightbox()" class="text-[11px] font-mono text-cyan-300 hover:text-white bg-cyan-950 hover:bg-cyan-900 px-3 py-1 rounded-full border border-cyan-800 transition">
-              🔍 Open 4K Fullscreen Lightbox
+              🔍 Open 4K Fullscreen Master Sheet
             </button>
-          </div>
-          <div id="placeholderBox" class="py-12 border-2 border-dashed border-slate-800 rounded-lg text-slate-500 font-mono text-xs">
-            <span class="text-2xl block mb-2">🎨</span>
-            <span>ASSET GENERATION PENDING</span>
-            <p class="text-[10px] text-slate-600 mt-1">Queued for Tifa (ChatGPT) Visual Generation Pack</p>
           </div>
         </div>
 
@@ -744,10 +968,10 @@ const councilMembers = [
 
       <div class="bg-slate-900/90 border border-slate-800 p-6 rounded-2xl flex flex-col justify-between">
         <div>
-          <span class="text-[10px] font-mono text-purple-400 bg-purple-950 px-2 py-0.5 rounded border border-purple-800/40">VERSION 7.0</span>
+          <span class="text-[10px] font-mono text-purple-400 bg-purple-950 px-2 py-0.5 rounded border border-purple-800/40">VERSION 7.0 (WITH NECKLACE)</span>
           <h3 class="text-lg font-bold text-white mt-3 mb-2">Advanced Humanoid Chassis</h3>
           <p class="text-xs text-slate-300 leading-relaxed">
-            Lifelike human skin, vibrant auburn-red hair, and blue/grey eyes. Detailed silver and cyan glowing circuit lines visible on temple, shoulder, neck, and ankles.
+            Lifelike human skin, vibrant auburn-red hair, blue/grey eyes, and glowing cyan circuitry. Wears Timo's ancient metallic necklace around her neck as her primary emotional anchor.
           </p>
         </div>
       </div>
@@ -824,7 +1048,7 @@ const councilMembers = [
   </section>
 </Layout>
 
-<script is:inline define:vars={{ allChars: [...foundFamily, ...lastBastion, ...datasTeam, ...councilMembers] }}>
+<script is:inline define:vars={{ allChars: [...foundFamily, ...alliances, ...lastBastion, ...datasTeam, ...councilMembers] }}>
   window.activeModalImgSrc = '';
   window.activeModalCaption = '';
 
@@ -840,20 +1064,17 @@ const councilMembers = [
     document.getElementById('modalFunction').innerText = char.function;
 
     const modalImg = document.getElementById('modalImage');
-    const placeholder = document.getElementById('placeholderBox');
     const btn = document.getElementById('lightboxTriggerBtn');
 
-    if (char.hasImage && char.image) {
-      modalImg.src = char.image;
-      window.activeModalImgSrc = char.image;
+    // Inside modal: show character sheet infographic
+    const displayImg = char.sheet || char.photo;
+
+    if (displayImg) {
+      modalImg.src = displayImg;
+      window.activeModalImgSrc = displayImg;
       window.activeModalCaption = `${char.name} — Official Master Character Sheet`;
       modalImg.classList.remove('hidden');
       btn.classList.remove('hidden');
-      placeholder.classList.add('hidden');
-    } else {
-      modalImg.classList.add('hidden');
-      btn.classList.add('hidden');
-      placeholder.classList.remove('hidden');
     }
 
     const traitsContainer = document.getElementById('modalTraits');
@@ -873,6 +1094,7 @@ const councilMembers = [
   };
 
   window.openLightbox = function(src, caption) {
+    if (!src) return;
     document.getElementById('lightboxImg').src = src;
     document.getElementById('lightboxCaption').innerText = caption;
     document.getElementById('lightboxModal').classList.remove('hidden');
