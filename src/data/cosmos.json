@@ -147,6 +147,24 @@
       "keyQuote": "Allowed. The new configuration arrives."
     },
     {
+      "id": "defective-detective",
+      "name": "The Defective Detective",
+      "levelFold": "Level 8 Fold 39",
+      "description": "A sharp-eyed kitsune detective working beyond a corrupt system in a noir world where every answer creates more questions.",
+      "featuredTrack": "",
+      "status": "In Development",
+      "spotify": "",
+      "youtube": "",
+      "lineup": [
+        "Serah (Principal Investigator of Serah Solves; primary musical artist of Level 8 Fold 39)"
+      ],
+      "albums": [
+        "(1) Serah the Kitsune",
+        "(2) Serah Investigates"
+      ],
+      "keyQuote": "An investigation produces an answer. The answer creates more questions."
+    },
+    {
       "id": "prima-timo",
       "name": "Prima & Timo",
       "levelFold": "Level 15 Fold 15",

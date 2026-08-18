@@ -1,0 +1,208 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const roster = [
+  { name: 'Serah', role: 'Lead Investigator', species: 'Kitsune', profile: 'Former police detective and founder of Serah Solves. She reads intent and patterns exceptionally well, but never mistakes a pattern for proof.', image: '/images/defective-detective/serah.png', accent: '#38bdf8' },
+  { name: 'Andy', role: 'Field Ally', species: 'Duende', profile: 'Serah Solves’ first client and now a practical helper around the agency, supporting intake, customers, and the everyday work that keeps a case moving.', image: '/images/defective-detective/andy.png', accent: '#fb923c', position: 'center 45%' },
+  { name: 'Kamira', role: 'The Inquisitive Eye', species: 'Goblin', profile: 'A photographer and documentary investigator with a relentless eye for details that powerful institutions would rather leave unseen.', image: '/images/defective-detective/kamira.png', accent: '#e879f9' },
+  { name: 'Coda', role: 'Signals & Systems', species: 'Hakujya', profile: 'The agency’s primary technical specialist, tracing records, networks, and digital systems beneath the city’s official story.', image: '/images/defective-detective/coda.png', accent: '#22d3ee' },
+  { name: 'Foxxie', role: 'Street Intelligence', species: 'Nekomimi', profile: 'Broadcaster and host of Nyan-Cast, bringing overlooked disappearances, inequality, and suppressed public stories into the open.', image: '/images/defective-detective/foxxie.jpg', accent: '#fbbf24' },
+  { name: 'Nessa', role: 'Operations', species: 'Elf', profile: 'Engineer, inventor, decoder, and repair specialist. She turns damaged technology and difficult evidence into tools the agency can actually use.', image: '/images/defective-detective/nessa.png', accent: '#a78bfa' },
+  { name: 'Lyra', role: 'Living Question', species: 'Species Unconfirmed', profile: 'An enigmatic rival from Serah’s academy years whose motives, whereabouts, and place in the larger investigation remain unresolved.', image: '/images/defective-detective/lyra.png', accent: '#f472b6' },
+  { name: 'Rikka', role: 'Independent Variable', species: 'Yukiusagi', profile: 'A musician and outspoken dissident who uses songs, performance, and cultural memory to challenge approved institutional narratives.', image: '/images/defective-detective/rikka.png', accent: '#4ade80' },
+  { name: 'Yuki', role: 'Quiet Witness', species: 'Nekomata', profile: 'A painter, client, and active learner around Serah Solves whose visual instincts notice what louder witnesses often leave behind.', image: '/images/defective-detective/yuki.png', accent: '#c4b5fd' },
+];
+
+const platinumEight = [
+  { name: 'Gobo', division: 'Chief Financial Officer', species: 'Oni', profile: 'Controls the Company’s major financial systems, budgets, and digital currency with exacting institutional discipline.', image: '/images/defective-detective/platinum/gobo.png' },
+  { name: 'Calus', division: 'Technology & Infrastructure', species: 'Ursine', profile: 'Oversees city infrastructure, automated defenses, surveillance grids, and the technical systems that keep the Company operating.', image: '/images/defective-detective/platinum/calus.png' },
+  { name: 'Kell', division: 'Global Logistics', species: 'Karura', profile: 'Directs aerial transport, cargo routes, food distribution, and the supply networks connecting the city’s districts.', image: '/images/defective-detective/platinum/kell.png' },
+  { name: 'Viktor', division: 'Information Systems', species: 'Vetala', profile: 'Commands extraordinary reach across reports, databases, archives, anomalies, and institutional information.', image: '/images/defective-detective/platinum/viktor.png' },
+  { name: 'Miaka', division: 'Public Relations & Media', species: 'Succubus', profile: 'Shapes Company messaging, public relations, media feeds, and the institution’s response to public unrest.', image: '/images/defective-detective/platinum/miaka.jpg' },
+  { name: 'Aqua', division: 'Chief Operations Officer', species: 'Siren', profile: 'Commands tactical units, enforcement teams, corporate security, and the Company’s active field operations.', image: '/images/defective-detective/platinum/aqua.png' },
+  { name: 'Kara', division: 'Human Resources & Assets', species: 'Kasha', profile: 'Manages personnel assignments, efficiency scoring, institutional assets, and the systems governing corporate labor.', image: '/images/defective-detective/platinum/kara.png' },
+  { name: 'Mikka', division: 'Chief Legal Counsel', species: 'Myia', profile: 'Authors legal frameworks, corporate policy, enforcement codes, and the regulations supporting executive decisions.', image: '/images/defective-detective/platinum/mikka.png' },
+];
+
+const forces = [
+  { name: 'Serah Solves', type: 'INVESTIGATION AGENCY', text: 'A legitimate private-investigation agency and information hub. It is not a resistance movement.' },
+  { name: 'The Board', type: 'INSTITUTIONAL POWER', text: 'A governing force capable of turning investigators into targets when a question reaches too far.' },
+  { name: 'The Black Zone', type: 'RESTRICTED TERRITORY', text: 'A place where ordinary classifications and ordinary protections stop applying.' },
+  { name: 'Rise', type: 'ACTIVE FACTION', text: 'One of the forces moving through the same citywide web of agendas, loyalties, and consequences.' },
+  { name: 'PI Collective', type: 'PROFESSIONAL NETWORK', text: 'Investigators sharing a profession while carrying different methods, pressures, and limits.' },
+  { name: 'Collective Circle', type: 'SOCIAL SYSTEM', text: 'A connected community whose relationships can become evidence, leverage, refuge, or risk.' },
+];
+
+const artifacts = [
+  ['The Malak Artifact', 'An object whose presence expands the case beyond a conventional private investigation.'],
+  ['The Contract Fragment', 'A partial record: enough to prove a structure exists, not enough to reveal its whole design.'],
+  ["Lyra's Two Halves", 'Separated evidence whose relationship remains important and unresolved.'],
+  ['The Ancient Parchment', 'A surviving record that pulls older questions into the active investigation.'],
+];
+
+const classifications = [
+  { name: 'Platinum', color: '#e2e8f0', meaning: 'Elite institutional trust, near-total access, wealth or power families, and major civic influence.' },
+  { name: 'Gold', color: '#fbbf24', meaning: 'Highly trusted, with privileged access and strong social standing.' },
+  { name: 'Silver', color: '#94a3b8', meaning: 'Respected, stable, and broadly protected.' },
+  { name: 'Bronze', color: '#b45309', meaning: 'A normal working citizen with standard access.' },
+  { name: 'Copper', color: '#c47c48', meaning: 'Lower-middle standing, with some scrutiny or reduced benefits.' },
+  { name: 'Yellow', color: '#fde047', meaning: 'Flagged or unstable standing, restricted opportunities, and increased scrutiny.' },
+  { name: 'Orange', color: '#fb923c', meaning: 'Marginalized and outside the scope of many agencies and services.' },
+  { name: 'Red', color: '#ef4444', meaning: 'Heavily restricted: high-risk classification and severe institutional exclusion.' },
+  { name: 'Purple', color: '#c084fc', meaning: 'Deeply stigmatized or anomalous, under special controls.' },
+  { name: 'Black', color: '#334155', meaning: 'Effectively untouchable, condemned, and excluded by the system.' },
+  { name: 'No Category', color: '#f472b6', meaning: 'Not recognized by the system at all—which may be worse than Black.' },
+];
+---
+
+<Layout title="Level 8 Fold 39 — The Defective Detective">
+  <main class="case-page">
+    <header class="hero" id="top">
+      <div class="hero-visual" aria-label="The Defective Detective ensemble">
+        <div class="hero-image"></div><div class="hero-shade"></div><div class="scanlines"></div>
+      </div>
+      <div class="hero-panel">
+        <div class="hero-content">
+          <div class="hero-heading">
+            <div class="eyebrow"><span>LEVEL 8 · FOLD 39</span><span>ACTIVE CASE ARCHIVE</span></div>
+            <p class="case-number">SERAH SOLVES // FILE 08_39</p>
+            <h1>THE DEFECTIVE<br/><span>DETECTIVE</span></h1>
+          </div>
+          <div class="hero-summary">
+            <p class="hero-copy">A cyber-noir world of Kin, private investigators, institutional power, mystical evidence, and questions that refuse to stay answered.</p>
+            <a class="enter-file" href="#briefing">OPEN THE CASE FILE <b>↓</b></a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <nav class="case-nav" aria-label="Case archive sections">
+      <a href="#briefing">Briefing</a><a href="#roster">Roster</a><a href="#system">System</a><a href="#platinum-eight">Platinum 8</a><a href="#forces">Forces</a><a href="#evidence">Evidence</a><a href="#open-doors">Open Doors</a>
+    </nav>
+
+    <section class="section briefing" id="briefing">
+      <div class="section-label">00 // PRIME DIRECTIVE</div>
+      <div class="law-card">
+        <p>THE CORE LAW</p>
+        <h2>An investigation produces an answer.<br/><span>The answer creates more questions.</span></h2>
+        <div class="pulse-line"></div>
+        <p class="law-note">Every solved piece expands the map. Every closed door reveals another lock.</p>
+      </div>
+      <div class="stat-grid">
+        <div><strong>49</strong><span>Known Characters</span></div><div><strong>09</strong><span>Recorded Artifacts</span></div><div><strong>06</strong><span>Active Factions</span></div><div><strong>12</strong><span>Mapped Locations</span></div><div><strong>05</strong><span>Complete Albums</span></div><div><strong>60</strong><span>Songs in Evidence</span></div>
+      </div>
+    </section>
+
+    <section class="section roster-section" id="roster">
+      <div class="section-head"><div><div class="section-label">01 // FIELD ROSTER</div><h2>Persons of Interest</h2></div><p>Approved visual references are displayed here until full character sheets enter the archive.</p></div>
+      <div class="roster-grid">
+        {roster.map((person, i) => (
+          <button class="person-card" style={`--accent:${person.accent};--portrait-position:${person.position || 'top center'}`} data-image={person.image} data-name={person.name} aria-label={`Open ${person.name} portrait`}>
+            <div class="portrait-wrap"><img src={person.image} alt={`${person.name} portrait`} loading={i > 2 ? 'lazy' : 'eager'} /></div>
+            <div class="person-meta"><span>{String(i + 1).padStart(2, '0')}</span><small>{person.role}</small></div>
+            <h3>{person.name}</h3><p>{person.profile}</p><div class="profile-stamp"><span>{person.species}</span><small>CLASSIFICATION: WITHHELD</small></div><b>ENLARGE EVIDENCE ↗</b>
+          </button>
+        ))}
+      </div>
+    </section>
+
+    <section class="section system-section" id="system">
+      <div class="section-label">02 // THE SYSTEM</div><h2>Classification Is Not Morality</h2>
+      <p class="lede">The city ranks Kin by institutional desirability. The system measures usefulness and acceptance—not goodness, truth, or worth.</p>
+      <div class="rank-track" aria-label="Classification order">
+        {classifications.map((rank, i) => <article style={`--rank-color:${rank.color}`}><div><span>{String(i + 1).padStart(2, '0')}</span><small>CLASSIFICATION</small></div><strong>{rank.name}</strong><p>{rank.meaning}</p></article>)}
+      </div>
+      <div class="engine-grid">
+        <article><b>QUESTION</b><h3>Something does not fit.</h3><p>The contradiction becomes the first piece of evidence.</p></article>
+        <article><b>INVESTIGATION</b><h3>The system pushes back.</h3><p>Witnesses, institutions, artifacts, and loyalties complicate the route.</p></article>
+        <article><b>ANSWER</b><h3>A truth is recovered.</h3><p>The answer changes the meaning of what came before.</p></article>
+        <article><b>NEW DOOR</b><h3>The map gets larger.</h3><p>The recovered truth produces the next and more dangerous question.</p></article>
+      </div>
+    </section>
+
+    <section class="section platinum-section" id="platinum-eight">
+      <div class="section-head"><div><div class="section-label">03 // EXECUTIVE STRUCTURE</div><h2>The Platinum 8</h2></div><p>The Company's eight executive seats control its major institutional divisions. Every seat carries Platinum status—but the council is not the highest authority shown.</p></div>
+      <div class="platinum-visual">
+        <img src="/images/defective-detective/platinum_8_group.png" alt="The eight members of the Platinum 8 assembled in their executive chamber" loading="lazy" />
+        <div class="platinum-stamp"><span>INSTITUTIONAL CLEARANCE</span><strong>PLATINUM</strong><small>EIGHT ACTIVE SEATS</small></div>
+      </div>
+      <div class="seat-grid">
+        {platinumEight.map((member, i) => (
+          <article>
+            <div class="seat-portrait"><img src={member.image} alt={`${member.name}, Platinum 8 executive`} loading="lazy" /></div>
+            <div class="seat-copy"><span>{String(i + 1).padStart(2, '0')}</span><small>EXECUTIVE SEAT</small><h3>{member.name}</h3><p class="seat-division">{member.division}</p><div class="seat-profile"><b>{member.species}</b><strong>PLATINUM</strong></div><p>{member.profile}</p></div>
+          </article>
+        ))}
+      </div>
+      <div class="authority-note"><span>UPPER AUTHORITY</span><p>The Board can address the full Platinum 8 and issue high-level directives. The exact hierarchy above the eight seats remains unresolved.</p><strong>STATUS: OBSERVED</strong></div>
+    </section>
+
+    <section class="section" id="forces">
+      <div class="section-label">04 // CITY PRESSURE MAP</div><h2>Forces Around the Case</h2>
+      <div class="force-grid">{forces.map((force, i) => <article><span>NODE {String(i + 1).padStart(2, '0')}</span><small>{force.type}</small><h3>{force.name}</h3><p>{force.text}</p></article>)}</div>
+    </section>
+
+    <section class="section" id="evidence">
+      <div class="section-label">05 // EVIDENCE LOCKER</div><h2>Artifacts That Keep the File Open</h2>
+      <div class="artifact-list">{artifacts.map(([name, text], i) => <article><span>{String(i + 1).padStart(2, '0')}</span><div><h3>{name}</h3><p>{text}</p></div><b>STATUS: ACTIVE</b></article>)}</div>
+    </section>
+
+    <section class="section open-section" id="open-doors">
+      <div class="section-label">06 // UNRESOLVED</div><h2>Open Doors</h2><p class="lede">These are active mysteries, not conclusions. The archive preserves uncertainty where the evidence stops.</p>
+      <div class="doors">
+        <article><span>?</span><h3>Who is hunting whom?</h3><p>Serah and Krass reach the same edge from opposite directions.</p></article>
+        <article><span>?</span><h3>What does the Board fear?</h3><p>The pressure against the investigation reveals the outline of a protected truth.</p></article>
+        <article><span>?</span><h3>What remains incomplete?</h3><p>Artifacts, contracts, and separated evidence still resist a single reading.</p></article>
+        <article><span>?</span><h3>Which answer opens next?</h3><p>The fifth album completes its movement while leaving the larger case alive.</p></article>
+      </div>
+      <a class="back-link" href="/lore">← RETURN TO LEVELS & FOLDS COSMOLOGY</a>
+    </section>
+  </main>
+
+  <dialog class="evidence-modal" id="evidence-modal">
+    <button class="modal-close" aria-label="Close portrait">×</button><div class="modal-frame"><img src="" alt=""/><p></p></div>
+  </dialog>
+
+  <script>
+    const modal = document.querySelector('#evidence-modal');
+    if (modal instanceof HTMLDialogElement) {
+      const modalImage = modal.querySelector('img'); const modalCaption = modal.querySelector('p');
+      document.querySelectorAll('.person-card').forEach(card => card.addEventListener('click', () => {
+        if (modalImage instanceof HTMLImageElement) { modalImage.src = card.getAttribute('data-image') || ''; modalImage.alt = `${card.getAttribute('data-name')} portrait evidence`; }
+        if (modalCaption) modalCaption.textContent = `${card.getAttribute('data-name')} // APPROVED VISUAL REFERENCE`;
+        modal.showModal();
+      }));
+      modal.querySelector('.modal-close')?.addEventListener('click', () => modal.close());
+      modal.addEventListener('click', event => { if (event.target === modal) modal.close(); });
+    }
+  </script>
+</Layout>
+
+<style>
+  .roster-section>.section-head{display:block;text-align:center}.roster-section>.section-head>p{margin:0 auto 40px}
+  :global(body){margin:0;background:#020617;color:#e2e8f0;}
+  .case-page{--cyan:#22d3ee;--orange:#fb923c;--pink:#e879f9;min-height:100vh;overflow:hidden;background:radial-gradient(circle at 15% 18%,rgba(14,165,233,.13),transparent 26rem),radial-gradient(circle at 85% 48%,rgba(249,115,22,.08),transparent 30rem),#050912;font-family:Inter,sans-serif;position:relative}
+  .case-page:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.18;background-image:linear-gradient(rgba(34,211,238,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(34,211,238,.07) 1px,transparent 1px);background-size:52px 52px;mask-image:linear-gradient(to bottom,#000,transparent 90%)}
+  .hero{position:relative;border-bottom:1px solid rgba(34,211,238,.35);background:#020611}
+  .hero-visual{position:relative;width:100%;aspect-ratio:2.24;max-height:760px;overflow:hidden;background:#020611;border-bottom:1px solid rgba(34,211,238,.28)}.hero-visual:before{content:"";position:absolute;inset:-35px;background:url('/images/defective-detective/the_defective_detective_hero.png') center/cover no-repeat;filter:blur(26px) brightness(.32) saturate(.75);transform:scale(1.06)}
+  .hero-image,.hero-shade,.scanlines{position:absolute;inset:0}.hero-image{z-index:1;background:url('/images/defective-detective/the_defective_detective_hero.png') center center/contain no-repeat;filter:saturate(.9) contrast(1.06)}
+  .hero-shade{z-index:2;background:linear-gradient(0deg,rgba(2,6,17,.78) 0%,transparent 22%,transparent 78%,rgba(2,6,17,.18) 100%),radial-gradient(ellipse at center,transparent 58%,rgba(2,6,17,.35) 100%)}
+  .scanlines{z-index:3;opacity:.08;background:repeating-linear-gradient(0deg,transparent 0 4px,rgba(34,211,238,.11) 5px)}
+  .hero-panel{position:relative;background:linear-gradient(105deg,rgba(3,11,24,.98),rgba(8,19,32,.98));box-shadow:inset 0 1px 0 rgba(34,211,238,.15)}.hero-panel:before{content:"";position:absolute;left:0;right:0;top:0;height:3px;background:linear-gradient(90deg,var(--cyan),var(--pink),var(--orange))}
+  .hero-content{position:relative;z-index:2;width:min(1180px,calc(100% - 48px));margin:auto;padding:52px 0 58px;display:grid;grid-template-columns:minmax(0,1.35fr) minmax(300px,.65fr);gap:clamp(40px,7vw,100px);align-items:end}.hero-heading,.hero-summary{min-width:0}.eyebrow{display:flex;gap:10px;flex-wrap:wrap}.eyebrow span,.current-tag{font:700 11px/1 JetBrains Mono,monospace;letter-spacing:.12em;border:1px solid rgba(34,211,238,.55);padding:8px 12px;color:#a5f3fc;background:rgba(8,47,73,.5)}.eyebrow span+span{color:#fed7aa;border-color:rgba(251,146,60,.55);background:rgba(67,20,7,.55)}
+  .case-number,.section-label{font:800 12px/1.3 JetBrains Mono,monospace;letter-spacing:.18em;color:var(--orange);margin:22px 0 12px}.hero h1{font:900 clamp(2.8rem,5.3vw,5.4rem)/.84 Orbitron,sans-serif;letter-spacing:-.06em;margin:0;color:#f8fafc;text-shadow:0 0 40px rgba(34,211,238,.12)}.hero h1 span{color:transparent;-webkit-text-stroke:2px var(--cyan)}.hero-copy{max-width:520px;font-size:clamp(1rem,1.5vw,1.18rem);line-height:1.7;color:#cbd5e1;margin:0 0 30px}.enter-file{display:inline-flex;gap:32px;color:#07111c;background:var(--cyan);padding:15px 18px;text-decoration:none;font:800 12px JetBrains Mono,monospace;letter-spacing:.08em;box-shadow:8px 8px 0 var(--orange)}
+  .case-nav{position:sticky;top:0;z-index:20;display:flex;justify-content:center;gap:clamp(12px,3vw,38px);overflow:auto;padding:17px 20px;background:rgba(2,6,23,.9);backdrop-filter:blur(15px);border-bottom:1px solid rgba(34,211,238,.25)}.case-nav a{white-space:nowrap;color:#94a3b8;text-decoration:none;font:700 11px JetBrains Mono,monospace;text-transform:uppercase}.case-nav a:hover{color:var(--cyan)}
+  .section{width:min(1180px,calc(100% - 40px));margin:auto;padding:104px 0;position:relative}.section+.section{border-top:1px solid rgba(148,163,184,.15)}.section h2{font:800 clamp(2rem,4.5vw,4.2rem)/1.05 Orbitron,sans-serif;letter-spacing:-.04em;color:#f8fafc;margin:10px 0 28px}.section-head{display:flex;align-items:end;justify-content:space-between;gap:32px;margin-bottom:35px}.section-head>p,.lede{max-width:620px;color:#94a3b8;line-height:1.7}.briefing{padding-top:80px}
+  .law-card{border:1px solid rgba(34,211,238,.45);background:linear-gradient(135deg,rgba(8,47,73,.42),rgba(15,23,42,.76));padding:clamp(28px,5vw,58px);position:relative;box-shadow:inset 4px 0 0 var(--cyan)}.law-card>p:first-child{font:800 11px JetBrains Mono,monospace;letter-spacing:.2em;color:var(--cyan)}.law-card h2{font-size:clamp(1.75rem,4vw,3.7rem);margin:14px 0}.law-card h2 span{color:var(--orange)}.pulse-line{height:2px;background:linear-gradient(90deg,var(--cyan),var(--pink),transparent);margin:28px 0}.law-note{color:#94a3b8;margin:0}.stat-grid{display:grid;grid-template-columns:repeat(6,1fr);margin-top:18px;border:1px solid rgba(148,163,184,.16)}.stat-grid div{padding:24px;border-right:1px solid rgba(148,163,184,.16)}.stat-grid div:last-child{border:0}.stat-grid strong{display:block;color:#f8fafc;font:800 2rem Orbitron}.stat-grid span{font:600 10px JetBrains Mono;color:#64748b;text-transform:uppercase}
+  .roster-section>.section-head h2{white-space:nowrap}.roster-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.person-card{appearance:none;text-align:left;color:inherit;border:1px solid rgba(148,163,184,.2);background:#080f1d;padding:0 0 24px;cursor:pointer;transition:.25s;overflow:hidden}.person-card:hover{transform:translateY(-5px);border-color:var(--accent);box-shadow:0 14px 42px color-mix(in srgb,var(--accent) 18%,transparent)}.portrait-wrap{height:350px;overflow:hidden;background:#020617}.portrait-wrap img{width:100%;height:100%;object-fit:cover;object-position:var(--portrait-position,top center);filter:saturate(.82);transition:.5s}.person-card:hover img{transform:scale(1.04);filter:saturate(1.05)}.person-meta,.person-card h3,.person-card>p,.person-card>b,.profile-stamp{margin-left:22px;margin-right:22px}.person-meta{display:flex;justify-content:space-between;gap:10px;margin-top:20px;color:var(--accent);font:700 10px JetBrains Mono}.person-meta small{text-transform:uppercase}.person-card h3{font:800 1.5rem Orbitron;margin-top:12px;margin-bottom:10px}.person-card>p{min-height:112px;color:#94a3b8;line-height:1.55;font-size:.9rem}.profile-stamp{display:flex;justify-content:space-between;gap:12px;margin-top:0;margin-bottom:22px;padding:10px 0;border-top:1px solid rgba(148,163,184,.15);border-bottom:1px solid rgba(148,163,184,.15);font:700 8px JetBrains Mono;color:#cbd5e1;letter-spacing:.06em}.profile-stamp small{color:#64748b}.person-card>b{font:700 9px JetBrains Mono;color:var(--accent);letter-spacing:.09em}
+  .system-section{width:100%;padding-left:max(20px,calc((100% - 1180px)/2));padding-right:max(20px,calc((100% - 1180px)/2));box-sizing:border-box;background:linear-gradient(90deg,rgba(8,47,73,.25),rgba(67,20,7,.16))}.rank-track{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:42px 0}.rank-track article{min-height:190px;padding:20px;border:1px solid rgba(148,163,184,.18);border-top:4px solid var(--rank-color);background:linear-gradient(145deg,#070d19,#050912);display:flex;flex-direction:column}.rank-track article>div{display:flex;justify-content:space-between;gap:12px}.rank-track span,.rank-track small{color:#64748b;font:700 9px JetBrains Mono}.rank-track small{color:var(--rank-color);letter-spacing:.07em}.rank-track strong{display:block;margin:34px 0 12px;color:var(--rank-color);font:800 1rem Orbitron;text-transform:uppercase}.rank-track p{margin:0;color:#94a3b8;font-size:.82rem;line-height:1.55}.engine-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.engine-grid article{padding:25px;background:rgba(2,6,23,.75);border-left:2px solid var(--orange)}.engine-grid b{font:800 10px JetBrains Mono;color:var(--orange)}.engine-grid h3{font:700 1.05rem Orbitron;line-height:1.35}.engine-grid p{color:#94a3b8;font-size:.9rem;line-height:1.6}
+  .platinum-section{width:100%;padding-left:max(20px,calc((100% - 1180px)/2));padding-right:max(20px,calc((100% - 1180px)/2));box-sizing:border-box;background:radial-gradient(circle at 80% 30%,rgba(226,232,240,.08),transparent 30rem),linear-gradient(135deg,rgba(15,23,42,.8),rgba(2,6,23,.92))}.platinum-section>.section-head,.platinum-visual,.seat-grid,.authority-note{width:min(1180px,100%);margin-left:auto;margin-right:auto}.platinum-section>.section-head{display:block;text-align:center}.platinum-section>.section-head>p{margin:0 auto 40px}.platinum-section>.section-head h2{white-space:nowrap;font-size:clamp(2.4rem,5vw,4.2rem)}.platinum-visual{position:relative;aspect-ratio:16/9;overflow:hidden;border:1px solid rgba(226,232,240,.32);box-shadow:0 26px 80px rgba(0,0,0,.36)}.platinum-visual:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(2,6,23,.16),transparent 45%,rgba(2,6,23,.22)),linear-gradient(0deg,rgba(2,6,23,.72),transparent 35%)}.platinum-visual img{width:100%;height:100%;object-fit:cover;display:block;filter:saturate(.82) contrast(1.04)}.platinum-stamp{position:absolute;z-index:2;left:28px;bottom:25px;display:flex;align-items:center;gap:14px;padding:13px 16px;border:1px solid rgba(226,232,240,.45);background:rgba(2,6,23,.78);backdrop-filter:blur(12px)}.platinum-stamp span,.platinum-stamp small{font:700 9px JetBrains Mono;color:#94a3b8;letter-spacing:.08em}.platinum-stamp strong{font:800 1rem Orbitron;color:#f8fafc}.seat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:18px}.seat-grid article{min-width:0;overflow:hidden;border:1px solid rgba(226,232,240,.18);border-top:3px solid #e2e8f0;background:linear-gradient(145deg,rgba(15,23,42,.92),rgba(5,9,18,.96))}.seat-portrait{height:250px;overflow:hidden;background:#020617}.seat-portrait img{width:100%;height:100%;display:block;object-fit:cover;object-position:top center;filter:saturate(.78) contrast(1.04);transition:.35s}.seat-grid article:hover .seat-portrait img{transform:scale(1.035);filter:saturate(1)}.seat-copy{position:relative;min-height:225px;padding:20px 20px 22px}.seat-copy>span{position:absolute;right:18px;top:18px;font:800 1.15rem Orbitron;color:#64748b}.seat-grid small{font:700 8px JetBrains Mono;color:#94a3b8;letter-spacing:.1em}.seat-grid h3{margin:11px 0 7px;font:800 1.15rem Orbitron;color:#f8fafc}.seat-grid p{margin:0;color:#94a3b8;font-size:.8rem;line-height:1.45}.seat-division{min-height:38px;color:#cbd5e1!important}.seat-profile{display:flex;justify-content:space-between;gap:10px;margin:14px 0 12px;padding:9px 0;border-top:1px solid rgba(226,232,240,.16);border-bottom:1px solid rgba(226,232,240,.16);font:700 8px JetBrains Mono;letter-spacing:.08em}.seat-profile b{color:#cbd5e1}.seat-profile strong{color:#f8fafc}.authority-note{margin-top:18px;padding:25px;box-sizing:border-box;border:1px dashed rgba(226,232,240,.38);display:grid;grid-template-columns:180px 1fr auto;gap:25px;align-items:center;background:rgba(15,23,42,.52)}.authority-note span,.authority-note strong{font:800 10px JetBrains Mono;color:#e2e8f0}.authority-note p{margin:0;color:#cbd5e1;line-height:1.55}
+  .platinum-visual img{object-position:center 35%}
+  .force-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.force-grid article{min-height:210px;padding:28px;background:linear-gradient(145deg,#09111f,#050912);border:1px solid rgba(34,211,238,.2);position:relative}.force-grid article:after{content:"";position:absolute;right:18px;top:18px;width:8px;height:8px;border-radius:50%;background:var(--cyan);box-shadow:0 0 18px var(--cyan)}.force-grid span,.force-grid small{display:block;font:700 9px JetBrains Mono;color:#64748b}.force-grid small{color:var(--cyan);margin-top:8px}.force-grid h3{font:800 1.25rem Orbitron;margin:26px 0 10px}.force-grid p{color:#94a3b8;line-height:1.6;font-size:.9rem}
+  .artifact-list{border-top:1px solid rgba(148,163,184,.2)}.artifact-list article{display:grid;grid-template-columns:60px 1fr auto;gap:24px;align-items:center;padding:26px 10px;border-bottom:1px solid rgba(148,163,184,.2)}.artifact-list>article>span{color:var(--orange);font:800 1.3rem Orbitron}.artifact-list h3{font:700 1.1rem Orbitron;margin:0 0 7px}.artifact-list p{color:#94a3b8;margin:0;line-height:1.55}.artifact-list b{font:700 9px JetBrains Mono;color:var(--cyan)}
+  .open-section{text-align:center}.open-section .lede{margin:0 auto 42px}.doors{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;text-align:left}.doors article{padding:28px;background:#080f1d;border-top:2px solid var(--pink)}.doors span{font:900 2rem Orbitron;color:var(--pink)}.doors h3{font:700 1rem Orbitron;line-height:1.4}.doors p{color:#94a3b8;font-size:.88rem;line-height:1.55}.back-link{display:inline-block;margin-top:55px;color:var(--cyan);font:700 11px JetBrains Mono;text-decoration:none;border-bottom:1px solid var(--cyan);padding-bottom:6px}
+  .evidence-modal{width:min(900px,92vw);height:min(88vh,900px);padding:0;border:1px solid var(--cyan,#22d3ee);background:#020617;color:#e2e8f0;box-shadow:0 0 70px rgba(34,211,238,.22)}.evidence-modal::backdrop{background:rgba(0,3,10,.9);backdrop-filter:blur(10px)}.modal-frame{height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center}.modal-frame img{max-width:90%;max-height:80%;object-fit:contain;border:1px solid rgba(34,211,238,.3)}.modal-frame p{font:700 10px JetBrains Mono;color:#67e8f9;letter-spacing:.14em}.modal-close{position:absolute;right:14px;top:10px;z-index:2;border:0;background:transparent;color:#fff;font-size:2rem;cursor:pointer}
+  @media(max-width:900px){.hero-content{grid-template-columns:1fr;gap:30px;align-items:start}.hero-summary{display:grid;grid-template-columns:1fr auto;gap:30px;align-items:center}.hero-copy{margin:0}.stat-grid{grid-template-columns:repeat(3,1fr)}.stat-grid div:nth-child(3){border-right:0}.roster-grid,.force-grid{grid-template-columns:repeat(2,1fr)}.rank-track,.seat-grid{grid-template-columns:repeat(2,1fr)}.engine-grid,.doors{grid-template-columns:repeat(2,1fr)}.authority-note{grid-template-columns:1fr}.section-head{display:block}}
+  @media(max-width:560px){.hero-visual{height:230px;aspect-ratio:auto}.hero-content{width:calc(100% - 32px);padding:38px 0 46px}.hero-summary{display:block}.hero h1{font-size:clamp(2.45rem,13vw,3.7rem)}.hero h1 span{-webkit-text-stroke:1px var(--cyan)}.hero-copy{font-size:.95rem;margin:0 0 28px}.case-nav{justify-content:flex-start}.section{width:calc(100% - 28px);padding:72px 0}.platinum-section{width:100%;padding-left:14px;padding-right:14px}.platinum-section>.section-head h2{font-size:clamp(1.95rem,10.5vw,2.7rem);letter-spacing:-.06em}.stat-grid{grid-template-columns:repeat(2,1fr)}.stat-grid div:nth-child(2n){border-right:0}.roster-grid,.force-grid,.engine-grid,.doors,.rank-track,.seat-grid{grid-template-columns:1fr}.portrait-wrap{height:390px}.seat-portrait{height:390px}.rank-track article{min-height:0}.platinum-visual{aspect-ratio:4/3}.platinum-stamp{left:12px;right:12px;bottom:12px;display:grid;grid-template-columns:1fr auto}.platinum-stamp small{grid-column:1/-1}.authority-note{padding:20px}.artifact-list article{grid-template-columns:42px 1fr}.artifact-list b{grid-column:2}.section h2{font-size:2.2rem}.roster-section>.section-head h2{font-size:clamp(1.55rem,8.2vw,2.2rem);letter-spacing:-.06em}}
+  @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+</style>
