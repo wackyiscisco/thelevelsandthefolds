@@ -13,6 +13,7 @@ export async function getStaticPaths() {
 
 const { song } = Astro.props;
 const { Content } = await song.render();
+const lyricsAvailable = !String(song.body || '').includes('Full lyrics are not yet available.');
 
 const artistSlug = (() => {
   const name = String(song.data.artist || '').toLowerCase().trim();
@@ -23,11 +24,12 @@ const artistSlug = (() => {
   if (name.includes('elara')) return 'elara-dawn';
   if (name.includes('solara')) return 'solara';
   if (name.includes('prima')) return 'prima-timo';
+  if (name.includes('defective')) return 'defective-detective';
   return 'artist';
 })();
 ---
 
-<Layout title={`${song.data.title} | ${song.data.artist} Lyrics`}>
+<Layout title={`${song.data.title} | ${song.data.artist}${lyricsAvailable ? ' Lyrics' : ''}`}>
   <main class="max-w-4xl mx-auto px-6 py-10">
     <!-- Navigation Back Link Bar (Sticky Top Sub-Header Bar) -->
     <div class="sticky top-[80px] z-40 -mx-6 px-6 py-3.5 mb-8 bg-black/85 backdrop-blur-xl border-b border-purple-900/40 shadow-2xl flex items-center justify-between flex-wrap gap-4 font-mono text-xs">

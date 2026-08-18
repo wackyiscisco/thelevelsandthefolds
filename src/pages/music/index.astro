@@ -17,6 +17,7 @@ function getArtistMeta(artistName: string): { image: string; objectPosition: str
   if (name.includes('maya')) return { image: '/images/artists/maya.jpg', objectPosition: 'object-center' };
   if (name.includes('guy')) return { image: '/images/artists/that-guy.jpg', objectPosition: 'object-center' };
   if (name.includes('solara')) return { image: '/images/artists/Solara.jpg', objectPosition: 'object-center' };
+  if (name.includes('defective')) return { image: '/images/artists/the_defective_detective_01.png', objectPosition: 'object-[58%_center]' };
   
   return { image: '/images/default-artist.jpg', objectPosition: 'object-center' };
 }
@@ -41,6 +42,19 @@ allSongs.forEach((song: any) => {
   artistCatalog[artist].albums.add(album);
 });
 
+// Keep the approved project visible even if its individual song files are
+// temporarily unavailable during local content work.
+// Keep it visible without inventing tracks.
+if (!artistCatalog['The Defective Detective']) {
+  const meta = getArtistMeta('The Defective Detective');
+  artistCatalog['The Defective Detective'] = {
+    songCount: 0,
+    albums: new Set(['Serah the Kitsune', 'Serah Investigates', 'Serah Contemplates', 'Serah Learns', 'Serah Asks']),
+    image: meta.image,
+    objectPosition: meta.objectPosition
+  };
+}
+
 const preferredArtistOrder = [
   // TOP ROW (L → R)
   'The Crimson Sparks',
@@ -50,8 +64,9 @@ const preferredArtistOrder = [
   'Pandora Raven',
   'Elara Dawn',
   'Solara',
-  // ROW 3
+  // ROW 3 (L → R)
   'Prima & Timo',
+  'The Defective Detective',
 ];
 
 const sortedArtists = Object.entries(artistCatalog).sort((a, b) => {
@@ -90,6 +105,7 @@ const sortedArtists = Object.entries(artistCatalog).sort((a, b) => {
           if (name.includes('elara')) return 'elara-dawn';
           if (name.includes('solara')) return 'solara';
           if (name.includes('prima')) return 'prima-timo';
+          if (name.includes('defective')) return 'defective-detective';
           return 'artist';
         })();
 

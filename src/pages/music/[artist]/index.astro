@@ -26,6 +26,7 @@ const getArtistSlugFromSong = (artistName: string) => {
   if (name.includes('elara')) return 'elara-dawn';
   if (name.includes('solara')) return 'solara';
   if (name.includes('prima')) return 'prima-timo';
+  if (name.includes('defective')) return 'defective-detective';
   return 'artist';
 };
 
@@ -94,6 +95,12 @@ const preferredOrder = [
   'album-prima-ver-5-0-tria',
   'album-timo-ver-6-0-nonaginta-octo',
   'album-prima-ver-7-0-quattuor',
+  // The Defective Detective
+  'album-serah-the-kitsune',
+  'album-serah-investigates',
+  'album-serah-contemplates',
+  'album-serah-learns',
+  'album-serah-asks',
 ];
 
 albums.sort((a, b) => {
@@ -108,6 +115,7 @@ albums.sort((a, b) => {
 // Dynamic banner background image mapping per artist
 const getArtistBannerImage = (artistId: string) => {
   if (artistId === 'pandora-raven') return '/images/artists/pandora-raven-banner.jpg';
+  if (artistId === 'defective-detective') return '/images/artists/the_defective_detective_02.jpg';
   return `/images/artists/${artistId}-banner.jpg`;
 };
 
@@ -120,6 +128,7 @@ const getArtistBannerImageClass = (artistId: string) => {
   if (artistId === 'that-guy') return 'object-cover object-[center_35%] scale-100 opacity-80';
   if (artistId === 'solara') return 'object-cover object-[center_15%] scale-100 opacity-85';
   if (artistId === 'prima-timo') return 'object-cover object-[center_35%] scale-100 opacity-80';
+  if (artistId === 'defective-detective') return 'object-cover object-center scale-100 opacity-85';
   return 'object-cover object-[center_25%] opacity-70';
 };
 
@@ -132,6 +141,7 @@ const getFactionBanner = (artistId: string) => {
   if (artistId === 'that-guy') return 'from-emerald-950 via-slate-900 to-stone-900';
   if (artistId === 'prima-timo') return 'from-teal-950 via-slate-900 to-orange-950/40';
   if (artistId === 'solara') return 'from-purple-950 via-slate-900 to-amber-950/40';
+  if (artistId === 'defective-detective') return 'from-cyan-950 via-slate-950 to-blue-950/50';
   return 'from-slate-900 via-slate-900 to-slate-900';
 };
 
@@ -142,6 +152,7 @@ const getArtistAvatar = (artistId: string) => {
   if (artistId === 'crimson-sparks') return '/images/artists/the-crimson-sparks.jpg';
   if (artistId === 'prima-timo') return '/images/artists/prime-and-timo.jpg';
   if (artistId === 'solara') return '/images/artists/Solara.jpg';
+  if (artistId === 'defective-detective') return '/images/defective-detective/serah.png';
   return `/images/artists/${artistId}.jpg`;
 };
 
@@ -210,6 +221,15 @@ const getFactionClasses = (artistId: string) => {
         themeBorder: 'border-indigo-900/30',
         textGlow: 'text-indigo-400 drop-shadow-[0_0_10px_rgba(99,102,241,0.3)]',
         accentColor: 'indigo'
+      };
+    case 'defective-detective':
+      return {
+        activeTab: 'bg-cyan-950/80 text-cyan-200 border-cyan-500 shadow-cyan-950/40',
+        panelBg: 'bg-slate-950/70 border-cyan-950/50',
+        accentGlow: 'bg-cyan-500/5',
+        themeBorder: 'border-cyan-950/40',
+        textGlow: 'text-cyan-300 drop-shadow-[0_0_10px_rgba(34,211,238,0.3)]',
+        accentColor: 'cyan'
       };
     default:
       return {
@@ -1375,6 +1395,19 @@ const fx = getFactionClasses(artist);
             <p class="text-xs text-slate-400 mt-1">300,000 Years Ago</p>
             <p class="text-sm text-slate-300 leading-relaxed font-light mt-3">
               The union of Time and Fate (blessed by Ra) results in the birth of Pandora Raven and Elara Dawn. Ra is exiled to Level 15 Fold 15 for blessing this convergence. The twins are split across dimensions.
+            </p>
+          </div>
+
+          <!-- L8 F39 -->
+          <div class="relative pl-8 md:pl-10">
+            <span class="absolute -left-2 top-1.5 w-4 h-4 rounded-full bg-sky-500 border-4 border-slate-950 shadow-[0_0_10px_rgba(14,165,233,0.5)]"></span>
+            <span class="px-2.5 py-0.5 rounded-full text-[9px] font-mono uppercase bg-sky-950 text-sky-300 border border-sky-800/40">
+              Level 8 Fold 39 (8_39)
+            </span>
+            <h3 class="text-lg font-bold text-slate-100 mt-2 font-orbitron">The Defective Detective</h3>
+            <p class="text-xs text-slate-400 mt-1">Active Case Archive</p>
+            <p class="text-sm text-slate-300 leading-relaxed font-light mt-3">
+              A cyber-noir world of Kin, private investigators, institutional power, mystical evidence, and questions that refuse to stay answered.
             </p>
           </div>
 

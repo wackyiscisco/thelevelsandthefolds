@@ -2304,6 +2304,426 @@ declare module 'astro:content' {
   collection: "songs";
   data: InferEntrySchema<"songs">
 } & { render(): Render[".md"] };
+"defective-detective-a1-01-fox-this-life.md": {
+	id: "defective-detective-a1-01-fox-this-life.md";
+  slug: "defective-detective-a1-01-fox-this-life";
+  body: string;
+  collection: "songs";
+  data: InferEntrySchema<"songs">
+} & { render(): Render[".md"] };
+"defective-detective-a1-02-procedural-nonsense.md": {
+	id: "defective-detective-a1-02-procedural-nonsense.md";
+  slug: "defective-detective-a1-02-procedural-nonsense";
+  body: string;
+  collection: "songs";
+  data: InferEntrySchema<"songs">
+} & { render(): Render[".md"] };
+"defective-detective-a1-03-andy-the-duende.md": {
+	id: "defective-detective-a1-03-andy-the-duende.md";
+  slug: "defective-detective-a1-03-andy-the-duende";
+  body: string;
+  collection: "songs";
+  data: InferEntrySchema<"songs">
+} & { render(): Render[".md"] };
+"defective-detective-a1-04-photographic-panoramic.md": {
+	id: "defective-detective-a1-04-photographic-panoramic.md";
+  slug: "defective-detective-a1-04-photographic-panoramic";
+  body: string;
+  collection: "songs";
+  data: InferEntrySchema<"songs">
+} & { render(): Render[".md"] };
+"defective-detective-a1-05-colorblind.md": {
+	id: "defective-detective-a1-05-colorblind.md";
+  slug: "defective-detective-a1-05-colorblind";
+  body: string;
+  collection: "songs";
+  data: InferEntrySchema<"songs">
+} & { render(): Render[".md"] };
+"defective-detective-a1-06-loaded-and-coded.md": {
+	id: "defective-detective-a1-06-loaded-and-coded.md";
+  slug: "defective-detective-a1-06-loaded-and-coded";
+  body: string;
+  collection: "songs";
+  data: InferEntrySchema<"songs">
+} & { render(): Render[".md"] };
+"defective-detective-a1-07-in-the-company-of-strangers.md": {
+	id: "defective-detective-a1-07-in-the-company-of-strangers.md";
+  slug: "defective-detective-a1-07-in-the-company-of-strangers";
+  body: string;
+  collection: "songs";
+  data: InferEntrySchema<"songs">
+} & { render(): Render[".md"] };
+"defective-detective-a1-08-perimeter-limiter.md": {
+	id: "defective-detective-a1-08-perimeter-limiter.md";
+  slug: "defective-detective-a1-08-perimeter-limiter";
+  body: string;
+  collection: "songs";
+  data: InferEntrySchema<"songs">
+} & { render(): Render[".md"] };
+"defective-detective-a1-09-platinum-8.md": {
+	id: "defective-detective-a1-09-platinum-8.md";
+  slug: "defective-detective-a1-09-platinum-8";
+  body: string;
+  collection: "songs";
+  data: InferEntrySchema<"songs">
+} & { render(): Render[".md"] };
+"defective-detective-a1-10-zoom.md": {
+	id: "defective-detective-a1-10-zoom.md";
+  slug: "defective-detective-a1-10-zoom";
+  body: string;
+  collection: "songs";
+  data: InferEntrySchema<"songs">
+} & { render(): Render[".md"] };
+"defective-detective-a1-11-auto-detection-mode.md": {
+	id: "defective-detective-a1-11-auto-detection-mode.md";
+  slug: "defective-detective-a1-11-auto-detection-mode";
+  body: string;
+  collection: "songs";
+  data: InferEntrySchema<"songs">
+} & { render(): Render[".md"] };
+"defective-detective-a1-12-the-message-and-the-code.md": {
+	id: "defective-detective-a1-12-the-message-and-the-code.md";
+  slug: "defective-detective-a1-12-the-message-and-the-code";
+  body: string;
+  collection: "songs";
+  data: InferEntrySchema<"songs">
+} & { render(): Render[".md"] };
+"defective-detective-a2-01-the-fox-and-the-rest.md": {
+	id: "defective-detective-a2-01-the-fox-and-the-rest.md";
+  slug: "defective-detective-a2-01-the-fox-and-the-rest";
+  body: string;
+  collection: "songs";
+  data: InferEntrySchema<"songs">
+} & { render(): Render[".md"] };
+"defective-detective-a2-02-spray-and-pray.md": {
+	id: "defective-detective-a2-02-spray-and-pray.md";
+  slug: "defective-detective-a2-02-spray-and-pray";
+  body: string;
+  collection: "songs";
+  data: InferEntrySchema<"songs">
+} & { render(): Render[".md"] };
+"defective-detective-a2-03-colorless-love.md": {
+	id: "defective-detective-a2-03-colorless-love.md";
+  slug: "defective-detective-a2-03-colorless-love";
+  body: string;
+  collection: "songs";
+  data: InferEntrySchema<"songs">
+} & { render(): Render[".md"] };
+"defective-detective-a2-04-category-inventory.md": {
+	id: "defective-detective-a2-04-category-inventory.md";
+  slug: "defective-detective-a2-04-category-inventory";
+  body: string;
+  collection: "songs";
+  data: InferEntrySchema<"songs">
+} & { render(): Render[".md"] };
+"defective-detective-a2-05-sit-stay-sleep-comply-reflect.md": {
+	id: "defective-detective-a2-05-sit-stay-sleep-comply-reflect.md";
+  slug: "defective-detective-a2-05-sit-stay-sleep-comply-reflect";
+  body: string;
+  collection: "songs";
+  data: InferEntrySchema<"songs">
+} & { render(): Render[".md"] };
+"defective-detective-a2-06-black-is-beautiful.md": {
+	id: "defective-detective-a2-06-black-is-beautiful.md";
+  slug: "defective-detective-a2-06-black-is-beautiful";
+  body: string;
+  collection: "songs";
+  data: InferEntrySchema<"songs">
+} & { render(): Render[".md"] };
+"defective-detective-a2-07-dont-mess-with-nessa.md": {
+	id: "defective-detective-a2-07-dont-mess-with-nessa.md";
+  slug: "defective-detective-a2-07-dont-mess-with-nessa";
+  body: string;
+  collection: "songs";
+  data: InferEntrySchema<"songs">
+} & { render(): Render[".md"] };
+"defective-detective-a2-08-executive-decision.md": {
+	id: "defective-detective-a2-08-executive-decision.md";
+  slug: "defective-detective-a2-08-executive-decision";
+  body: string;
+  collection: "songs";
+  data: InferEntrySchema<"songs">
+} & { render(): Render[".md"] };
+"defective-detective-a2-09-2nd-place-is-fine.md": {
+	id: "defective-detective-a2-09-2nd-place-is-fine.md";
+  slug: "defective-detective-a2-09-2nd-place-is-fine";
+  body: string;
+  collection: "songs";
+  data: InferEntrySchema<"songs">
+} & { render(): Render[".md"] };
+"defective-detective-a2-10-chasing-shadows.md": {
+	id: "defective-detective-a2-10-chasing-shadows.md";
+  slug: "defective-detective-a2-10-chasing-shadows";
+  body: string;
+  collection: "songs";
+  data: InferEntrySchema<"songs">
+} & { render(): Render[".md"] };
+"defective-detective-a2-11-the-color-of-rage.md": {
+	id: "defective-detective-a2-11-the-color-of-rage.md";
+  slug: "defective-detective-a2-11-the-color-of-rage";
+  body: string;
+  collection: "songs";
+  data: InferEntrySchema<"songs">
+} & { render(): Render[".md"] };
+"defective-detective-a2-12-nyan-cast.md": {
+	id: "defective-detective-a2-12-nyan-cast.md";
+  slug: "defective-detective-a2-12-nyan-cast";
+  body: string;
+  collection: "songs";
+  data: InferEntrySchema<"songs">
+} & { render(): Render[".md"] };
+"defective-detective-a3-01-for-fox-sakes.md": {
+	id: "defective-detective-a3-01-for-fox-sakes.md";
+  slug: "defective-detective-a3-01-for-fox-sakes";
+  body: string;
+  collection: "songs";
+  data: InferEntrySchema<"songs">
+} & { render(): Render[".md"] };
+"defective-detective-a3-02-serah-solves.md": {
+	id: "defective-detective-a3-02-serah-solves.md";
+  slug: "defective-detective-a3-02-serah-solves";
+  body: string;
+  collection: "songs";
+  data: InferEntrySchema<"songs">
+} & { render(): Render[".md"] };
+"defective-detective-a3-03-keemaro-and-sons.md": {
+	id: "defective-detective-a3-03-keemaro-and-sons.md";
+  slug: "defective-detective-a3-03-keemaro-and-sons";
+  body: string;
+  collection: "songs";
+  data: InferEntrySchema<"songs">
+} & { render(): Render[".md"] };
+"defective-detective-a3-04-single-and-ready-to-mingle.md": {
+	id: "defective-detective-a3-04-single-and-ready-to-mingle.md";
+  slug: "defective-detective-a3-04-single-and-ready-to-mingle";
+  body: string;
+  collection: "songs";
+  data: InferEntrySchema<"songs">
+} & { render(): Render[".md"] };
+"defective-detective-a3-05-dreams-of-rainbows.md": {
+	id: "defective-detective-a3-05-dreams-of-rainbows.md";
+  slug: "defective-detective-a3-05-dreams-of-rainbows";
+  body: string;
+  collection: "songs";
+  data: InferEntrySchema<"songs">
+} & { render(): Render[".md"] };
+"defective-detective-a3-06-artifacts-and-contracts.md": {
+	id: "defective-detective-a3-06-artifacts-and-contracts.md";
+  slug: "defective-detective-a3-06-artifacts-and-contracts";
+  body: string;
+  collection: "songs";
+  data: InferEntrySchema<"songs">
+} & { render(): Render[".md"] };
+"defective-detective-a3-07-where-does-this-go.md": {
+	id: "defective-detective-a3-07-where-does-this-go.md";
+  slug: "defective-detective-a3-07-where-does-this-go";
+  body: string;
+  collection: "songs";
+  data: InferEntrySchema<"songs">
+} & { render(): Render[".md"] };
+"defective-detective-a3-08-station-thirty-three.md": {
+	id: "defective-detective-a3-08-station-thirty-three.md";
+  slug: "defective-detective-a3-08-station-thirty-three";
+  body: string;
+  collection: "songs";
+  data: InferEntrySchema<"songs">
+} & { render(): Render[".md"] };
+"defective-detective-a3-09-orange.md": {
+	id: "defective-detective-a3-09-orange.md";
+  slug: "defective-detective-a3-09-orange";
+  body: string;
+  collection: "songs";
+  data: InferEntrySchema<"songs">
+} & { render(): Render[".md"] };
+"defective-detective-a3-10-red-and-ready.md": {
+	id: "defective-detective-a3-10-red-and-ready.md";
+  slug: "defective-detective-a3-10-red-and-ready";
+  body: string;
+  collection: "songs";
+  data: InferEntrySchema<"songs">
+} & { render(): Render[".md"] };
+"defective-detective-a3-11-the-rise.md": {
+	id: "defective-detective-a3-11-the-rise.md";
+  slug: "defective-detective-a3-11-the-rise";
+  body: string;
+  collection: "songs";
+  data: InferEntrySchema<"songs">
+} & { render(): Render[".md"] };
+"defective-detective-a3-12-crimson.md": {
+	id: "defective-detective-a3-12-crimson.md";
+  slug: "defective-detective-a3-12-crimson";
+  body: string;
+  collection: "songs";
+  data: InferEntrySchema<"songs">
+} & { render(): Render[".md"] };
+"defective-detective-a4-01-what-the-fox.md": {
+	id: "defective-detective-a4-01-what-the-fox.md";
+  slug: "defective-detective-a4-01-what-the-fox";
+  body: string;
+  collection: "songs";
+  data: InferEntrySchema<"songs">
+} & { render(): Render[".md"] };
+"defective-detective-a4-02-guitar-strings-and-nanten-tears.md": {
+	id: "defective-detective-a4-02-guitar-strings-and-nanten-tears.md";
+  slug: "defective-detective-a4-02-guitar-strings-and-nanten-tears";
+  body: string;
+  collection: "songs";
+  data: InferEntrySchema<"songs">
+} & { render(): Render[".md"] };
+"defective-detective-a4-03-night-night-sleep-tight.md": {
+	id: "defective-detective-a4-03-night-night-sleep-tight.md";
+  slug: "defective-detective-a4-03-night-night-sleep-tight";
+  body: string;
+  collection: "songs";
+  data: InferEntrySchema<"songs">
+} & { render(): Render[".md"] };
+"defective-detective-a4-04-the-street-knows-your-names.md": {
+	id: "defective-detective-a4-04-the-street-knows-your-names.md";
+  slug: "defective-detective-a4-04-the-street-knows-your-names";
+  body: string;
+  collection: "songs";
+  data: InferEntrySchema<"songs">
+} & { render(): Render[".md"] };
+"defective-detective-a4-05-information-is-power.md": {
+	id: "defective-detective-a4-05-information-is-power.md";
+  slug: "defective-detective-a4-05-information-is-power";
+  body: string;
+  collection: "songs";
+  data: InferEntrySchema<"songs">
+} & { render(): Render[".md"] };
+"defective-detective-a4-06-back-on-the-air.md": {
+	id: "defective-detective-a4-06-back-on-the-air.md";
+  slug: "defective-detective-a4-06-back-on-the-air";
+  body: string;
+  collection: "songs";
+  data: InferEntrySchema<"songs">
+} & { render(): Render[".md"] };
+"defective-detective-a4-07-the-meaning-of-purple.md": {
+	id: "defective-detective-a4-07-the-meaning-of-purple.md";
+  slug: "defective-detective-a4-07-the-meaning-of-purple";
+  body: string;
+  collection: "songs";
+  data: InferEntrySchema<"songs">
+} & { render(): Render[".md"] };
+"defective-detective-a4-08-paws-forward.md": {
+	id: "defective-detective-a4-08-paws-forward.md";
+  slug: "defective-detective-a4-08-paws-forward";
+  body: string;
+  collection: "songs";
+  data: InferEntrySchema<"songs">
+} & { render(): Render[".md"] };
+"defective-detective-a4-09-the-keemaro-connection.md": {
+	id: "defective-detective-a4-09-the-keemaro-connection.md";
+  slug: "defective-detective-a4-09-the-keemaro-connection";
+  body: string;
+  collection: "songs";
+  data: InferEntrySchema<"songs">
+} & { render(): Render[".md"] };
+"defective-detective-a4-10-gadgets-and-heartbreaks.md": {
+	id: "defective-detective-a4-10-gadgets-and-heartbreaks.md";
+  slug: "defective-detective-a4-10-gadgets-and-heartbreaks";
+  body: string;
+  collection: "songs";
+  data: InferEntrySchema<"songs">
+} & { render(): Render[".md"] };
+"defective-detective-a4-11-fox-hunt.md": {
+	id: "defective-detective-a4-11-fox-hunt.md";
+  slug: "defective-detective-a4-11-fox-hunt";
+  body: string;
+  collection: "songs";
+  data: InferEntrySchema<"songs">
+} & { render(): Render[".md"] };
+"defective-detective-a4-12-the-defective-detectives.md": {
+	id: "defective-detective-a4-12-the-defective-detectives.md";
+  slug: "defective-detective-a4-12-the-defective-detectives";
+  body: string;
+  collection: "songs";
+  data: InferEntrySchema<"songs">
+} & { render(): Render[".md"] };
+"defective-detective-a5-01-how-the-fox-did-this-happen.md": {
+	id: "defective-detective-a5-01-how-the-fox-did-this-happen.md";
+  slug: "defective-detective-a5-01-how-the-fox-did-this-happen";
+  body: string;
+  collection: "songs";
+  data: InferEntrySchema<"songs">
+} & { render(): Render[".md"] };
+"defective-detective-a5-02-missions-decisions.md": {
+	id: "defective-detective-a5-02-missions-decisions.md";
+  slug: "defective-detective-a5-02-missions-decisions";
+  body: string;
+  collection: "songs";
+  data: InferEntrySchema<"songs">
+} & { render(): Render[".md"] };
+"defective-detective-a5-03-focus-chorus.md": {
+	id: "defective-detective-a5-03-focus-chorus.md";
+  slug: "defective-detective-a5-03-focus-chorus";
+  body: string;
+  collection: "songs";
+  data: InferEntrySchema<"songs">
+} & { render(): Render[".md"] };
+"defective-detective-a5-04-back-in-black.md": {
+	id: "defective-detective-a5-04-back-in-black.md";
+  slug: "defective-detective-a5-04-back-in-black";
+  body: string;
+  collection: "songs";
+  data: InferEntrySchema<"songs">
+} & { render(): Render[".md"] };
+"defective-detective-a5-05-bare-bear.md": {
+	id: "defective-detective-a5-05-bare-bear.md";
+  slug: "defective-detective-a5-05-bare-bear";
+  body: string;
+  collection: "songs";
+  data: InferEntrySchema<"songs">
+} & { render(): Render[".md"] };
+"defective-detective-a5-06-the-intern.md": {
+	id: "defective-detective-a5-06-the-intern.md";
+  slug: "defective-detective-a5-06-the-intern";
+  body: string;
+  collection: "songs";
+  data: InferEntrySchema<"songs">
+} & { render(): Render[".md"] };
+"defective-detective-a5-07-purple-pain.md": {
+	id: "defective-detective-a5-07-purple-pain.md";
+  slug: "defective-detective-a5-07-purple-pain";
+  body: string;
+  collection: "songs";
+  data: InferEntrySchema<"songs">
+} & { render(): Render[".md"] };
+"defective-detective-a5-08-tails-and-wires.md": {
+	id: "defective-detective-a5-08-tails-and-wires.md";
+  slug: "defective-detective-a5-08-tails-and-wires";
+  body: string;
+  collection: "songs";
+  data: InferEntrySchema<"songs">
+} & { render(): Render[".md"] };
+"defective-detective-a5-09-a-helpful-kelpie.md": {
+	id: "defective-detective-a5-09-a-helpful-kelpie.md";
+  slug: "defective-detective-a5-09-a-helpful-kelpie";
+  body: string;
+  collection: "songs";
+  data: InferEntrySchema<"songs">
+} & { render(): Render[".md"] };
+"defective-detective-a5-10-a-song-from-me-to-you.md": {
+	id: "defective-detective-a5-10-a-song-from-me-to-you.md";
+  slug: "defective-detective-a5-10-a-song-from-me-to-you";
+  body: string;
+  collection: "songs";
+  data: InferEntrySchema<"songs">
+} & { render(): Render[".md"] };
+"defective-detective-a5-11-cryptic-clinic.md": {
+	id: "defective-detective-a5-11-cryptic-clinic.md";
+  slug: "defective-detective-a5-11-cryptic-clinic";
+  body: string;
+  collection: "songs";
+  data: InferEntrySchema<"songs">
+} & { render(): Render[".md"] };
+"defective-detective-a5-12-fox-hunt-2.md": {
+	id: "defective-detective-a5-12-fox-hunt-2.md";
+  slug: "defective-detective-a5-12-fox-hunt-2";
+  body: string;
+  collection: "songs";
+  data: InferEntrySchema<"songs">
+} & { render(): Render[".md"] };
 "die-lullaby.md": {
 	id: "die-lullaby.md";
   slug: "die-lullaby";

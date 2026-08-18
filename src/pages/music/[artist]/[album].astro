@@ -39,6 +39,7 @@ export async function getStaticPaths() {
       if (name.includes('elara')) return 'elara-dawn';
       if (name.includes('solara')) return 'solara';
       if (name.includes('prima')) return 'prima-timo';
+      if (name.includes('defective')) return 'defective-detective';
       return 'artist';
     })();
     const albumSlug = song.data.album ? normalizeAlbumSlug(song.data.album) : 'album-unknown';
@@ -76,6 +77,8 @@ const albumSongs = allSongs.filter((song) => {
 
 // Robust cover image fallback: pick the first available coverImage defined in the album's songs metadata
 const coverImage = albumSongs.find((s) => s.data.coverImage)?.data.coverImage || '';
+const hasPublishedLyrics = (song) => !String(song.body || '').includes('Full lyrics are not yet available.');
+const publishedLyricCount = albumSongs.filter(hasPublishedLyrics).length;
 
 // Sort songs by trackNumber numerically, falling back to title alphabetical order
 albumSongs.sort((a, b) => {
@@ -122,7 +125,9 @@ albumSongs.sort((a, b) => {
           {albumName}
         </h1>
         <p class="text-sm text-slate-400 leading-relaxed max-w-2xl">
-          {albumSongs.length} Tracks in official release sequence. Select any song below to read full lyrics.
+          {albumSongs.length} Tracks in official release sequence. {publishedLyricCount > 0
+            ? 'Select any available song below to read its lyrics.'
+            : 'Track titles are listed below; full lyrics are not yet available.'}
         </p>
       </div>
     </div>
@@ -160,7 +165,7 @@ albumSongs.sort((a, b) => {
                   </div>
                 </div>
                 <span class="text-xs font-mono text-purple-400/80 shrink-0">
-                  Read Lyrics &rarr;
+                  {hasPublishedLyrics(song) ? 'Read Lyrics' : 'View Track'} &rarr;
                 </span>
               </div>
             </a>
