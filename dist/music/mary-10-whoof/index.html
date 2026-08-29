@@ -1,0 +1,235 @@
+<!DOCTYPE html><html lang="en" class="dark bg-slate-950 text-slate-100 scroll-smooth"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Whoof | Mary Lyrics | The Levels and The Folds</title><!-- Google Fonts: Orbitron, Inter, & JetBrains Mono --><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600;800&family=Orbitron:wght@600;800;900&display=swap" rel="stylesheet"><!-- Theme Enforcer Script (Forces Dark Mode & Clears Light Cache) --><script>
+			(function() {
+				localStorage.removeItem('theme');
+				document.documentElement.classList.add('dark');
+				document.documentElement.classList.remove('light');
+			})();
+		</script><!-- Tailwind CSS Engine with is:inline (CRITICAL FOR ASTRO) --><script src="https://cdn.tailwindcss.com"></script><script>
+			tailwind.config = {
+				darkMode: 'class',
+				theme: {
+					extend: {
+						fontFamily: {
+							sans: ['Inter', 'sans-serif'],
+							orbitron: ['Orbitron', 'sans-serif'],
+							mono: ['JetBrains Mono', 'monospace'],
+						},
+						animation: {
+							'pulse-slow': 'pulse 6s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+							'float': 'float 3s ease-in-out infinite',
+						},
+						keyframes: {
+							float: {
+								'0%, 100%': { transform: 'translateY(0px)' },
+								'50%': { transform: 'translateY(-8px)' },
+							}
+						}
+					}
+				}
+			}
+		</script><link rel="stylesheet" href="/_astro/about.B0NRGD4f.css"></head> <body class="min-h-screen flex flex-col bg-black text-slate-100 font-sans antialiased selection:bg-purple-500 selection:text-white relative overflow-x-hidden"> <!-- Starfield Layer --> <div class="stars-container"> <div class="stars-layer1"></div> <div class="stars-layer2"></div> <div class="stars-layer3"></div> <div class="comet"></div> <div class="comet-2"></div> <div class="comet-3"></div> </div> <!-- Ambient Background Glow Orbs --> <div class="fixed top-0 left-1/4 w-[600px] h-[600px] bg-purple-600/10 rounded-full blur-[120px] pointer-events-none z-0 animate-pulse-slow"></div> <div class="fixed bottom-0 right-1/4 w-[500px] h-[500px] bg-amber-500/10 rounded-full blur-[120px] pointer-events-none z-0 animate-pulse-slow"></div> <!-- Sticky Glassmorphism Header with Full Navigation --> <header class="sticky top-0 z-50 backdrop-blur-xl bg-black/80 border-b border-purple-900/30 shadow-lg shadow-purple-950/20 transition-colors"> <div class="max-w-[1600px] mx-auto px-6 h-20 flex items-center justify-between"> <!-- Brand Logo --> <a href="/" class="flex items-center space-x-3 group"> <span class="font-orbitron text-2xl font-black tracking-widest bg-gradient-to-r from-purple-400 via-pink-500 to-amber-300 bg-clip-text text-transparent group-hover:opacity-90 transition">
+COSMOS
+</span> <span class="text-[10px] px-3 py-0.5 bg-purple-950/90 border border-purple-700/50 rounded-full text-purple-300 font-mono hidden 2xl:inline-block tracking-wide shadow-[0_0_12px_rgba(168,85,247,0.2)]">
+The Levels and The Folds
+</span> </a> <!-- Desktop Navigation Links --> <nav class="hidden lg:flex items-center space-x-5 xl:space-x-8 text-xs uppercase tracking-widest font-mono font-semibold text-slate-300"> <a href="/" class="hover:text-purple-400 transition hover:scale-105">Home</a> <a href="/about" class="hover:text-pink-400 transition hover:scale-105">About</a> <a href="/artists" class="hover:text-purple-400 transition hover:scale-105">Artists</a> <a href="/music" class="hover:text-amber-400 transition hover:scale-105">Music</a> <a href="/books" class="hover:text-pink-400 transition hover:scale-105">Books</a> <a href="/lore" class="hover:text-cyan-400 transition hover:scale-105">Lore</a> </nav> <!-- Header Actions --> <div class="flex items-center gap-2 xl:gap-3"> <!-- Member Journey Placeholder --> <button type="button" disabled aria-label="Your Personal Journey Space — coming soon" title="Coming soon" class="group relative overflow-hidden font-mono text-[10px] xl:text-xs font-bold uppercase tracking-wider text-cyan-50 px-4 xl:px-5 py-2.5 rounded-full border border-cyan-300/60 bg-gradient-to-r from-cyan-950 via-indigo-900 to-purple-900 shadow-[0_0_24px_rgba(34,211,238,0.28)] cursor-default hidden lg:flex items-center gap-2 whitespace-nowrap"> <span class="absolute inset-0 bg-gradient-to-r from-cyan-400/10 via-purple-400/10 to-pink-400/10"></span> <span class="relative">Your Personal Journey Space</span> <span class="relative text-[8px] xl:text-[9px] text-cyan-200 border border-cyan-300/40 rounded-full px-1.5 py-0.5 tracking-widest">Soon</span> </button> <!-- Patreon CTA Button --> <a href="https://www.patreon.com/c/wackyciscorecords/" target="_blank" rel="noopener noreferrer" class="font-mono text-[10px] xl:text-xs font-bold uppercase tracking-wider bg-gradient-to-r from-purple-600 via-pink-600 to-amber-500 hover:from-purple-500 hover:to-amber-400 text-white px-4 xl:px-5 py-2.5 rounded-full shadow-lg shadow-purple-950/50 transition hover:scale-105 border border-purple-400/30 flex items-center gap-2 whitespace-nowrap"> <span class="hidden sm:inline">Enter the levels and the folds</span> <span class="sm:hidden">Enter</span> <span class="text-amber-300">&rarr;</span> </a> </div> </div> </header> <!-- Dynamic Page Content Slot --> <main class="flex-grow relative z-10">  <main class="max-w-4xl mx-auto px-6 py-10"> <!-- Navigation Back Link Bar (Sticky Top Sub-Header Bar) --> <div class="sticky top-[80px] z-40 -mx-6 px-6 py-3.5 mb-8 bg-black/85 backdrop-blur-xl border-b border-purple-900/40 shadow-2xl flex items-center justify-between flex-wrap gap-4 font-mono text-xs"> <a href="/music/mary/album-bloodlines" class="px-5 py-2.5 rounded-xl text-xs uppercase tracking-wider font-mono font-extrabold bg-purple-950/95 text-purple-200 border-2 border-purple-500/60 hover:bg-purple-900 hover:text-white transition-all shadow-xl hover:shadow-purple-900/60 hover:scale-105 flex items-center gap-2.5"> <span class="text-purple-400 font-bold text-sm">&larr;</span> <span>Back to Bloodlines Album</span> </a> <a href="/music" class="px-4 py-2 rounded-xl text-xs uppercase tracking-wider font-mono font-bold bg-slate-900/90 text-slate-300 border border-slate-700/50 hover:bg-slate-800 hover:text-white transition-all flex items-center gap-2 shadow-lg"> <span>All Releases</span> <span class="text-slate-400 font-bold text-sm">&rarr;</span> </a> </div> <!-- Header Card --> <div class="bg-slate-900/60 p-8 rounded-2xl border border-slate-800/80 shadow-2xl mb-10 backdrop-blur-sm flex flex-col md:flex-row gap-6 items-center"> <img src="/images/mary/bloodlines_mary_album_cover_01.webp" alt="Whoof" class="w-32 h-32 rounded-xl object-cover shadow-lg border border-slate-700/50 flex-shrink-0"> <div class="space-y-2 text-center md:text-left"> <span class="px-3 py-1 rounded-full text-xs font-semibold bg-purple-950/80 text-purple-300 border border-purple-800/50 font-mono"> Mary - Album 1: Bloodlines </span> <h1 class="text-3xl md:text-5xl font-black text-white">Whoof</h1> <p class="text-slate-400 text-sm italic">"Whoof—what are you?"</p> </div> </div> <!-- Lyrics Content Box (Preserves Line Breaks and Formatting) --> <article class="prose prose-invert max-w-none bg-slate-900/40 p-8 rounded-2xl border border-slate-800/60 shadow-xl whitespace-pre-line text-slate-200 leading-relaxed font-sans"> <p>Musical direction: tense atmospheric skate-punk; heartbeat kick, rain percussion, nervous bass pulse, sparse piano under Mary’s internal monologue, explosive guitars with lightning strikes. Final reveal pulls everything almost silent before a low emotional swell.</p>
+<p><strong>[Intro — shattered glass / rain beginning]</strong></p>
+<p>Hair.</p>
+<p>No—</p>
+<p>Fur?</p>
+<p>Something just came through the window.</p>
+<p>Something big.</p>
+<p>Something—</p>
+<p><strong>[THUD]</strong></p>
+<p>…</p>
+<p>It fell.</p>
+<p><strong>[Verse 1]</strong><br>
+Okay, Mary<br>
+Think before you panic<br>
+Heart is doing something stupid<br>
+Brain can still be systematic</p>
+<p>Dog?</p>
+<p>Too big.</p>
+<p>Cat?</p>
+<p>Absolutely not.</p>
+<p>Raccoon?</p>
+<p>That would be impressive.</p>
+<p>Bear?</p>
+<p>…</p>
+<p>Maybe bear.</p>
+<p>Why would there be a bear<br>
+Inside Ridgefall City Library?</p>
+<p>Good question.</p>
+<p>Excellent question.</p>
+<p><strong>[Pre-Chorus]</strong><br>
+Don’t move fast<br>
+Don’t make noise<br>
+Find the shape<br>
+Eliminate choice</p>
+<p>Four legs?</p>
+<p>I think.</p>
+<p>Too dark.</p>
+<p>Fantastic.</p>
+<p>Perfect night for this.</p>
+<p><strong>[Chorus]</strong><br>
+Whoof—<br>
+What are you?<br>
+What came crashing through?</p>
+<p>Shadow<br>
+Hair<br>
+A shape that moved<br>
+Like something animals do</p>
+<p>Whoof—<br>
+Stay right there<br>
+I can barely see</p>
+<p>Whatever you are<br>
+Please remain unconscious<br>
+Until I know<br>
+What you’re supposed to be</p>
+<p><strong>[Verse 2 — thunder rolls]</strong></p>
+<p>Then the rain comes harder.</p>
+<p>Of course it does.</p>
+<p>Lightning hits somewhere nearby—</p>
+<p><strong>[CRACK]</strong></p>
+<p>Power dies.</p>
+<p>…</p>
+<p>Seriously?</p>
+<p>Is this a movie?</p>
+<p>Does someone cue violins now?</p>
+<p>Because this is aggressively dramatic.</p>
+<p><strong>[Break — total darkness / rain / heartbeat]</strong></p>
+<p>Something breathes.</p>
+<p>Low.</p>
+<p>Rough.</p>
+<p>Then—</p>
+<p>a growl?</p>
+<p>…</p>
+<p>No.</p>
+<p>Maybe.</p>
+<p>Definitely something.</p>
+<p>Mary, do not walk toward the growling thing.</p>
+<p><strong>[Beat]</strong></p>
+<p>Mary walks toward the growling thing.</p>
+<p>Of course she does.</p>
+<p><strong>[Verse 3]</strong><br>
+One step<br>
+Two steps<br>
+Hands out slowly</p>
+<p>Broken glass beneath my shoes</p>
+<p>Another flash across the windows<br>
+For one second—</p>
+<p>There.</p>
+<p>A body.</p>
+<p>Hair—</p>
+<p>Fur—</p>
+<p>Shoulders—</p>
+<p>I can’t tell.</p>
+<p>Then darkness takes it back again.</p>
+<p><strong>[Pre-Chorus]</strong><br>
+Heart says run<br>
+Brain says wait</p>
+<p>Every book I’ve ever studied<br>
+Suddenly feels five years late</p>
+<p>If this is real—</p>
+<p>No.</p>
+<p>Don’t decide.</p>
+<p>Look first.</p>
+<p>Know later.</p>
+<p><strong>[Chorus — heavier]</strong><br>
+Whoof—<br>
+What are you?<br>
+What did I just see?</p>
+<p>Something moved<br>
+Something growled<br>
+Something stared back at me</p>
+<p>Whoof—<br>
+Who are you?<br>
+Why are you on my floor?</p>
+<p>And why does every stupid answer<br>
+Make me want<br>
+To know one more?</p>
+<p><strong>[Bridge — power snaps back]</strong></p>
+<p><strong>[LIGHTS HUM ON]</strong></p>
+<p>I freeze.</p>
+<p>…</p>
+<p>No.</p>
+<p>No, that’s—</p>
+<p>Hansel?</p>
+<p><strong>[Music drops]</strong></p>
+<p>Hansel?</p>
+<p>Clothes ripped.</p>
+<p>Sleeve torn open.</p>
+<p>Blood on his hands.</p>
+<p>Blood along his arms.</p>
+<p>Blood near his mouth.</p>
+<p>…</p>
+<p>Not an animal.</p>
+<p>Obviously not an animal.</p>
+<p>But—</p>
+<p>I know what I saw.</p>
+<p>Don’t I?</p>
+<p><strong>[Verse 4 — softer / urgent]</strong><br>
+I hurry over<br>
+Drop beside him<br>
+Call his name and get nothing</p>
+<p>Check his breathing</p>
+<p>Still breathing.</p>
+<p>Good.</p>
+<p>Very good.</p>
+<p>He’s heavier than he looks.</p>
+<p>Of course he is.</p>
+<p>Come on.</p>
+<p>Help me here—</p>
+<p>You’re unconscious.</p>
+<p>Right.</p>
+<p><strong>[Build]</strong><br>
+Arm around me<br>
+Lift him slowly<br>
+Drag him toward the nearest table</p>
+<p>Glass behind us<br>
+Rain still hammering</p>
+<p>Hands shaking<br>
+But I’m able</p>
+<p>Get him up<br>
+Turn him over</p>
+<p>Blood everywhere I look</p>
+<p>None of this matches anything<br>
+I’ve read inside a book</p>
+<p><strong>[Final Chorus — emotional lift]</strong><br>
+Whoof—<br>
+What happened here?<br>
+What happened to you?</p>
+<p>Was there something in this library<br>
+Or am I losing what I knew?</p>
+<p>Whoof—<br>
+What did I see?<br>
+What came through that broken frame?</p>
+<p>Hair or fur<br>
+A beast or shadow</p>
+<p>Then the lights—</p>
+<p>And Hansel’s name</p>
+<p>I know what I saw.</p>
+<p>…</p>
+<p>I think.</p>
+<p>I know what I saw.</p>
+<p>…</p>
+<p>Don’t I?</p>
+<p><strong>[Outro — rain softens / Hansel breathes]</strong></p>
+<p>Hansel?</p>
+<p>Nothing.</p>
+<p>Hansel.</p>
+<p>Come on.</p>
+<p>Open your eyes.</p>
+<p>…</p>
+<p>His fingers move.</p>
+<p>A breath.</p>
+<p>Then slowly—</p>
+<p>his eyes open.</p>
+<p>He looks at me.</p>
+<p>“Mary?”</p>
+<p>…</p>
+<p>Hansel?</p>
+<p><strong>[CUT]</strong></p>
+<p>TITLE NOTE — STRUCTURAL / FORESHADOWING:<br>
+Surface/title function: “Whoof” echoes an animal/dog sound while Mary is trying to identify the thing in the dark.<br>
+W-system function: WHO becomes explicit as Mary’s question shifts from “what was that?” to “who was that?”<br>
+Mystery rule: the animal-like / fur-covered sighting and Hansel’s appearance after the power returns are adjacent facts, not yet proof that they are the same thing.</p> </article> <!-- Bottom Navigation Actions --> <div class="mt-10 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-purple-900/40"> <a href="/music/mary/album-bloodlines" class="w-full sm:w-auto px-6 py-3.5 rounded-xl text-xs uppercase tracking-wider font-mono font-bold bg-purple-950/90 text-purple-200 border border-purple-500/50 hover:bg-purple-900 hover:text-white transition-all flex items-center justify-center gap-2 shadow-xl hover:shadow-purple-900/50 hover:-translate-x-1"> <span class="text-purple-400 font-bold text-sm">&larr;</span> <span>Back to Bloodlines Album</span> </a> <a href="/music" class="w-full sm:w-auto px-6 py-3.5 rounded-xl text-xs uppercase tracking-wider font-mono font-bold bg-slate-900/90 text-slate-300 border border-slate-700/50 hover:bg-slate-800 hover:text-white transition-all flex items-center justify-center gap-2 shadow-xl"> <span>Back to Music</span> <span class="text-slate-400 font-bold text-sm">&rarr;</span> </a> </div> </main>  </main> <!-- Global Footer --> <footer class="relative z-10 py-12 border-t border-slate-900 bg-black/80 text-center text-xs font-mono text-slate-500"> <p class="tracking-wider">&copy; 2026 The Cosmos Ecosystem. Built for Francisco de Leon (Wacky).</p> <p class="text-[10px] text-slate-600 mt-1">All Levels & Folds Exist Simultaneously across 300,000 Years.</p> </footer> </body></html>

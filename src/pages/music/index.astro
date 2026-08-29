@@ -22,7 +22,7 @@ function getArtistMeta(artistName: string): { image: string; objectPosition: str
   return { image: '/images/default-artist.jpg', objectPosition: 'object-center' };
 }
 
-const artistCatalog: Record<string, { songCount: number; albums: Set<string>; image: string; objectPosition: string }> = {};
+const artistCatalog: Record<string, { songCount: number; albums: Set<string>; image: string; objectPosition: string; coordinate?: string }> = {};
 
 allSongs.forEach((song: any) => {
   const artist = song.data?.artist ? String(song.data.artist) : 'Unknown Artist';
@@ -55,6 +55,24 @@ if (!artistCatalog['The Defective Detective']) {
   };
 }
 
+// Wacky-confirmed 6_66 / 66_6 artists. Mary now has her first locked album.
+delete artistCatalog['MARY'];
+artistCatalog['Mary'] = {
+  songCount: 12,
+  albums: new Set(['Bloodlines']),
+  image: '/images/mary/mary_artist_01.png',
+  objectPosition: 'object-[center_22%]',
+  coordinate: '6_66'
+};
+
+artistCatalog['Count Wrongula'] = {
+  songCount: 12,
+  albums: new Set(['WHO']),
+  image: '/images/count-wrongula/count_wrongula_eve_artist_01.png',
+  objectPosition: 'object-[65%_center]',
+  coordinate: '66_6'
+};
+
 const preferredArtistOrder = [
   // TOP ROW (L → R)
   'The Crimson Sparks',
@@ -65,8 +83,11 @@ const preferredArtistOrder = [
   'Elara Dawn',
   'Solara',
   // ROW 3 (L → R)
-  'Prima & Timo',
+  'Mary',
   'The Defective Detective',
+  'Prima & Timo',
+  // Fold-order exception: Count Wrongula closes the roster after Prima & Timo.
+  'Count Wrongula',
 ];
 
 const sortedArtists = Object.entries(artistCatalog).sort((a, b) => {
@@ -104,28 +125,42 @@ const sortedArtists = Object.entries(artistCatalog).sort((a, b) => {
           if (name.includes('pandora')) return 'pandora-raven';
           if (name.includes('elara')) return 'elara-dawn';
           if (name.includes('solara')) return 'solara';
-          if (name.includes('prima')) return 'prima-timo';
+          if (name === 'mary') return 'mary';
+          if (name.includes('wrongula')) return 'count-wrongula';
           if (name.includes('defective')) return 'defective-detective';
+          if (name.includes('prima')) return 'prima-timo';
           return 'artist';
         })();
+
+        const hasArtistImage = Boolean(data.image);
+        const artistHref = `/music/${artistSlug}`;
 
         return (
           <a
             key={artistSlug}
-            href={`/music/${artistSlug}`}
+            href={artistHref}
             class="group relative flex flex-col bg-slate-900/60 hover:bg-slate-900 border border-slate-800 hover:border-purple-500/50 rounded-2xl overflow-hidden shadow-2xl transition-all duration-300 hover:-translate-y-1.5"
           >
             <div class="aspect-square w-full relative overflow-hidden bg-slate-950">
-              <img
-                src={data.image}
-                alt={artistName}
-                class={`object-cover w-full h-full ${data.objectPosition} group-hover:scale-105 transition-transform duration-500 opacity-90 group-hover:opacity-100 block`}
-              />
+              {!hasArtistImage ? (
+                <div class="absolute inset-0 flex flex-col items-center justify-center transition-transform duration-500 group-hover:scale-105 bg-[#d7c39a] text-stone-900">
+                  <div class="absolute inset-0 opacity-25 bg-[repeating-linear-gradient(0deg,transparent_0_28px,rgba(75,55,30,0.16)_29px)]"></div>
+                  <span class="relative font-mono text-sm font-black tracking-[0.32em]">{data.coordinate}</span>
+                  <span class="relative mt-5 text-5xl font-serif italic font-bold">{artistName}</span>
+                  <span class="relative mt-4 font-mono text-[10px] tracking-[0.22em] uppercase opacity-60">Placeholder</span>
+                </div>
+              ) : (
+                <img
+                  src={data.image}
+                  alt={artistName}
+                  class={`object-cover w-full h-full ${data.objectPosition} group-hover:scale-105 transition-transform duration-500 opacity-90 group-hover:opacity-100 block`}
+                />
+              )}
               <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent opacity-80 pointer-events-none"></div>
               
               <div class="absolute bottom-3 left-3 flex gap-2">
                 <span class="px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-purple-950/90 backdrop-blur-md text-purple-200 border border-purple-700/50 shadow-md font-mono">
-                  {data.albums.size} Albums
+                  {data.albums.size} {data.albums.size === 1 ? 'Album' : 'Albums'}
                 </span>
                 <span class="px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-slate-900/90 backdrop-blur-md text-slate-300 border border-slate-700/50 shadow-md font-mono">
                   {data.songCount} Tracks
@@ -136,7 +171,7 @@ const sortedArtists = Object.entries(artistCatalog).sort((a, b) => {
             <div class="p-6 flex items-center justify-between">
               <div>
                 <h2 class="text-2xl font-bold text-white group-hover:text-purple-300 transition-colors">{artistName}</h2>
-                <p class="text-xs text-slate-400 font-mono mt-1">Official Canonical Roster</p>
+                <p class="text-xs text-slate-400 font-mono mt-1">{data.coordinate ? `${data.coordinate} · Official Canonical Roster` : 'Official Canonical Roster'}</p>
               </div>
               <span class="text-purple-400 group-hover:text-purple-300 text-lg transition-transform group-hover:translate-x-1 font-bold">
                 →

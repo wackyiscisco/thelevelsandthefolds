@@ -191,6 +191,41 @@
         "(7) Prima (Ver. 7.0) Quattuor"
       ],
       "keyQuote": "Same Core, Different House."
+    },
+    {
+      "id": "mary",
+      "name": "Mary",
+      "levelFold": "6_66",
+      "description": "Eighteen, brilliant, stubborn, and endlessly curious—Ridgefall's scholar and certified monster nerd follows every mystery back to the books.",
+      "featuredTrack": "Welcome to Ridgefall",
+      "status": "Active Era",
+      "spotify": "",
+      "youtube": "",
+      "lineup": [
+        "Mary (Scholar, Library Worker, Singer of Bloodlines)"
+      ],
+      "albums": [
+        "(1) Bloodlines"
+      ],
+      "keyQuote": "Every mystery has an answer hidden in a book."
+    },
+    {
+      "id": "count-wrongula",
+      "name": "Count Wrongula",
+      "levelFold": "66_6",
+      "description": "Smug, elegant, theatrical, and irritating by design. His odd-numbered transmissions answer Eve's even-numbered voice across the crossing.",
+      "featuredTrack": "Walking on Sunshine",
+      "status": "Active Era",
+      "spotify": "",
+      "youtube": "",
+      "lineup": [
+        "Count Wrongula (Odd-numbered voice of WHO)",
+        "Eve (Even-numbered voice across the crossing)"
+      ],
+      "albums": [
+        "(1) WHO"
+      ],
+      "keyQuote": "Who, What, Why, Where, When—Wrongula is only one letter away."
     }
   ],
   "patreonTiers": [

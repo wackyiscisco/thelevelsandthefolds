@@ -1,0 +1,222 @@
+<!DOCTYPE html><html lang="en" class="dark bg-slate-950 text-slate-100 scroll-smooth"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>The Tridecagon of Old | Count Wrongula Lyrics | The Levels and The Folds</title><!-- Google Fonts: Orbitron, Inter, & JetBrains Mono --><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600;800&family=Orbitron:wght@600;800;900&display=swap" rel="stylesheet"><!-- Theme Enforcer Script (Forces Dark Mode & Clears Light Cache) --><script>
+			(function() {
+				localStorage.removeItem('theme');
+				document.documentElement.classList.add('dark');
+				document.documentElement.classList.remove('light');
+			})();
+		</script><!-- Tailwind CSS Engine with is:inline (CRITICAL FOR ASTRO) --><script src="https://cdn.tailwindcss.com"></script><script>
+			tailwind.config = {
+				darkMode: 'class',
+				theme: {
+					extend: {
+						fontFamily: {
+							sans: ['Inter', 'sans-serif'],
+							orbitron: ['Orbitron', 'sans-serif'],
+							mono: ['JetBrains Mono', 'monospace'],
+						},
+						animation: {
+							'pulse-slow': 'pulse 6s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+							'float': 'float 3s ease-in-out infinite',
+						},
+						keyframes: {
+							float: {
+								'0%, 100%': { transform: 'translateY(0px)' },
+								'50%': { transform: 'translateY(-8px)' },
+							}
+						}
+					}
+				}
+			}
+		</script><link rel="stylesheet" href="/_astro/about.B0NRGD4f.css"></head> <body class="min-h-screen flex flex-col bg-black text-slate-100 font-sans antialiased selection:bg-purple-500 selection:text-white relative overflow-x-hidden"> <!-- Starfield Layer --> <div class="stars-container"> <div class="stars-layer1"></div> <div class="stars-layer2"></div> <div class="stars-layer3"></div> <div class="comet"></div> <div class="comet-2"></div> <div class="comet-3"></div> </div> <!-- Ambient Background Glow Orbs --> <div class="fixed top-0 left-1/4 w-[600px] h-[600px] bg-purple-600/10 rounded-full blur-[120px] pointer-events-none z-0 animate-pulse-slow"></div> <div class="fixed bottom-0 right-1/4 w-[500px] h-[500px] bg-amber-500/10 rounded-full blur-[120px] pointer-events-none z-0 animate-pulse-slow"></div> <!-- Sticky Glassmorphism Header with Full Navigation --> <header class="sticky top-0 z-50 backdrop-blur-xl bg-black/80 border-b border-purple-900/30 shadow-lg shadow-purple-950/20 transition-colors"> <div class="max-w-[1600px] mx-auto px-6 h-20 flex items-center justify-between"> <!-- Brand Logo --> <a href="/" class="flex items-center space-x-3 group"> <span class="font-orbitron text-2xl font-black tracking-widest bg-gradient-to-r from-purple-400 via-pink-500 to-amber-300 bg-clip-text text-transparent group-hover:opacity-90 transition">
+COSMOS
+</span> <span class="text-[10px] px-3 py-0.5 bg-purple-950/90 border border-purple-700/50 rounded-full text-purple-300 font-mono hidden 2xl:inline-block tracking-wide shadow-[0_0_12px_rgba(168,85,247,0.2)]">
+The Levels and The Folds
+</span> </a> <!-- Desktop Navigation Links --> <nav class="hidden lg:flex items-center space-x-5 xl:space-x-8 text-xs uppercase tracking-widest font-mono font-semibold text-slate-300"> <a href="/" class="hover:text-purple-400 transition hover:scale-105">Home</a> <a href="/about" class="hover:text-pink-400 transition hover:scale-105">About</a> <a href="/artists" class="hover:text-purple-400 transition hover:scale-105">Artists</a> <a href="/music" class="hover:text-amber-400 transition hover:scale-105">Music</a> <a href="/books" class="hover:text-pink-400 transition hover:scale-105">Books</a> <a href="/lore" class="hover:text-cyan-400 transition hover:scale-105">Lore</a> </nav> <!-- Header Actions --> <div class="flex items-center gap-2 xl:gap-3"> <!-- Member Journey Placeholder --> <button type="button" disabled aria-label="Your Personal Journey Space — coming soon" title="Coming soon" class="group relative overflow-hidden font-mono text-[10px] xl:text-xs font-bold uppercase tracking-wider text-cyan-50 px-4 xl:px-5 py-2.5 rounded-full border border-cyan-300/60 bg-gradient-to-r from-cyan-950 via-indigo-900 to-purple-900 shadow-[0_0_24px_rgba(34,211,238,0.28)] cursor-default hidden lg:flex items-center gap-2 whitespace-nowrap"> <span class="absolute inset-0 bg-gradient-to-r from-cyan-400/10 via-purple-400/10 to-pink-400/10"></span> <span class="relative">Your Personal Journey Space</span> <span class="relative text-[8px] xl:text-[9px] text-cyan-200 border border-cyan-300/40 rounded-full px-1.5 py-0.5 tracking-widest">Soon</span> </button> <!-- Patreon CTA Button --> <a href="https://www.patreon.com/c/wackyciscorecords/" target="_blank" rel="noopener noreferrer" class="font-mono text-[10px] xl:text-xs font-bold uppercase tracking-wider bg-gradient-to-r from-purple-600 via-pink-600 to-amber-500 hover:from-purple-500 hover:to-amber-400 text-white px-4 xl:px-5 py-2.5 rounded-full shadow-lg shadow-purple-950/50 transition hover:scale-105 border border-purple-400/30 flex items-center gap-2 whitespace-nowrap"> <span class="hidden sm:inline">Enter the levels and the folds</span> <span class="sm:hidden">Enter</span> <span class="text-amber-300">&rarr;</span> </a> </div> </div> </header> <!-- Dynamic Page Content Slot --> <main class="flex-grow relative z-10">  <main class="max-w-4xl mx-auto px-6 py-10"> <!-- Navigation Back Link Bar (Sticky Top Sub-Header Bar) --> <div class="sticky top-[80px] z-40 -mx-6 px-6 py-3.5 mb-8 bg-black/85 backdrop-blur-xl border-b border-purple-900/40 shadow-2xl flex items-center justify-between flex-wrap gap-4 font-mono text-xs"> <a href="/music/count-wrongula/album-who" class="px-5 py-2.5 rounded-xl text-xs uppercase tracking-wider font-mono font-extrabold bg-purple-950/95 text-purple-200 border-2 border-purple-500/60 hover:bg-purple-900 hover:text-white transition-all shadow-xl hover:shadow-purple-900/60 hover:scale-105 flex items-center gap-2.5"> <span class="text-purple-400 font-bold text-sm">&larr;</span> <span>Back to WHO Album</span> </a> <a href="/music" class="px-4 py-2 rounded-xl text-xs uppercase tracking-wider font-mono font-bold bg-slate-900/90 text-slate-300 border border-slate-700/50 hover:bg-slate-800 hover:text-white transition-all flex items-center gap-2 shadow-lg"> <span>All Releases</span> <span class="text-slate-400 font-bold text-sm">&rarr;</span> </a> </div> <!-- Header Card --> <div class="bg-slate-900/60 p-8 rounded-2xl border border-slate-800/80 shadow-2xl mb-10 backdrop-blur-sm flex flex-col md:flex-row gap-6 items-center"> <img src="/images/count-wrongula/who_album_cover_01.png" alt="The Tridecagon of Old" class="w-32 h-32 rounded-xl object-cover shadow-lg border border-slate-700/50 flex-shrink-0"> <div class="space-y-2 text-center md:text-left"> <span class="px-3 py-1 rounded-full text-xs font-semibold bg-purple-950/80 text-purple-300 border border-purple-800/50 font-mono"> Count Wrongula - Album 1: WHO </span> <h1 class="text-3xl md:text-5xl font-black text-white">The Tridecagon of Old</h1> <p class="text-slate-400 text-sm italic">"We are the Tridecagon of Old"</p> </div> </div> <!-- Lyrics Content Box (Preserves Line Breaks and Formatting) --> <article class="prose prose-invert max-w-none bg-slate-900/40 p-8 rounded-2xl border border-slate-800/60 shadow-xl whitespace-pre-line text-slate-200 leading-relaxed font-sans"> <p><strong>[Gothic Rubato Intro]</strong></p>
+<p>Thirteen chairs
+Thirteen names
+Thirteen centuries
+Guarding ancient ways</p>
+<p>One chair higher
+At the center of the hall</p>
+<p>And one Count missing</p>
+<p>Again</p>
+<p><strong>[Verse 1]</strong></p>
+<p>Three days should have brought him
+Three days on the road
+The candles are shorter
+Our patience is old</p>
+<p>Amdis checks the doorway
+With irritation refined
+The others know the expression</p>
+<p>Wrongula is late again</p>
+<p>Two decades since the last time
+We called him to this room
+Two decades since we explained
+How vampires ought to move</p>
+<p>Two decades</p>
+<p>And apparently</p>
+<p>He learned absolutely nothing</p>
+<p><strong>[Pre-Chorus]</strong></p>
+<p>Wrong
+Improper
+Unbecoming
+Strange</p>
+<p>Every time we correct him
+He invents another change</p>
+<p>No blood
+No crossing
+No hiding from the light</p>
+<p>How can one vampire
+Be so consistently incorrect?</p>
+<p><strong>[Chorus]</strong></p>
+<p>We are the Tridecagon of Old
+Thirteen keepers of the blood
+Ancient law and ancient custom
+Standing where our elders stood</p>
+<p>We are the Tridecagon of Old
+We remember what is right</p>
+<p>And somewhere on a road tonight</p>
+<p>Wrongula is probably
+Doing something wrong</p>
+<p><strong>[Verse 2]</strong></p>
+<p>Ambrosia remembers breakfast
+The scandal still survives
+Godfrey calls it sacrilege
+That somehow keeps him alive</p>
+<p>Vlad questions all the mirrors
+Sapphira hates the sun
+Zeck cannot understand
+Why garlic hasn’t killed him once</p>
+<p>Jezebel says pastries
+Should not constitute a meal
+Umbra wants an explanation
+For how reflection can be real</p>
+<p>Horasio asks why chickens
+Exist upon his land</p>
+<p>Asura says the entire thing
+Has gotten out of hand</p>
+<p>Katherine blames indulgence
+Melchor blames his youth</p>
+<p>Then everyone remembers</p>
+<p>Wrongula is older than that excuse</p>
+<p><strong>[Pre-Chorus]</strong></p>
+<p>Food</p>
+<p>Actual food</p>
+<p>How does he survive?</p>
+<p>No crossing for feeding
+Yet perfectly alive</p>
+<p>He eats
+He sleeps
+He exercises at dawn</p>
+<p>Every rule says something’s wrong</p>
+<p>Yet somehow</p>
+<p>He goes on</p>
+<p><strong>[Chorus]</strong></p>
+<p>We are the Tridecagon of Old
+Thirteen guardians of the ways
+Eight hundred years of council
+And considerably older days</p>
+<p>We are the Tridecagon of Old
+Tradition written deep</p>
+<p>And Count Wrongula keeps treating
+Every sacred rule as cheap</p>
+<p>Sunlight
+Mirrors
+Breakfast</p>
+<p>Bread</p>
+<p>There are limits</p>
+<p>Even for the undead</p>
+<p><strong>[Verse 3]</strong></p>
+<p>Then the laughter loses rhythm
+And the chamber settles down</p>
+<p>Because there is another reason
+They summoned him to town</p>
+<p>Three months</p>
+<p>Only three</p>
+<p>And crossing has grown thin</p>
+<p>Paths that opened at a thought
+Now barely let them in</p>
+<p>All thirteen crossed freely
+Wherever hunger called</p>
+<p>No instinct needed
+No uncertain road
+No boundary at all</p>
+<p>But lately something closes</p>
+<p>Something pushes back</p>
+<p>A door once always open
+Now narrowing to black</p>
+<p><strong>[Pre-Chorus]</strong></p>
+<p>Once a day</p>
+<p>Then once a week</p>
+<p>Then nothing when we tried</p>
+<p>Thirteen ancient vampires
+Waiting on one side</p>
+<p>The markets feel the pressure
+The lesser bloodlines starve</p>
+<p>And no one understands
+What is happening to the paths</p>
+<p><strong>[Bridge]</strong></p>
+<p>Luchinda watches quietly
+Youngest in the room</p>
+<p>Two hundred thirty-two
+Among relics dressed in gloom</p>
+<p>She wasn’t here two decades ago
+When Wrongula last came</p>
+<p>She knows the accusations</p>
+<p>She has heard the name</p>
+<p>No blood</p>
+<p>No crossing</p>
+<p>Sunlight on his skin</p>
+<p>A reflection in the mirror</p>
+<p>And somehow strength within</p>
+<p>Everyone calls him defective
+Incorrect from fang to bone</p>
+<p>But one question keeps returning</p>
+<p>How has he survived alone?</p>
+<p><strong>[Theatrical Build]</strong></p>
+<p>Amdis wants correction</p>
+<p>Ambrosia wants proof</p>
+<p>Godfrey wants tradition</p>
+<p>Vlad demands the truth</p>
+<p>Sapphira wants an answer</p>
+<p>Zeck wants him controlled</p>
+<p>Jezebel wants dignity</p>
+<p>From vampires young and old</p>
+<p>Umbra wants the crossing fixed</p>
+<p>Horasio wants supply</p>
+<p>Asura wants to understand</p>
+<p>Why pathways suddenly die</p>
+<p>Katherine wants order</p>
+<p>Melchor wants the same</p>
+<p>Luchinda only wonders</p>
+<p>What if Wrongula isn’t the problem?</p>
+<p><strong>[Final Chorus]</strong></p>
+<p>We are the Tridecagon of Old
+Thirteen voices, ancient blood</p>
+<p>We have watched the ages change
+And stood exactly where we stood</p>
+<p>We are the Tridecagon of Old
+And something has gone wrong</p>
+<p>The crossings fade
+The markets strain
+The hungry won’t last long</p>
+<p>And somewhere through the wilderness
+The Count we summoned comes</p>
+<p>No blood
+No crossing
+No concern</p>
+<p>Still thriving in the sun</p>
+<p>We called him here to question
+Everything he chose</p>
+<p>But now there is another question</p>
+<p>One nobody quite knows</p>
+<p><strong>[Vamp Outro]</strong></p>
+<p>Thirteen chairs</p>
+<p>Thirteen minds</p>
+<p>One missing Count</p>
+<p>And shrinking time</p>
+<p>Amdis looks toward the doors</p>
+<p>Luchinda watches him</p>
+<p>Far beyond the council walls</p>
+<p>Something in the world</p>
+<p>Is closing</p> </article> <!-- Bottom Navigation Actions --> <div class="mt-10 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-purple-900/40"> <a href="/music/count-wrongula/album-who" class="w-full sm:w-auto px-6 py-3.5 rounded-xl text-xs uppercase tracking-wider font-mono font-bold bg-purple-950/90 text-purple-200 border border-purple-500/50 hover:bg-purple-900 hover:text-white transition-all flex items-center justify-center gap-2 shadow-xl hover:shadow-purple-900/50 hover:-translate-x-1"> <span class="text-purple-400 font-bold text-sm">&larr;</span> <span>Back to WHO Album</span> </a> <a href="/music" class="w-full sm:w-auto px-6 py-3.5 rounded-xl text-xs uppercase tracking-wider font-mono font-bold bg-slate-900/90 text-slate-300 border border-slate-700/50 hover:bg-slate-800 hover:text-white transition-all flex items-center justify-center gap-2 shadow-xl"> <span>Back to Music</span> <span class="text-slate-400 font-bold text-sm">&rarr;</span> </a> </div> </main>  </main> <!-- Global Footer --> <footer class="relative z-10 py-12 border-t border-slate-900 bg-black/80 text-center text-xs font-mono text-slate-500"> <p class="tracking-wider">&copy; 2026 The Cosmos Ecosystem. Built for Francisco de Leon (Wacky).</p> <p class="text-[10px] text-slate-600 mt-1">All Levels & Folds Exist Simultaneously across 300,000 Years.</p> </footer> </body></html>

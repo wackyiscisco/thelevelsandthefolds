@@ -63,6 +63,20 @@ const factionStyles: Record<string, { bg: string; border: string; glow: string; 
     glow: 'hover:shadow-sky-950/60',
     text: 'from-sky-300 to-slate-100',
     badge: 'bg-sky-950/80 text-sky-200 border-sky-800/50'
+  },
+  'mary': {
+    bg: 'bg-gradient-to-br from-rose-950/50 via-stone-950/85 to-slate-950',
+    border: 'border-rose-500/35 hover:border-rose-400/75',
+    glow: 'hover:shadow-rose-950/60',
+    text: 'from-rose-300 via-amber-200 to-stone-100',
+    badge: 'bg-rose-950/85 text-rose-200 border-rose-700/60'
+  },
+  'count-wrongula': {
+    bg: 'bg-gradient-to-br from-amber-950/45 via-stone-950/90 to-sky-950/35',
+    border: 'border-amber-500/35 hover:border-sky-300/70',
+    glow: 'hover:shadow-amber-950/60',
+    text: 'from-amber-200 via-stone-100 to-sky-200',
+    badge: 'bg-stone-950/90 text-sky-100 border-amber-700/60'
   }
 };
 ---
@@ -111,8 +125,8 @@ const factionStyles: Record<string, { bg: string; border: string; glow: string; 
             <div class="text-xs font-mono text-slate-400 uppercase tracking-wider">Ingested Tracks</div>
           </div>
           <div class="space-y-0.5">
-            <div class="text-2xl lg:text-3xl font-black text-pink-300">8</div>
-            <div class="text-xs font-mono text-slate-400 uppercase tracking-wider">Unique Factions</div>
+            <div class="text-2xl lg:text-3xl font-black text-pink-300">{cosmosData.artists.length}</div>
+            <div class="text-xs font-mono text-slate-400 uppercase tracking-wider">Factions &amp; Artists</div>
           </div>
           <div class="space-y-0.5">
             <div class="text-2xl lg:text-3xl font-black text-amber-300">17</div>
@@ -189,13 +203,13 @@ const factionStyles: Record<string, { bg: string; border: string; glow: string; 
 
     </section>
 
-    <!-- Section 2: The 8 Factions Showcase Grid -->
-    <section class="space-y-8 pt-6">
+    <!-- Section 2: The Factions & Artists Showcase Grid -->
+    <section id="roster" class="space-y-8 pt-6 scroll-mt-28">
       <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-slate-800/80 pb-6">
         <div>
           <span class="text-xs font-mono font-bold uppercase tracking-widest text-purple-400">The Roster</span>
           <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight mt-1">
-            8 Unique Factions & Artists
+            {cosmosData.artists.length} Unique Factions & Artists
           </h2>
         </div>
         <a href="/artists" class="text-sm font-bold text-purple-400 hover:text-purple-300 transition flex items-center gap-1">
@@ -209,6 +223,7 @@ const factionStyles: Record<string, { bg: string; border: string; glow: string; 
           const style = factionStyles[artist.id] || factionStyles['solara'];
           return (
             <a 
+              id={`home-${artist.id}`}
               href={`/music/${artist.id}`}
               class={`p-6 rounded-2xl ${style.bg} border ${style.border} ${style.glow} transition duration-300 shadow-lg group relative flex flex-col justify-between space-y-4`}
             >

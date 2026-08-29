@@ -1,0 +1,255 @@
+<!DOCTYPE html><html lang="en" class="dark bg-slate-950 text-slate-100 scroll-smooth"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Were Bears Here Tonight | Mary Lyrics | The Levels and The Folds</title><!-- Google Fonts: Orbitron, Inter, & JetBrains Mono --><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600;800&family=Orbitron:wght@600;800;900&display=swap" rel="stylesheet"><!-- Theme Enforcer Script (Forces Dark Mode & Clears Light Cache) --><script>
+			(function() {
+				localStorage.removeItem('theme');
+				document.documentElement.classList.add('dark');
+				document.documentElement.classList.remove('light');
+			})();
+		</script><!-- Tailwind CSS Engine with is:inline (CRITICAL FOR ASTRO) --><script src="https://cdn.tailwindcss.com"></script><script>
+			tailwind.config = {
+				darkMode: 'class',
+				theme: {
+					extend: {
+						fontFamily: {
+							sans: ['Inter', 'sans-serif'],
+							orbitron: ['Orbitron', 'sans-serif'],
+							mono: ['JetBrains Mono', 'monospace'],
+						},
+						animation: {
+							'pulse-slow': 'pulse 6s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+							'float': 'float 3s ease-in-out infinite',
+						},
+						keyframes: {
+							float: {
+								'0%, 100%': { transform: 'translateY(0px)' },
+								'50%': { transform: 'translateY(-8px)' },
+							}
+						}
+					}
+				}
+			}
+		</script><link rel="stylesheet" href="/_astro/about.B0NRGD4f.css"></head> <body class="min-h-screen flex flex-col bg-black text-slate-100 font-sans antialiased selection:bg-purple-500 selection:text-white relative overflow-x-hidden"> <!-- Starfield Layer --> <div class="stars-container"> <div class="stars-layer1"></div> <div class="stars-layer2"></div> <div class="stars-layer3"></div> <div class="comet"></div> <div class="comet-2"></div> <div class="comet-3"></div> </div> <!-- Ambient Background Glow Orbs --> <div class="fixed top-0 left-1/4 w-[600px] h-[600px] bg-purple-600/10 rounded-full blur-[120px] pointer-events-none z-0 animate-pulse-slow"></div> <div class="fixed bottom-0 right-1/4 w-[500px] h-[500px] bg-amber-500/10 rounded-full blur-[120px] pointer-events-none z-0 animate-pulse-slow"></div> <!-- Sticky Glassmorphism Header with Full Navigation --> <header class="sticky top-0 z-50 backdrop-blur-xl bg-black/80 border-b border-purple-900/30 shadow-lg shadow-purple-950/20 transition-colors"> <div class="max-w-[1600px] mx-auto px-6 h-20 flex items-center justify-between"> <!-- Brand Logo --> <a href="/" class="flex items-center space-x-3 group"> <span class="font-orbitron text-2xl font-black tracking-widest bg-gradient-to-r from-purple-400 via-pink-500 to-amber-300 bg-clip-text text-transparent group-hover:opacity-90 transition">
+COSMOS
+</span> <span class="text-[10px] px-3 py-0.5 bg-purple-950/90 border border-purple-700/50 rounded-full text-purple-300 font-mono hidden 2xl:inline-block tracking-wide shadow-[0_0_12px_rgba(168,85,247,0.2)]">
+The Levels and The Folds
+</span> </a> <!-- Desktop Navigation Links --> <nav class="hidden lg:flex items-center space-x-5 xl:space-x-8 text-xs uppercase tracking-widest font-mono font-semibold text-slate-300"> <a href="/" class="hover:text-purple-400 transition hover:scale-105">Home</a> <a href="/about" class="hover:text-pink-400 transition hover:scale-105">About</a> <a href="/artists" class="hover:text-purple-400 transition hover:scale-105">Artists</a> <a href="/music" class="hover:text-amber-400 transition hover:scale-105">Music</a> <a href="/books" class="hover:text-pink-400 transition hover:scale-105">Books</a> <a href="/lore" class="hover:text-cyan-400 transition hover:scale-105">Lore</a> </nav> <!-- Header Actions --> <div class="flex items-center gap-2 xl:gap-3"> <!-- Member Journey Placeholder --> <button type="button" disabled aria-label="Your Personal Journey Space — coming soon" title="Coming soon" class="group relative overflow-hidden font-mono text-[10px] xl:text-xs font-bold uppercase tracking-wider text-cyan-50 px-4 xl:px-5 py-2.5 rounded-full border border-cyan-300/60 bg-gradient-to-r from-cyan-950 via-indigo-900 to-purple-900 shadow-[0_0_24px_rgba(34,211,238,0.28)] cursor-default hidden lg:flex items-center gap-2 whitespace-nowrap"> <span class="absolute inset-0 bg-gradient-to-r from-cyan-400/10 via-purple-400/10 to-pink-400/10"></span> <span class="relative">Your Personal Journey Space</span> <span class="relative text-[8px] xl:text-[9px] text-cyan-200 border border-cyan-300/40 rounded-full px-1.5 py-0.5 tracking-widest">Soon</span> </button> <!-- Patreon CTA Button --> <a href="https://www.patreon.com/c/wackyciscorecords/" target="_blank" rel="noopener noreferrer" class="font-mono text-[10px] xl:text-xs font-bold uppercase tracking-wider bg-gradient-to-r from-purple-600 via-pink-600 to-amber-500 hover:from-purple-500 hover:to-amber-400 text-white px-4 xl:px-5 py-2.5 rounded-full shadow-lg shadow-purple-950/50 transition hover:scale-105 border border-purple-400/30 flex items-center gap-2 whitespace-nowrap"> <span class="hidden sm:inline">Enter the levels and the folds</span> <span class="sm:hidden">Enter</span> <span class="text-amber-300">&rarr;</span> </a> </div> </div> </header> <!-- Dynamic Page Content Slot --> <main class="flex-grow relative z-10">  <main class="max-w-4xl mx-auto px-6 py-10"> <!-- Navigation Back Link Bar (Sticky Top Sub-Header Bar) --> <div class="sticky top-[80px] z-40 -mx-6 px-6 py-3.5 mb-8 bg-black/85 backdrop-blur-xl border-b border-purple-900/40 shadow-2xl flex items-center justify-between flex-wrap gap-4 font-mono text-xs"> <a href="/music/mary/album-bloodlines" class="px-5 py-2.5 rounded-xl text-xs uppercase tracking-wider font-mono font-extrabold bg-purple-950/95 text-purple-200 border-2 border-purple-500/60 hover:bg-purple-900 hover:text-white transition-all shadow-xl hover:shadow-purple-900/60 hover:scale-105 flex items-center gap-2.5"> <span class="text-purple-400 font-bold text-sm">&larr;</span> <span>Back to Bloodlines Album</span> </a> <a href="/music" class="px-4 py-2 rounded-xl text-xs uppercase tracking-wider font-mono font-bold bg-slate-900/90 text-slate-300 border border-slate-700/50 hover:bg-slate-800 hover:text-white transition-all flex items-center gap-2 shadow-lg"> <span>All Releases</span> <span class="text-slate-400 font-bold text-sm">&rarr;</span> </a> </div> <!-- Header Card --> <div class="bg-slate-900/60 p-8 rounded-2xl border border-slate-800/80 shadow-2xl mb-10 backdrop-blur-sm flex flex-col md:flex-row gap-6 items-center"> <img src="/images/mary/bloodlines_mary_album_cover_01.webp" alt="Were Bears Here Tonight" class="w-32 h-32 rounded-xl object-cover shadow-lg border border-slate-700/50 flex-shrink-0"> <div class="space-y-2 text-center md:text-left"> <span class="px-3 py-1 rounded-full text-xs font-semibold bg-purple-950/80 text-purple-300 border border-purple-800/50 font-mono"> Mary - Album 1: Bloodlines </span> <h1 class="text-3xl md:text-5xl font-black text-white">Were Bears Here Tonight</h1> <p class="text-slate-400 text-sm italic">"I make the best of what I&#39;ve got"</p> </div> </div> <!-- Lyrics Content Box (Preserves Line Breaks and Formatting) --> <article class="prose prose-invert max-w-none bg-slate-900/40 p-8 rounded-2xl border border-slate-800/60 shadow-xl whitespace-pre-line text-slate-200 leading-relaxed font-sans"> <p>Age: 32<br>
+Musical direction: dockyard folk-punk / heavy skate-punk; big floor toms, chain-and-wood percussion, gritty bass, rough-edged Mary vocal delivery, gang harmonies, restrained strings during the family-memory section.</p>
+<p><strong>[Intro — dock bell / rope strain / crates hitting wood]</strong></p>
+<p>“Greg!”</p>
+<p>Yeah?</p>
+<p>“Last crate!”</p>
+<p>Easy—</p>
+<p>Easy—</p>
+<p>If you drop that one<br>
+you’re swimming after it.</p>
+<p>…</p>
+<p>There.</p>
+<p>Done.</p>
+<p><strong>[Verse 1]</strong><br>
+West Ridge wakes with gulls and engines<br>
+Cargo coming with the tide<br>
+Ships from places past the water<br>
+Feed the whole damn town inside</p>
+<p>Grain and timber<br>
+Tools and medicine<br>
+Things Central needs by noon</p>
+<p>Unload fast<br>
+Tie her steady<br>
+Next one’s docking way too soon</p>
+<p>Greg moves freight from ship to shoreline<br>
+Carts it inland when they pay<br>
+Built his boat from stripped-down timber<br>
+Piece by piece and day by day</p>
+<p>She ain’t pretty</p>
+<p>Neither is he</p>
+<p>But she floats<br>
+And that’ll do</p>
+<p>Every board was cut by hand</p>
+<p>Built her stubborn</p>
+<p>Built her true</p>
+<p><strong>[Pre-Chorus]</strong><br>
+Use what’s there<br>
+Fix what breaks</p>
+<p>Learn the weight<br>
+Know what it takes</p>
+<p>Hands get cut<br>
+Back gets sore</p>
+<p>Tomorrow morning<br>
+Do some more</p>
+<p><strong>[Chorus]</strong><br>
+I make the best<br>
+Of what I’ve got</p>
+<p>A little ain’t nothing<br>
+When you’ve lost a lot</p>
+<p>Wood and rope<br>
+Muscle and time</p>
+<p>If it falls apart</p>
+<p>I make it mine</p>
+<p>West Ridge weather<br>
+Forest nights</p>
+<p>Keep your head down<br>
+Keep things right</p>
+<p>You don’t need much<br>
+To get along</p>
+<p>Just something built<br>
+To hold you strong</p>
+<p><strong>[Verse 2 — drums pull back / strings underneath]</strong><br>
+Was the youngest of six brothers<br>
+Four years old when fire came</p>
+<p>Forest burned beside our cottage<br>
+By the morning nothing stayed</p>
+<p>Five big shadows<br>
+Gone before me</p>
+<p>Family swallowed by the flame</p>
+<p>Too young then to understand it</p>
+<p>Old enough to know their names</p>
+<p>People told me I could leave there<br>
+Start somewhere that hurt less bad</p>
+<p>Never understood that thinking</p>
+<p>It was still the home we had</p>
+<p>So I rebuilt every floorboard<br>
+Raised the walls and roof by hand</p>
+<p>Same patch sitting near the forest</p>
+<p>Same old stubborn piece of land</p>
+<p><strong>[Pre-Chorus]</strong><br>
+Hammer down<br>
+Drive it straight</p>
+<p>You can’t bargain much with fate</p>
+<p>What is gone<br>
+Stays gone</p>
+<p>What remains—</p>
+<p>You carry on</p>
+<p><strong>[Chorus — bigger]</strong><br>
+I make the best<br>
+Of what I’ve got</p>
+<p>A little ain’t nothing<br>
+When you’ve lost a lot</p>
+<p>Wood and rope<br>
+Muscle and time</p>
+<p>If it falls apart</p>
+<p>I make it mine</p>
+<p>West Ridge weather<br>
+Forest nights</p>
+<p>I’ve seen darker<br>
+I’ll be all right</p>
+<p>You don’t need much<br>
+To call it home</p>
+<p>Just somewhere yours</p>
+<p>Even alone</p>
+<p><strong>[Instrumental — dock chains become percussion / dirty guitar solo]</strong></p>
+<p><strong>[Verse 3]</strong><br>
+Sun goes down across the harbor<br>
+Last delivery finally done</p>
+<p>Tie the boat beside the piling<br>
+Shoulder aching from the sun</p>
+<p>Long walk home along the treeline<br>
+Same old path beneath my feet</p>
+<p>Smoke from chimneys<br>
+Crickets starting</p>
+<p>Quiet</p>
+<p>Simple</p>
+<p>Good enough for me</p>
+<p>Then I see the door.</p>
+<p>…</p>
+<p>Open.</p>
+<p>That ain’t right.</p>
+<p><strong>[Music drops]</strong></p>
+<p>Greg.</p>
+<p>Think.</p>
+<p>Wind?</p>
+<p>No.</p>
+<p>Lock was good this morning.</p>
+<p>Thieves?</p>
+<p>Nothing worth stealing.</p>
+<p>…</p>
+<p>Bear.</p>
+<p>Better be a bear.</p>
+<p><strong>[Build — low bass / heartbeat toms]</strong><br>
+Table sideways<br>
+Chair in pieces</p>
+<p>Cupboard hanging off one hinge</p>
+<p>Blankets dragged across the floorboards<br>
+Pantry scattered wall to wall</p>
+<p>Claw marks—</p>
+<p>Maybe</p>
+<p>Hard to tell</p>
+<p>Mud tracked through the kitchen</p>
+<p>Something big was in my house</p>
+<p>Something very bad at manners</p>
+<p><strong>[Chorus]</strong><br>
+Were bears here tonight?<br>
+Did one kick my damn door in?</p>
+<p>Were bears here tonight?<br>
+And redecorate for fun?</p>
+<p>Every cupboard<br>
+Every blanket<br>
+Every chair turned upside down</p>
+<p>If you wanted dinner, buddy</p>
+<p>There were easier ways<br>
+To come around</p>
+<p>Were bears here tonight?<br>
+Sure looks like something tried</p>
+<p>Whatever made this mess<br>
+Was strong</p>
+<p>And apparently<br>
+Not house-trained</p>
+<p><strong>[Breakdown — almost spoken]</strong></p>
+<p>No blood.</p>
+<p>Good.</p>
+<p>No tracks I recognize.</p>
+<p>Less good.</p>
+<p>Window’s broken.</p>
+<p>Fantastic.</p>
+<p>…</p>
+<p>I just fixed that.</p>
+<p><strong>[Verse 4]</strong><br>
+I’ve seen black bears near the timber<br>
+Seen them wandering after rain</p>
+<p>Never seen one open cabinets<br>
+Never seen one search this way</p>
+<p>Food is scattered<br>
+Not all eaten</p>
+<p>Nothing obvious was taken</p>
+<p>If it came here just for hunger</p>
+<p>Why’s my bedroom torn apart?</p>
+<p>…</p>
+<p>That’s weird.</p>
+<p><strong>[Final Chorus — full stomp / layered gang harmonies]</strong><br>
+Were bears here tonight?<br>
+Maybe that’s the simple answer</p>
+<p>Were bears here tonight?<br>
+Forest’s right outside my door</p>
+<p>Greg knows animals<br>
+Greg knows weather<br>
+Greg knows what these woods can do</p>
+<p>And there’s nothing in this cottage</p>
+<p>That I can’t rebuild<br>
+Good as new</p>
+<p>Were bears here tonight?<br>
+Fine</p>
+<p>Tomorrow I’ll repair it right</p>
+<p>Board the window<br>
+Fix the hinges</p>
+<p>Clean the floor</p>
+<p>And sleep tonight</p>
+<p><strong>[Outro — music thins / forest ambience]</strong></p>
+<p>I pick up the broken table</p>
+<p>Turn it over</p>
+<p>Something underneath</p>
+<p>…</p>
+<p>A mark?</p>
+<p>No.</p>
+<p>Probably scratches.</p>
+<p>…</p>
+<p>Yeah.</p>
+<p>Bear.</p>
+<p>Had to be.</p>
+<p><strong>[Distant branch snap]</strong></p>
+<p>…</p>
+<p>Hello?</p>
+<p><strong>[Silence]</strong></p>
+<p>…</p>
+<p>Great.</p>
+<p><strong>[CUT]</strong></p>
+<p>TITLE NOTE — STRUCTURAL / FORESHADOWING:<br>
+Surface title function: Greg genuinely asks whether bears were in his cottage that night.<br>
+Embedded monster echo: “Were Bears” sounds like “Werebears.” This is deliberate title foreshadowing only. It does NOT by itself establish an in-story werebear reveal, species identity, or supernatural fact.</p> </article> <!-- Bottom Navigation Actions --> <div class="mt-10 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-purple-900/40"> <a href="/music/mary/album-bloodlines" class="w-full sm:w-auto px-6 py-3.5 rounded-xl text-xs uppercase tracking-wider font-mono font-bold bg-purple-950/90 text-purple-200 border border-purple-500/50 hover:bg-purple-900 hover:text-white transition-all flex items-center justify-center gap-2 shadow-xl hover:shadow-purple-900/50 hover:-translate-x-1"> <span class="text-purple-400 font-bold text-sm">&larr;</span> <span>Back to Bloodlines Album</span> </a> <a href="/music" class="w-full sm:w-auto px-6 py-3.5 rounded-xl text-xs uppercase tracking-wider font-mono font-bold bg-slate-900/90 text-slate-300 border border-slate-700/50 hover:bg-slate-800 hover:text-white transition-all flex items-center justify-center gap-2 shadow-xl"> <span>Back to Music</span> <span class="text-slate-400 font-bold text-sm">&rarr;</span> </a> </div> </main>  </main> <!-- Global Footer --> <footer class="relative z-10 py-12 border-t border-slate-900 bg-black/80 text-center text-xs font-mono text-slate-500"> <p class="tracking-wider">&copy; 2026 The Cosmos Ecosystem. Built for Francisco de Leon (Wacky).</p> <p class="text-[10px] text-slate-600 mt-1">All Levels & Folds Exist Simultaneously across 300,000 Years.</p> </footer> </body></html>

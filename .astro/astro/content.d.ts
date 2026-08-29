@@ -2290,6 +2290,90 @@ declare module 'astro:content' {
   collection: "songs";
   data: InferEntrySchema<"songs">
 } & { render(): Render[".md"] };
+"count-wrongula-01-walking-on-sunshine.md": {
+	id: "count-wrongula-01-walking-on-sunshine.md";
+  slug: "count-wrongula-01-walking-on-sunshine";
+  body: string;
+  collection: "songs";
+  data: InferEntrySchema<"songs">
+} & { render(): Render[".md"] };
+"count-wrongula-02-the-eve-of-things-to-come.md": {
+	id: "count-wrongula-02-the-eve-of-things-to-come.md";
+  slug: "count-wrongula-02-the-eve-of-things-to-come";
+  body: string;
+  collection: "songs";
+  data: InferEntrySchema<"songs">
+} & { render(): Render[".md"] };
+"count-wrongula-03-to-whom-it-may-concern.md": {
+	id: "count-wrongula-03-to-whom-it-may-concern.md";
+  slug: "count-wrongula-03-to-whom-it-may-concern";
+  body: string;
+  collection: "songs";
+  data: InferEntrySchema<"songs">
+} & { render(): Render[".md"] };
+"count-wrongula-04-our-deepest-condolences.md": {
+	id: "count-wrongula-04-our-deepest-condolences.md";
+  slug: "count-wrongula-04-our-deepest-condolences";
+  body: string;
+  collection: "songs";
+  data: InferEntrySchema<"songs">
+} & { render(): Render[".md"] };
+"count-wrongula-05-counting-accounting.md": {
+	id: "count-wrongula-05-counting-accounting.md";
+  slug: "count-wrongula-05-counting-accounting";
+  body: string;
+  collection: "songs";
+  data: InferEntrySchema<"songs">
+} & { render(): Render[".md"] };
+"count-wrongula-06-encumbered-discoveries.md": {
+	id: "count-wrongula-06-encumbered-discoveries.md";
+  slug: "count-wrongula-06-encumbered-discoveries";
+  body: string;
+  collection: "songs";
+  data: InferEntrySchema<"songs">
+} & { render(): Render[".md"] };
+"count-wrongula-07-wrong-turn.md": {
+	id: "count-wrongula-07-wrong-turn.md";
+  slug: "count-wrongula-07-wrong-turn";
+  body: string;
+  collection: "songs";
+  data: InferEntrySchema<"songs">
+} & { render(): Render[".md"] };
+"count-wrongula-08-destinations-and-connections.md": {
+	id: "count-wrongula-08-destinations-and-connections.md";
+  slug: "count-wrongula-08-destinations-and-connections";
+  body: string;
+  collection: "songs";
+  data: InferEntrySchema<"songs">
+} & { render(): Render[".md"] };
+"count-wrongula-09-no-invitation-required.md": {
+	id: "count-wrongula-09-no-invitation-required.md";
+  slug: "count-wrongula-09-no-invitation-required";
+  body: string;
+  collection: "songs";
+  data: InferEntrySchema<"songs">
+} & { render(): Render[".md"] };
+"count-wrongula-10-unsolicited-entries.md": {
+	id: "count-wrongula-10-unsolicited-entries.md";
+  slug: "count-wrongula-10-unsolicited-entries";
+  body: string;
+  collection: "songs";
+  data: InferEntrySchema<"songs">
+} & { render(): Render[".md"] };
+"count-wrongula-11-the-tridecagon-of-old.md": {
+	id: "count-wrongula-11-the-tridecagon-of-old.md";
+  slug: "count-wrongula-11-the-tridecagon-of-old";
+  body: string;
+  collection: "songs";
+  data: InferEntrySchema<"songs">
+} & { render(): Render[".md"] };
+"count-wrongula-12-the-order-of-the-veilguards.md": {
+	id: "count-wrongula-12-the-order-of-the-veilguards.md";
+  slug: "count-wrongula-12-the-order-of-the-veilguards";
+  body: string;
+  collection: "songs";
+  data: InferEntrySchema<"songs">
+} & { render(): Render[".md"] };
 "crimson-haired-light.md": {
 	id: "crimson-haired-light.md";
   slug: "crimson-haired-light";
@@ -2867,6 +2951,90 @@ declare module 'astro:content' {
 "marionettes-and-puppets.md": {
 	id: "marionettes-and-puppets.md";
   slug: "marionettes-and-puppets";
+  body: string;
+  collection: "songs";
+  data: InferEntrySchema<"songs">
+} & { render(): Render[".md"] };
+"mary-01-welcome-to-ridgefall.md": {
+	id: "mary-01-welcome-to-ridgefall.md";
+  slug: "mary-01-welcome-to-ridgefall";
+  body: string;
+  collection: "songs";
+  data: InferEntrySchema<"songs">
+} & { render(): Render[".md"] };
+"mary-02-where-wolves-wait.md": {
+	id: "mary-02-where-wolves-wait.md";
+  slug: "mary-02-where-wolves-wait";
+  body: string;
+  collection: "songs";
+  data: InferEntrySchema<"songs">
+} & { render(): Render[".md"] };
+"mary-03-which-is-witch.md": {
+	id: "mary-03-which-is-witch.md";
+  slug: "mary-03-which-is-witch";
+  body: string;
+  collection: "songs";
+  data: InferEntrySchema<"songs">
+} & { render(): Render[".md"] };
+"mary-04-wendy-i-go.md": {
+	id: "mary-04-wendy-i-go.md";
+  slug: "mary-04-wendy-i-go";
+  body: string;
+  collection: "songs";
+  data: InferEntrySchema<"songs">
+} & { render(): Render[".md"] };
+"mary-05-wraith-or-wrong.md": {
+	id: "mary-05-wraith-or-wrong.md";
+  slug: "mary-05-wraith-or-wrong";
+  body: string;
+  collection: "songs";
+  data: InferEntrySchema<"songs">
+} & { render(): Render[".md"] };
+"mary-06-wild-child.md": {
+	id: "mary-06-wild-child.md";
+  slug: "mary-06-wild-child";
+  body: string;
+  collection: "songs";
+  data: InferEntrySchema<"songs">
+} & { render(): Render[".md"] };
+"mary-07-were-bears-here-tonight.md": {
+	id: "mary-07-were-bears-here-tonight.md";
+  slug: "mary-07-were-bears-here-tonight";
+  body: string;
+  collection: "songs";
+  data: InferEntrySchema<"songs">
+} & { render(): Render[".md"] };
+"mary-08-wight-noise.md": {
+	id: "mary-08-wight-noise.md";
+  slug: "mary-08-wight-noise";
+  body: string;
+  collection: "songs";
+  data: InferEntrySchema<"songs">
+} & { render(): Render[".md"] };
+"mary-09-wish-you-were-hair.md": {
+	id: "mary-09-wish-you-were-hair.md";
+  slug: "mary-09-wish-you-were-hair";
+  body: string;
+  collection: "songs";
+  data: InferEntrySchema<"songs">
+} & { render(): Render[".md"] };
+"mary-10-whoof.md": {
+	id: "mary-10-whoof.md";
+  slug: "mary-10-whoof";
+  body: string;
+  collection: "songs";
+  data: InferEntrySchema<"songs">
+} & { render(): Render[".md"] };
+"mary-11-when-wendy-met-mary.md": {
+	id: "mary-11-when-wendy-met-mary.md";
+  slug: "mary-11-when-wendy-met-mary";
+  body: string;
+  collection: "songs";
+  data: InferEntrySchema<"songs">
+} & { render(): Render[".md"] };
+"mary-12-who-are-you.md": {
+	id: "mary-12-who-are-you.md";
+  slug: "mary-12-who-are-you";
   body: string;
   collection: "songs";
   data: InferEntrySchema<"songs">

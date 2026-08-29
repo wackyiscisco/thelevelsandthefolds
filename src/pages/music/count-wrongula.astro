@@ -1,0 +1,157 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const album = {
+  name: 'WHO',
+  slug: 'album-who',
+  cover: '/images/count-wrongula/who_album_cover_01.png',
+  tracks: 12,
+};
+---
+
+<Layout title="Count Wrongula | Official Music Space">
+  <main class="count-music-page w-full max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-10 py-6 sm:py-10">
+    <div class="sticky top-[80px] z-40 -mx-4 sm:-mx-6 lg:-mx-10 px-4 sm:px-6 lg:px-10 py-3.5 mb-6 bg-black/85 backdrop-blur-xl border-b border-amber-900/40 shadow-2xl flex items-center justify-between">
+      <a href="/music" class="px-5 py-2.5 rounded-xl text-xs uppercase tracking-wider font-mono font-extrabold bg-amber-950/95 text-amber-100 border-2 border-amber-600/60 hover:bg-amber-900 hover:text-white transition-all shadow-xl hover:scale-105 flex items-center gap-2.5">
+        <span class="text-amber-400 font-bold text-sm">&larr;</span>
+        <span>Back to Music</span>
+      </a>
+      <span class="hidden sm:inline-block text-[11px] font-mono text-amber-200/90 uppercase px-3.5 py-1.5 rounded-full bg-amber-950/70 border border-amber-700/50">
+        Cosmos Node :: Count_Wrongula
+      </span>
+    </div>
+
+    <section class="artist-banner relative w-full rounded-3xl overflow-hidden bg-slate-950 border border-amber-900/40 shadow-2xl h-80 sm:h-96 flex items-center justify-center p-6 md:p-10 mb-8 group text-center">
+      <img
+        src="/images/count-wrongula/count_wrongula_eve_artist_01.png"
+        alt=""
+        class="absolute inset-0 w-full h-full object-cover object-center opacity-80 group-hover:scale-[1.025] transition-transform duration-700"
+      />
+      <div class="absolute inset-0 bg-gradient-to-t from-black via-black/35 to-black/15"></div>
+      <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(0,0,0,.18)_42%,rgba(0,0,0,.82)_100%)]"></div>
+      <div class="absolute inset-y-0 left-1/2 w-px bg-white/35 -skew-x-[7deg]"></div>
+
+      <div class="relative z-20 flex flex-col items-center justify-center text-center space-y-4 max-w-3xl mx-auto">
+        <img
+          src="/images/count-wrongula/wrongula_01.png"
+          alt="Count Wrongula"
+          class="w-24 h-24 sm:w-28 sm:h-28 rounded-full border-4 border-amber-500/50 shadow-[0_0_35px_rgba(201,157,82,.45)] object-cover object-top bg-black"
+        />
+        <div class="flex flex-wrap items-center justify-center gap-2">
+          <span class="px-3 py-0.5 rounded-full text-[10px] font-semibold uppercase tracking-wider bg-amber-950/90 text-amber-200 border border-amber-700/50 font-mono">
+            66_6 / 6_66
+          </span>
+          <span class="px-3 py-0.5 rounded-full text-[10px] font-semibold uppercase tracking-wider bg-slate-950/90 text-slate-200 border border-slate-600/50 font-mono">
+            Album 1 Active
+          </span>
+        </div>
+        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight text-white leading-tight font-orbitron drop-shadow-[0_3px_16px_rgba(0,0,0,.95)]">
+          Count Wrongula
+        </h1>
+        <p class="text-xs sm:text-sm font-mono uppercase tracking-[.16em] text-amber-100 drop-shadow-lg">
+          Two realities · alternating transmissions
+        </p>
+      </div>
+    </section>
+
+    <div class="flex items-center justify-start gap-1 overflow-x-auto py-1 border-b border-slate-900 mb-8 font-mono text-[11px] uppercase tracking-wider">
+      <span class="px-4 py-2 rounded-xl font-bold border border-amber-600/40 bg-amber-950/70 text-amber-100 shadow-md">
+        ♪ Releases
+      </span>
+      <span class="px-4 py-2 text-slate-500">Profile & Lore · Later</span>
+      <span class="px-4 py-2 text-slate-500">Media & BTS · Later</span>
+    </div>
+
+    <section class="space-y-12">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        <div class="lg:col-span-8 bg-slate-950/60 border border-amber-900/30 p-6 sm:p-8 rounded-3xl backdrop-blur-md space-y-3">
+          <span class="text-xs font-mono uppercase tracking-widest text-amber-400 font-semibold">Artist Overview</span>
+          <p class="text-sm sm:text-base text-slate-200 leading-relaxed font-light">
+            Count Wrongula carries the odd-numbered transmissions from 66_6. Eve carries the even-numbered transmissions from 6_66. They have not met, but their songs already answer one another across the crossing.
+          </p>
+        </div>
+        <blockquote class="lg:col-span-4 bg-amber-950/15 border-l-4 border-amber-500/80 p-6 rounded-r-3xl italic text-amber-100 font-serif text-base sm:text-lg leading-relaxed shadow-lg">
+          “Who, What, Why, Where, When—Wrongula is only one letter away.”
+        </blockquote>
+      </div>
+
+      <div class="space-y-6 pt-2">
+        <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-amber-900/30 pb-4">
+          <div>
+            <span class="text-xs font-mono uppercase tracking-widest text-amber-400 font-semibold">Canonical Discography</span>
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-white font-orbitron tracking-tight mt-1">Official LP Vinyl Releases</h2>
+          </div>
+          <span class="self-start sm:self-auto text-xs font-mono text-amber-200/80 px-3 py-1.5 rounded-full bg-amber-950/60 border border-amber-800/40">
+            1 Vinyl LP · 12 Tracks
+          </span>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-12 py-6 px-2">
+          <a
+            href={`/music/count-wrongula/${album.slug}`}
+            class="group relative flex flex-col items-center text-center transition-transform duration-300 hover:z-40 cursor-pointer rotate-[-2deg] hover:rotate-0"
+          >
+            <div class="vinyl w-48 h-48 sm:w-56 sm:h-56 rounded-full bg-gradient-to-tr from-neutral-950 via-zinc-900 to-black border-4 border-zinc-800/80 shadow-2xl relative flex items-center justify-center -mb-28 group-hover:-translate-y-10 transition-transform duration-500 z-0 overflow-hidden">
+              <div class="absolute inset-2 rounded-full border border-zinc-800/60"></div>
+              <div class="absolute inset-5 rounded-full border border-zinc-800/40"></div>
+              <div class="absolute inset-9 rounded-full border border-zinc-800/40"></div>
+              <div class="absolute inset-14 rounded-full border border-zinc-800/40"></div>
+              <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full overflow-hidden border-2 border-amber-500/60 relative flex items-center justify-center shadow-lg bg-black">
+                <img src={album.cover} alt="" class="w-full h-full object-cover" />
+                <div class="w-3.5 h-3.5 rounded-full bg-slate-950 border border-slate-700 absolute"></div>
+              </div>
+            </div>
+
+            <div class="w-full max-w-[270px] aspect-square rounded-2xl overflow-hidden bg-slate-950 border border-amber-500/35 shadow-2xl group-hover:shadow-[0_0_40px_rgba(201,157,82,.38)] group-hover:border-amber-400/90 group-hover:scale-[1.03] transition-all duration-300 relative z-10">
+              <img src={album.cover} alt="WHO — Album 1 by Count Wrongula" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+              <div class="absolute inset-0 bg-gradient-to-tr from-transparent via-white/10 to-transparent opacity-40 group-hover:opacity-75 transition-opacity"></div>
+              <div class="absolute top-3 left-3 right-3 flex items-center justify-between">
+                <span class="px-2.5 py-1 rounded-full text-[10px] font-mono font-bold bg-slate-950/85 text-amber-100 border border-amber-500/40 backdrop-blur-md">Album 1</span>
+                <span class="px-2 py-0.5 rounded-full text-[9px] font-mono bg-amber-950/90 text-amber-200 border border-amber-800/40 backdrop-blur-md">{album.tracks} Tracks</span>
+              </div>
+              <div class="absolute inset-x-0 bottom-0 p-3.5 bg-gradient-to-t from-black via-black/90 to-transparent flex flex-col justify-end text-left">
+                <h3 class="text-sm font-bold text-white group-hover:text-amber-200 transition-colors">Album 1: {album.name}</h3>
+                <span class="text-[10px] font-mono text-amber-400 group-hover:text-amber-200 transition-colors flex items-center gap-1 mt-0.5">
+                  <span>Open Album & Tracklist</span>
+                  <span class="group-hover:translate-x-1 transition-transform">→</span>
+                </span>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <div class="mt-12 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-amber-900/40">
+      <a href="/music" class="w-full sm:w-auto px-6 py-3.5 rounded-xl text-xs uppercase tracking-wider font-mono font-bold bg-amber-950/90 text-amber-100 border border-amber-500/50 hover:bg-amber-900 hover:text-white transition-all flex items-center justify-center gap-2 shadow-xl">
+        <span>←</span><span>Back to Music</span>
+      </a>
+      <a href="/music" class="w-full sm:w-auto px-6 py-3.5 rounded-xl text-xs uppercase tracking-wider font-mono font-bold bg-slate-900/90 text-slate-300 border border-slate-700/50 hover:bg-slate-800 hover:text-white transition-all flex items-center justify-center gap-2 shadow-xl">
+        <span>View All Cosmos Releases</span><span>→</span>
+      </a>
+    </div>
+  </main>
+</Layout>
+
+<style>
+  :global(body) { background-color: #050816 !important; }
+  .count-music-page { position: relative; z-index: 1; }
+  .count-music-page::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background:
+      radial-gradient(circle at 18% 16%, rgba(105, 34, 26, .16), transparent 32rem),
+      radial-gradient(circle at 82% 30%, rgba(85, 105, 122, .11), transparent 34rem);
+  }
+  .artist-banner::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    box-shadow: inset 0 0 80px rgba(0,0,0,.78);
+  }
+  .vinyl { background-image: repeating-radial-gradient(circle at center, transparent 0 7px, rgba(255,255,255,.035) 8px, transparent 9px); }
+</style>

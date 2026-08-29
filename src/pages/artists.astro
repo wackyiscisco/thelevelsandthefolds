@@ -77,7 +77,7 @@ const getArtistFontClass = (artistId: string) => {
     </div>
 
     <span class="text-xs uppercase tracking-widest font-bold text-purple-400 bg-purple-950/60 border border-purple-800/50 px-4 py-1.5 rounded-full font-mono shadow-md">
-      620+ Tracks Active Across 4 Multiversal Epochs
+      620+ Tracks Active Across Levels & Folds
     </span>
 
     <h1 class="mt-6 text-4xl md:text-6xl font-black tracking-tight leading-tight font-orbitron">
@@ -85,7 +85,7 @@ const getArtistFontClass = (artistId: string) => {
     </h1>
 
     <p class="mt-4 text-slate-400 text-sm md:text-base max-w-2xl mx-auto leading-relaxed">
-      In the Cosmos, every artist anchors a distinct emotional thesis within their Level and Fold. Explore our 8 core acts grouped by their multiversal era below.
+      In the Cosmos, every artist anchors a distinct emotional thesis within their Level and Fold. Explore our 10 core acts grouped by their multiversal era below.
     </p>
   </section>
 
@@ -175,7 +175,104 @@ const getArtistFontClass = (artistId: string) => {
     </div>
 
     <!-- ========================================== -->
-    <!-- EPOCH 2: LEVEL 8 FOLD 39 (NOIR MYSTERY)    -->
+    <!-- OVERLAPPING PAGES: 6_66 / 66_6             -->
+    <!-- ========================================== -->
+    <div class="space-y-6">
+      <div
+        class="group block relative overflow-hidden rounded-3xl border border-amber-800/50 bg-stone-950 p-8 shadow-[0_0_50px_rgba(214,183,122,0.12)]"
+      >
+        <div class="absolute inset-0 pointer-events-none opacity-40 bg-[linear-gradient(110deg,rgba(214,183,122,0.2)_0%,rgba(214,183,122,0.04)_49%,rgba(139,176,202,0.05)_51%,rgba(139,176,202,0.2)_100%)]"></div>
+        <div class="relative space-y-2">
+          <div class="flex items-center gap-2 flex-wrap">
+            <span class="px-3 py-1 rounded-full text-[10px] font-mono font-bold bg-amber-950 text-amber-100 border border-amber-700 shadow-md">6_66 / 66_6</span>
+            <span class="text-[10px] font-mono uppercase bg-slate-900 text-slate-300 border border-slate-700 px-2.5 py-1 rounded-full">Overlapping Pages &bull; Living Threshold</span>
+          </div>
+          <h2 class="text-2xl md:text-3xl font-black font-orbitron bg-gradient-to-r from-amber-200 to-sky-200 bg-clip-text text-transparent">Mary &amp; Count Wrongula</h2>
+          <p class="text-xs md:text-sm text-slate-300 max-w-3xl font-light leading-relaxed">Bloodlines and WHO occupy one shared threshold. Turn the living page fully toward either artist to enter their music.</p>
+        </div>
+      </div>
+
+      <div class="codex-sanctum">
+        <div class="codex-runes" aria-hidden="true">ᚾ&nbsp;&nbsp;✦&nbsp;&nbsp;ᛟ&nbsp;&nbsp;◇&nbsp;&nbsp;ᚱ&nbsp;&nbsp;✧</div>
+
+        <div
+          class="living-codex"
+          data-living-codex
+          role="slider"
+          tabindex="0"
+          aria-label="Turn the shared page between Mary and Count Wrongula"
+          aria-valuemin="0"
+          aria-valuemax="100"
+          aria-valuenow="50"
+          aria-valuetext="Mary and Count Wrongula overlap"
+        >
+          <div class="codex-cover" aria-hidden="true"></div>
+          <div class="codex-smoke" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+          <i class="codex-corner codex-corner-tl" aria-hidden="true"></i>
+          <i class="codex-corner codex-corner-tr" aria-hidden="true"></i>
+          <i class="codex-corner codex-corner-bl" aria-hidden="true"></i>
+          <i class="codex-corner codex-corner-br" aria-hidden="true"></i>
+
+          <div class="codex-eye" aria-hidden="true"><span></span></div>
+
+          <section class="codex-page codex-page-mary" aria-label="Mary, 6 underscore 66">
+            <img class="codex-portrait" src="/images/mary/mary_artist_01.png" alt="" aria-hidden="true" />
+            <span class="codex-coordinate">6_66</span>
+            <span class="codex-sigil" aria-hidden="true">☾</span>
+            <div class="codex-copy">
+              <p>The left-hand leaf</p>
+              <h3>Mary</h3>
+              <span>Eighteen, brilliant, stubborn, and endlessly curious—Mary is Ridgefall's scholar and certified monster nerd. She believes every mystery has an answer hidden in a book.</span>
+            </div>
+          </section>
+
+          <section class="codex-page codex-page-wrongula" aria-label="Count Wrongula, 66 underscore 6">
+            <img class="codex-portrait" src="/images/count-wrongula/wrongula_01.png" alt="" aria-hidden="true" />
+            <span class="codex-coordinate">66_6</span>
+            <span class="codex-sigil" aria-hidden="true">◈</span>
+            <div class="codex-copy">
+              <p>The right-hand leaf</p>
+              <h3>Count Wrongula</h3>
+              <span>Smug, elegant, theatrical, and irritating by design. Count Wrongula walks in sunlight, casts a reflection, drinks no blood, and prefers ordinary food, coffee, and tea.</span>
+            </div>
+          </section>
+
+          <div class="codex-turn" aria-hidden="true"><span></span><i></i><b></b></div>
+          <div class="codex-teeth codex-teeth-top" aria-hidden="true"></div>
+          <div class="codex-teeth codex-teeth-bottom" aria-hidden="true"></div>
+          <p class="codex-whisper">Move to turn the living page</p>
+        </div>
+
+        <div class="codex-selection" aria-live="polite">
+          <a
+            href="/music/mary"
+            class="codex-choice codex-choice-mary"
+            data-codex-choice="mary"
+            aria-hidden="true"
+            tabindex="-1"
+          >
+            <small>6_66 fully revealed</small>
+            <strong>Enter Mary?</strong>
+            <span aria-hidden="true">→</span>
+          </a>
+          <p class="codex-choice-prompt" data-codex-choice-prompt>Turn to either edge to choose a page</p>
+          <a
+            href="/music/count-wrongula"
+            class="codex-choice codex-choice-wrongula"
+            data-codex-choice="count-wrongula"
+            aria-hidden="true"
+            tabindex="-1"
+          >
+            <small>66_6 fully revealed</small>
+            <strong>Enter Count Wrongula?</strong>
+            <span aria-hidden="true">→</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- LEVEL 8 FOLD 39 (NOIR MYSTERY)             -->
     <!-- ========================================== -->
     <div class="space-y-6">
       <div class="relative overflow-hidden rounded-3xl border border-sky-900/60 bg-slate-950 p-8 shadow-[0_0_50px_rgba(56,189,248,0.12)]">
@@ -433,6 +530,406 @@ const getArtistFontClass = (artistId: string) => {
     animation: marquee 25s linear infinite;
   }
 
+  .codex-sanctum {
+    position: relative;
+    overflow: hidden;
+    padding: clamp(1rem, 3vw, 2rem);
+    border: 1px solid rgba(180, 123, 45, 0.36);
+    border-radius: 1.8rem;
+    background:
+      radial-gradient(circle at 50% 45%, rgba(138, 86, 27, 0.22), transparent 42%),
+      radial-gradient(circle at 12% 15%, rgba(219, 176, 93, 0.08) 0 1px, transparent 2px),
+      radial-gradient(circle at 86% 72%, rgba(164, 211, 220, 0.08) 0 1px, transparent 2px),
+      linear-gradient(145deg, #090705, #11100e 52%, #050808);
+    box-shadow: inset 0 0 70px rgba(0, 0, 0, 0.9), 0 24px 55px rgba(0, 0, 0, 0.42);
+  }
+
+  .codex-sanctum::before,
+  .codex-sanctum::after {
+    content: '';
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: #f5d694;
+    box-shadow: 120px 30px #8cb6bd, 310px 78px #c99a4c, 520px 25px #8cb6bd, 730px 92px #e9c879, 910px 38px #9f7740;
+    opacity: 0.42;
+    animation: codex-drift 7s ease-in-out infinite alternate;
+  }
+
+  .codex-sanctum::before { left: 4%; top: 8%; }
+  .codex-sanctum::after { right: 7%; bottom: 12%; transform: scale(.7); animation-delay: -3s; }
+
+  .codex-runes {
+    position: absolute;
+    inset: 0 0 auto;
+    z-index: 1;
+    padding-top: .55rem;
+    color: rgba(225, 186, 101, 0.34);
+    font-family: serif;
+    font-size: .72rem;
+    letter-spacing: .62em;
+    text-align: center;
+    text-shadow: 0 0 12px rgba(247, 203, 108, 0.8);
+  }
+
+  .living-codex {
+    --codex-position: 50%;
+    --codex-clip: 50%;
+    --codex-curl: 0deg;
+    --pupil-x: 0px;
+    --pupil-y: 0px;
+    position: relative;
+    z-index: 2;
+    min-height: clamp(390px, 50vw, 540px);
+    margin: 1rem auto .8rem;
+    padding: clamp(1rem, 2vw, 1.45rem);
+    overflow: hidden;
+    border: 2px solid #7d5526;
+    border-radius: 1.3rem 2rem 1.5rem 2.2rem;
+    outline: none;
+    background: #24150c;
+    box-shadow: 0 30px 60px rgba(0,0,0,.72), inset 0 0 0 5px #130b07, inset 0 0 0 8px rgba(190,137,57,.35);
+    cursor: ew-resize;
+    isolation: isolate;
+  }
+
+  .living-codex:focus-visible { box-shadow: 0 0 0 3px #f3ce7b, 0 30px 60px rgba(0,0,0,.72), inset 0 0 0 5px #130b07; }
+
+  .codex-cover {
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    background:
+      radial-gradient(ellipse at 25% 20%, rgba(180,105,45,.28), transparent 35%),
+      repeating-linear-gradient(105deg, transparent 0 11px, rgba(255,255,255,.018) 12px, transparent 14px),
+      linear-gradient(130deg, #3b210f, #140b07 48%, #29160d);
+  }
+
+  .codex-page {
+    position: absolute;
+    inset: clamp(1rem, 2vw, 1.45rem);
+    overflow: hidden;
+    border: 1px solid rgba(80, 49, 25, .58);
+    border-radius: .75rem 1.45rem .8rem 1.5rem;
+    color: #1c160f;
+    box-shadow: inset 0 0 45px rgba(80,45,17,.28), 0 0 0 5px rgba(8,5,3,.36);
+  }
+
+  .codex-page::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    opacity: .2;
+    background:
+      linear-gradient(90deg, rgba(232,211,158,.22), transparent 25% 74%, rgba(56,42,25,.12)),
+      repeating-linear-gradient(0deg, transparent 0 28px, rgba(67,45,23,.1) 29px);
+    mix-blend-mode: multiply;
+  }
+
+  .codex-portrait {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 32% top;
+    z-index: 0;
+    opacity: .78;
+    filter: sepia(.12) saturate(1.02) contrast(1.04) brightness(.94);
+    mix-blend-mode: normal;
+    transform: translateX(-16%) scale(1.08);
+    transform-origin: center top;
+    pointer-events: none;
+  }
+
+  .codex-page-wrongula .codex-portrait {
+    object-position: 68% 20%;
+    opacity: .76;
+    filter: grayscale(.05) sepia(.06) saturate(.96) contrast(1.07) brightness(.92);
+    transform: translateX(16%) scale(1.08);
+  }
+
+  .codex-page-mary {
+    background: radial-gradient(circle at 24% 24%, rgba(255,244,192,.72), transparent 34%), linear-gradient(105deg, #b99a61, #ddc895 67%, #9f7c48);
+  }
+
+  .codex-page-wrongula {
+    z-index: 2;
+    clip-path: inset(0 0 0 var(--codex-clip));
+    background: radial-gradient(circle at 76% 20%, rgba(211,238,239,.45), transparent 35%), linear-gradient(105deg, #748b8e, #bfd0cc 58%, #71878b);
+  }
+
+  .codex-coordinate,
+  .codex-sigil,
+  .codex-copy { position: absolute; z-index: 2; }
+  .codex-coordinate { top: 2rem; left: 2.1rem; font: 800 .78rem/1 monospace; letter-spacing: .3em; }
+  .codex-page-wrongula .codex-coordinate { left: auto; right: 2rem; }
+  .codex-sigil { top: 42%; left: 50%; font: 4rem/1 serif; opacity: .08; transform: translate(-50%, -50%); }
+  .codex-copy { left: clamp(2rem, 5vw, 5rem); right: 2rem; bottom: clamp(2.5rem, 6vw, 5rem); }
+  .codex-page-wrongula .codex-copy { left: 2rem; right: clamp(2rem, 5vw, 5rem); text-align: right; }
+  .codex-copy p { margin: 0 0 .55rem; font: 700 .62rem/1 monospace; letter-spacing: .28em; text-transform: uppercase; opacity: .58; }
+  .codex-copy h3 { margin: 0; font: italic 800 clamp(2.9rem, 7vw, 6rem)/.95 Georgia, serif; letter-spacing: -.04em; text-shadow: 0 1px rgba(255,255,255,.28), 0 8px 22px rgba(54,35,17,.16); }
+  .codex-page-wrongula .codex-copy p { text-align: left; }
+  .codex-page-wrongula .codex-copy h3 {
+    max-width: 46%;
+    text-align: left;
+    font-size: clamp(2.55rem, 5.4vw, 4.9rem);
+    line-height: .84;
+  }
+  .codex-copy span {
+    position: relative;
+    display: block;
+    width: min(40%, 405px);
+    margin-top: .75rem;
+    padding: 1rem 1.3rem 1.05rem;
+    border: 0;
+    color: #2a160c;
+    font: italic 600 clamp(.72rem, 1.08vw, .94rem)/1.43 "Monotype Corsiva", "Lucida Calligraphy", "Segoe Script", Georgia, cursive;
+    letter-spacing: .018em;
+    opacity: .98;
+    background:
+      radial-gradient(circle at 16% 22%, rgba(255,246,199,.62), transparent 30%),
+      radial-gradient(circle at 82% 74%, rgba(109,55,18,.2), transparent 34%),
+      repeating-linear-gradient(2deg, rgba(96,53,19,.07) 0 1px, transparent 1px 5px),
+      linear-gradient(103deg, #b87935, #e6c47f 10%, #d7ad63 55%, #c78f48 91%, #8f5528);
+    text-shadow: 0 1px rgba(255,231,169,.32);
+    clip-path: polygon(2% 7%, 8% 3%, 16% 6%, 25% 2%, 34% 5%, 43% 1%, 52% 5%, 62% 2%, 71% 6%, 80% 2%, 90% 5%, 98% 2%, 97% 14%, 100% 24%, 97% 35%, 99% 47%, 96% 58%, 99% 69%, 96% 80%, 98% 95%, 90% 92%, 81% 97%, 71% 93%, 61% 98%, 52% 94%, 42% 97%, 33% 93%, 24% 98%, 15% 94%, 6% 97%, 2% 91%, 4% 80%, 1% 69%, 4% 58%, 1% 47%, 4% 36%, 1% 24%);
+    filter: drop-shadow(0 9px 10px rgba(27,14,5,.42)) drop-shadow(0 0 10px rgba(215,151,63,.16));
+    transform: rotate(1.1deg);
+  }
+
+  .codex-copy span::before,
+  .codex-copy span::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .codex-copy span::before {
+    background:
+      radial-gradient(circle at 4% 18%, rgba(48,22,8,.7) 0 2px, transparent 3px),
+      radial-gradient(circle at 96% 78%, rgba(48,22,8,.55) 0 3px, transparent 4px),
+      radial-gradient(ellipse at 68% 20%, rgba(83,40,11,.18), transparent 24%);
+    mix-blend-mode: multiply;
+  }
+
+  .codex-copy span::after {
+    box-shadow: inset 0 0 0 1px rgba(82,41,13,.22), inset 0 0 18px rgba(58,26,8,.24);
+  }
+
+  .codex-page-mary .codex-copy span {
+    margin-left: auto;
+    margin-right: 2%;
+  }
+
+  .codex-page-wrongula .codex-copy span {
+    margin-left: 1%;
+    margin-right: auto;
+    color: #25140d;
+    text-align: left;
+    background:
+      radial-gradient(circle at 80% 18%, rgba(241,218,163,.5), transparent 31%),
+      radial-gradient(circle at 19% 76%, rgba(76,35,18,.25), transparent 35%),
+      repeating-linear-gradient(-2deg, rgba(70,37,19,.075) 0 1px, transparent 1px 5px),
+      linear-gradient(101deg, #87522f, #d0a76a 11%, #bc8952 57%, #a86f40 90%, #663c28);
+    filter: drop-shadow(0 9px 10px rgba(14,11,9,.48)) drop-shadow(0 0 10px rgba(132,196,198,.11));
+    transform: rotate(-1.15deg);
+  }
+
+  .codex-page-wrongula .codex-copy span::before,
+  .codex-page-wrongula .codex-copy span::after {
+    border-color: rgba(58,31,20,.4);
+  }
+
+  .codex-turn {
+    position: absolute;
+    z-index: 5;
+    top: 1.55rem;
+    bottom: 1.55rem;
+    left: var(--codex-position);
+    width: clamp(28px, 4vw, 52px);
+    transform: translateX(-50%) perspective(600px) rotateY(var(--codex-curl));
+    background: linear-gradient(90deg, transparent, rgba(255,237,174,.62) 44%, rgba(42,23,10,.42) 52%, transparent);
+    filter: drop-shadow(0 0 14px rgba(255,203,96,.9)) drop-shadow(0 0 32px rgba(100,211,225,.55));
+    pointer-events: none;
+  }
+
+  .codex-turn::before {
+    content: '';
+    position: absolute;
+    inset: 0 45%;
+    background: #f6db9a;
+    box-shadow: 0 0 12px #ffd171, 0 0 34px rgba(121,203,211,.78), 0 0 68px rgba(219,170,74,.46);
+  }
+
+  .codex-turn span,
+  .codex-turn i,
+  .codex-turn b {
+    position: absolute;
+    left: 50%;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: #fff0b0;
+    box-shadow: 0 0 11px #ffc45e;
+    animation: codex-spark 2.4s ease-in-out infinite;
+  }
+  .codex-turn span { top: 18%; margin-left: -13px; }
+  .codex-turn i { top: 51%; margin-left: 11px; animation-delay: -.8s; }
+  .codex-turn b { top: 78%; margin-left: -8px; animation-delay: -1.5s; }
+
+  .codex-smoke {
+    position: absolute;
+    z-index: 6;
+    top: 8%;
+    bottom: 8%;
+    left: var(--codex-position);
+    width: clamp(190px, 27vw, 350px);
+    transform: translateX(-50%);
+    pointer-events: none;
+    transition: left 60ms linear;
+    filter: blur(4px) saturate(1.3);
+    mix-blend-mode: screen;
+  }
+
+  .codex-smoke::before,
+  .codex-smoke::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    width: 74%;
+    height: 34%;
+    border: 2px solid rgba(255,221,135,.34);
+    border-left-color: rgba(122,222,231,.46);
+    border-radius: 50%;
+    transform: translateX(-50%) rotate(-18deg);
+    box-shadow: 0 0 22px rgba(255,195,80,.18), inset 0 0 24px rgba(113,211,222,.12);
+    animation: codex-smoke-orbit 5.2s ease-in-out infinite alternate;
+  }
+  .codex-smoke::before { top: 24%; }
+  .codex-smoke::after { top: 57%; width: 58%; transform: translateX(-50%) rotate(20deg); animation-delay: -2.6s; }
+
+  .codex-smoke i {
+    position: absolute;
+    left: 50%;
+    width: clamp(115px, 16vw, 205px);
+    aspect-ratio: 1.8;
+    border-radius: 50%;
+    opacity: .46;
+    background:
+      radial-gradient(ellipse at 34% 50%, rgba(255,224,142,.88), rgba(244,174,75,.18) 38%, transparent 67%),
+      radial-gradient(ellipse at 68% 46%, rgba(132,223,232,.78), rgba(79,150,174,.18) 42%, transparent 72%);
+    mix-blend-mode: screen;
+    animation: codex-smoke-rise 4.8s ease-in-out infinite;
+  }
+  .codex-smoke i:nth-child(1) { top: 10%; margin-left: -48%; animation-delay: -1.1s; }
+  .codex-smoke i:nth-child(2) { top: 35%; margin-left: -4%; transform: scale(.82); animation-delay: -3.8s; }
+  .codex-smoke i:nth-child(3) { top: 58%; margin-left: -58%; transform: scale(1.15); animation-delay: -2.4s; }
+  .codex-smoke i:nth-child(4) { top: 78%; margin-left: -12%; transform: scale(.68); animation-delay: -.2s; }
+
+  .codex-eye {
+    position: absolute;
+    z-index: 8;
+    left: 50%;
+    top: .32rem;
+    width: 54px;
+    height: 23px;
+    transform: translateX(-50%);
+    border: 2px solid #b58a44;
+    border-radius: 80% 12% 80% 12%;
+    background: radial-gradient(circle at center, #d8d493 0 18%, #798c76 20% 42%, #17120d 45%);
+    box-shadow: 0 0 14px rgba(239,191,88,.42), 0 3px 4px rgba(0,0,0,.8);
+    overflow: hidden;
+  }
+  .codex-eye span { position: absolute; left: calc(50% + var(--pupil-x)); top: calc(50% + var(--pupil-y)); width: 7px; height: 12px; border-radius: 50%; background: #050403; transform: translate(-50%,-50%); transition: left 90ms linear, top 90ms linear; }
+
+  .codex-corner { position: absolute; z-index: 7; width: 38px; height: 38px; border-color: #a67832; filter: drop-shadow(0 2px 2px #000); pointer-events: none; }
+  .codex-corner-tl { top: 9px; left: 9px; border-top: 3px solid; border-left: 3px solid; border-radius: 10px 0 0; }
+  .codex-corner-tr { top: 9px; right: 9px; border-top: 3px solid; border-right: 3px solid; border-radius: 0 10px 0 0; }
+  .codex-corner-bl { bottom: 9px; left: 9px; border-bottom: 3px solid; border-left: 3px solid; border-radius: 0 0 0 10px; }
+  .codex-corner-br { bottom: 9px; right: 9px; border-bottom: 3px solid; border-right: 3px solid; border-radius: 0 0 10px; }
+
+  .codex-teeth { position: absolute; z-index: 7; left: 19%; right: 19%; height: 9px; pointer-events: none; opacity: .6; background: repeating-linear-gradient(90deg, transparent 0 18px, #d4ba7b 19px 25px, transparent 26px 42px); }
+  .codex-teeth-top { top: .72rem; clip-path: polygon(0 0,100% 0,100% 30%,0 100%); }
+  .codex-teeth-bottom { bottom: .72rem; transform: rotate(180deg); clip-path: polygon(0 0,100% 0,100% 30%,0 100%); }
+  .codex-whisper { position: absolute; z-index: 9; left: 50%; bottom: .18rem; margin: 0; transform: translateX(-50%); color: rgba(246,221,163,.62); font: 700 .52rem/1 monospace; letter-spacing: .28em; text-transform: uppercase; white-space: nowrap; }
+  .codex-selection {
+    position: relative;
+    z-index: 3;
+    display: grid;
+    min-height: 62px;
+    margin: .75rem auto 0;
+    place-items: center;
+  }
+
+  .codex-choice,
+  .codex-choice-prompt { grid-area: 1 / 1; }
+  .codex-choice-prompt { margin: 0; color: rgba(231,204,145,.58); font: 700 .58rem/1.3 monospace; letter-spacing: .2em; text-align: center; text-transform: uppercase; pointer-events: none; transition: opacity .25s ease; }
+  .codex-choice {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    min-width: min(92%, 340px);
+    padding: .7rem 1rem;
+    border: 1px solid rgba(214,174,91,.58);
+    border-radius: 999px;
+    color: #f8dfaa;
+    background: linear-gradient(100deg, rgba(58,32,15,.95), rgba(14,15,14,.96));
+    box-shadow: 0 0 0 1px rgba(7,5,3,.9), 0 0 25px rgba(214,157,65,.22), inset 0 0 20px rgba(232,192,102,.07);
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(10px) scale(.94);
+    transition: opacity .32s ease, transform .32s ease, box-shadow .2s ease, border-color .2s ease;
+  }
+  .codex-choice small { grid-column: 1; font: 700 .52rem/1 monospace; letter-spacing: .2em; text-transform: uppercase; opacity: .55; }
+  .codex-choice strong { grid-column: 1; margin-top: .22rem; font: italic 700 1.05rem/1.1 Georgia, serif; }
+  .codex-choice span { grid-column: 2; grid-row: 1 / span 2; align-self: center; margin-left: 1.2rem; font-size: 1.15rem; }
+  .codex-choice.is-active { opacity: 1; pointer-events: auto; transform: translateY(0) scale(1); }
+  .codex-choice.is-active:hover,
+  .codex-choice.is-active:focus-visible { border-color: #ffe19a; outline: none; box-shadow: 0 0 0 2px rgba(246,213,139,.2), 0 0 34px rgba(224,166,71,.48), inset 0 0 24px rgba(232,192,102,.13); }
+  .codex-choice-wrongula { border-color: rgba(137,190,200,.58); color: #dcf4f2; background: linear-gradient(100deg, rgba(15,26,28,.96), rgba(41,35,22,.95)); box-shadow: 0 0 0 1px rgba(7,5,3,.9), 0 0 25px rgba(102,186,199,.2), inset 0 0 20px rgba(164,218,224,.06); }
+  .codex-selection.has-choice .codex-choice-prompt { opacity: 0; }
+
+  @keyframes codex-drift { to { transform: translate(16px, -10px); opacity: .7; } }
+  @keyframes codex-spark { 0%,100% { transform: translateY(0) scale(.7); opacity: .35; } 50% { transform: translateY(-17px) scale(1.25); opacity: 1; } }
+  @keyframes codex-smoke-rise {
+    0%, 100% { translate: -50% 18px; scale: .72; opacity: .2; }
+    42% { translate: -35% -8px; scale: 1.12; opacity: .58; }
+    70% { translate: -64% -30px; scale: .94; opacity: .34; }
+  }
+  @keyframes codex-smoke-orbit {
+    0% { translate: -8px 8px; rotate: -4deg; opacity: .28; }
+    100% { translate: 12px -12px; rotate: 8deg; opacity: .62; }
+  }
+
+  @media (max-width: 640px) {
+    .codex-sanctum { padding: .8rem; }
+    .living-codex { min-height: 390px; padding: .8rem; }
+    .codex-page { inset: .8rem; }
+    .codex-copy { left: 1.5rem; right: 1.5rem; bottom: 3rem; }
+    .codex-page-wrongula .codex-copy { left: 1.5rem; right: 1.5rem; }
+    .codex-page-wrongula .codex-copy h3 { max-width: none; text-align: right; }
+    .codex-copy span { width: 76%; margin-left: auto; margin-right: auto; padding: .8rem 1rem; font-size: .7rem; line-height: 1.36; }
+    .codex-page-wrongula .codex-copy span { margin-left: auto; margin-right: auto; }
+    .codex-coordinate { top: 1.6rem; left: 1.5rem; }
+    .codex-page-wrongula .codex-coordinate { right: 1.5rem; }
+    .codex-whisper { letter-spacing: .12em; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .codex-sanctum::before,
+    .codex-sanctum::after,
+    .codex-turn span,
+    .codex-turn i,
+    .codex-turn b,
+    .codex-smoke i,
+    .codex-smoke::before,
+    .codex-smoke::after { animation: none; }
+  }
+
   .detective-lens {
     width: 156px;
     height: 156px;
@@ -481,6 +978,62 @@ const getArtistFontClass = (artistId: string) => {
 <script is:inline>
   // High-performance canvas animators inside each card container
   document.addEventListener('DOMContentLoaded', () => {
+    const livingCodex = document.querySelector('[data-living-codex]');
+
+    if (livingCodex) {
+      const codexSelection = document.querySelector('.codex-selection');
+      const codexPrompt = document.querySelector('[data-codex-choice-prompt]');
+      const maryChoice = document.querySelector('[data-codex-choice="mary"]');
+      const wrongulaChoice = document.querySelector('[data-codex-choice="count-wrongula"]');
+
+      const setCodexReveal = (value) => {
+        const reveal = Math.max(0, Math.min(100, value));
+        const direction = (reveal - 50) / 50;
+        const maryIsOpen = reveal <= 12;
+        const wrongulaIsOpen = reveal >= 88;
+        livingCodex.style.setProperty('--codex-position', `${reveal}%`);
+        livingCodex.style.setProperty('--codex-clip', `${100 - reveal}%`);
+        livingCodex.style.setProperty('--codex-curl', `${direction * 16}deg`);
+        livingCodex.style.setProperty('--pupil-x', `${direction * 4}px`);
+        livingCodex.setAttribute('aria-valuenow', String(Math.round(reveal)));
+        livingCodex.setAttribute(
+          'aria-valuetext',
+          reveal < 35 ? 'Mary is revealed' : reveal > 65 ? 'Count Wrongula is revealed' : 'Mary and Count Wrongula overlap'
+        );
+        maryChoice?.classList.toggle('is-active', maryIsOpen);
+        wrongulaChoice?.classList.toggle('is-active', wrongulaIsOpen);
+        maryChoice?.setAttribute('aria-hidden', String(!maryIsOpen));
+        wrongulaChoice?.setAttribute('aria-hidden', String(!wrongulaIsOpen));
+        maryChoice?.setAttribute('tabindex', maryIsOpen ? '0' : '-1');
+        wrongulaChoice?.setAttribute('tabindex', wrongulaIsOpen ? '0' : '-1');
+        codexSelection?.classList.toggle('has-choice', maryIsOpen || wrongulaIsOpen);
+        if (codexPrompt) {
+          codexPrompt.textContent = maryIsOpen ? 'Mary is waiting beyond the page' : wrongulaIsOpen ? 'Count Wrongula is waiting beyond the page' : 'Turn to either edge to choose a page';
+        }
+      };
+
+      const turnCodexPage = (event) => {
+        const rect = livingCodex.getBoundingClientRect();
+        const reveal = ((event.clientX - rect.left) / rect.width) * 100;
+        const pupilY = Math.max(-3, Math.min(3, ((event.clientY - rect.top) / rect.height - .5) * 6));
+        livingCodex.style.setProperty('--pupil-y', `${pupilY}px`);
+        setCodexReveal(reveal);
+      };
+
+      livingCodex.addEventListener('pointermove', turnCodexPage);
+      livingCodex.addEventListener('pointerdown', (event) => {
+        livingCodex.setPointerCapture?.(event.pointerId);
+        turnCodexPage(event);
+      });
+      livingCodex.addEventListener('keydown', (event) => {
+        const current = Number(livingCodex.getAttribute('aria-valuenow')) || 50;
+        if (event.key === 'ArrowLeft') { event.preventDefault(); setCodexReveal(current - 5); }
+        if (event.key === 'ArrowRight') { event.preventDefault(); setCodexReveal(current + 5); }
+        if (event.key === 'Home') { event.preventDefault(); setCodexReveal(0); }
+        if (event.key === 'End') { event.preventDefault(); setCodexReveal(100); }
+      });
+    }
+
     const canUseMagnifier = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
     const detectiveCard = document.querySelector('[data-detective-card]');
     const detectiveLens = detectiveCard?.querySelector('[data-detective-lens]');

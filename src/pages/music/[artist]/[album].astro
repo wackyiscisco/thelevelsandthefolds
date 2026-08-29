@@ -30,6 +30,12 @@ export async function getStaticPaths() {
       return;
     }
 
+    // Count Wrongula and Mary have dedicated canon-aware album pages.
+    const dedicatedArtist = String(song.data.artist || '').toLowerCase().trim();
+    if (dedicatedArtist.includes('wrongula') || dedicatedArtist === 'mary') {
+      return;
+    }
+
     const artistSlug = (() => {
       const name = String(song.data.artist || '').toLowerCase().trim();
       if (name.includes('crimson')) return 'crimson-sparks';
@@ -180,8 +186,8 @@ albumSongs.sort((a, b) => {
         <span class="text-purple-400 font-bold text-sm">&larr;</span>
         <span>Back to {artistName} Discography</span>
       </a>
-      <a href="/artists" class="w-full sm:w-auto px-6 py-3.5 rounded-xl text-xs uppercase tracking-wider font-mono font-bold bg-slate-900/90 text-slate-300 border border-slate-700/50 hover:bg-slate-800 hover:text-white transition-all flex items-center justify-center gap-2 shadow-xl">
-        <span>Back to Roster</span>
+      <a href="/music" class="w-full sm:w-auto px-6 py-3.5 rounded-xl text-xs uppercase tracking-wider font-mono font-bold bg-slate-900/90 text-slate-300 border border-slate-700/50 hover:bg-slate-800 hover:text-white transition-all flex items-center justify-center gap-2 shadow-xl">
+        <span>Back to Music</span>
         <span class="text-slate-400 font-bold text-sm">&rarr;</span>
       </a>
     </div>

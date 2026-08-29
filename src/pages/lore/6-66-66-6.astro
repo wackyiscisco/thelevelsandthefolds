@@ -1,0 +1,296 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const ridgefall = [
+  ['North Ridge', 'Affluent and restricted'],
+  ['Central Ridgefall', 'University, commerce, and the bus station'],
+  ['South Ridge', 'Poor and industrial'],
+  ['West Ridge / West Docks', 'Forest, port, and logistics'],
+];
+
+const maryCast = [
+  { name: 'Mary', role: 'Scholar · Library worker', image: '/images/mary/cast/mary_photo_01.png' },
+  { name: 'Hansel', role: 'Scholar · Answers withheld', image: '/images/mary/cast/hansel_photo_01.png' },
+  { name: 'Wendy', role: 'Mathematics · Tailoring', image: '/images/mary/cast/wendy_photo_01.png' },
+  { name: 'Linda', role: 'Lore author · Researcher', image: '/images/mary/cast/linda_photo_01.png' },
+  { name: 'Karina', role: 'Punk busker · Believer', image: '/images/mary/cast/karina_photo_01.png' },
+  { name: 'Greg', role: 'Dock porter · Boatbuilder', image: '/images/mary/cast/greg_photo_01.png' },
+];
+
+const tridecagon = [
+  ['Amdis', 'amdis'],
+  ['Ambrosia', 'ambrosia'],
+  ['Godfrey', 'godfrey'],
+  ['Vlad', 'vlad'],
+  ['Sapphira', 'sapphira'],
+  ['Zeck', 'zeck'],
+  ['Jezebel', 'jezebel'],
+  ['Umbra', 'umbra'],
+  ['Horasio', 'horasio'],
+  ['Asura', 'asura'],
+  ['Katherine', 'katherine'],
+  ['Melchor', 'melchor'],
+  ['Luchinda', 'luchinda'],
+].map(([name, slug]) => ({
+  name,
+  image: `/images/count-wrongula/tridecagon/${slug}_photo_01.png`,
+}));
+const wrongulaPlaces = ["Wrongula's Castle", 'The Forest Detour', 'Coyoling Village'];
+const wQuestions = ['WHO', 'WHAT', 'WHY', 'WHERE', 'WHEN'];
+---
+
+<Layout title="6_66 / 66_6 — Overlapping Pages">
+  <section class="threshold-shell">
+    <div class="threshold-heading">
+      <p class="eyebrow">THE CROSSING ARCHIVE</p>
+      <h1><span>6_66</span><i aria-hidden="true">/</i><span>66_6</span></h1>
+      <p>Two realities touch at the edge of a page. Move across it to reveal <strong>6_66</strong> or <strong>66_6</strong>.</p>
+    </div>
+
+    <div
+      class="overlap-book"
+      data-overlap-book
+      style="--reveal: 50%;"
+      tabindex="0"
+      role="slider"
+      aria-label="Reveal the overlapping pages of 6_66 and 66_6"
+      aria-valuemin="0"
+      aria-valuemax="100"
+      aria-valuenow="50"
+      aria-valuetext="Both pages overlap evenly"
+    >
+      <article class="page page-left" aria-label="Mary and Level 6 Fold 66">
+        <div class="page-grain"></div>
+        <div class="page-content">
+          <span class="coordinate">6_66</span>
+          <p class="page-number">PAGE I · THE BLOODLINES RECORD</p>
+          <div class="ornament" aria-hidden="true">✦</div>
+          <h2>Mary</h2>
+          <p class="placeholder-copy">Ridgefall begins as scholarship, folklore, and questions. Then the evidence stops behaving like a story.</p>
+          <a class="page-entry" href="#mary-record">Enter Mary’s record ↓</a>
+        </div>
+      </article>
+
+      <article class="page page-right" aria-label="Count Wrongula and Level 66 Fold 6">
+        <div class="page-grain"></div>
+        <div class="page-content">
+          <span class="coordinate">66_6</span>
+          <p class="page-number">PAGE II · THE WHO RECORD</p>
+          <div class="ornament" aria-hidden="true">◇</div>
+          <h2>Count Wrongula</h2>
+          <p class="placeholder-copy">A supernatural world is losing its crossings while its most irritating Count walks toward an unanswered summons.</p>
+          <a class="page-entry" href="#wrongula-record">Enter Wrongula’s record ↓</a>
+        </div>
+      </article>
+
+      <div class="reveal-edge" aria-hidden="true"><span></span></div>
+      <div class="book-hint" aria-hidden="true">
+        <b>6_66</b><span>MOVE · CLICK · USE ARROW KEYS</span><b>66_6</b>
+      </div>
+    </div>
+
+    <div class="page-choices" aria-label="Choose which page to reveal">
+      <button type="button" data-reveal="88">PAGE I · REVEAL 6_66</button>
+      <span aria-hidden="true">✦</span>
+      <button type="button" data-reveal="12">PAGE II · REVEAL 66_6</button>
+    </div>
+    <p class="status-note">Two distinct worlds · one controlled crossing</p>
+  </section>
+
+  <section class="boundary-law" id="boundary">
+    <p class="section-number">THE LAW BETWEEN PAGES</p>
+    <h2>Connected does not mean combined.</h2>
+    <div class="law-grid">
+      <article><b>TIME</b><p>Age, memory, sequence, knowledge, and consequence matter. The coordinates are not a simple past-and-future ladder.</p></article>
+      <article><b>CROSSING</b><p>People, evidence, objects, histories, and questions may intersect without merging each world’s native rules.</p></article>
+      <article><b>THE THRESHOLD</b><p>MARY leads narratively toward the WHO-era story. Cosmologically, 6_66 and 66_6 remain distinct realities.</p></article>
+    </div>
+  </section>
+
+  <article class="lore-record mary-record" id="mary-record">
+    <header class="record-hero">
+      <div class="record-portrait"><img src="/images/mary/mary_artist_01.png" alt="Mary beneath the Ridgefall night sky" /></div>
+      <div class="record-title">
+        <p class="section-number">PAGE I · LEVEL 6, FOLD 66</p>
+        <h2>Mary</h2>
+        <p>A scholar enters the mystery carrying books, stubbornness, and the conviction that every monster can still be explained.</p>
+        <div class="record-stamps"><span>AGE 18</span><span>BLOODLINES · 12/12</span><span>RIDGEFALL</span></div>
+      </div>
+    </header>
+    <div class="record-body">
+      <section class="opening-leaf">
+        <p>Mary begins <em>Bloodlines</em> as an eighteen-year-old scholarship student, Ridgefall City Library worker, orphan, and dedicated monster-and-folklore nerd. The supernatural is still scholarship to her—until physical evidence appears that she cannot classify.</p>
+        <blockquote>Folklore is testimony here, not automatic proof. Belief, skepticism, scholarship, and rumor remain knowledge states until the story earns an answer.</blockquote>
+      </section>
+      <section class="archive-panel">
+        <div class="panel-heading"><div><p class="section-number">THE CITY</p><h3>Ridgefall</h3></div><span>6_66</span></div>
+        <div class="ridge-grid">{ridgefall.map(([name, role], index) => <article><b>{String(index + 1).padStart(2, '0')}</b><h4>{name}</h4><p>{role}</p></article>)}</div>
+        <div class="library-note"><span>CONVERGENCE POINT</span><strong>Ridgefall City Library</strong><p>The place where the album’s people, evidence, and unanswered histories begin arriving at the same door.</p></div>
+      </section>
+      <section class="archive-panel">
+        <div class="panel-heading"><div><p class="section-number">THE BLOODLINES SIX</p><h3>Current Cast</h3></div><span>VISUALS LOCKED</span></div>
+        <div class="portrait-roster bloodlines-roster">
+          {maryCast.map((person, index) => (
+            <article class="portrait-card">
+              <div class="portrait-frame"><img src={person.image} alt={`${person.name} of the Bloodlines Six`} loading="lazy" /></div>
+              <div class="portrait-caption"><span>{String(index + 1).padStart(2, '0')}</span><div><h4>{person.name}</h4><p>{person.role}</p></div></div>
+            </article>
+          ))}
+        </div>
+      </section>
+      <section class="open-ledger">
+        <div><p class="section-number">UNRESOLVED RECORD</p><h3>The questions still alive</h3><p>Active mysteries—not conclusions waiting to be spoiled.</p></div>
+        <ul><li>Mary’s bloodline and parents</li><li>Hansel, Delona, and his father</li><li>The Ridgefall library anomaly</li><li>Where Wolves Wait</li><li>Linda and <em>The Wraith Way</em></li><li>The mechanics of TIME and CROSSING</li></ul>
+      </section>
+    </div>
+  </article>
+
+  <div class="crossing-mark" aria-hidden="true"><span>6_66</span><i></i><b>THE PAGE BLEEDS</b><i></i><span>66_6</span></div>
+
+  <article class="lore-record wrongula-record" id="wrongula-record">
+    <header class="record-hero">
+      <div class="record-portrait"><img src="/images/count-wrongula/wrongula_01.png" alt="Count Wrongula in his candlelit castle" /></div>
+      <div class="record-title">
+        <p class="section-number">PAGE II · LEVEL 66, FOLD 6</p>
+        <h2>Count<br/>Wrongula</h2>
+        <p>Smug, elegant, theatrical—and moving through a supernatural reality whose crossings have begun to fail.</p>
+        <div class="record-stamps"><span>WHO · 12/12</span><span>SUPERNATURAL NATIVE</span><span>CROSSING CRISIS</span></div>
+      </div>
+    </header>
+    <div class="record-body">
+      <section class="opening-leaf">
+        <p>No humans naturally exist in 66_6. For roughly three months before the end of <em>WHO</em>, crossing restrictions tighten and species-specific food becomes scarce and expensive. Wrongula has never crossed planes, while his ordinary-food household remains an unexplained anomaly.</p>
+        <blockquote>He casts a reflection, walks in sunlight, drinks no blood, and prefers ordinary prepared food, coffee, and tea. The reason he differs from vampire norms remains open.</blockquote>
+      </section>
+      <section class="archive-panel">
+        <div class="panel-heading"><div><p class="section-number">THE PRESSURE MAP</p><h3>66_6</h3></div><span>ACTIVE CANON</span></div>
+        <div class="pressure-grid"><article><span>01</span><h4>Crossings</h4><p>Movement between planes exists, but it is uneven, poorly understood, and currently failing.</p></article><article><span>02</span><h4>The Tridecagon</h4><p>An old thirteen-member power waits at the end of a summons Wrongula is moving toward.</p></article><article><span>03</span><h4>The Veilguards</h4><p>A protective order with confirmed relevance on both sides of the crossing bleed.</p></article></div>
+      </section>
+      <section class="archive-panel council-panel">
+        <div class="panel-heading"><div><p class="section-number">THIRTEEN LOCKED SEATS</p><h3>The Tridecagon of Old</h3></div><span>VISUALS LOCKED</span></div>
+        <div class="portrait-roster council-roster">
+          {tridecagon.map((person, index) => (
+            <article class="portrait-card">
+              <div class="portrait-frame"><img src={person.image} alt={`${person.name} of the Tridecagon of Old`} loading="lazy" /></div>
+              <div class="portrait-caption"><span>{String(index + 1).padStart(2, '0')}</span><div><p>TRIDECAGON SEAT</p><h4>{person.name}</h4></div></div>
+            </article>
+          ))}
+        </div>
+      </section>
+      <section class="archive-panel">
+        <div class="panel-heading"><div><p class="section-number">KNOWN LOCATIONS</p><h3>The road so far</h3></div><span>MAP IN PROGRESS</span></div>
+        <div class="place-list">{wrongulaPlaces.map((place, index) => <article><span>{String(index + 1).padStart(2, '0')}</span><h4>{place}</h4><i aria-hidden="true">→</i></article>)}</div>
+      </section>
+      <section class="w-system"><p class="section-number">THE PRESERVED QUESTION</p><h3>WTF is Wrongula?</h3><p>Every answer must be earned. No shortcut gets to close the question early.</p><div>{wQuestions.map((question) => <span>{question}</span>)}</div></section>
+      <section class="open-ledger">
+        <div><p class="section-number">UNRESOLVED RECORD</p><h3>The questions still alive</h3><p>Album One closes its movement while leaving the threshold open.</p></div>
+        <ul><li>The cause of the crossing restrictions</li><li>Why Wrongula differs from vampire norms</li><li>The origin of his household culture</li><li>The nature of the reactive forest</li><li>The purpose and location of the eleven keys</li><li>The significance of Eve’s necklace</li></ul>
+      </section>
+    </div>
+  </article>
+
+  <footer class="archive-footer"><p><span>THE ARCHIVE REMAINS OPEN</span>This foundation reflects the canon currently gathered. New leaves can be added as Mary and Wrongula continue to grow.</p><a href="/lore">← Back to the Levels &amp; Folds</a></footer>
+</Layout>
+
+<script>
+  const book = document.querySelector('[data-overlap-book]');
+
+  if (book instanceof HTMLElement) {
+    const setReveal = (value: number) => {
+      const reveal = Math.max(0, Math.min(100, value));
+      book.style.setProperty('--reveal', `${reveal}%`);
+      book.setAttribute('aria-valuenow', `${Math.round(reveal)}`);
+      const description = reveal > 65
+        ? '6_66 is mostly revealed'
+        : reveal < 35
+          ? '66_6 is mostly revealed'
+          : 'Both pages overlap evenly';
+      book.setAttribute('aria-valuetext', description);
+    };
+
+    const revealFromPointer = (event: PointerEvent) => {
+      const bounds = book.getBoundingClientRect();
+      setReveal(((event.clientX - bounds.left) / bounds.width) * 100);
+    };
+
+    book.addEventListener('pointermove', revealFromPointer);
+    book.addEventListener('pointerdown', (event) => {
+      book.setPointerCapture(event.pointerId);
+      revealFromPointer(event);
+    });
+    book.addEventListener('keydown', (event) => {
+      const current = Number(book.getAttribute('aria-valuenow') || 50);
+      if (event.key === 'ArrowLeft') {
+        event.preventDefault();
+        setReveal(current - 10);
+      }
+      if (event.key === 'ArrowRight') {
+        event.preventDefault();
+        setReveal(current + 10);
+      }
+      if (event.key === 'Home') setReveal(0);
+      if (event.key === 'End') setReveal(100);
+    });
+    document.querySelectorAll('[data-reveal]').forEach((control) => {
+      control.addEventListener('click', () => setReveal(Number(control.getAttribute('data-reveal'))));
+    });
+  }
+</script>
+
+<style>
+  :global(body) { background:#080706; }
+  .threshold-shell { width:min(1180px,calc(100% - 32px)); margin:0 auto; padding:72px 0 96px; }
+  .threshold-heading { text-align:center; max-width:760px; margin:0 auto 38px; }
+  .eyebrow { margin:0 0 12px; color:#d6b77a; font:700 .7rem/1.2 'JetBrains Mono',monospace; letter-spacing:.3em; }
+  h1 { margin:0; display:flex; align-items:center; justify-content:center; gap:clamp(14px,4vw,52px); font:900 clamp(3rem,10vw,7.8rem)/.95 'Orbitron',sans-serif; letter-spacing:-.08em; }
+  h1 span:first-child { color:#efe0bd; text-shadow:0 0 28px rgba(214,183,122,.2); }
+  h1 span:last-child { color:#c8d3dd; text-shadow:0 0 28px rgba(139,176,202,.18); }
+  h1 i { color:#6e6255; font-family:Georgia,serif; font-weight:400; }
+  .threshold-heading>p:last-child { margin:22px auto 0; color:#9e978d; line-height:1.7; }
+  .threshold-heading strong:first-of-type { color:#e5c98f; }
+  .threshold-heading strong:last-of-type { color:#b9d0df; }
+  .overlap-book { --reveal:50%; position:relative; min-height:610px; overflow:hidden; border:1px solid rgba(214,183,122,.25); border-radius:3px 18px 18px 3px; background:#d9ccb0; box-shadow:0 38px 100px rgba(0,0,0,.65),inset 18px 0 30px rgba(63,43,22,.22); cursor:ew-resize; isolation:isolate; touch-action:none; outline:none; }
+  .overlap-book:focus-visible { box-shadow:0 0 0 3px #d6b77a,0 38px 100px rgba(0,0,0,.65); }
+  .page { position:absolute; inset:0; overflow:hidden; }
+  .page-left { color:#f5ead4; background:linear-gradient(90deg,rgba(18,9,3,.9),rgba(18,9,3,.2) 64%),url('/images/mary/mary_artist_01.png') center top/cover no-repeat; }
+  .page-right { color:#e3eff2; background:linear-gradient(270deg,rgba(3,12,17,.92),rgba(3,12,17,.22) 64%),url('/images/count-wrongula/wrongula_01.png') center 24%/cover no-repeat; clip-path:inset(0 0 0 var(--reveal)); transition:clip-path 60ms linear; }
+  .page::before { content:""; position:absolute; inset:0; opacity:.38; background:repeating-linear-gradient(0deg,transparent 0 29px,rgba(61,46,27,.1) 30px),radial-gradient(circle at 22% 16%,rgba(255,255,255,.55),transparent 30%),radial-gradient(circle at 82% 76%,rgba(54,35,19,.18),transparent 34%); mix-blend-mode:multiply; }
+  .page-right::before { background:repeating-linear-gradient(90deg,transparent 0 46px,rgba(17,38,50,.08) 47px),radial-gradient(circle at 78% 16%,rgba(255,255,255,.6),transparent 30%),radial-gradient(circle at 22% 76%,rgba(20,45,57,.18),transparent 34%); }
+  .page-grain { position:absolute; inset:0; opacity:.26; background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 160 160' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E"); mix-blend-mode:multiply; pointer-events:none; }
+  .page-content { position:absolute; inset:clamp(34px,7vw,82px); display:flex; flex-direction:column; align-items:flex-start; justify-content:center; }
+  .page-right .page-content { align-items:flex-end; text-align:right; }
+  .page-right .page-number{margin-top:58px}
+  .coordinate { position:absolute; top:0; font:800 clamp(1rem,2.4vw,1.6rem)/1 'JetBrains Mono',monospace; letter-spacing:.25em; }
+  .page-number { margin:0 0 30px; font:600 .65rem/1 'JetBrains Mono',monospace; letter-spacing:.32em; opacity:.65; }
+  .ornament { font:400 3.8rem/1 Georgia,serif; opacity:.55; }
+  .page h2 { max-width:620px; margin:24px 0 16px; font:italic 700 clamp(2.25rem,6vw,5.8rem)/.98 Georgia,serif; letter-spacing:-.04em; }
+  .placeholder-copy { max-width:480px; margin:0; font:500 clamp(.92rem,1.5vw,1.08rem)/1.8 Georgia,serif; text-shadow:0 2px 16px #000; }
+  .page-entry{display:inline-flex;margin-top:24px;padding:12px 16px;color:#21170b;background:linear-gradient(90deg,#ecd6a4,#c9984a);text-decoration:none;font:800 10px 'JetBrains Mono',monospace;letter-spacing:.08em;text-transform:uppercase;box-shadow:0 9px 26px rgba(0,0,0,.38)}
+  .page-right .page-entry{color:#071319;background:linear-gradient(90deg,#a8cbd7,#e2edf0)}
+  .placeholder-lines { width:min(380px,70%); margin-top:38px; display:grid; gap:11px; opacity:.28; }
+  .placeholder-lines i { display:block; height:1px; background:currentColor; }
+  .placeholder-lines i:nth-child(2) { width:86%; }
+  .placeholder-lines i:nth-child(3) { width:94%; }
+  .placeholder-lines i:nth-child(4) { width:62%; }
+  .reveal-edge { position:absolute; z-index:4; top:0; bottom:0; left:var(--reveal); width:24px; transform:translateX(-12px); pointer-events:none; background:linear-gradient(90deg,transparent,rgba(255,255,255,.36) 46%,rgba(48,35,24,.25) 52%,transparent); transition:left 60ms linear; }
+  .reveal-edge span { position:absolute; top:50%; left:50%; width:1px; height:78%; transform:translate(-50%,-50%); background:linear-gradient(transparent,rgba(255,247,225,.8),transparent); }
+  .book-hint { position:absolute; z-index:5; left:24px; right:24px; bottom:20px; display:flex; align-items:center; justify-content:space-between; color:#281f18; font:700 .62rem/1 'JetBrains Mono',monospace; letter-spacing:.2em; mix-blend-mode:multiply; pointer-events:none; }
+  .book-hint span { opacity:.55; }
+  .page-choices{display:flex;justify-content:center;align-items:center;gap:18px;margin-top:18px}.page-choices>span{color:#9d7841}.page-choices button{border:1px solid rgba(214,183,122,.3);background:#100d09;color:#d8cdb9;padding:12px 16px;cursor:pointer;font:700 10px 'JetBrains Mono',monospace;letter-spacing:.06em}.page-choices button:hover{border-color:#d6b77a;background:#1b140c}
+  .status-note { margin:18px 0 0; text-align:center; color:#716b64; font:.68rem/1.5 'JetBrains Mono',monospace; letter-spacing:.12em; text-transform:uppercase; }
+  .section-number{margin:0;color:#c99443;font:800 10px/1.4 'JetBrains Mono',monospace;letter-spacing:.2em;text-transform:uppercase}
+  .boundary-law,.lore-record,.archive-footer{width:min(1180px,calc(100% - 40px));margin-left:auto;margin-right:auto}
+  .boundary-law{padding:80px 0 110px;text-align:center}.boundary-law>h2{margin:10px 0 42px;font:italic 700 clamp(2.5rem,5vw,5rem)/1 Georgia,serif;color:#f0e2c6}.law-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;text-align:left}.law-grid article{min-height:155px;padding:28px;box-sizing:border-box;border:1px solid rgba(201,148,67,.24);background:linear-gradient(145deg,rgba(38,27,15,.8),rgba(9,12,14,.94));box-shadow:inset 0 3px 0 rgba(201,148,67,.45)}.law-grid b{font:800 10px 'JetBrains Mono',monospace;letter-spacing:.14em;color:#ddb870}.law-grid p{color:#aaa296;line-height:1.7;font-family:Georgia,serif}
+  .lore-record{margin-bottom:80px;border:1px solid rgba(201,148,67,.35);background:#15100b;box-shadow:0 35px 90px rgba(0,0,0,.42);scroll-margin-top:30px}.record-hero{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(380px,.95fr);min-height:640px;overflow:hidden}.record-portrait{position:relative;overflow:hidden}.record-portrait:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent 58%,#15100b),linear-gradient(0deg,#15100b 0,transparent 27%)}.record-portrait img{width:100%;height:100%;object-fit:cover;object-position:center 28%;display:block;filter:saturate(.78) contrast(1.05)}.record-title{display:flex;flex-direction:column;justify-content:center;padding:clamp(34px,6vw,76px);position:relative}.record-title:before{content:"";position:absolute;inset:0;opacity:.11;background:repeating-linear-gradient(0deg,transparent 0 27px,#c99443 28px)}.record-title>*{position:relative}.record-title>h2{margin:12px 0 22px;font:italic 700 clamp(4rem,8vw,8.2rem)/.78 Georgia,serif;letter-spacing:-.07em;color:#f4dfad}.record-title>p:not(.section-number){color:#c8bda9;font:italic clamp(1rem,1.6vw,1.22rem)/1.7 Georgia,serif}.record-stamps{display:flex;flex-wrap:wrap;gap:8px;margin-top:25px}.record-stamps span{border:1px solid rgba(201,148,67,.44);padding:8px 10px;color:#d4b36e;font:700 8px 'JetBrains Mono',monospace;letter-spacing:.08em}.record-body{padding:clamp(35px,6vw,76px);background:linear-gradient(130deg,rgba(239,216,171,.06),transparent 35%)}
+  .opening-leaf{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(30px,6vw,80px);align-items:center;margin-bottom:78px}.opening-leaf p,.opening-leaf blockquote{font-family:Georgia,serif;line-height:1.8}.opening-leaf>p{font-size:clamp(1.05rem,1.7vw,1.28rem);color:#dfd2bc}.opening-leaf>p:first-letter{float:left;font-size:4.7rem;line-height:.72;padding:10px 10px 0 0;color:#d5ad62}.opening-leaf blockquote{margin:0;padding:28px;border-left:3px solid #c99443;background:rgba(236,212,165,.07);color:#cdbfaa;font-style:italic}.archive-panel{margin-top:72px}.panel-heading{display:flex;align-items:end;justify-content:space-between;gap:18px;margin-bottom:26px}.panel-heading h3{margin:4px 0 0;font:italic 700 clamp(2.2rem,4vw,3.9rem)/1 Georgia,serif;color:#efdfc0}.panel-heading>span{font:700 8px 'JetBrains Mono',monospace;color:#887252;letter-spacing:.1em}
+  .ridge-grid,.pressure-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.ridge-grid article,.pressure-grid article{padding:23px;border:1px solid rgba(201,148,67,.2);background:#0c0b09}.ridge-grid b,.pressure-grid span{color:#8e754c;font:800 10px 'JetBrains Mono',monospace}.ridge-grid h4,.pressure-grid h4{margin:26px 0 9px;font:700 1.02rem Georgia,serif;color:#ead8b6}.ridge-grid p,.pressure-grid p{margin:0;color:#948b7e;font-size:.84rem;line-height:1.55}.library-note{display:grid;grid-template-columns:170px 1fr 1.6fr;align-items:center;gap:24px;margin-top:10px;padding:22px;border:1px dashed rgba(201,148,67,.38);background:rgba(95,59,22,.1)}.library-note span{font:700 8px 'JetBrains Mono',monospace;color:#aa874f}.library-note strong{font:italic 700 1.2rem Georgia,serif;color:#e9d3a9}.library-note p{margin:0;color:#9b9386;line-height:1.5}
+  .portrait-roster{display:grid;gap:14px}.bloodlines-roster{grid-template-columns:repeat(3,1fr)}.portrait-card{min-width:0;overflow:hidden;border:1px solid rgba(201,148,67,.28);background:#0c0b09;box-shadow:0 18px 36px rgba(0,0,0,.24)}.portrait-frame{position:relative;height:360px;overflow:hidden;background:#050505}.portrait-frame:after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(9,7,4,.58),transparent 35%);pointer-events:none}.portrait-frame img{width:100%;height:100%;display:block;object-fit:cover;object-position:center top;filter:saturate(.84) contrast(1.04);transition:transform .45s ease,filter .45s ease}.portrait-card:hover .portrait-frame img{transform:scale(1.025);filter:saturate(1) contrast(1.05)}.portrait-caption{display:grid;grid-template-columns:42px 1fr;gap:12px;align-items:start;padding:18px}.portrait-caption>span{padding-top:4px;color:#8e754c;font:800 10px 'JetBrains Mono',monospace}.portrait-caption h4{margin:0;color:#ead8b6;font:italic 700 1.35rem Georgia,serif}.portrait-caption p{margin:6px 0 0;color:#938978;font:.7rem/1.45 'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.04em}
+  .open-ledger{display:grid;grid-template-columns:.8fr 1.2fr;gap:40px;margin-top:72px;padding:38px;border-top:1px solid rgba(201,148,67,.32);border-bottom:1px solid rgba(201,148,67,.32);background:linear-gradient(90deg,rgba(112,68,25,.14),transparent)}.open-ledger h3{font:italic 700 2.2rem Georgia,serif;margin:8px 0;color:#eddbba}.open-ledger>div>p:last-child{color:#9c9385;line-height:1.6}.open-ledger ul{columns:2;column-gap:32px;margin:0;padding:0;list-style:none}.open-ledger li{break-inside:avoid;padding:10px 0 10px 22px;border-bottom:1px dotted rgba(201,148,67,.24);color:#c6b9a5;font-family:Georgia,serif;position:relative}.open-ledger li:before{content:"?";position:absolute;left:0;color:#c99443;font-weight:bold}
+  .crossing-mark{width:min(860px,calc(100% - 44px));margin:25px auto 100px;display:flex;align-items:center;gap:18px;color:#806d51;font:800 9px 'JetBrains Mono',monospace;letter-spacing:.18em}.crossing-mark i{height:1px;flex:1;background:linear-gradient(90deg,transparent,#8e754c,transparent)}.crossing-mark b{color:#bb985e;white-space:nowrap}.wrongula-record{border-color:rgba(140,185,200,.3);background:#0c1518}.wrongula-record .record-hero{grid-template-columns:minmax(380px,.95fr) minmax(0,1.05fr)}.wrongula-record .record-portrait{grid-column:2;grid-row:1}.wrongula-record .record-title{grid-column:1;grid-row:1}.wrongula-record .record-portrait:after{background:linear-gradient(270deg,transparent 58%,#0c1518),linear-gradient(0deg,#0c1518 0,transparent 27%)}.wrongula-record .record-portrait img{object-position:center 25%;filter:saturate(.68) contrast(1.08)}.wrongula-record .record-title:before{background:repeating-linear-gradient(0deg,transparent 0 27px,#89b5c4 28px)}.wrongula-record .record-title>h2{color:#d8ebef;font-size:clamp(3.5rem,7vw,6.8rem);line-height:.82}.wrongula-record .record-stamps span{border-color:rgba(140,185,200,.42);color:#9ec6d2}.wrongula-record .section-number{color:#8db9c7}.wrongula-record .record-body{background:linear-gradient(130deg,rgba(165,205,214,.07),transparent 38%)}.wrongula-record .opening-leaf>p:first-letter{color:#8fb8c5}.wrongula-record .opening-leaf blockquote{border-color:#82b5c6;background:rgba(147,193,205,.07)}.wrongula-record .panel-heading h3,.wrongula-record .open-ledger h3{color:#d7e9eb}.pressure-grid{grid-template-columns:repeat(3,1fr)}.pressure-grid article{border-color:rgba(140,185,200,.2);background:#081013}.pressure-grid span{color:#759ba7}.pressure-grid h4{color:#d8e7e9}.council-roster{grid-template-columns:repeat(8,1fr)}.council-roster .portrait-card{grid-column:span 2;border-color:rgba(140,185,200,.24);background:#081013}.council-roster .portrait-card:last-child{grid-column:4/span 2}.council-roster .portrait-frame{height:310px}.council-roster .portrait-frame:after{background:linear-gradient(0deg,rgba(3,12,16,.72),transparent 42%)}.council-roster .portrait-frame img{filter:saturate(.72) contrast(1.08)}.council-roster .portrait-caption>span{color:#759ba7}.council-roster .portrait-caption p{margin:0 0 7px;color:#7195a0;font-size:.58rem;letter-spacing:.12em}.council-roster .portrait-caption h4{color:#d7e9eb;font-size:1.2rem}
+  .place-list{border-top:1px solid rgba(140,185,200,.2)}.place-list article{display:grid;grid-template-columns:60px 1fr auto;align-items:center;padding:21px 12px;border-bottom:1px solid rgba(140,185,200,.2)}.place-list span{color:#769aa5;font:800 10px 'JetBrains Mono',monospace}.place-list h4{margin:0;font:italic 700 1.3rem Georgia,serif;color:#d6e6e8}.place-list i{color:#91bcc8}.w-system{text-align:center;margin-top:72px;padding:55px 25px;border:1px solid rgba(140,185,200,.24);background:radial-gradient(circle,rgba(74,134,151,.12),transparent 65%)}.w-system h3{margin:10px 0;font:italic 700 clamp(2.7rem,6vw,5.4rem)/1 Georgia,serif;color:#d7eaed}.w-system>p:not(.section-number){max-width:620px;margin:0 auto;color:#9eacac;line-height:1.65}.w-system>div{display:flex;justify-content:center;flex-wrap:wrap;gap:10px;margin-top:32px}.w-system span{padding:13px 16px;border:1px solid rgba(140,185,200,.34);color:#aed1d9;font:800 10px 'JetBrains Mono',monospace;letter-spacing:.14em}.wrongula-record .open-ledger{border-color:rgba(140,185,200,.3);background:linear-gradient(90deg,rgba(63,113,126,.12),transparent)}.wrongula-record .open-ledger li{border-color:rgba(140,185,200,.2)}.wrongula-record .open-ledger li:before{color:#87b7c4}
+  .archive-footer{padding:35px 0 100px;display:flex;align-items:center;justify-content:space-between;gap:38px}.archive-footer p{max-width:700px;color:#948c80;line-height:1.65}.archive-footer p span{display:block;color:#bd9556;font:800 9px 'JetBrains Mono',monospace;letter-spacing:.15em}.archive-footer a{white-space:nowrap;color:#e2c688;text-decoration:none;border:1px solid rgba(201,148,67,.34);padding:14px 18px;font:800 10px 'JetBrains Mono',monospace;text-transform:uppercase}
+  @media(max-width:1000px){.council-roster{grid-template-columns:repeat(6,1fr)}.council-roster .portrait-card{grid-column:span 2}.council-roster .portrait-card:last-child{grid-column:3/span 2}}
+  @media(max-width:850px){.law-grid{grid-template-columns:1fr}.record-hero,.wrongula-record .record-hero{grid-template-columns:1fr;min-height:0}.record-portrait,.wrongula-record .record-portrait{grid-column:1;grid-row:1;height:520px}.record-title,.wrongula-record .record-title{grid-column:1;grid-row:2}.record-portrait:after{background:linear-gradient(0deg,#15100b,transparent 45%)}.wrongula-record .record-portrait:after{background:linear-gradient(0deg,#0c1518,transparent 45%)}.ridge-grid{grid-template-columns:repeat(2,1fr)}.bloodlines-roster,.council-roster{grid-template-columns:repeat(2,1fr)}.council-roster .portrait-card{grid-column:span 1}.council-roster .portrait-card:last-child{grid-column:1/-1;width:calc(50% - 7px);justify-self:center}.opening-leaf,.open-ledger{grid-template-columns:1fr}.library-note{grid-template-columns:1fr}.pressure-grid{grid-template-columns:1fr}.archive-footer{display:block}.archive-footer a{display:inline-block;margin-top:20px}}
+  @media(max-width:700px) { .threshold-shell{width:min(100% - 20px,1180px);padding-top:48px}.overlap-book{min-height:560px}.page-left{background-position:58% top}.page-content{inset:34px 26px 70px}.page-right .page-content{align-items:flex-start;text-align:left}.page h2{font-size:clamp(2.3rem,13vw,4.5rem)}.placeholder-copy{max-width:78%}.book-hint span{display:none}.page-choices{gap:8px}.page-choices>span{display:none}.page-choices button{flex:1;padding:11px 7px}.boundary-law,.lore-record,.archive-footer{width:calc(100% - 20px)}.record-portrait,.wrongula-record .record-portrait{height:430px}.record-title,.record-body{padding:30px 22px}.record-title>h2{font-size:4.2rem}.wrongula-record .record-title>h2{font-size:3.55rem}.ridge-grid{grid-template-columns:1fr}.bloodlines-roster,.council-roster{grid-template-columns:1fr}.council-roster .portrait-card:last-child{grid-column:auto;width:100%}.portrait-frame,.council-roster .portrait-frame{height:420px}.open-ledger{padding:28px 20px}.open-ledger ul{columns:1}.panel-heading{align-items:start}.crossing-mark b{font-size:7px} }
+  @media(prefers-reduced-motion:reduce) { .page-right,.reveal-edge{transition:none} }
+</style>

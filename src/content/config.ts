@@ -5,6 +5,7 @@ const songsCollection = defineCollection({
   schema: z.object({
     title: z.string(),
     artist: z.string(),
+    performer: z.string().optional(),
     album: z.string(),
     trackNumber: z.number().optional(), // Must be allowed!
     levelFold: z.string(),
