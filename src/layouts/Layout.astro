@@ -223,24 +223,23 @@ const { title } = Astro.props;
 					</span>
 				</a>
 
-				<!-- Desktop Navigation Links -->
-				<nav class="hidden lg:flex items-center space-x-5 xl:space-x-8 text-xs uppercase tracking-widest font-mono font-semibold text-slate-300">
+				<!-- Public doorway navigation: deep archives stay outside the primary path -->
+				<nav class="hidden lg:flex items-center space-x-5 xl:space-x-8 text-xs uppercase tracking-widest font-mono font-semibold text-slate-300" aria-label="Public navigation">
 					<a href="/" class="hover:text-purple-400 transition hover:scale-105">Home</a>
+					<a href="/#worlds" class="hover:text-cyan-400 transition hover:scale-105">The Cosmos</a>
+					<a href="/lore/level-12-fold-15" class="hover:text-amber-400 transition hover:scale-105">Open 12_15</a>
+					<a href="/lore/level-12-fold-15/music" class="hover:text-emerald-400 transition hover:scale-105">Music</a>
 					<a href="/about" class="hover:text-pink-400 transition hover:scale-105">About</a>
-					<a href="/artists" class="hover:text-purple-400 transition hover:scale-105">Artists</a>
-					<a href="/music" class="hover:text-amber-400 transition hover:scale-105">Music</a>
-					<a href="/books" class="hover:text-pink-400 transition hover:scale-105">Books</a>
-					<a href="/lore" class="hover:text-cyan-400 transition hover:scale-105">Lore</a>
 				</nav>
 
 				<!-- Header Actions -->
 				<div class="flex items-center gap-2 xl:gap-3">
-					<!-- Member Journey Placeholder -->
-					<button type="button" disabled aria-label="Your Personal Journey Space — coming soon" title="Coming soon" class="group relative overflow-hidden font-mono text-[10px] xl:text-xs font-bold uppercase tracking-wider text-cyan-50 px-4 xl:px-5 py-2.5 rounded-full border border-cyan-300/60 bg-gradient-to-r from-cyan-950 via-indigo-900 to-purple-900 shadow-[0_0_24px_rgba(34,211,238,0.28)] cursor-default hidden lg:flex items-center gap-2 whitespace-nowrap">
+					<!-- Member Journey Preview -->
+					<a href="/journey" aria-label="Preview the locked Personal Journey Space" class="group relative overflow-hidden font-mono text-[10px] xl:text-xs font-bold uppercase tracking-wider text-cyan-50 px-4 xl:px-5 py-2.5 rounded-full border border-cyan-300/60 bg-gradient-to-r from-cyan-950 via-indigo-900 to-purple-900 shadow-[0_0_24px_rgba(34,211,238,0.28)] hidden lg:flex items-center gap-2 whitespace-nowrap">
 						<span class="absolute inset-0 bg-gradient-to-r from-cyan-400/10 via-purple-400/10 to-pink-400/10"></span>
 						<span class="relative">Your Personal Journey Space</span>
-						<span class="relative text-[8px] xl:text-[9px] text-cyan-200 border border-cyan-300/40 rounded-full px-1.5 py-0.5 tracking-widest">Soon</span>
-					</button>
+						<span class="relative text-[8px] xl:text-[9px] text-cyan-200 border border-cyan-300/40 rounded-full px-1.5 py-0.5 tracking-widest">Locked</span>
+					</a>
 
 					<!-- Patreon CTA Button -->
 					<a href="https://www.patreon.com/c/wackyciscorecords/" target="_blank" rel="noopener noreferrer" class="font-mono text-[10px] xl:text-xs font-bold uppercase tracking-wider bg-gradient-to-r from-purple-600 via-pink-600 to-amber-500 hover:from-purple-500 hover:to-amber-400 text-white px-4 xl:px-5 py-2.5 rounded-full shadow-lg shadow-purple-950/50 transition hover:scale-105 border border-purple-400/30 flex items-center gap-2 whitespace-nowrap">

@@ -1,342 +1,1259 @@
 ---
-// src/pages/index.astro
 import Layout from '../layouts/Layout.astro';
-import { getCollection } from 'astro:content';
-import cosmosData from '../data/cosmos.json';
 
-const allSongs = await getCollection('songs');
-const songCount = allSongs.length || 620;
-
-const factionStyles: Record<string, { bg: string; border: string; glow: string; text: string; badge: string }> = {
-  'crimson-sparks': {
-    bg: 'bg-gradient-to-br from-orange-950/40 via-slate-950/80 to-slate-950',
-    border: 'border-orange-500/30 hover:border-orange-500/70',
-    glow: 'hover:shadow-orange-950/50',
-    text: 'from-orange-400 to-amber-300',
-    badge: 'bg-orange-950/80 text-orange-300 border-orange-800/50'
+const universes = [
+  {
+    coordinate: '12_15',
+    label: 'The Open Universe',
+    status: 'OPEN',
+    copy: 'The one universe whose audience-facing music, artists, stories, lore, and imagery are open to everyone.',
+    detail: 'The Crimson Sparks · Maya · That Guy',
+    href: '/lore/level-12-fold-15',
+    accent: 'amber',
   },
-  'maya': {
-    bg: 'bg-gradient-to-br from-cyan-950/40 via-slate-950/80 to-slate-950',
-    border: 'border-cyan-500/30 hover:border-cyan-500/70',
-    glow: 'hover:shadow-cyan-950/50',
-    text: 'from-cyan-300 to-teal-200',
-    badge: 'bg-cyan-950/80 text-cyan-300 border-cyan-800/50'
+  {
+    coordinate: '1_1',
+    label: 'The Twins Saga',
+    status: 'JOURNEY',
+    accent: 'purple',
+    effect: 'twins',
+    copy: 'Two sisters. Two paths. One truth neither can see whole.',
   },
-  'that-guy': {
-    bg: 'bg-gradient-to-br from-emerald-950/40 via-slate-950/80 to-slate-950',
-    border: 'border-emerald-500/30 hover:border-emerald-500/70',
-    glow: 'hover:shadow-emerald-950/50',
-    text: 'from-emerald-400 to-green-300',
-    badge: 'bg-emerald-950/80 text-emerald-300 border-emerald-800/50'
+  {
+    coordinate: '1_1',
+    label: 'What Comes Next?',
+    status: 'JOURNEY',
+    accent: 'yellow',
+    effect: 'next',
+    copy: 'The next story has already begun. You just haven’t reached it yet.',
   },
-  'pandora-raven': {
-    bg: 'bg-gradient-to-br from-purple-950/40 via-slate-950/80 to-slate-950',
-    border: 'border-purple-500/30 hover:border-purple-500/70',
-    glow: 'hover:shadow-purple-950/50',
-    text: 'from-purple-400 to-pink-300',
-    badge: 'bg-purple-950/80 text-purple-300 border-purple-800/50'
+  {
+    coordinate: '6_66',
+    label: 'The Phantom Patrol',
+    status: 'JOURNEY',
+    accent: 'blue',
+    effect: 'phantom',
+    copy: 'A small town. Old stories. And far too many things that should not be real.',
   },
-  'elara-dawn': {
-    bg: 'bg-gradient-to-br from-amber-950/40 via-slate-950/80 to-slate-950',
-    border: 'border-amber-500/30 hover:border-amber-500/70',
-    glow: 'hover:shadow-amber-950/50',
-    text: 'from-amber-300 to-yellow-200',
-    badge: 'bg-amber-950/80 text-amber-300 border-amber-800/50'
+  {
+    coordinate: '66_6',
+    label: 'Another Plane?',
+    status: 'JOURNEY',
+    accent: 'red',
+    effect: 'plane',
+    copy: 'A way between worlds is failing. What happens when it opens again?',
   },
-  'prima-timo': {
-    bg: 'bg-gradient-to-br from-teal-950/40 via-slate-950/80 to-slate-950',
-    border: 'border-teal-500/30 hover:border-teal-500/70',
-    glow: 'hover:shadow-teal-950/50',
-    text: 'from-teal-300 to-emerald-200',
-    badge: 'bg-teal-950/80 text-teal-300 border-teal-800/50'
+  {
+    coordinate: '8_39',
+    label: 'The Defective Detective',
+    status: 'JOURNEY',
+    accent: 'orange',
+    effect: 'detective',
+    copy: 'Every answer creates another question. Some questions are dangerous to ask.',
   },
-  'solara': {
-    bg: 'bg-gradient-to-br from-indigo-950/40 via-purple-950/30 to-slate-950',
-    border: 'border-indigo-500/30 hover:border-indigo-500/70',
-    glow: 'hover:shadow-indigo-950/50',
-    text: 'from-indigo-300 via-purple-300 to-pink-300',
-    badge: 'bg-indigo-950/80 text-indigo-300 border-indigo-800/50'
+  {
+    coordinate: '15_15',
+    label: 'Prima Et Timo',
+    status: 'JOURNEY',
+    accent: 'green',
+    effect: 'prima-timo',
+    copy: 'One was built to function. One was trying to find his way. Neither expected the other.',
   },
-  'defective-detective': {
-    bg: 'bg-gradient-to-br from-sky-950/40 via-slate-950/90 to-zinc-950',
-    border: 'border-sky-500/30 hover:border-sky-400/70',
-    glow: 'hover:shadow-sky-950/60',
-    text: 'from-sky-300 to-slate-100',
-    badge: 'bg-sky-950/80 text-sky-200 border-sky-800/50'
-  },
-  'mary': {
-    bg: 'bg-gradient-to-br from-rose-950/50 via-stone-950/85 to-slate-950',
-    border: 'border-rose-500/35 hover:border-rose-400/75',
-    glow: 'hover:shadow-rose-950/60',
-    text: 'from-rose-300 via-amber-200 to-stone-100',
-    badge: 'bg-rose-950/85 text-rose-200 border-rose-700/60'
-  },
-  'count-wrongula': {
-    bg: 'bg-gradient-to-br from-amber-950/45 via-stone-950/90 to-sky-950/35',
-    border: 'border-amber-500/35 hover:border-sky-300/70',
-    glow: 'hover:shadow-amber-950/60',
-    text: 'from-amber-200 via-stone-100 to-sky-200',
-    badge: 'bg-stone-950/90 text-sky-100 border-amber-700/60'
-  }
-};
+];
 ---
 
-<Layout title="The Cosmos Ecosystem | Home">
-  <main class="w-full max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-10 py-8 lg:py-14 space-y-20">
-    
-    <!-- Hero Row: Side-by-Side Split Hero & Holographic Vault Card -->
-    <section class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center min-h-[70vh]">
-      
-      <!-- Left Column: Hero Text & Actions -->
-      <div class="lg:col-span-6 space-y-6 text-left">
-        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-mono font-semibold bg-purple-950/80 text-purple-300 border border-purple-800/50 shadow-md">
-          <span class="w-2 h-2 rounded-full bg-purple-400 animate-ping"></span>
-          The Levels and The Folds
-        </div>
+<Layout title="Enter The Cosmos">
+  <div class="portal-page">
+    <section class="portal-hero" aria-labelledby="portal-title">
+      <div class="hero-orbit orbit-one"></div>
+      <div class="hero-orbit orbit-two"></div>
+      <div class="hero-signal signal-one"></div>
+      <div class="hero-signal signal-two"></div>
 
-        <h1 class="text-4xl sm:text-6xl lg:text-7xl font-black tracking-tight text-white leading-[1.08]">
-          Welcome to <br class="hidden sm:inline" />
-          <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-400 to-amber-300">The Cosmos</span>
-        </h1>
-
-        <p class="text-slate-300 text-base sm:text-lg leading-relaxed max-w-2xl">
-          Explore a multi-layered universe spanning 300,000 years, where music, lore, chronicles, and digital worlds exist simultaneously across all Levels and Folds.
-        </p>
-
-        <!-- Main Action Buttons -->
-        <div class="flex flex-wrap items-center gap-4 pt-2">
-          <a href="/music" class="px-7 py-3.5 rounded-xl font-bold bg-purple-600 hover:bg-purple-500 text-white transition shadow-lg shadow-purple-900/40 hover:shadow-purple-700/50 flex items-center gap-2">
-            <span>Explore Discography</span>
-            <span class="text-lg">→</span>
-          </a>
-          <a href="/artists" class="px-6 py-3.5 rounded-xl font-bold bg-slate-900/90 hover:bg-slate-800 border border-slate-700/80 text-slate-200 transition">
-            View Roster
-          </a>
-          <a href="https://www.patreon.com/c/wackyciscorecords/membership" target="_blank" class="px-6 py-3.5 rounded-xl font-bold bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/40 text-amber-300 transition flex items-center gap-2">
-            <span>Patreon Vault</span>
-            <span class="text-xs px-2 py-0.5 rounded-full bg-amber-400/20 font-mono">7 Days Free</span>
-          </a>
-        </div>
-
-        <!-- Metric Stat Badges -->
-        <div class="pt-6 border-t border-slate-800/80 grid grid-cols-2 sm:grid-cols-4 gap-4">
-          <div class="space-y-0.5">
-            <div class="text-2xl lg:text-3xl font-black text-purple-300">{songCount}+</div>
-            <div class="text-xs font-mono text-slate-400 uppercase tracking-wider">Ingested Tracks</div>
-          </div>
-          <div class="space-y-0.5">
-            <div class="text-2xl lg:text-3xl font-black text-pink-300">{cosmosData.artists.length}</div>
-            <div class="text-xs font-mono text-slate-400 uppercase tracking-wider">Factions &amp; Artists</div>
-          </div>
-          <div class="space-y-0.5">
-            <div class="text-2xl lg:text-3xl font-black text-amber-300">17</div>
-            <div class="text-xs font-mono text-slate-400 uppercase tracking-wider">Twin Albums</div>
-          </div>
-          <div class="space-y-0.5">
-            <div class="text-2xl lg:text-3xl font-black text-teal-300">300k</div>
-            <div class="text-xs font-mono text-slate-400 uppercase tracking-wider">Years Lore</div>
-          </div>
-        </div>
+      <div class="portal-eyebrow">
+        <span></span>
+        The Levels and The Folds
+        <span></span>
       </div>
 
-      <!-- Right Column: Holographic Patreon 7-Day Free Trial VIP Card -->
-      <div class="lg:col-span-6 w-full">
-        <div class="p-6 sm:p-8 lg:p-10 rounded-3xl bg-slate-950/85 border border-purple-500/40 shadow-2xl shadow-purple-950/60 backdrop-blur-2xl relative overflow-hidden group text-left">
-          
-          <!-- Ambient Glowing Orbs -->
-          <div class="absolute -top-28 -right-28 w-80 h-80 bg-purple-600/25 rounded-full blur-3xl group-hover:bg-purple-500/35 transition duration-700 pointer-events-none"></div>
-          <div class="absolute -bottom-28 -left-28 w-80 h-80 bg-amber-500/20 rounded-full blur-3xl group-hover:bg-amber-500/30 transition duration-700 pointer-events-none"></div>
+      <h1 id="portal-title">
+        The Cosmos is not meant<br />
+        <em>to be explained.</em>
+      </h1>
 
-          <div class="relative z-10 space-y-6">
-            <!-- Header Badge -->
-            <div class="flex items-center justify-between flex-wrap gap-2">
-              <span class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-mono font-semibold bg-amber-500/15 text-amber-300 border border-amber-500/40 shadow-sm">
-                <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
-                ✦ 7-DAY FREE TRIAL AVAILABLE
-              </span>
-              <span class="text-xs font-mono text-purple-300/80">The Levels and The Folds • Patreon Vault</span>
-            </div>
+      <p class="hero-reveal">It is meant to be entered.</p>
+      <p class="hero-copy">
+        Every Level and Fold exists. What you discover—and when you discover it—belongs to your journey.
+      </p>
 
-            <!-- Headline & Description -->
-            <div>
-              <h2 class="text-2xl sm:text-4xl font-extrabold text-white tracking-tight">
-                Unlock <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-300 to-amber-300">The Master Vault</span>
-              </h2>
-              <p class="text-slate-300 text-sm sm:text-base mt-2 leading-relaxed">
-                Experience deep podcast episodes on Cosmos lore, hidden realm histories, unreleased tracks, and exclusive creator drafts for 7 days—100% free.
-              </p>
-            </div>
-
-            <!-- Perk Chips Grid -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <div class="flex items-center gap-3 p-3 rounded-xl bg-purple-950/50 border border-purple-800/50 text-xs sm:text-sm font-medium text-purple-200 shadow-inner">
-                <span class="text-lg">🎙️</span>
-                <span>Deep Lore Podcasts & History</span>
-              </div>
-              <div class="flex items-center gap-3 p-3 rounded-xl bg-purple-950/50 border border-purple-800/50 text-xs sm:text-sm font-medium text-purple-200 shadow-inner">
-                <span class="text-lg">🎧</span>
-                <span>Unreleased Master Tracks</span>
-              </div>
-              <div class="flex items-center gap-3 p-3 rounded-xl bg-purple-950/50 border border-purple-800/50 text-xs sm:text-sm font-medium text-purple-200 shadow-inner">
-                <span class="text-lg">📖</span>
-                <span>Exclusive Lore & Book Drafts</span>
-              </div>
-              <div class="flex items-center gap-3 p-3 rounded-xl bg-purple-950/50 border border-purple-800/50 text-xs sm:text-sm font-medium text-purple-200 shadow-inner">
-                <span class="text-lg">🎨</span>
-                <span>4K Art Vault & Wallpapers</span>
-              </div>
-            </div>
-
-            <!-- Action Button & Micro-copy -->
-            <div class="pt-2 flex flex-col sm:flex-row items-center gap-4">
-              <a href="https://www.patreon.com/c/wackyciscorecords/membership" target="_blank" class="w-full sm:w-auto px-8 py-4 rounded-2xl font-extrabold bg-gradient-to-r from-purple-600 via-pink-600 to-amber-500 hover:from-purple-500 hover:via-pink-500 hover:to-amber-400 text-white transition shadow-xl shadow-purple-900/50 hover:shadow-purple-700/60 text-center flex items-center justify-center gap-2.5 text-base">
-                <span>Start 7-Day Free Trial</span>
-                <span class="text-xl">→</span>
-              </a>
-              <p class="text-xs font-mono text-slate-400 text-center sm:text-left leading-tight">
-                Cancel anytime on Patreon.<br class="hidden sm:inline" /> Zero charge during your 7-day trial.
-              </p>
-            </div>
-          </div>
-        </div>
+      <div class="hero-actions">
+        <a class="portal-button primary" href="/journey">
+          <span>Begin Your Journey</span>
+          <b aria-hidden="true">→</b>
+        </a>
+        <a class="portal-button secondary" href="/lore/level-12-fold-15">
+          <span>Enter Open Universe 12_15</span>
+          <b aria-hidden="true">↗</b>
+        </a>
       </div>
 
+      <a href="#worlds" class="scroll-cue">
+        <span>See the known coordinates</span>
+        <i aria-hidden="true"></i>
+      </a>
     </section>
 
-    <!-- Section 2: The Factions & Artists Showcase Grid -->
-    <section id="roster" class="space-y-8 pt-6 scroll-mt-28">
-      <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-slate-800/80 pb-6">
+    <section class="worlds-section" id="worlds" aria-labelledby="worlds-heading">
+      <div class="section-heading">
         <div>
-          <span class="text-xs font-mono font-bold uppercase tracking-widest text-purple-400">The Roster</span>
-          <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight mt-1">
-            {cosmosData.artists.length} Unique Factions & Artists
-          </h2>
+          <p class="kicker">Known Coordinates</p>
+          <h2 id="worlds-heading">Every universe has a door.</h2>
         </div>
-        <a href="/artists" class="text-sm font-bold text-purple-400 hover:text-purple-300 transition flex items-center gap-1">
-          <span>Explore All Profile Sheets</span>
-          <span>→</span>
-        </a>
+        <p class="section-intro">
+          The Cosmos can be seen from here. Only what has been opened—or earned—can be entered.
+        </p>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-        {cosmosData.artists.map((artist) => {
-          const style = factionStyles[artist.id] || factionStyles['solara'];
-          return (
-            <a 
-              id={`home-${artist.id}`}
-              href={`/music/${artist.id}`}
-              class={`p-6 rounded-2xl ${style.bg} border ${style.border} ${style.glow} transition duration-300 shadow-lg group relative flex flex-col justify-between space-y-4`}
-            >
-              <div class="space-y-3">
-                <div class="flex items-center justify-between gap-2">
-                  <span class={`px-2.5 py-0.5 rounded-full text-[11px] font-mono font-bold border ${style.badge}`}>
-                    {artist.levelFold}
-                  </span>
-                  <span class="text-[11px] font-mono text-slate-400">
-                    {artist.albums.length} Albums
-                  </span>
+      <div class="universe-grid">
+        {universes.map((universe, index) => (
+          <article class:list={[
+            'universe-card',
+            'accent-' + universe.accent,
+            universe.effect && 'effect-' + universe.effect,
+            universe.status === 'OPEN' && 'is-open',
+          ]}>
+            <div class="universe-visual">
+              {universe.status === 'OPEN' ? (
+                <div class="open-world-gallery" aria-label="The publicly open artists of Level 12 Fold 15">
+                  <a class="open-world-panel crimson-panel" href="/lore/level-12-fold-15" aria-label="Explore The Crimson Sparks in open universe 12_15">
+                    <figure>
+                      <div
+                        class="open-world-image crimson-image"
+                        role="img"
+                        aria-label="The Crimson Sparks"
+                      ></div>
+                      <figcaption>
+                        <span>Public Artist 01</span>
+                        <strong>The Crimson Sparks</strong>
+                      </figcaption>
+                    </figure>
+                  </a>
+
+                  <a class="open-world-panel maya-panel" href="/lore/level-12-fold-15" aria-label="Explore Maya in open universe 12_15">
+                    <figure>
+                      <div
+                        class="open-world-image maya-image"
+                        role="img"
+                        aria-label="Maya"
+                      ></div>
+                      <figcaption>
+                        <span>Public Artist 02</span>
+                        <strong>Maya</strong>
+                      </figcaption>
+                    </figure>
+                  </a>
+
+                  <a class="open-world-panel that-guy-panel" href="/lore/level-12-fold-15" aria-label="Explore That Guy in open universe 12_15">
+                    <figure>
+                      <div
+                        class="open-world-image that-guy-image"
+                        role="img"
+                        aria-label="That Guy"
+                      ></div>
+                      <figcaption>
+                        <span>Public Artist 03</span>
+                        <strong>That Guy</strong>
+                      </figcaption>
+                    </figure>
+                  </a>
                 </div>
-
-                <h3 class={`text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r ${style.text} group-hover:scale-[1.02] transition transform origin-left`}>
-                  {artist.name}
-                </h3>
-
-                <p class="text-slate-300 text-xs sm:text-sm line-clamp-3 leading-relaxed">
-                  {artist.description}
-                </p>
+              ) : (
+                <>
+                  <div class="sealed-echo" aria-hidden="true">
+                    <span class="echo-image echo-a"></span>
+                    <span class="echo-image echo-b"></span>
+                    <span class="echo-shadow"></span>
+                  </div>
+                </>
+              )}
+              <div class="visual-smoke smoke-one" aria-hidden="true"></div>
+              <div class="visual-smoke smoke-two" aria-hidden="true"></div>
+              <div class="visual-sparks" aria-hidden="true"></div>
+              <div class="visual-frame" aria-hidden="true"></div>
+              <div class="visual-topline">
+                <span class="card-number">{String(index + 1).padStart(2, '0')}</span>
+                <span class:list={['state-pill', universe.status === 'OPEN' ? 'open' : 'sealed']}>
+                  {universe.status === 'OPEN' ? 'Publicly Open' : 'Journey Sealed'}
+                </span>
               </div>
+            </div>
 
-              <div class="pt-3 border-t border-slate-800/60 flex items-center justify-between text-xs font-mono font-semibold text-slate-400 group-hover:text-slate-200">
-                <span>Enter Space</span>
-                <span class="group-hover:translate-x-1 transition transform">→</span>
+            <div class="universe-info">
+              <div class="coordinate">{universe.coordinate}</div>
+              <div class="universe-copy">
+                <h3>{universe.label}</h3>
+                {universe.status === 'OPEN' ? (
+                  <>
+                    <p>{universe.copy}</p>
+                    <small>{universe.detail}</small>
+                    <a class="card-entry" href={universe.href}>
+                      Explore everything in 12_15 <span aria-hidden="true">→</span>
+                    </a>
+                  </>
+                ) : (
+                  <>
+                    <p>{universe.copy}</p>
+                    <div class="sealed-line">
+                      <span aria-hidden="true">✦</span>
+                      Revealed through Transmissions
+                    </div>
+                  </>
+                )}
               </div>
-            </a>
-          );
-        })}
+            </div>
+          </article>
+        ))}
       </div>
     </section>
 
-    <!-- Section 3: The 4 Pillars of The Cosmos Ecosystem -->
-    <section class="space-y-8 pt-6">
-      <div class="text-center max-w-2xl mx-auto space-y-2">
-        <span class="text-xs font-mono font-bold uppercase tracking-widest text-amber-400">Ecosystem Architecture</span>
-        <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-          Four Pillars of The Cosmos
-        </h2>
-        <p class="text-slate-400 text-sm sm:text-base">
-          From music collections to lore chronicles and podcasts, explore how the universe connects.
+    <section class="journey-section" id="journey" aria-labelledby="journey-heading">
+      <div class="journey-mark" aria-hidden="true">
+        <span class="mark-ring ring-a"></span>
+        <span class="mark-ring ring-b"></span>
+        <span class="mark-core">✦</span>
+      </div>
+
+      <div class="journey-copy">
+        <p class="kicker">Your Personal Journey Space</p>
+        <h2 id="journey-heading">The Cosmos remembers what you have discovered.</h2>
+        <p>
+          Transmissions open characters, places, artifacts, music, and lore according to your position in the Journey.
+          What you have earned remains with you. What lies ahead remains a mystery.
         </p>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        
-        <!-- Pillar 1: Music -->
-        <a href="/music" class="p-6 rounded-2xl bg-slate-950/70 border border-purple-900/40 hover:border-purple-500/60 transition group space-y-4">
-          <div class="w-12 h-12 rounded-xl bg-purple-950/80 border border-purple-800/50 flex items-center justify-center text-2xl">
-            🎧
-          </div>
-          <h3 class="text-xl font-bold text-white group-hover:text-purple-300 transition">Music & Lyric Vault</h3>
-          <p class="text-slate-300 text-xs leading-relaxed">
-            Over {songCount}+ canonical tracks across twin albums. Read smart lyric quotes, explore releases, and discover lore connections.
-          </p>
-        </a>
-
-        <!-- Pillar 2: Books -->
-        <a href="/books" class="p-6 rounded-2xl bg-slate-950/70 border border-amber-900/40 hover:border-amber-500/60 transition group space-y-4">
-          <div class="w-12 h-12 rounded-xl bg-amber-950/80 border border-amber-800/50 flex items-center justify-center text-2xl">
-            📖
-          </div>
-          <h3 class="text-xl font-bold text-white group-hover:text-amber-300 transition">Chronicles & Books</h3>
-          <p class="text-slate-300 text-xs leading-relaxed">
-            Twin album narrative symmetry written by Head Writer Lyra. Dialogue chapters mirroring destructive exposure vs. protective healing.
-          </p>
-        </a>
-
-        <!-- Pillar 3: Lore -->
-        <a href="/lore" class="p-6 rounded-2xl bg-slate-950/70 border border-teal-900/40 hover:border-teal-500/60 transition group space-y-4">
-          <div class="w-12 h-12 rounded-xl bg-teal-950/80 border border-teal-800/50 flex items-center justify-center text-2xl">
-            🌌
-          </div>
-          <h3 class="text-xl font-bold text-white group-hover:text-teal-300 transition">World Forge & Map</h3>
-          <p class="text-slate-300 text-xs leading-relaxed">
-            Historical timelines, physical laws of realms, and interactive sandbox environments managed by Grand Lorekeeper Serah & Yuki.
-          </p>
-        </a>
-
-        <!-- Pillar 4: Podcasts -->
-        <a href="https://www.patreon.com/c/wackyciscorecords/membership" target="_blank" class="p-6 rounded-2xl bg-slate-950/70 border border-pink-900/40 hover:border-pink-500/60 transition group space-y-4">
-          <div class="w-12 h-12 rounded-xl bg-pink-950/80 border border-pink-800/50 flex items-center justify-center text-2xl">
-            🎙️
-          </div>
-          <h3 class="text-xl font-bold text-white group-hover:text-pink-300 transition">Nyan-Cast Live</h3>
-          <p class="text-slate-300 text-xs leading-relaxed">
-            Foxxie's media broadcasts diving into deep Cosmos history, secret lore discussions, host interviews, and audio reveals.
-          </p>
-        </a>
-
-      </div>
-    </section>
-
-    <!-- Bottom Full-Bleed Patreon Vault CTA Banner -->
-    <section class="p-8 sm:p-12 rounded-3xl bg-gradient-to-r from-purple-950/60 via-slate-950 to-amber-950/40 border border-purple-500/30 text-center relative overflow-hidden space-y-6">
-      <div class="max-w-3xl mx-auto space-y-4 relative z-10">
-        <span class="px-3.5 py-1 rounded-full text-xs font-mono font-bold bg-amber-400/10 text-amber-300 border border-amber-400/30">
-          ✦ DIRECT MEMBER VAULT ACCESS
-        </span>
-        <h2 class="text-3xl sm:text-5xl font-black text-white tracking-tight">
-          Ready to Step Into <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-300 to-amber-300">The Vault</span>?
-        </h2>
-        <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
-          Start your 7-day free trial on Patreon today. Get instant access to exclusive podcasts, unreleased master tracks, book chapter drafts, and private Discord studio channels.
+        <p class="journey-note">
+          The private Journey space is being prepared. Patreon remains the membership key and entrance.
         </p>
-        <div class="pt-2 flex justify-center">
-          <a href="https://www.patreon.com/c/wackyciscorecords/membership" target="_blank" class="px-9 py-4 rounded-2xl font-black bg-gradient-to-r from-purple-600 via-pink-600 to-amber-500 hover:from-purple-500 hover:via-pink-500 hover:to-amber-400 text-white transition shadow-xl shadow-purple-900/50 hover:shadow-purple-700/60 flex items-center gap-3 text-lg">
-            <span>Claim Your 7-Day Free Pass Now</span>
-            <span class="text-2xl">→</span>
-          </a>
-        </div>
+        <a
+          class="portal-button primary"
+          href="/journey"
+        >
+          <span>Preview Your Journey Space</span>
+          <b aria-hidden="true">→</b>
+        </a>
       </div>
     </section>
 
-  </main>
+    <section class="threshold-footer" aria-label="Cosmos invitation">
+      <p>One Cosmos.</p>
+      <span>Many thresholds.</span>
+      <strong>Your path is your own.</strong>
+    </section>
+  </div>
 </Layout>
+
+<style>
+  :global(html) {
+    scroll-padding-top: 6rem;
+  }
+
+  .portal-page {
+    --cream: #f3e5bd;
+    --gold: #d6a84d;
+    --ink: #05060b;
+    position: relative;
+    overflow: hidden;
+    background:
+      radial-gradient(circle at 50% 18%, rgba(97, 53, 180, 0.18), transparent 31rem),
+      radial-gradient(circle at 84% 52%, rgba(16, 113, 140, 0.12), transparent 26rem),
+      linear-gradient(180deg, rgba(3, 4, 9, 0.35), rgba(3, 5, 13, 0.84));
+  }
+
+  .portal-hero {
+    position: relative;
+    min-height: calc(100vh - 5rem);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 7rem 1.5rem 6rem;
+    text-align: center;
+    isolation: isolate;
+  }
+
+  .portal-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -3;
+    background:
+      linear-gradient(90deg, rgba(0,0,0,.72), transparent 23%, transparent 77%, rgba(0,0,0,.72)),
+      radial-gradient(circle at 50% 43%, transparent 0 8rem, rgba(4, 5, 12, .12) 8.2rem 12rem, transparent 12.2rem);
+  }
+
+  .portal-hero::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: min(80vw, 70rem);
+    height: min(80vw, 70rem);
+    z-index: -2;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 217, 132, .07), transparent 62%);
+    filter: blur(5px);
+  }
+
+  .hero-orbit {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    z-index: -1;
+    border: 1px solid rgba(229, 200, 132, .17);
+    border-radius: 50%;
+    transform: translate(-50%, -50%) rotate(-12deg);
+    pointer-events: none;
+  }
+
+  .orbit-one { width: min(76vw, 59rem); height: min(32vw, 24rem); }
+  .orbit-two { width: min(61vw, 47rem); height: min(58vw, 45rem); transform: translate(-50%, -50%) rotate(54deg); }
+
+  .hero-signal {
+    position: absolute;
+    width: 1px;
+    height: 12rem;
+    background: linear-gradient(transparent, rgba(223, 190, 115, .62), transparent);
+    opacity: .45;
+  }
+
+  .signal-one { left: 16%; top: 12%; transform: rotate(24deg); }
+  .signal-two { right: 14%; bottom: 10%; transform: rotate(38deg); }
+
+  .portal-eyebrow,
+  .kicker {
+    font: 700 .68rem/1 'JetBrains Mono', monospace;
+    letter-spacing: .28em;
+    text-transform: uppercase;
+    color: #d5ad59;
+  }
+
+  .portal-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .portal-eyebrow span {
+    width: 2.7rem;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(213, 173, 89, .75));
+  }
+
+  .portal-eyebrow span:last-child { transform: scaleX(-1); }
+
+  h1 {
+    margin: 0;
+    max-width: 72rem;
+    font: 700 clamp(3.15rem, 8vw, 7.5rem)/.92 Georgia, 'Times New Roman', serif;
+    letter-spacing: -.055em;
+    color: #f3ead6;
+    text-wrap: balance;
+  }
+
+  h1 em {
+    font-weight: 400;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(239, 215, 158, .7);
+  }
+
+  .hero-reveal {
+    margin: 1.3rem 0 0;
+    font: italic 400 clamp(1.7rem, 4vw, 3.2rem)/1.1 Georgia, serif;
+    color: var(--gold);
+  }
+
+  .hero-copy {
+    max-width: 42rem;
+    margin: 2rem auto 0;
+    color: #aeb7c8;
+    font-size: clamp(.98rem, 1.7vw, 1.15rem);
+    line-height: 1.8;
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: .9rem;
+    margin-top: 2.4rem;
+  }
+
+  .portal-button {
+    min-height: 3.35rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding: .95rem 1.25rem;
+    border: 1px solid rgba(210, 169, 76, .55);
+    font: 800 .68rem/1.2 'JetBrains Mono', monospace;
+    letter-spacing: .11em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+  }
+
+  .portal-button:hover {
+    transform: translateY(-3px);
+    border-color: #f0c668;
+    box-shadow: 0 18px 45px rgba(0, 0, 0, .38), 0 0 30px rgba(190, 126, 44, .15);
+  }
+
+  .portal-button.primary { color: #171006; background: linear-gradient(135deg, #efd991, #d69836); }
+  .portal-button.secondary { color: #e9ddc2; background: rgba(7, 8, 15, .72); }
+  .portal-button b { font-size: 1rem; }
+
+  .scroll-cue {
+    position: absolute;
+    left: 50%;
+    bottom: 1.8rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: .65rem;
+    transform: translateX(-50%);
+    color: #727d91;
+    font: 700 .55rem/1 'JetBrains Mono', monospace;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    text-decoration: none;
+  }
+
+  .scroll-cue i {
+    width: 1px;
+    height: 2rem;
+    background: linear-gradient(#d6a84d, transparent);
+  }
+
+  .worlds-section,
+  .journey-section {
+    width: min(92rem, calc(100% - 2rem));
+    margin: 0 auto;
+  }
+
+  .worlds-section { padding: clamp(5rem, 10vw, 9rem) 0; }
+
+  .section-heading {
+    display: grid;
+    grid-template-columns: 1fr minmax(17rem, 32rem);
+    gap: 3rem;
+    align-items: end;
+    padding-bottom: 2.2rem;
+    border-bottom: 1px solid rgba(163, 177, 201, .17);
+  }
+
+  .section-heading h2,
+  .journey-copy h2 {
+    margin: .85rem 0 0;
+    font: 600 clamp(2.25rem, 5vw, 4.5rem)/1 Georgia, serif;
+    letter-spacing: -.045em;
+    color: #eee7da;
+  }
+
+  .section-intro {
+    margin: 0;
+    color: #929caf;
+    line-height: 1.75;
+  }
+
+  .universe-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(2.5rem, 5vw, 5rem) 1.25rem;
+    margin-top: 3rem;
+  }
+
+  .universe-card {
+    --accent: 148, 163, 184;
+    position: relative;
+    min-width: 0;
+  }
+
+  .accent-amber { --accent: 221, 169, 70; }
+  .accent-purple { --accent: 163, 92, 255; }
+  .accent-yellow { --accent: 235, 190, 67; }
+  .accent-blue { --accent: 57, 151, 232; }
+  .accent-red { --accent: 218, 65, 81; }
+  .accent-orange { --accent: 237, 134, 47; }
+  .accent-green { --accent: 60, 190, 105; }
+
+  .is-open {
+    grid-column: 1 / -1;
+  }
+
+  .universe-visual {
+    position: relative;
+    height: clamp(19rem, 35vw, 31rem);
+    overflow: hidden;
+    border: 1px solid rgba(var(--accent), .34);
+    background:
+      radial-gradient(circle at 50% 105%, rgba(var(--accent), .22), transparent 48%),
+      linear-gradient(145deg, rgba(var(--accent), .08), #05070e 68%);
+    box-shadow: 0 30px 75px rgba(0, 0, 0, .34), 0 0 45px rgba(var(--accent), .07);
+    isolation: isolate;
+    transition: border-color .35s ease, box-shadow .35s ease, transform .35s ease;
+  }
+
+  .is-open .universe-visual {
+    height: auto;
+    min-height: 58rem;
+    border-color: rgba(var(--accent), .55);
+  }
+
+  .universe-card:hover .universe-visual {
+    transform: translateY(-4px);
+    border-color: rgba(var(--accent), .62);
+    box-shadow: 0 38px 90px rgba(0, 0, 0, .42), 0 0 60px rgba(var(--accent), .13);
+  }
+
+  .open-world-gallery {
+    position: relative;
+    z-index: 0;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+    padding: 4.5rem 1rem 1rem;
+  }
+
+  .open-world-panel {
+    position: relative;
+    display: block;
+    min-width: 0;
+    margin: 0;
+    overflow: hidden;
+    border: 1px solid rgba(var(--accent), .34);
+    background: #070810;
+    box-shadow: 0 18px 46px rgba(0, 0, 0, .36), inset 0 0 30px rgba(var(--accent), .035);
+    color: inherit;
+    text-decoration: none;
+    transition: border-color .35s ease, transform .45s cubic-bezier(.2,.65,.2,1), box-shadow .35s ease;
+  }
+
+  .open-world-panel figure { margin: 0; }
+
+  .open-world-panel:focus-visible {
+    outline: 2px solid #f3d17e;
+    outline-offset: 4px;
+  }
+
+  .open-world-panel:hover {
+    z-index: 2;
+    transform: translateY(-5px);
+    border-color: rgba(var(--accent), .72);
+    box-shadow: 0 25px 58px rgba(0, 0, 0, .48), 0 0 32px rgba(var(--accent), .13);
+  }
+
+  .crimson-panel {
+    grid-column: 1 / -1;
+  }
+
+  .open-world-image {
+    position: relative;
+    width: 100%;
+    background-color: #070810;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    filter: saturate(.88) contrast(1.04);
+    transition: filter .6s ease;
+  }
+
+  .crimson-image {
+    aspect-ratio: 16 / 9;
+    background-image: url('/images/artists/level_12_fold_15_open_group_01.png');
+    background-position: center;
+  }
+
+  .maya-image,
+  .that-guy-image {
+    aspect-ratio: 4 / 5;
+    background-position: center;
+  }
+
+  .maya-image {
+    background-image: url('/images/artists/level_12_fold_15_maya_01.png');
+  }
+
+  .that-guy-image {
+    background-image: url('/images/artists/level_12_fold_15_that_guy_01.png');
+  }
+
+  .open-world-panel figcaption {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    min-height: 4.5rem;
+    padding: 1rem 1.15rem;
+    border-top: 1px solid rgba(var(--accent), .27);
+    background: linear-gradient(90deg, rgba(10, 11, 18, .98), rgba(18, 15, 11, .96));
+  }
+
+  .open-world-panel figcaption span {
+    color: rgba(var(--accent), .72);
+    font: 700 .54rem/1.3 'JetBrains Mono', monospace;
+    letter-spacing: .13em;
+    text-transform: uppercase;
+  }
+
+  .open-world-panel figcaption strong {
+    color: #f3e6c8;
+    font: italic 500 clamp(1.15rem, 1.7vw, 1.55rem)/1 Georgia, serif;
+  }
+
+  .is-open .universe-visual::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    background:
+      linear-gradient(90deg, rgba(4, 6, 12, .48), transparent 30%, transparent 78%, rgba(4, 6, 12, .18)),
+      linear-gradient(0deg, rgba(4, 6, 12, .35), transparent 32%);
+    pointer-events: none;
+  }
+
+  .open-world-panel:hover .open-world-image {
+    filter: saturate(1) contrast(1.04);
+  }
+
+  .sealed-echo {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  .echo-image,
+  .echo-shadow {
+    position: absolute;
+    inset: -3%;
+  }
+
+  .echo-image {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    filter: brightness(.62) saturate(.76) contrast(1.16) blur(.2px);
+    mix-blend-mode: screen;
+    opacity: 0;
+    transform: scale(1.055);
+    will-change: opacity, clip-path, transform;
+  }
+
+  .echo-a {
+    animation: sealedEchoA 13.6s ease-in-out infinite;
+    animation-delay: var(--echo-delay-a, 0s);
+  }
+
+  .echo-b {
+    animation: sealedEchoB 15.8s ease-in-out infinite;
+    animation-delay: var(--echo-delay-b, -5s);
+  }
+
+  .echo-shadow {
+    z-index: 2;
+    background:
+      radial-gradient(ellipse at 50% 47%, transparent 0 14%, rgba(2, 3, 9, .26) 46%, rgba(2, 3, 9, .78) 88%),
+      repeating-linear-gradient(180deg, rgba(255,255,255,.018) 0 1px, transparent 1px 5px),
+      linear-gradient(180deg, rgba(2, 3, 9, .18), rgba(2, 3, 9, .44));
+  }
+
+  .effect-twins {
+    --echo-delay-a: -1.7s;
+    --echo-delay-b: -8.4s;
+  }
+
+  .effect-twins .echo-a,
+  .effect-twins .echo-b { background-image: url('/images/artists/level_1_fold_1_twins_saga_manifestation_01.jpg'); }
+  .effect-twins .echo-a { background-position: 23% center; }
+  .effect-twins .echo-b { background-position: 79% center; transform: scale(1.09); }
+
+  .effect-next {
+    --echo-delay-a: -7.1s;
+    --echo-delay-b: -13.2s;
+  }
+
+  .effect-next .echo-a,
+  .effect-next .echo-b { background-image: url('/images/artists/level_1_fold_1_solara_manifestation_01.png'); }
+  .effect-next .echo-a { background-position: 48% 38%; }
+  .effect-next .echo-b { background-position: 56% 52%; transform: scale(1.12); }
+
+  .effect-phantom {
+    --echo-delay-a: -4.4s;
+    --echo-delay-b: -11.6s;
+  }
+
+  .effect-phantom .echo-a,
+  .effect-phantom .echo-b { background-image: url('/images/mary/the_phantom_patrol_group_photo_01.png'); }
+  .effect-phantom .echo-a { background-position: 24% center; }
+  .effect-phantom .echo-b { background-position: 76% center; transform: scale(1.1); }
+
+  .effect-plane {
+    --echo-delay-a: -10.3s;
+    --echo-delay-b: -2.8s;
+  }
+
+  .effect-plane .echo-a,
+  .effect-plane .echo-b { background-image: url('/images/count-wrongula/count_wrongula_group_photo_01.png'); }
+  .effect-plane .echo-a { background-position: 27% center; }
+  .effect-plane .echo-b { background-position: 74% center; transform: scale(1.08); }
+
+  .effect-detective {
+    --echo-delay-a: -6.2s;
+    --echo-delay-b: -14.5s;
+  }
+
+  .effect-detective .echo-a,
+  .effect-detective .echo-b { background-image: url('/images/defective-detective/the_defective_detective_hero.png'); }
+  .effect-detective .echo-a { background-position: 28% center; }
+  .effect-detective .echo-b { background-position: 74% 42%; }
+
+  .effect-prima-timo {
+    --echo-delay-a: -12.7s;
+    --echo-delay-b: -5.3s;
+  }
+
+  .effect-prima-timo .echo-a,
+  .effect-prima-timo .echo-b { background-image: url('/images/artists/prime-and-timo.jpg'); }
+  .effect-prima-timo .echo-a { background-position: 30% center; }
+  .effect-prima-timo .echo-b { background-position: 72% center; }
+
+  .universe-card:not(.is-open):hover .echo-image {
+    filter: brightness(.75) saturate(.9) contrast(1.18) blur(0);
+  }
+
+  .universe-card:not(.is-open) .universe-visual::before,
+  .universe-card:not(.is-open) .universe-visual::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .45s ease, transform .8s cubic-bezier(.2,.7,.2,1);
+  }
+
+  /* 1_1 — two opposing lights meet in the same sealed frame. */
+  .effect-twins .universe-visual::before {
+    background:
+      radial-gradient(circle at 18% 48%, rgba(118, 55, 210, .52), transparent 38%),
+      radial-gradient(circle at 82% 48%, rgba(196, 116, 255, .56), transparent 38%);
+    mix-blend-mode: screen;
+    transform: scale(.9);
+  }
+
+  .effect-twins .universe-visual::after {
+    inset: 0 49%;
+    background: linear-gradient(180deg, transparent, rgba(229, 204, 255, .78), transparent);
+    filter: blur(7px);
+  }
+
+  .effect-twins:hover .universe-visual {
+    border-color: rgba(188, 77, 226, .82);
+    box-shadow: -18px 24px 70px rgba(112, 52, 205, .2), 18px 24px 70px rgba(194, 102, 255, .25);
+  }
+
+  .effect-twins:hover .universe-visual::before {
+    opacity: .9;
+    transform: scale(1.08);
+    animation: twinColours 2.8s ease-in-out infinite alternate;
+  }
+
+  .effect-twins:hover .universe-visual::after { opacity: .75; animation: twinSeam 2.4s ease-in-out infinite; }
+  /* 1_1 — tomorrow arrives as a faint echo before it becomes visible. */
+  .effect-next .universe-visual::before {
+    background: repeating-radial-gradient(circle at 50% 115%, transparent 0 2.7rem, rgba(243, 194, 68, .3) 2.78rem 2.86rem);
+    transform: translateY(14%) scale(.82);
+  }
+
+  .effect-next .universe-visual::after {
+    background: linear-gradient(180deg, transparent 15%, rgba(255, 224, 131, .4) 49%, transparent 52%);
+    transform: translateY(-55%);
+  }
+
+  .effect-next:hover .universe-visual::before { opacity: .8; transform: translateY(-3%) scale(1.12); }
+  .effect-next:hover .universe-visual::after { opacity: .7; animation: futureScan 2.6s ease-in-out infinite; }
+  /* 6_66 — spectral fog and roaming patrol beams. */
+  .effect-phantom .universe-visual::before {
+    inset: 18% -18% -28%;
+    border-radius: 50%;
+    background: radial-gradient(ellipse, rgba(203, 234, 255, .3), rgba(47, 122, 213, .16) 40%, transparent 72%);
+    filter: blur(24px);
+    transform: translateX(-18%);
+  }
+
+  .effect-phantom .universe-visual::after {
+    background: conic-gradient(from 198deg at 50% 0%, transparent 0 15deg, rgba(221, 243, 255, .23) 18deg 24deg, transparent 27deg 52deg, rgba(54, 151, 239, .22) 55deg 61deg, transparent 64deg);
+    transform-origin: 50% 0;
+  }
+
+  .effect-phantom:hover .universe-visual::before { opacity: .95; animation: phantomFog 4.8s ease-in-out infinite alternate; }
+  .effect-phantom:hover .universe-visual::after { opacity: .8; animation: patrolSweep 3.8s ease-in-out infinite alternate; }
+  /* 66_6 — the sealed image slips across two adjacent planes. */
+  .effect-plane .universe-visual::before {
+    background:
+      linear-gradient(90deg, rgba(151, 24, 42, .34) 0 49.5%, transparent 49.5% 50.5%, rgba(230, 71, 77, .3) 50.5%),
+      linear-gradient(110deg, transparent 38%, rgba(255, 184, 177, .4) 49.5%, transparent 51%);
+    mix-blend-mode: screen;
+    transform: translateX(-3%);
+  }
+
+  .effect-plane .universe-visual::after {
+    background: repeating-linear-gradient(0deg, transparent 0 9px, rgba(255, 104, 104, .15) 10px, transparent 11px);
+    clip-path: polygon(48% 0, 100% 0, 100% 100%, 53% 100%);
+    transform: translateX(4%);
+  }
+
+  .effect-plane:hover .universe-visual::before { opacity: .82; animation: planeDivide 2.5s steps(2, end) infinite; }
+  .effect-plane:hover .universe-visual::after { opacity: .8; animation: planeLines 1.7s linear infinite; }
+  /* 8_39 — an investigative lens searches without identifying its subjects. */
+  .effect-detective .universe-visual::before {
+    inset: 24% auto auto -24%;
+    width: 10.5rem;
+    aspect-ratio: 1;
+    border: 1px solid rgba(255, 195, 127, .7);
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(247, 148, 55, .25), rgba(91, 43, 12, .16) 62%, transparent 65%);
+    box-shadow: 0 0 0 1rem rgba(112, 54, 16, .09), 0 0 3rem rgba(238, 128, 42, .28);
+    backdrop-filter: brightness(1.35) contrast(1.15);
+  }
+
+  .effect-detective .universe-visual::after {
+    inset: 0;
+    background: linear-gradient(90deg, transparent 0 48%, rgba(255, 164, 76, .24) 50%, transparent 52%);
+    transform: translateX(-55%);
+  }
+
+  .effect-detective:hover .universe-visual::before { opacity: 1; animation: lensSearch 3.4s ease-in-out infinite alternate; }
+  .effect-detective:hover .universe-visual::after { opacity: .75; animation: clueScan 2.7s ease-in-out infinite alternate; }
+  .effect-detective:hover .visual-sparks { opacity: .76; }
+
+  /* 15_15 — two linked machine pulses answer one another. */
+  .effect-prima-timo .universe-visual::before {
+    background:
+      repeating-radial-gradient(circle at 35% 56%, transparent 0 2.6rem, rgba(55, 205, 106, .3) 2.68rem 2.76rem, transparent 2.84rem 4.5rem),
+      repeating-radial-gradient(circle at 65% 56%, transparent 0 2.6rem, rgba(133, 232, 117, .27) 2.68rem 2.76rem, transparent 2.84rem 4.5rem);
+    transform: scale(.82);
+  }
+
+  .effect-prima-timo .universe-visual::after {
+    inset: 20% 12%;
+    background:
+      linear-gradient(90deg, transparent 15%, rgba(69, 211, 112, .44) 15% 15.4%, transparent 15.4% 84.6%, rgba(143, 226, 91, .42) 84.6% 85%, transparent 85%),
+      linear-gradient(0deg, transparent 49.5%, rgba(212, 255, 202, .45) 50%, transparent 50.5%);
+    filter: drop-shadow(0 0 8px rgba(64, 205, 101, .3));
+  }
+
+  .effect-prima-timo:hover .universe-visual::before { opacity: .86; animation: pairedPulse 2.3s ease-in-out infinite; }
+  .effect-prima-timo:hover .universe-visual::after { opacity: .7; animation: circuitBlink 1.6s steps(2, end) infinite; }
+  .visual-smoke {
+    position: absolute;
+    z-index: 2;
+    width: 78%;
+    height: 55%;
+    border-radius: 50%;
+    background:
+      radial-gradient(ellipse, rgba(var(--accent), .18), rgba(var(--accent), .055) 45%, transparent 72%);
+    filter: blur(28px);
+    opacity: .8;
+    mix-blend-mode: screen;
+    pointer-events: none;
+  }
+
+  .smoke-one {
+    left: -20%;
+    bottom: -12%;
+    animation: smokeDriftOne 15s ease-in-out infinite alternate;
+  }
+
+  .smoke-two {
+    right: -22%;
+    top: 5%;
+    opacity: .48;
+    animation: smokeDriftTwo 18s ease-in-out infinite alternate;
+  }
+
+  .visual-sparks {
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    opacity: .35;
+    background-image:
+      radial-gradient(1.5px 1.5px at 12% 18%, rgba(255,255,255,.8), transparent),
+      radial-gradient(1px 1px at 28% 63%, rgba(var(--accent),.95), transparent),
+      radial-gradient(1.5px 1.5px at 51% 24%, rgba(255,255,255,.7), transparent),
+      radial-gradient(1px 1px at 72% 72%, rgba(var(--accent),.9), transparent),
+      radial-gradient(1.5px 1.5px at 89% 35%, rgba(255,255,255,.75), transparent);
+    animation: sparkBreathe 6s ease-in-out infinite alternate;
+    pointer-events: none;
+  }
+
+  .visual-frame {
+    position: absolute;
+    inset: .7rem;
+    z-index: 4;
+    border: 1px solid rgba(var(--accent), .17);
+    box-shadow: inset 0 0 35px rgba(var(--accent), .04);
+    pointer-events: none;
+  }
+
+  .visual-frame::before,
+  .visual-frame::after {
+    content: '';
+    position: absolute;
+    width: 4rem;
+    height: 4rem;
+    border-color: rgba(var(--accent), .6);
+  }
+
+  .visual-frame::before { left: -.25rem; top: -.25rem; border-left: 2px solid; border-top: 2px solid; }
+  .visual-frame::after { right: -.25rem; bottom: -.25rem; border-right: 2px solid; border-bottom: 2px solid; }
+
+  @keyframes smokeDriftOne {
+    from { transform: translate3d(-3%, 4%, 0) scale(.9); }
+    to { transform: translate3d(24%, -9%, 0) scale(1.12); }
+  }
+
+  @keyframes smokeDriftTwo {
+    from { transform: translate3d(7%, -3%, 0) scale(1.08); }
+    to { transform: translate3d(-26%, 12%, 0) scale(.88); }
+  }
+
+  @keyframes sparkBreathe {
+    from { opacity: .2; transform: scale(.995); }
+    to { opacity: .52; transform: scale(1.01); }
+  }
+
+  @keyframes sealedEchoA {
+    0%, 8%, 31%, 52%, 100% {
+      opacity: 0;
+      clip-path: polygon(0 8%, 0 8%, 0 86%, 0 86%);
+      transform: scale(1.075) translate3d(-1.5%, 0, 0);
+    }
+    13%, 25% {
+      opacity: .58;
+      clip-path: polygon(7% 8%, 48% 8%, 35% 88%, 0 88%);
+      transform: scale(1.045) translate3d(0, 0, 0);
+    }
+    57%, 72% {
+      opacity: .46;
+      clip-path: polygon(48% 0, 91% 0, 100% 58%, 61% 72%);
+      transform: scale(1.09) translate3d(1.2%, -1%, 0);
+    }
+    78%, 91% {
+      opacity: .34;
+      clip-path: polygon(15% 48%, 72% 34%, 82% 61%, 25% 78%);
+      transform: scale(1.055) translate3d(-.5%, .8%, 0);
+    }
+  }
+
+  @keyframes sealedEchoB {
+    0%, 18%, 39%, 64%, 100% {
+      opacity: 0;
+      clip-path: polygon(100% 12%, 100% 12%, 100% 92%, 100% 92%);
+      transform: scale(1.1) translate3d(1.5%, 0, 0);
+    }
+    23%, 34% {
+      opacity: .52;
+      clip-path: polygon(58% 9%, 100% 0, 100% 91%, 72% 74%);
+      transform: scale(1.065) translate3d(0, 0, 0);
+    }
+    69%, 84% {
+      opacity: .27;
+      clip-path: polygon(0 28%, 63% 12%, 52% 56%, 8% 78%);
+      transform: scale(1.115) translate3d(-1%, 1%, 0);
+    }
+    89%, 94% {
+      opacity: .15;
+      clip-path: polygon(37% 50%, 100% 39%, 100% 69%, 43% 81%);
+      transform: scale(1.08) translate3d(.5%, 0, 0);
+    }
+  }
+
+  @keyframes twinColours {
+    from { transform: translateX(-2%) scale(1.02); filter: hue-rotate(-6deg); }
+    to { transform: translateX(2%) scale(1.1); filter: hue-rotate(9deg); }
+  }
+
+  @keyframes twinSeam {
+    0%, 100% { transform: translateX(-10%) scaleY(.72); }
+    50% { transform: translateX(10%) scaleY(1); }
+  }
+
+  @keyframes futureScan {
+    0% { transform: translateY(-58%); }
+    55%, 100% { transform: translateY(58%); }
+  }
+
+  @keyframes phantomFog {
+    from { transform: translateX(-17%) scale(.92); }
+    to { transform: translateX(17%) scale(1.12); }
+  }
+
+  @keyframes patrolSweep {
+    from { transform: rotate(-7deg) scale(1.04); }
+    to { transform: rotate(8deg) scale(1.08); }
+  }
+
+  @keyframes planeDivide {
+    0%, 100% { transform: translateX(-3%); filter: hue-rotate(0deg); }
+    50% { transform: translateX(3%); filter: hue-rotate(18deg); }
+  }
+
+  @keyframes planeLines {
+    from { background-position: 0 0; }
+    to { background-position: 0 44px; }
+  }
+
+  @keyframes lensSearch {
+    from { left: -16%; top: 19%; }
+    to { left: 72%; top: 48%; }
+  }
+
+  @keyframes clueScan {
+    from { transform: translateX(-58%); }
+    to { transform: translateX(58%); }
+  }
+
+  @keyframes pairedPulse {
+    0%, 100% { transform: scale(.78); filter: brightness(.8); }
+    50% { transform: scale(1.08); filter: brightness(1.25); }
+  }
+
+  @keyframes circuitBlink {
+    0%, 100% { filter: drop-shadow(0 0 6px rgba(73, 210, 189, .2)); }
+    50% { filter: drop-shadow(0 0 16px rgba(113, 225, 211, .52)); }
+  }
+
+  .visual-topline {
+    position: absolute;
+    top: 1.6rem;
+    left: 1.7rem;
+    right: 1.7rem;
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .card-number {
+    color: rgba(var(--accent), .8);
+    font: 700 .62rem/1 'JetBrains Mono', monospace;
+    letter-spacing: .16em;
+  }
+
+  .state-pill {
+    padding: .45rem .65rem;
+    border: 1px solid rgba(var(--accent), .28);
+    color: rgba(var(--accent), .94);
+    background: rgba(4, 6, 12, .78);
+    backdrop-filter: blur(12px);
+    font: 800 .53rem/1 'JetBrains Mono', monospace;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+  }
+
+  .state-pill.open {
+    color: #f7dc9b;
+    border-color: rgba(224, 176, 70, .65);
+    box-shadow: 0 0 24px rgba(216, 163, 57, .16);
+  }
+
+  .universe-info {
+    display: grid;
+    grid-template-columns: minmax(8rem, .42fr) minmax(0, 1fr);
+    gap: clamp(1.5rem, 4vw, 4rem);
+    padding: 1.7rem .25rem 2.2rem;
+    border-bottom: 1px solid rgba(var(--accent), .2);
+  }
+
+  .coordinate {
+    margin: 0;
+    color: rgb(var(--accent));
+    font: 800 clamp(2.5rem, 4.3vw, 4.8rem)/.9 'Orbitron', sans-serif;
+    letter-spacing: -.07em;
+    text-shadow: 0 0 34px rgba(var(--accent), .2);
+  }
+
+  .universe-copy h3 {
+    margin: 0 0 .7rem;
+    color: #eee7da;
+    font: italic 500 clamp(1.45rem, 2vw, 2rem)/1.1 Georgia, serif;
+  }
+
+  .universe-copy p {
+    max-width: 35rem;
+    margin: 0;
+    color: #9ba5b8;
+    line-height: 1.65;
+  }
+
+  .universe-copy small {
+    display: block;
+    margin-top: .7rem;
+    color: #d0b477;
+    font: 600 .63rem/1.5 'JetBrains Mono', monospace;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+
+  .card-entry {
+    width: fit-content;
+    margin-top: 1.5rem;
+    padding-bottom: .35rem;
+    color: #f3d17e;
+    border-bottom: 1px solid rgba(218, 170, 67, .4);
+    font: 800 .65rem/1.2 'JetBrains Mono', monospace;
+    letter-spacing: .09em;
+    text-transform: uppercase;
+    text-decoration: none;
+  }
+
+  .card-entry span { margin-left: .5rem; }
+
+  .sealed-line {
+    margin-top: 1.5rem;
+    color: rgba(var(--accent), .74);
+    font: 700 .58rem/1.5 'JetBrains Mono', monospace;
+    letter-spacing: .09em;
+    text-transform: uppercase;
+  }
+
+  .sealed-line span { margin-right: .4rem; }
+
+  .journey-section {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(17rem, .8fr) minmax(0, 1.2fr);
+    gap: clamp(3rem, 8vw, 8rem);
+    align-items: center;
+    padding: clamp(4rem, 8vw, 8rem);
+    border: 1px solid rgba(103, 193, 221, .2);
+    background:
+      radial-gradient(circle at 17% 50%, rgba(43, 163, 197, .14), transparent 22rem),
+      linear-gradient(135deg, rgba(8, 14, 28, .95), rgba(14, 8, 31, .92));
+    box-shadow: 0 35px 90px rgba(0, 0, 0, .34);
+  }
+
+  .journey-mark {
+    position: relative;
+    aspect-ratio: 1;
+    display: grid;
+    place-items: center;
+    max-width: 24rem;
+    width: 100%;
+    margin: auto;
+  }
+
+  .mark-ring {
+    position: absolute;
+    inset: 10%;
+    border: 1px solid rgba(112, 206, 230, .26);
+    border-radius: 50%;
+  }
+
+  .ring-a { transform: rotate(35deg) scaleY(.42); }
+  .ring-b { transform: rotate(-48deg) scaleX(.46); border-color: rgba(179, 111, 223, .25); }
+
+  .mark-core {
+    display: grid;
+    place-items: center;
+    width: 7rem;
+    height: 7rem;
+    border: 1px solid rgba(227, 194, 112, .65);
+    border-radius: 50%;
+    color: #e2bd65;
+    font-size: 2.4rem;
+    box-shadow: 0 0 60px rgba(62, 187, 214, .16), inset 0 0 40px rgba(173, 91, 213, .12);
+  }
+
+  .journey-copy > p:not(.kicker):not(.journey-note) {
+    max-width: 41rem;
+    margin: 1.5rem 0 0;
+    color: #aeb8ca;
+    font-size: 1.05rem;
+    line-height: 1.8;
+  }
+
+  .journey-note {
+    max-width: 40rem;
+    margin: 1.4rem 0 2rem;
+    padding-left: 1rem;
+    border-left: 1px solid rgba(216, 174, 81, .5);
+    color: #d7c69f;
+    font: italic 400 .98rem/1.65 Georgia, serif;
+  }
+
+  .threshold-footer {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: .7rem;
+    padding: 8rem 1.5rem 7rem;
+    text-align: center;
+    font-family: Georgia, serif;
+  }
+
+  .threshold-footer p,
+  .threshold-footer span,
+  .threshold-footer strong { margin: 0; }
+  .threshold-footer p { color: #7c8799; font-size: 1.1rem; }
+  .threshold-footer span { color: #b1955b; font-style: italic; font-size: 1.3rem; }
+  .threshold-footer strong { color: #e9e1d2; font-size: 1.1rem; }
+
+  @media (max-width: 960px) {
+    .universe-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .is-open { grid-column: span 2; }
+    .journey-section { grid-template-columns: 1fr; }
+    .journey-mark { max-width: 17rem; }
+  }
+
+  @media (max-width: 680px) {
+    .portal-hero { min-height: calc(100svh - 4.5rem); padding-top: 5rem; }
+    .portal-eyebrow span { width: 1.2rem; }
+    .hero-actions { width: 100%; }
+    .portal-button { width: 100%; }
+    .scroll-cue { display: none; }
+    .section-heading { grid-template-columns: 1fr; gap: 1rem; }
+    .universe-grid { grid-template-columns: 1fr; }
+    .is-open { grid-column: auto; }
+    .is-open .universe-visual { min-height: 0; }
+    .open-world-gallery { grid-template-columns: 1fr; padding: 4.25rem .7rem .7rem; gap: .7rem; }
+    .crimson-panel { grid-column: auto; }
+    .crimson-image { aspect-ratio: 16 / 9; background-position: center; }
+    .maya-image,
+    .that-guy-image { aspect-ratio: 4 / 5; background-position: center; }
+    .open-world-panel figcaption { align-items: flex-start; flex-direction: column; gap: .4rem; }
+    .universe-info { grid-template-columns: 1fr; gap: .9rem; }
+    .journey-section { width: calc(100% - 1rem); padding: 3rem 1.25rem; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
+    .echo-image,
+    .visual-smoke,
+    .visual-sparks,
+    .universe-card .universe-visual::before,
+    .universe-card .universe-visual::after { animation: none !important; }
+    .echo-a {
+      opacity: .12;
+      clip-path: polygon(9% 12%, 42% 6%, 32% 88%, 0 82%);
+    }
+    .echo-b { opacity: 0; }
+  }
+</style>

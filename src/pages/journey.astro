@@ -1,0 +1,341 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const deskDrawers = [
+  { number: '01', name: 'Transmissions', detail: 'Messages that change what the Cosmos allows you to see.' },
+  { number: '02', name: 'Known Coordinates', detail: 'The Levels and Folds your Journey has revealed.' },
+  { number: '03', name: 'The Cosmos Radio', detail: 'Music carried across every open frequency.' },
+  { number: '04', name: 'Archive Drawer', detail: 'Characters, places, artifacts, and discoveries kept together.' },
+];
+---
+
+<Layout title="Your Personal Journey Space">
+  <div class="journey-lock-page">
+    <section class="journey-lock-hero" aria-labelledby="journey-lock-title">
+      <p class="journey-kicker">Private Journey Preview</p>
+      <div class="journey-title-line">
+        <h1 id="journey-lock-title">Your Personal Journey Space</h1>
+        <span class="lock-status">Locked</span>
+      </div>
+      <p class="journey-intro">The Desk is waiting. Soon, everything you discover will have a place to return to.</p>
+    </section>
+
+    <section class="desk-shell" aria-labelledby="desk-title">
+      <div class="desk-topbar">
+        <div>
+          <span class="signal-dot" aria-hidden="true"></span>
+          Journey terminal · inactive
+        </div>
+        <strong>Coming Soon</strong>
+      </div>
+
+      <div class="desk-body">
+        <aside class="desk-rail" aria-label="Journey Desk sections">
+          <span class="rail-mark" aria-hidden="true">XX</span>
+          <span>Desk</span>
+          <span>Signals</span>
+          <span>Archive</span>
+          <span>Radio</span>
+        </aside>
+
+        <div class="desk-surface">
+          <header class="desk-heading">
+            <div>
+              <p class="desk-label">Your private workspace</p>
+              <h2 id="desk-title">The Desk</h2>
+            </div>
+            <div class="desk-lock" aria-label="The Desk is locked">
+              <span aria-hidden="true">◇</span>
+              Locked
+            </div>
+          </header>
+
+          <div class="desk-grid">
+            {deskDrawers.map((drawer) => (
+              <article class="desk-drawer">
+                <div class="drawer-number">{drawer.number}</div>
+                <div>
+                  <h3>{drawer.name}</h3>
+                  <p>{drawer.detail}</p>
+                </div>
+                <span class="drawer-state">Locked</span>
+              </article>
+            ))}
+          </div>
+
+          <div class="desk-signal" aria-hidden="true">
+            <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <nav class="journey-return" aria-label="Journey preview exits">
+      <a href="/">← Return home</a>
+      <a href="/lore/level-12-fold-15">Enter the open universe 12_15 →</a>
+    </nav>
+  </div>
+</Layout>
+
+<style>
+  .journey-lock-page {
+    --cyan: #53d7eb;
+    --violet: #a45cff;
+    --gold: #e7ba59;
+    width: min(90rem, calc(100% - 2rem));
+    margin: 0 auto;
+    padding: clamp(4.5rem, 9vw, 8rem) 0 6rem;
+  }
+
+  .journey-lock-hero {
+    max-width: 72rem;
+    margin-bottom: clamp(2.5rem, 6vw, 5rem);
+  }
+
+  .journey-kicker,
+  .desk-label {
+    margin: 0;
+    color: var(--cyan);
+    font: 800 .7rem/1.4 'JetBrains Mono', monospace;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+  }
+
+  .journey-title-line {
+    display: flex;
+    align-items: flex-end;
+    gap: 1.25rem;
+    margin-top: 1rem;
+  }
+
+  h1 {
+    max-width: 64rem;
+    margin: 0;
+    color: #f3ead8;
+    font: 600 clamp(3rem, 8vw, 7rem)/.9 Georgia, serif;
+    letter-spacing: -.055em;
+  }
+
+  .lock-status {
+    margin-bottom: .7rem;
+    padding: .55rem .75rem;
+    border: 1px solid rgba(231, 186, 89, .7);
+    color: #f2d48f;
+    background: rgba(16, 11, 7, .82);
+    box-shadow: 0 0 30px rgba(231, 186, 89, .12);
+    font: 800 .68rem/1 'JetBrains Mono', monospace;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+  }
+
+  .journey-intro {
+    max-width: 46rem;
+    margin: 1.8rem 0 0;
+    color: #aeb9ca;
+    font-size: clamp(1rem, 1.7vw, 1.2rem);
+    line-height: 1.75;
+  }
+
+  .desk-shell {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(83, 215, 235, .3);
+    background:
+      radial-gradient(circle at 82% 10%, rgba(164, 92, 255, .14), transparent 24rem),
+      linear-gradient(145deg, rgba(6, 15, 29, .98), rgba(10, 7, 23, .98));
+    box-shadow: 0 40px 100px rgba(0, 0, 0, .55), 0 0 70px rgba(83, 215, 235, .07);
+  }
+
+  .desk-shell::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: repeating-linear-gradient(180deg, rgba(255,255,255,.018) 0 1px, transparent 1px 5px);
+  }
+
+  .desk-topbar {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1rem 1.25rem;
+    border-bottom: 1px solid rgba(83, 215, 235, .2);
+    color: #8492a7;
+    font: 700 .65rem/1.4 'JetBrains Mono', monospace;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+  }
+
+  .desk-topbar strong { color: var(--gold); }
+
+  .signal-dot {
+    display: inline-block;
+    width: .5rem;
+    height: .5rem;
+    margin-right: .55rem;
+    border-radius: 50%;
+    background: #78495a;
+    box-shadow: 0 0 15px rgba(188, 71, 91, .45);
+  }
+
+  .desk-body {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 8.5rem minmax(0, 1fr);
+    min-height: 38rem;
+  }
+
+  .desk-rail {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    padding: 2rem .75rem;
+    border-right: 1px solid rgba(83, 215, 235, .15);
+    color: #607086;
+    font: 700 .58rem/1 'JetBrains Mono', monospace;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+  }
+
+  .rail-mark {
+    display: grid;
+    place-items: center;
+    width: 3.4rem;
+    aspect-ratio: 1;
+    margin-bottom: .5rem;
+    border: 1px solid rgba(164, 92, 255, .5);
+    color: #c9a0ff;
+    transform: rotate(45deg);
+  }
+
+  .rail-mark::first-letter { transform: rotate(-45deg); }
+
+  .desk-surface { padding: clamp(1.5rem, 4vw, 3.25rem); }
+
+  .desk-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid rgba(149, 167, 192, .16);
+  }
+
+  .desk-heading h2 {
+    margin: .6rem 0 0;
+    color: #f0e9dd;
+    font: italic 500 clamp(2.5rem, 5vw, 4.5rem)/1 Georgia, serif;
+  }
+
+  .desk-lock {
+    display: flex;
+    align-items: center;
+    gap: .7rem;
+    padding: .75rem 1rem;
+    border: 1px solid rgba(231, 186, 89, .35);
+    color: #e7c77f;
+    font: 800 .67rem/1 'JetBrains Mono', monospace;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+  }
+
+  .desk-lock span { color: var(--gold); font-size: 1.2rem; }
+
+  .desk-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+
+  .desk-drawer {
+    position: relative;
+    min-height: 11rem;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 1rem;
+    padding: 1.35rem;
+    border: 1px solid rgba(120, 146, 178, .18);
+    background: linear-gradient(135deg, rgba(11, 21, 38, .8), rgba(12, 9, 25, .72));
+  }
+
+  .drawer-number {
+    color: rgba(83, 215, 235, .7);
+    font: 800 .62rem/1 'JetBrains Mono', monospace;
+  }
+
+  .desk-drawer h3 {
+    margin: 0;
+    color: #e6e4e0;
+    font: 600 1.1rem/1.25 'JetBrains Mono', monospace;
+  }
+
+  .desk-drawer p {
+    margin: .8rem 0 0;
+    color: #8591a3;
+    font-size: .92rem;
+    line-height: 1.6;
+  }
+
+  .drawer-state {
+    position: absolute;
+    right: 1rem;
+    bottom: .85rem;
+    color: #705b3d;
+    font: 800 .55rem/1 'JetBrains Mono', monospace;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+  }
+
+  .desk-signal {
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    gap: clamp(.6rem, 2vw, 1.6rem);
+    margin-top: 2rem;
+    padding: 0 1rem;
+    border: 1px solid rgba(83, 215, 235, .1);
+    opacity: .45;
+  }
+
+  .desk-signal span {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+  }
+
+  .desk-signal span:nth-child(2n) { height: .45rem; }
+  .desk-signal span:nth-child(3n) { height: 1rem; background: var(--violet); }
+
+  .journey-return {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 2rem .25rem 0;
+  }
+
+  .journey-return a {
+    color: #b4bdca;
+    font: 800 .68rem/1.4 'JetBrains Mono', monospace;
+    letter-spacing: .09em;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+
+  .journey-return a:hover,
+  .journey-return a:focus-visible { color: var(--cyan); }
+
+  @media (max-width: 760px) {
+    .journey-title-line { align-items: flex-start; flex-direction: column; }
+    .lock-status { margin: 0; }
+    .desk-body { grid-template-columns: 1fr; }
+    .desk-rail { display: none; }
+    .desk-grid { grid-template-columns: 1fr; }
+    .desk-heading { align-items: flex-start; flex-direction: column; }
+    .journey-return { flex-direction: column; }
+  }
+</style>

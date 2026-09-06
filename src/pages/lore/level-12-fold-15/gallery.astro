@@ -1,0 +1,164 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+
+const galleries = [
+  {
+    id: 'band',
+    number: '00',
+    name: 'The Crimson Sparks',
+    line: 'Five keepers of one fire, together in the frame.',
+    accent: 'gold',
+    images: [
+      { src: '/images/artists/level_12_fold_15_open_group_01.png', alt: 'The five members of The Crimson Sparks', label: 'The Crimson Five — public portrait', focus: 'group' },
+      { src: '/images/the-crimson-sparks/group/the_crimson_sparks_backstage_playful_01.png', alt: 'The Crimson Sparks backstage', label: 'Backstage — playful archive', focus: 'group' },
+      { src: '/images/the-crimson-sparks/group/the_crimson_sparks_stage_rehearsal_01.png', alt: 'The Crimson Sparks rehearsing on stage', label: 'Stage rehearsal', focus: 'group' },
+      { src: '/images/the-crimson-sparks/group/the_crimson_sparks_studio_acoustic_01.png', alt: 'The Crimson Sparks in an acoustic studio session', label: 'Acoustic studio session', focus: 'group' },
+      { src: '/images/the-crimson-sparks/group/the_crimson_sparks_backstage_celebration_grid_01.png', alt: 'The Crimson Sparks celebrating backstage', label: 'Backstage celebration', focus: 'group' },
+      { src: '/images/artists/the-crimson-sparks.jpg', alt: 'The Crimson Sparks band portrait', label: 'Band archive portrait', focus: 'square' },
+    ],
+  },
+  {
+    id: 'suki',
+    number: '01',
+    name: 'Suki',
+    line: 'The voice that lit the first spark.',
+    accent: 'ember',
+    images: [
+      { src: '/images/character-sheets/suki_moreau_character_sheet_master.png', alt: 'Suki Moreau character record', label: 'Suki — character record', focus: 'member-sheet' },
+      { src: '/images/artists/level_12_fold_15_open_group_01.png', alt: 'Suki with The Crimson Sparks', label: 'The Crimson Sparks - group portrait', focus: 'group' },
+      { src: '/images/the-crimson-sparks/group/the_crimson_sparks_backstage_playful_01.png', alt: 'Suki and The Crimson Sparks backstage', label: 'Backstage archive', focus: 'group' },
+      { src: '/images/the-crimson-sparks/group/the_crimson_sparks_stage_rehearsal_01.png', alt: 'Suki and The Crimson Sparks rehearsing', label: 'Stage rehearsal', focus: 'group' },
+    ],
+  },
+  {
+    id: 'soren',
+    number: '02',
+    name: 'Soren',
+    line: 'The quiet foundation beneath the fire.',
+    accent: 'amber',
+    images: [
+      { src: '/images/character-sheets/soren_crane_character_sheet_master.png', alt: 'Soren Crane character record', label: 'Soren — character record', focus: 'member-sheet' },
+      { src: '/images/the-crimson-sparks/group/the_crimson_sparks_studio_acoustic_01.png', alt: 'Soren with The Crimson Sparks in the studio', label: 'Acoustic studio session', focus: 'group' },
+      { src: '/images/the-crimson-sparks/group/the_crimson_sparks_backstage_celebration_grid_01.png', alt: 'Soren with The Crimson Sparks backstage', label: 'Backstage celebration', focus: 'group' },
+    ],
+  },
+  {
+    id: 'sky',
+    number: '03',
+    name: 'Sky',
+    line: 'The wild current that refuses to repeat itself.',
+    accent: 'magenta',
+    images: [
+      { src: '/images/character-sheets/sky_delacroix_character_sheet_master.png', alt: 'Sky Delacroix character record', label: 'Sky — character record', focus: 'member-sheet' },
+      { src: '/images/the-crimson-sparks/group/the_crimson_sparks_stage_rehearsal_01.png', alt: 'Sky with The Crimson Sparks rehearsing', label: 'Stage rehearsal', focus: 'group' },
+      { src: '/images/the-crimson-sparks/group/the_crimson_sparks_backstage_playful_01.png', alt: 'Sky with The Crimson Sparks backstage', label: 'Backstage archive', focus: 'group' },
+    ],
+  },
+  {
+    id: 'sol',
+    number: '04',
+    name: 'Sol',
+    line: 'The pulse that keeps the movement alive.',
+    accent: 'red',
+    images: [
+      { src: '/images/character-sheets/sol_kovic_character_sheet_master.png', alt: 'Sol Kovic character record', label: 'Sol — character record', focus: 'member-sheet' },
+      { src: '/images/the-crimson-sparks/group/the_crimson_sparks_backstage_celebration_grid_01.png', alt: 'Sol with The Crimson Sparks backstage', label: 'Backstage celebration', focus: 'group' },
+      { src: '/images/the-crimson-sparks/group/the_crimson_sparks_stage_rehearsal_01.png', alt: 'Sol with The Crimson Sparks rehearsing', label: 'Stage rehearsal', focus: 'group' },
+    ],
+  },
+  {
+    id: 'sienna',
+    number: '05',
+    name: 'Sienna',
+    line: 'The harmonic mind that chose honest creation.',
+    accent: 'violet',
+    images: [
+      { src: '/images/character-sheets/sienna_aramaki_character_sheet_master.png', alt: 'Sienna Aramaki character record', label: 'Sienna — character record', focus: 'member-sheet' },
+      { src: '/images/the-crimson-sparks/group/the_crimson_sparks_studio_acoustic_01.png', alt: 'Sienna with The Crimson Sparks in the studio', label: 'Acoustic studio session', focus: 'group' },
+      { src: '/images/the-crimson-sparks/group/the_crimson_sparks_backstage_playful_01.png', alt: 'Sienna with The Crimson Sparks backstage', label: 'Backstage archive', focus: 'group' },
+    ],
+  },
+  {
+    id: 'maya',
+    number: '06',
+    name: 'Maya',
+    line: 'The spark carried forward in her own voice.',
+    accent: 'cyan',
+    images: [
+      { src: '/images/artists/level_12_fold_15_maya_01.png', alt: 'Maya with her guitar in a studio', label: 'Studio portrait', focus: 'portrait' },
+      { src: '/images/artists/maya.jpg', alt: 'Maya in a neon arcade', label: 'After-hours signal', focus: 'square' },
+      { src: '/images/character-sheets/maya_character_sheet_master.png', alt: 'Maya character record', label: 'Maya — character record', focus: 'sheet' },
+    ],
+  },
+  {
+    id: 'that-guy',
+    number: '07',
+    name: 'That Guy',
+    line: 'The ordinary life that finally became too loud.',
+    accent: 'green',
+    images: [
+      { src: '/images/artists/level_12_fold_15_that_guy_01.png', alt: 'That Guy riding the subway', label: 'The daily commute', focus: 'portrait' },
+      { src: '/images/artists/that-guy.jpg', alt: 'That Guy outside an office building', label: 'The walkout', focus: 'square' },
+      { src: '/images/that-guy/that_guy_balcony_snake_plant_01.png', alt: 'That Guy on a balcony', label: 'After work', focus: 'scene' },
+      { src: '/images/that-guy/that_guy_corporate_fired_walkout_01.png', alt: 'That Guy leaving corporate life behind', label: 'The corporate walkout', focus: 'scene' },
+      { src: '/images/that-guy/that_guy_river_promenade_beer_01.png', alt: 'That Guy beside the river', label: 'River promenade', focus: 'scene' },
+      { src: '/images/that-guy/that_guy_alley_bar_that_girl_01.png', alt: 'That Guy outside an alley bar', label: 'The alley bar', focus: 'scene' },
+      { src: '/images/character-sheets/that_guy_character_sheet_master.png', alt: 'That Guy character record', label: 'That Guy - character record', focus: 'sheet' },
+    ],
+  },
+];
+---
+
+<Layout title="Level 12 Fold 15 - Photo Galleries">
+  <main class="gallery-page">
+    <header class="gallery-hero">
+      <div class="smoke smoke-a" aria-hidden="true"></div><div class="smoke smoke-b" aria-hidden="true"></div>
+      <p class="eyebrow">PUBLIC ARCHIVE · LEVEL 12 · FOLD 15</p>
+      <h1>One signal.<br /><em>Eight collections.</em></h1>
+      <p class="intro">The open visual record of the Crimson Sparks together, each of its five members, Maya, and That Guy. Every collection is ready to grow as new photographs arrive.</p>
+      <nav aria-label="Choose a gallery">
+        {galleries.map((gallery) => <a href={`#${gallery.id}`}>{gallery.name}</a>)}
+      </nav>
+    </header>
+
+    {galleries.map((gallery) => (
+      <section id={gallery.id} class:list={['voice-gallery', gallery.accent]} aria-labelledby={`${gallery.id}-title`}>
+        <header class="voice-heading">
+          <span>{gallery.number}</span>
+          <div><p>OPEN PHOTOGRAPHIC RECORD</p><h2 id={`${gallery.id}-title`}>{gallery.name}</h2><em>{gallery.line}</em></div>
+          <a href="/lore/level-12-fold-15">Return to the living record ↑</a>
+        </header>
+        <div class="image-grid">
+          {gallery.images.map((item, index) => (
+            <figure class:list={['gallery-frame', item.focus, index === 0 && 'feature']}>
+              <a href={item.src} target="_blank" rel="noopener noreferrer" aria-label={`Open ${item.label} full size`}>
+                <img src={item.src} alt={item.alt} loading={index === 0 ? 'eager' : 'lazy'} />
+                <span aria-hidden="true">＋</span>
+              </a>
+              <figcaption>{item.label}</figcaption>
+            </figure>
+          ))}
+        </div>
+      </section>
+    ))}
+
+    <footer class="gallery-footer">
+      <p>End of the presently open visual record.</p>
+      <div><a href="/lore/level-12-fold-15">Back to 12_15</a><a href="/#worlds">Return to the Cosmos</a></div>
+    </footer>
+  </main>
+</Layout>
+
+<style>
+  .gallery-page{--cream:#f4e7c4;--gold:#d9a441;--ember:#d85132;--cyan:#31ceda;--green:#6ac77c;min-height:100vh;color:#f5eddd;background:radial-gradient(circle at 12% 9%,rgba(137,30,29,.2),transparent 28rem),radial-gradient(circle at 88% 56%,rgba(14,103,88,.13),transparent 36rem),#05060a;overflow:hidden}
+  .gallery-hero{position:relative;isolation:isolate;padding:clamp(8rem,14vw,13rem) clamp(1.5rem,8vw,8rem) clamp(5rem,8vw,8rem);border-bottom:1px solid rgba(217,164,65,.28);background:linear-gradient(105deg,rgba(4,4,8,.98),rgba(11,8,10,.76)),url('/images/artists/level_12_fold_15_open_group_01.png') center 28%/cover}.gallery-hero:after{content:'';position:absolute;inset:0;z-index:-1;background-image:radial-gradient(circle at 78% 35%,rgba(255,194,92,.85) 0 1px,transparent 2px),radial-gradient(circle at 88% 62%,rgba(221,75,45,.75) 0 1.5px,transparent 2.5px);opacity:.65}
+  .smoke{position:absolute;z-index:-1;width:42rem;height:18rem;border-radius:50%;filter:blur(70px);mix-blend-mode:screen;opacity:.2;animation:drift 14s ease-in-out infinite alternate}.smoke-a{right:3%;top:8%;background:rgba(201,63,38,.34)}.smoke-b{right:28%;bottom:-6%;background:rgba(216,157,58,.22);animation-delay:-7s}
+  .eyebrow,.voice-heading p,.voice-heading>span,.voice-heading>a,.gallery-hero nav a,.gallery-frame figcaption,.gallery-footer{font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.16em}.eyebrow{margin:0 0 1rem;color:#dbac56;font-size:.65rem;font-weight:800}.gallery-hero h1{max-width:960px;margin:0;color:var(--cream);font:900 clamp(3.5rem,8vw,8.7rem)/.82 'Orbitron',sans-serif;letter-spacing:-.075em;text-transform:uppercase}.gallery-hero h1 em{display:inline-block;margin-top:.25em;color:#dfad4d;font:italic 400 .48em/1 Georgia,serif;letter-spacing:-.02em;text-transform:none}.intro{max-width:650px;margin:1.8rem 0 0;color:#bdb9b1;font-size:1rem;line-height:1.8}.gallery-hero nav{display:flex;gap:.7rem;flex-wrap:wrap;margin-top:2rem}.gallery-hero nav a{padding:.8rem 1rem;border:1px solid rgba(217,164,65,.4);color:#eadab1;background:rgba(5,5,9,.68);font-size:.62rem;font-weight:800;transition:.25s ease}.gallery-hero nav a:hover{transform:translateY(-3px);border-color:#e6b754;background:rgba(217,164,65,.13)}
+  .voice-gallery{--accent:var(--ember);width:min(calc(100% - 3rem),1500px);margin:0 auto;padding:clamp(5rem,10vw,10rem) 0;border-bottom:1px solid color-mix(in srgb,var(--accent) 25%,transparent);scroll-margin-top:6rem}.voice-gallery.gold{--accent:#d9a441}.voice-gallery.amber{--accent:#ed9a3b}.voice-gallery.magenta{--accent:#df5aaf}.voice-gallery.red{--accent:#ef6546}.voice-gallery.violet{--accent:#a879ed}.voice-gallery.cyan{--accent:var(--cyan)}.voice-gallery.green{--accent:var(--green)}.voice-heading{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:1.5rem;align-items:end;margin-bottom:clamp(2rem,5vw,4rem)}.voice-heading>span{color:var(--accent);font-size:1rem;font-weight:900}.voice-heading p{margin:0 0 .65rem;color:color-mix(in srgb,var(--accent) 78%,#bab4a7);font-size:.58rem}.voice-heading h2{margin:0;color:var(--cream);font:italic 400 clamp(3.5rem,8vw,7.4rem)/.78 Georgia,serif;letter-spacing:-.06em}.voice-heading em{display:block;margin-top:1rem;color:#9fa0a4;font:italic .95rem/1.6 Georgia,serif}.voice-heading>a{padding-bottom:.4rem;border-bottom:1px solid color-mix(in srgb,var(--accent) 42%,transparent);color:color-mix(in srgb,var(--accent) 62%,#f4e7c4);font-size:.56rem;font-weight:800}
+  .image-grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));grid-auto-flow:dense;gap:1rem}.gallery-frame{grid-column:span 5;margin:0}.gallery-frame.feature{grid-column:span 7;grid-row:span 2}.gallery-frame:nth-child(3n){grid-column:span 7}.gallery-frame>a{position:relative;display:block;height:clamp(20rem,35vw,37rem);overflow:hidden;border:1px solid color-mix(in srgb,var(--accent) 40%,transparent);background:#090a0e;box-shadow:0 28px 70px rgba(0,0,0,.38)}.gallery-frame.feature>a{height:clamp(31rem,53vw,55rem)}.gallery-frame img{width:100%;height:100%;display:block;object-fit:cover;object-position:center;filter:saturate(.82) contrast(1.05) brightness(.83);transition:transform .65s ease,filter .45s ease}.gallery-frame.group>a,.gallery-frame.group.feature>a{height:auto;aspect-ratio:16/9}.gallery-frame.group img{object-fit:contain}.gallery-frame.portrait img{object-position:center 24%}.gallery-frame.square img{object-position:center 30%}.gallery-frame.scene img{object-position:center}.gallery-frame.sheet img{object-position:center}.gallery-frame.member-sheet img{object-position:center 33%;transform:scale(1.42)}.gallery-frame>a:after{content:'';position:absolute;inset:0;box-shadow:inset 0 0 0 9px rgba(0,0,0,.2),inset 0 0 0 10px color-mix(in srgb,var(--accent) 17%,transparent);pointer-events:none}.gallery-frame>a>span{position:absolute;right:1rem;top:1rem;display:grid;place-items:center;width:2.4rem;height:2.4rem;border:1px solid color-mix(in srgb,var(--accent) 52%,transparent);color:var(--cream);background:rgba(4,5,8,.72);font:300 1.25rem/1 sans-serif;opacity:0;transform:translateY(-8px);transition:.3s ease}.gallery-frame a:hover img{transform:scale(1.035);filter:saturate(1) contrast(1.03) brightness(.98)}.gallery-frame.member-sheet a:hover img{transform:scale(1.48)}.gallery-frame a:hover>span{opacity:1;transform:none}.gallery-frame figcaption{padding:.9rem .2rem 0;color:color-mix(in srgb,var(--accent) 62%,#b8b0a0);font-size:.55rem}
+  .gallery-footer{padding:clamp(5rem,8vw,8rem) 1.5rem;text-align:center;color:#8f9098;font-size:.58rem;background:radial-gradient(circle,rgba(217,164,65,.09),transparent 30rem)}.gallery-footer>div{display:flex;justify-content:center;gap:.75rem;flex-wrap:wrap;margin-top:1.7rem}.gallery-footer a{padding:.8rem 1rem;border:1px solid rgba(217,164,65,.34);color:#e8d5a7}
+  @keyframes drift{from{transform:translate3d(-4%,-3%,0) scale(.92)}to{transform:translate3d(9%,8%,0) scale(1.14)}}
+  @media(max-width:860px){.voice-heading{grid-template-columns:auto 1fr}.voice-heading>a{grid-column:2}.gallery-frame,.gallery-frame:nth-child(3n),.gallery-frame.feature{grid-column:span 12;grid-row:auto}.gallery-frame>a,.gallery-frame.feature>a{height:clamp(26rem,100vw,44rem)}.gallery-frame.group>a,.gallery-frame.group.feature>a{height:auto;aspect-ratio:16/9}.gallery-frame.group img{object-fit:contain}}
+  @media(max-width:560px){.gallery-hero{padding:8rem 1.2rem 4.5rem}.gallery-hero h1{font-size:clamp(3rem,15vw,4.7rem)}.voice-gallery{width:min(calc(100% - 2rem),1500px)}.voice-heading{gap:.8rem}.gallery-frame>a,.gallery-frame.feature>a{height:28rem}.gallery-frame.group>a,.gallery-frame.group.feature>a{height:auto;aspect-ratio:16/9}.gallery-frame.member-sheet img{transform:scale(1.2)}.gallery-frame.member-sheet a:hover img{transform:scale(1.25)}}
+  @media(prefers-reduced-motion:reduce){.smoke{animation:none}.gallery-frame img,.gallery-frame>a>span,.gallery-hero nav a{transition:none}}
+</style>

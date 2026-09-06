@@ -1,0 +1,81 @@
+---
+import Layout from '../../../../layouts/Layout.astro';
+
+const frequencies = [
+  {
+    slug: 'crimson-sparks',
+    code: '01',
+    name: 'The Crimson Sparks',
+    device: 'The Spark Radio',
+    count: '7 albums · 85 public tracks',
+    copy: 'A warm vacuum-tube broadcast carrying the first spark, the wildfire, and what remained after.',
+    image: '/images/artists/level_12_fold_15_open_group_01.png',
+    theme: 'sparks',
+  },
+  {
+    slug: 'maya',
+    code: '02',
+    name: 'Maya',
+    device: 'The Headline Receiver',
+    count: '6 albums · 72 public tracks',
+    copy: 'A neon cassette deck tuned to a voice that inherited the flame and changed its color.',
+    image: '/images/artists/level_12_fold_15_maya_separator_01.png',
+    theme: 'maya',
+  },
+  {
+    slug: 'that-guy',
+    code: '03',
+    name: 'That Guy',
+    device: 'The Breakroom Jukebox',
+    count: '1 album · 32 public tracks',
+    copy: 'An unauthorized office radio broadcasting one very loud refusal to keep behaving.',
+    image: '/images/artists/level_12_fold_15_that_guy_separator_01.png',
+    theme: 'guy',
+  },
+];
+---
+
+<Layout title="The Cosmos Radio | Level 12 Fold 15 Music">
+  <main class="music-gateway">
+    <header>
+      <a href="/lore/level-12-fold-15">← Return to the open record</a>
+      <p>PUBLIC MUSIC ARCHIVE · LEVEL 12 FOLD 15</p>
+      <h1>The Cosmos Radio.<br /><em>Choose the voice.</em></h1>
+      <div class="tuning-line" aria-hidden="true"><i></i><span>12_15</span><i></i></div>
+      <p class="deck">Three frequencies carry every album, every available lyric, and every open song in 12_15.</p>
+    </header>
+
+    <section class="frequency-grid" aria-label="Choose a Level 12 Fold 15 artist archive">
+      {frequencies.map((item) => (
+        <a id={item.slug} class:list={['frequency-card', item.theme]} href={`/lore/level-12-fold-15/music/${item.slug}`}>
+          <img src={item.image} alt="" />
+          <div class="wash"></div>
+          <span class="code">{item.code}</span>
+          <span class="status">PUBLIC SIGNAL</span>
+          <div class="radio-face" aria-hidden="true"><i></i><b></b><b></b><b></b><b></b><b></b></div>
+          <div class="copy"><p>{item.device}</p><h2>{item.name}</h2><strong>{item.count}</strong><span>{item.copy}</span><em>Tune in →</em></div>
+        </a>
+      ))}
+    </section>
+  </main>
+</Layout>
+
+<style>
+  .music-gateway{--cream:#f3e7c7;min-height:100vh;padding:clamp(5rem,10vw,9rem) max(1rem,calc((100% - 1500px)/2));color:#eee9df;background:radial-gradient(circle at 14% 8%,rgba(169,48,32,.14),transparent 28rem),radial-gradient(circle at 86% 72%,rgba(34,183,167,.09),transparent 32rem),linear-gradient(180deg,#05060a,#080a12)}
+  header>a{color:#b7aa91;font:700 .6rem 'JetBrains Mono',monospace;letter-spacing:.1em;text-transform:uppercase}header>p:not(.deck){margin:5rem 0 1rem;color:#dca949;font:700 .64rem 'JetBrains Mono',monospace;letter-spacing:.18em}h1{margin:0;color:var(--cream);font:italic 400 clamp(3.8rem,8vw,8rem)/.87 Georgia,serif;letter-spacing:-.055em}h1 em{color:#dba846}.deck{max-width:650px;color:#aaa7a0;line-height:1.8}.tuning-line{display:flex;align-items:center;gap:1rem;max-width:620px;margin:2rem 0}.tuning-line i{height:1px;flex:1;background:linear-gradient(90deg,transparent,#dba846)}.tuning-line i:last-child{background:linear-gradient(90deg,#dba846,transparent)}.tuning-line span{color:#dba846;font:800 .58rem 'JetBrains Mono',monospace;letter-spacing:.2em}
+  .frequency-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:5rem}.frequency-card{--accent:#e29d39;--rgb:226,157,57;position:relative;min-height:38rem;overflow:hidden;border:1px solid rgba(var(--rgb),.42);background:#05070b;color:#eee9df;isolation:isolate}.frequency-card.maya{--accent:#2bd4e2;--rgb:43,212,226}.frequency-card.guy{--accent:#64d57a;--rgb:100,213,122}.frequency-card>img{position:absolute;inset:0;z-index:-3;width:100%;height:100%;object-fit:cover;filter:saturate(.72) brightness(.42);transition:transform .7s ease,filter .5s ease}.frequency-card.sparks>img{object-position:64% center}.frequency-card.maya>img{object-position:55% 20%}.frequency-card.guy>img{object-position:center 30%}.frequency-card:hover>img{transform:scale(1.045);filter:saturate(.98) brightness(.6)}.wash{position:absolute;inset:0;z-index:-2;background:linear-gradient(0deg,rgba(3,5,8,.98) 0%,rgba(3,5,8,.52) 56%,rgba(3,5,8,.18))}.frequency-card:after{content:'';position:absolute;inset:0;z-index:-1;opacity:0;background:repeating-linear-gradient(0deg,transparent 0 5px,rgba(var(--rgb),.12) 6px);transition:opacity .35s ease}.frequency-card:hover:after{opacity:1}.code,.status{position:absolute;top:1rem;color:var(--accent);font:800 .55rem 'JetBrains Mono',monospace;letter-spacing:.14em}.code{left:1rem}.status{right:1rem}.radio-face{position:absolute;left:1.2rem;right:1.2rem;top:4rem;height:3.1rem;display:flex;gap:.32rem;align-items:flex-end;padding:.55rem;border:1px solid rgba(var(--rgb),.3);background:rgba(3,5,8,.68)}.radio-face i{position:absolute;left:.7rem;top:.55rem;width:2rem;height:2rem;border:1px solid var(--accent);border-radius:50%}.radio-face i:after{content:'';position:absolute;left:50%;top:.15rem;width:1px;height:.7rem;background:var(--accent);transform-origin:bottom;transform:rotate(35deg)}.radio-face b{width:.24rem;height:35%;margin-left:auto;background:var(--accent);animation:tune .9s ease-in-out infinite alternate}.radio-face b:nth-of-type(2){height:72%;animation-delay:-.2s}.radio-face b:nth-of-type(3){height:46%;animation-delay:-.5s}.radio-face b:nth-of-type(4){height:92%;animation-delay:-.7s}.radio-face b:nth-of-type(5){height:58%;animation-delay:-.35s}.copy{position:absolute;left:1.3rem;right:1.3rem;bottom:1.5rem}.copy>p{margin:0;color:var(--accent);font:700 .58rem 'JetBrains Mono',monospace;letter-spacing:.12em;text-transform:uppercase}.copy h2{margin:.7rem 0;color:var(--cream);font:italic 400 clamp(2.4rem,4vw,4.2rem)/.9 Georgia,serif}.copy strong{display:block;color:#d6d0c5;font:700 .56rem 'JetBrains Mono',monospace;text-transform:uppercase}.copy>span{display:block;margin-top:1rem;color:#a7a49d;line-height:1.7}.copy em{display:inline-block;margin-top:1.5rem;padding-bottom:.3rem;border-bottom:1px solid rgba(var(--rgb),.5);color:var(--accent);font:700 .58rem 'JetBrains Mono',monospace;font-style:normal;text-transform:uppercase}.frequency-card:hover .copy em{color:#fff}
+  @keyframes tune{from{transform:scaleY(.45);opacity:.45}to{transform:scaleY(1);opacity:1}}
+  .frequency-card{min-height:42rem;display:flex;flex-direction:column}
+  .frequency-card>img{position:relative;inset:auto;z-index:0;height:23rem;flex:0 0 23rem;object-fit:cover;filter:saturate(.78) brightness(.58)}
+  .frequency-card.sparks>img{object-fit:contain;object-position:center;background:#030407}
+  .frequency-card.maya>img{object-position:62% 16%}
+  .frequency-card:hover>img{transform:scale(1.025);filter:saturate(1) brightness(.72)}
+  .wash{inset:0 0 auto;height:23rem;z-index:1;pointer-events:none;background:linear-gradient(0deg,rgba(3,5,8,.72),rgba(3,5,8,.08) 55%,rgba(3,5,8,.2))}
+  .frequency-card:after{z-index:1;pointer-events:none}
+  .code,.status{z-index:3}
+  .radio-face{position:relative;left:auto;right:auto;top:auto;z-index:2;height:3.1rem;flex:0 0 3.1rem;margin:1rem 1.2rem 0;background:rgba(3,5,8,.94)}
+  .copy{position:relative;left:auto;right:auto;bottom:auto;z-index:2;padding:1.3rem 1.3rem 1.5rem}
+  @media(max-width:960px){.frequency-grid{grid-template-columns:1fr}.frequency-card{min-height:32rem}.frequency-card>img{object-position:center 28%}}
+  @media(max-width:960px){.frequency-card{min-height:0}.frequency-card>img{height:auto;flex-basis:auto;aspect-ratio:16/9}.frequency-card.sparks>img{object-fit:cover}.frequency-card.maya>img{object-position:62% 14%}.wash{height:auto;aspect-ratio:16/9}}
+  @media(prefers-reduced-motion:reduce){.radio-face b{animation:none}.frequency-card>img{transition:none}}
+</style>

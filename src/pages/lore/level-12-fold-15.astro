@@ -1,195 +1,189 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import cosmosData from '../../data/cosmos.json';
 
-const { siteConfig } = cosmosData;
+const sparks = [
+  { number: '01', name: 'Suki Moreau', gallery: 'suki', role: 'Vocals & Songwriter', signal: 'The Observer', bio: 'The narrative center of the band. Suki turns observation, loss, and the patterns people leave behind into songs carried in notebooks she never discards.', sheet: '/images/character-sheets/suki_moreau_character_sheet_master.png' },
+  { number: '02', name: 'Soren Crane', gallery: 'soren', role: 'Bass & Co-Founder', signal: 'The Foundation', bio: 'A quiet mentor whose integrity anchors the group. Soren walked away from corporate label deals rather than let the music become something it was never meant to be.', sheet: '/images/character-sheets/soren_crane_character_sheet_master.png' },
+  { number: '03', name: 'Sky Delacroix', gallery: 'sky', role: 'Lead Guitar', signal: 'The Wild Current', bio: "The band's chaotic creative energy. Sky plays by instinct and raw passion, treating every performance as a living thing that should never repeat itself exactly.", sheet: '/images/character-sheets/sky_delacroix_character_sheet_master.png' },
+  { number: '04', name: 'Sol Kovic', gallery: 'sol', role: 'Drums', signal: 'The Pulse', bio: 'A self-taught, high-energy drummer whose ska-punk roots and infectious joy become the emotional heartbeat of the Crimson Sparks.', sheet: '/images/character-sheets/sol_kovic_character_sheet_master.png' },
+  { number: '05', name: 'Sienna Aramaki', gallery: 'sienna', role: 'Rhythm Guitar & Keys', signal: 'The Harmonic Mind', bio: 'A classically trained prodigy who left conservatory expectations behind to choose genuine creation over flawless but empty performance.', sheet: '/images/character-sheets/sienna_aramaki_character_sheet_master.png' },
+];
+
+const successors = [
+  { number: '06', name: 'Maya', role: 'Lead Vocalist & Guitarist', signal: 'The Spark Passed On', theme: 'maya', bio: 'Maya grew up with the Crimson Sparks as distant mentors, learning from their music without meeting them. Years later, she carries their legacy guitar onto a stadium stage and makes the spark unmistakably her own.', sheet: '/images/character-sheets/maya_character_sheet_master.png', feature: '/images/artists/level_12_fold_15_maya_separator_01.png', featureAlt: 'Maya seated with her guitar in a rehearsal studio', featureLabel: 'MAYA · THE SPARK PASSED ON', featureLine: 'A distant fan carries the fire forward—and makes it unmistakably her own.' },
+  { number: '07', name: 'That Guy', role: 'Vocals, Rants & Corporate Meltdown', signal: 'Saevit Animo', theme: 'guy', bio: 'A corporate worker who finally broke after years of soul-draining routine. That Guy turns ordinary frustrations, messy love, bad decisions, and individual rebellion into one loud, unfiltered raging spirit.', sheet: '/images/character-sheets/that_guy_character_sheet_master.png', feature: '/images/artists/level_12_fold_15_that_guy_separator_01.png', featureAlt: 'That Guy outside his former corporate office carrying a briefcase', featureLabel: 'THAT GUY · SAEVIT ANIMO', featureLine: 'An ordinary life breaks open. A raging spirit finally answers.' },
+];
 ---
 
-<Layout title="Level 12 Fold 15 — The Crimson Sparks, Maya, & That Guy">
-  <!-- Hero Section -->
-  <section class="relative py-20 px-6 max-w-5xl mx-auto text-center overflow-hidden">
-    <div class="absolute inset-0 -z-10 flex items-center justify-center">
-      <div class="w-[500px] h-[500px] bg-red-600/15 rounded-full blur-3xl"></div>
-      <div class="w-[300px] h-[300px] bg-amber-500/15 rounded-full blur-3xl"></div>
-    </div>
-
-    <div class="inline-flex items-center space-x-2 bg-red-950/80 border border-red-800/60 px-3 py-1 rounded-full text-xs font-mono text-red-300 mb-6">
-      <span>🎸 LEVEL 12 &bull; FOLD 15</span>
-    </div>
-
-    <h1 class="text-4xl md:text-6xl font-black tracking-tight leading-tight">
-      The Crimson Sparks, Maya, & <span class="bg-gradient-to-r from-red-500 via-amber-400 to-yellow-300 bg-clip-text text-transparent">That Guy</span>
-    </h1>
-
-    <p class="mt-6 text-lg text-slate-300 max-w-3xl mx-auto font-light leading-relaxed">
-      Level 12 – Fold 15 is a plane defined by raw human experience, emotional resonance, artistic transmission, and individual rebellion. Operated by the power of expression—where a single song can spark a movement or tear down corporate cages.
-    </p>
-  </section>
-
-  <!-- Overview Box -->
-  <section class="max-w-4xl mx-auto px-6 mb-16">
-    <div class="bg-slate-900/80 border border-slate-800 p-8 rounded-2xl relative overflow-hidden backdrop-blur-sm">
-      <h2 class="text-xl font-bold text-white mb-3 flex items-center gap-2">
-        <span>🌌</span> Overview
-      </h2>
-      <p class="text-sm text-slate-300 leading-relaxed font-light">
-        Unlike planes dominated by cosmic architects or artificial awakening, Fold 15 tracks three interconnected musical and emotional legacies: the rise and quiet retirement of legendary band <strong>The Crimson Sparks</strong>, the next-generation rise of solo powerhouse <strong>Maya</strong>, and the unfiltered, chaotic reality of <strong>That Guy</strong>.
-      </p>
-    </div>
-  </section>
-
-  <!-- Faction 1: The Crimson Sparks -->
-  <section class="max-w-5xl mx-auto px-6 py-12 border-t border-slate-900">
-    <div class="flex items-center justify-between mb-8">
-      <div>
-        <span class="text-xs font-mono text-red-400 uppercase tracking-widest font-bold">The Legendary Movement</span>
-        <h2 class="text-3xl font-black text-white mt-1">🎸 The Crimson Sparks</h2>
+<Layout title="Level 12 Fold 15 — The Open Universe">
+  <div class="record-page">
+    <section class="record-hero" aria-labelledby="record-title">
+      <div class="hero-voices" aria-label="Suki, Maya, and That Guy">
+        <figure class="voice-panel suki"><img src="/images/artists/level_12_fold_15_suki_01.png" alt="Suki Moreau seated beside her guitar" /><figcaption>Suki</figcaption></figure>
+        <figure class="voice-panel maya"><img src="/images/artists/level_12_fold_15_maya_01.png" alt="Maya" /><figcaption>Maya</figcaption></figure>
+        <figure class="voice-panel guy"><img src="/images/artists/level_12_fold_15_that_guy_01.png" alt="That Guy" /><figcaption>That Guy</figcaption></figure>
       </div>
-      <span class="text-xs font-mono bg-red-950 border border-red-800/60 text-red-300 px-3 py-1 rounded-full">5 Band Members</span>
-    </div>
-
-    <p class="text-sm text-slate-300 leading-relaxed mb-8">
-      The Crimson Sparks began as five musicians in dive bars searching for authenticity and grew into a global emotional fire. Their journey was never about fame or awards—it was about transmission: passing a spark forward until it belonged to everyone.
-    </p>
-
-    <!-- Band Members Grid -->
-    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-      <div class="bg-slate-900/90 border border-slate-800 p-5 rounded-xl">
-        <h3 class="text-lg font-bold text-white">Suki Moreau</h3>
-        <span class="text-xs text-red-400 font-mono block mb-2">Vocals & Songwriter</span>
-        <p class="text-xs text-slate-400 leading-relaxed">The observer and narrative center. Transforms observation, loss, and patterns into songs inside notebooks she never discards.</p>
+      <a class="cosmos-radio-entry" href="/lore/level-12-fold-15/music" aria-label="Enter The Cosmos Radio music archive">
+        <svg viewBox="0 0 64 64" aria-hidden="true">
+          <path d="M18 15 48 5" />
+          <rect x="7" y="16" width="50" height="36" rx="4" />
+          <circle cx="21" cy="34" r="9" />
+          <circle cx="21" cy="34" r="3" />
+          <path d="M37 27h12M37 33h12M37 39h12M13 57h8M43 57h8" />
+        </svg>
+        <span><small>PUBLIC MUSIC SIGNAL · 12_15</small><strong>The Cosmos Radio</strong><em>Albums, lyrics, and every open song</em></span>
+        <b>ENTER →</b>
+      </a>
+      <div class="hero-smoke smoke-a" aria-hidden="true"></div>
+      <div class="hero-smoke smoke-b" aria-hidden="true"></div>
+      <div class="spark-field" aria-hidden="true"></div>
+      <div class="hero-copy">
+        <div class="record-code"><span>PUBLIC RECORD</span> 12_15</div>
+        <p class="kicker">The one universe presently open to everyone</p>
+        <h1 id="record-title">Three voices.<br /><em>One living signal.</em></h1>
+        <p class="hero-deck">Suki lit the first spark. Maya inherited its warmth. That Guy found a different flame entirely. Three voices carry the open record of 12_15.</p>
+        <div class="hero-actions" aria-label="Explore the public artists of Level 12 Fold 15">
+          <a href="#suki">Suki</a><a href="#maya">Maya</a><a href="#that-guy">That Guy</a>
+        </div>
       </div>
+      <div class="hero-foot"><span>LEVEL 12</span><b></b><span>FOLD 15</span><b></b><span>PUBLICLY OPEN</span></div>
+    </section>
 
-      <div class="bg-slate-900/90 border border-slate-800 p-5 rounded-xl">
-        <h3 class="text-lg font-bold text-white">Soren Crane</h3>
-        <span class="text-xs text-red-400 font-mono block mb-2">Bass & Co-Founder</span>
-        <p class="text-xs text-slate-400 leading-relaxed">The silent mentor who walked away from corporate label deals to preserve his integrity. Provides the band's unshakeable foundation.</p>
+    <section class="transmission" aria-labelledby="transmission-title">
+      <p class="kicker">The transmission line</p>
+      <h2 id="transmission-title">Spark <span>→</span> Fire <span>→</span> Wildfire <span>→</span> Embers</h2>
+      <p>“The music was never about us. It was always about what came next.”</p>
+    </section>
+
+    <section id="crimson-sparks" class="chapter sparks-chapter" aria-labelledby="sparks-title">
+      <header class="chapter-heading">
+        <div><p class="chapter-number">CHAPTER I · THE LEGENDARY MOVEMENT</p><h2 id="sparks-title">The Crimson Sparks</h2></div>
+        <p>Five musicians began in dive bars searching for something honest. What followed was not simply a band, but an emotional fire passed from person to person until it belonged to everyone.</p>
+      </header>
+
+      <figure class="group-record">
+        <img src="/images/artists/level_12_fold_15_open_group_01.png" alt="The five members of The Crimson Sparks" />
+        <figcaption><span>THE CRIMSON FIVE</span><em>One spark. Five keepers. A movement carried forward.</em></figcaption>
+      </figure>
+      <a class="band-gallery-link" href="/lore/level-12-fold-15/gallery#band">Open the Crimson Sparks band gallery <span>→</span></a>
+      <a class="band-gallery-link music-link" href="/lore/level-12-fold-15/music/crimson-sparks">Tune the Crimson Sparks on The Cosmos Radio <span>→</span></a>
+
+      <div class="profile-stack">
+        {sparks.map((person, index) => (
+          <article id={person.gallery} class:list={['profile-record', index % 2 === 1 && 'reverse']}>
+            <a class="sheet-frame" href={person.sheet} target="_blank" rel="noopener noreferrer" aria-label={`Open ${person.name}'s full character sheet`}>
+              <img src={person.sheet} alt={`${person.name} character sheet`} loading="lazy" />
+              <span class="sheet-cue">OPEN FULL CHARACTER SHEET <b>↗</b></span>
+            </a>
+            <div class="profile-copy">
+              <div class="profile-index"><span>{person.number}</span><b>{person.signal}</b></div>
+              <h3>{person.name}</h3><p class="role">{person.role}</p><p class="bio">{person.bio}</p>
+              <a class="record-link gallery-link" href={`/lore/level-12-fold-15/gallery#${person.gallery}`}>Open {person.name.split(' ')[0]}'s photo gallery <span>→</span></a>
+              <a class="record-link" href={person.sheet} target="_blank" rel="noopener noreferrer">Read the complete record <span>→</span></a>
+            </div>
+          </article>
+        ))}
       </div>
+    </section>
 
-      <div class="bg-slate-900/90 border border-slate-800 p-5 rounded-xl">
-        <h3 class="text-lg font-bold text-white">Sky Delacroix</h3>
-        <span class="text-xs text-red-400 font-mono block mb-2">Lead Guitar</span>
-        <p class="text-xs text-slate-400 leading-relaxed">Chaotic creative energy. Plays with raw passion without calculation, never performing the exact same solo twice.</p>
+    <section class="chapter next-chapter" aria-labelledby="next-title">
+      <header class="chapter-heading">
+        <div><p class="chapter-number">CHAPTER II · TWO PATHS AFTER THE SPARK</p><h2 id="next-title">What came next</h2></div>
+        <p>One artist receives a legacy from afar. Another tears his own voice out of an ordinary life. Neither repeats the Crimson Sparks; both prove that music keeps moving.</p>
+      </header>
+
+      <div class="successor-stack">
+        {successors.map((person) => (
+          <section class:list={['successor-path', person.theme]}>
+            <figure id={`${person.theme === 'maya' ? 'maya' : 'that-guy'}-introduction`} class:list={['successor-divider', person.theme]}>
+              <img src={person.feature} alt={person.featureAlt} loading="lazy" />
+              <figcaption><span>{person.featureLabel}</span><em>{person.featureLine}</em></figcaption>
+            </figure>
+            <div class:list={['feature-actions', person.theme]}>
+              <a class="band-gallery-link" href={`/lore/level-12-fold-15/gallery#${person.theme === 'maya' ? 'maya' : 'that-guy'}`}>Open {person.name}'s photo gallery <span>→</span></a>
+              <a class="band-gallery-link music-link" href={`/lore/level-12-fold-15/music/${person.theme === 'maya' ? 'maya' : 'that-guy'}`}>Tune {person.name} on The Cosmos Radio <span>→</span></a>
+            </div>
+            <article id={person.theme === 'maya' ? 'maya' : 'that-guy'} class:list={['successor-record', person.theme]}>
+              <div class="successor-glow" aria-hidden="true"></div>
+              <a class="successor-sheet" href={person.sheet} target="_blank" rel="noopener noreferrer" aria-label={`Open ${person.name}'s full character sheet`}>
+                <img src={person.sheet} alt={`${person.name} character sheet`} loading="lazy" /><span>FULL CHARACTER SHEET <b>↗</b></span>
+              </a>
+              <div class="successor-copy">
+                <div class="profile-index"><span>{person.number}</span><b>{person.signal}</b></div>
+                <h3>{person.name}</h3><p class="role">{person.role}</p><p class="bio">{person.bio}</p>
+                <a class="record-link gallery-link" href={`/lore/level-12-fold-15/gallery#${person.theme === 'maya' ? 'maya' : 'that-guy'}`}>Open photo gallery <span>→</span></a>
+                <a class="record-link music-record-link" href={`/lore/level-12-fold-15/music/${person.theme === 'maya' ? 'maya' : 'that-guy'}`}>Open music archive <span>→</span></a>
+                {person.theme === 'maya' ? <p class="chapter-note">Fan in the crowd <i>→</i> Headline stadium era</p> : <p class="chapter-note">Break the cage <i>→</i> Real life <i>→</i> Love? <i>→</i> Consequences!</p>}
+                <a class="record-link" href={person.sheet} target="_blank" rel="noopener noreferrer">Read the complete record <span>→</span></a>
+              </div>
+            </article>
+          </section>
+        ))}
       </div>
+    </section>
 
-      <div class="bg-slate-900/90 border border-slate-800 p-5 rounded-xl">
-        <h3 class="text-lg font-bold text-white">Sol Kovic</h3>
-        <span class="text-xs text-red-400 font-mono block mb-2">Drums</span>
-        <p class="text-xs text-slate-400 leading-relaxed">The heart of emotional growth. A self-taught, high-energy drummer bringing ska-punk roots and infectious joy into the group.</p>
+    <section class="chapter frequency-chapter" aria-labelledby="frequency-title">
+      <header class="chapter-heading">
+        <div><p class="chapter-number">CHAPTER III · THE PUBLIC AIRWAVES</p><h2 id="frequency-title">The Cosmos Radio</h2></div>
+        <p>Each voice keeps its own machine, its own color, and its own archive. Tune one receiver to enter the albums, lyrics, and jukebox for that artist.</p>
+      </header>
+      <div class="frequency-grid">
+        <a class="frequency-device sparks" href="/lore/level-12-fold-15/music/crimson-sparks">
+          <span class="frequency-code">01 · VACUUM-TUBE BROADCAST</span>
+          <div class="radio-ui" aria-hidden="true"><i></i><b></b><b></b><b></b><b></b></div>
+          <h3>The Spark Radio</h3><p>The Crimson Sparks</p><em>7 albums · enter archive →</em>
+        </a>
+        <a class="frequency-device maya" href="/lore/level-12-fold-15/music/maya">
+          <span class="frequency-code">02 · NEON CASSETTE DECK</span>
+          <div class="radio-ui" aria-hidden="true"><i></i><b></b><b></b><b></b><b></b></div>
+          <h3>The Headline Receiver</h3><p>Maya</p><em>6 albums · enter archive →</em>
+        </a>
+        <a class="frequency-device guy" href="/lore/level-12-fold-15/music/that-guy">
+          <span class="frequency-code">03 · UNAUTHORIZED OFFICE RADIO</span>
+          <div class="radio-ui" aria-hidden="true"><i></i><b></b><b></b><b></b><b></b></div>
+          <h3>The Breakroom Jukebox</h3><p>That Guy</p><em>1 album · enter archive →</em>
+        </a>
       </div>
+      <a class="all-frequencies" href="/lore/level-12-fold-15/music">Enter The Cosmos Radio <span>→</span></a>
+    </section>
 
-      <div class="bg-slate-900/90 border border-slate-800 p-5 rounded-xl md:col-span-2 lg:col-span-1">
-        <h3 class="text-lg font-bold text-white">Sienna Aramaki</h3>
-        <span class="text-xs text-red-400 font-mono block mb-2">Rhythm Guitar & Keys</span>
-        <p class="text-xs text-slate-400 leading-relaxed">The classically trained prodigy who walked away from conservatories to pursue genuine creation over rigid performance.</p>
-      </div>
-    </div>
-
-    <!-- Catalog Arc & Thesis -->
-    <div class="bg-gradient-to-r from-red-950/40 via-slate-900 to-slate-950 border border-red-900/40 p-6 rounded-2xl">
-      <h3 class="text-base font-bold text-amber-400 mb-2">The Catalog Evolution & Core Thesis</h3>
-      <p class="text-xs font-mono text-red-300 mb-4 uppercase tracking-wider">
-        Spark &rarr; Fire &rarr; Crash &rarr; Ignite &rarr; Movement &rarr; Wildfire &rarr; Embers
-      </p>
-      <p class="text-xs text-slate-300 leading-relaxed mb-4">
-        <em>"The music was never about us. It was always about what came next."</em>
-      </p>
-      <p class="text-xs text-slate-400 leading-relaxed">
-        <strong>The Quiet Retirement:</strong> Refusing to become a corporate product, the band entered a quiet hiatus after reaching peak global influence and officially retired without ever performing together again.
-      </p>
-    </div>
-  </section>
-
-  <!-- Faction 2: Maya -->
-  <section class="max-w-5xl mx-auto px-6 py-12 border-t border-slate-900">
-    <div class="flex items-center justify-between mb-8">
-      <div>
-        <span class="text-xs font-mono text-amber-400 uppercase tracking-widest font-bold">Passing the Spark</span>
-        <h2 class="text-3xl font-black text-white mt-1">🎤 Maya</h2>
-      </div>
-      <span class="text-xs font-mono bg-amber-950 border border-amber-800/60 text-amber-300 px-3 py-1 rounded-full">Solo Powerhouse</span>
-    </div>
-
-    <div class="grid md:grid-cols-2 gap-6">
-      <div class="bg-slate-900/80 border border-slate-800 p-6 rounded-xl">
-        <h3 class="text-base font-bold text-white mb-2">Mentorship from Afar & The Guitar</h3>
-        <p class="text-xs text-slate-300 leading-relaxed">
-          Maya never met the Sparks during her formative years; their music acted as a distant beacon proving art could transform a life. "The Guitar" serves as a central legacy artifact, symbolizing how emotional truth transfers across generations.
-        </p>
-      </div>
-
-      <div class="bg-slate-900/80 border border-slate-800 p-6 rounded-xl">
-        <h3 class="text-base font-bold text-white mb-2">The Canon Epilogue</h3>
-        <p class="text-xs text-slate-300 leading-relaxed">
-          Years after retirement, Maya headlines a massive stadium concert. Hidden in the crowd stand Suki, Soren, Sky, Sol, and Sienna—watching anonymously as five friends witnessing the spark alive in the next generation.
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Faction 3: That Guy -->
-  <section class="max-w-5xl mx-auto px-6 py-12 border-t border-slate-900">
-    <div class="flex items-center justify-between mb-8">
-      <div>
-        <span class="text-xs font-mono text-yellow-400 uppercase tracking-widest font-bold">Saevit Animo &bull; The Raging Spirit</span>
-        <h2 class="text-3xl font-black text-white mt-1">⚡ That Guy</h2>
-      </div>
-      <span class="text-xs font-mono bg-yellow-950 border border-yellow-800/60 text-yellow-300 px-3 py-1 rounded-full">Individual Rebellion</span>
-    </div>
-
-    <p class="text-sm text-slate-300 leading-relaxed mb-8">
-      Where the Sparks represent collective transmission and Maya represents inherited legacy, That Guy represents the raw, unfiltered, and deeply relatable rage of individual survival.
-    </p>
-
-    <!-- The Four Acts -->
-    <div class="grid md:grid-cols-2 gap-6">
-      <div class="bg-slate-900/60 border border-slate-800 p-6 rounded-xl">
-        <div class="text-xs font-mono text-yellow-400 font-bold mb-1">ACT I</div>
-        <h3 class="text-base font-bold text-white mb-2">Break the Cage</h3>
-        <p class="text-xs text-slate-400 leading-relaxed">The explosive rejection of corporate monotony, suffocating routines, and systemic burnout.</p>
-      </div>
-
-      <div class="bg-slate-900/60 border border-slate-800 p-6 rounded-xl">
-        <div class="text-xs font-mono text-yellow-400 font-bold mb-1">ACT II</div>
-        <h3 class="text-base font-bold text-white mb-2">The Guy in Real Life</h3>
-        <p class="text-xs text-slate-400 leading-relaxed">Comedic, frustrated navigation of everyday absurdity—bad coffee, long queues, mosquitoes, and social climbing.</p>
-      </div>
-
-      <div class="bg-slate-900/60 border border-slate-800 p-6 rounded-xl">
-        <div class="text-xs font-mono text-yellow-400 font-bold mb-1">ACT III</div>
-        <h3 class="text-base font-bold text-white mb-2">Love?</h3>
-        <p class="text-xs text-slate-400 leading-relaxed">The messy, complicated, and often terrifying attempt to open up to vulnerability, dating, and intimacy.</p>
-      </div>
-
-      <div class="bg-slate-900/60 border border-slate-800 p-6 rounded-xl">
-        <div class="text-xs font-mono text-yellow-400 font-bold mb-1">ACT IV</div>
-        <h3 class="text-base font-bold text-white mb-2">Consequences!</h3>
-        <p class="text-xs text-slate-400 leading-relaxed">Facing the aftermath of choices, heartbreak, lingering space, and finding a way forward through the damage.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Key Symbols & Artifacts -->
-  <section class="max-w-5xl mx-auto px-6 py-16 border-t border-slate-900 mb-20">
-    <h2 class="text-2xl font-bold text-white mb-8 text-center flex items-center justify-center gap-2">
-      <span>🔑</span> Key Symbols & Artifacts
-    </h2>
-
-    <div class="grid md:grid-cols-3 gap-6">
-      <div class="bg-slate-900/60 border border-slate-800 p-6 rounded-xl">
-        <h3 class="text-base font-bold text-red-400 mb-2">The Spark</h3>
-        <p class="text-xs text-slate-300 leading-relaxed">The recurring symbolic force of creative ignition moving artist to fan, fan to artist, making transmission everything.</p>
-      </div>
-
-      <div class="bg-slate-900/60 border border-slate-800 p-6 rounded-xl">
-        <h3 class="text-base font-bold text-amber-400 mb-2">The Loading Bay & The Rusty Nail</h3>
-        <p class="text-xs text-slate-300 leading-relaxed">The humble, gritty origin points where authentic music was born away from industry eyes.</p>
-      </div>
-
-      <div class="bg-slate-900/60 border border-slate-800 p-6 rounded-xl">
-        <h3 class="text-base font-bold text-yellow-400 mb-2">Saevit Animo</h3>
-        <p class="text-xs text-slate-300 leading-relaxed">The "raging spirit"—the refusal to be dulled, quieted, or broken by modern life.</p>
-      </div>
-    </div>
-  </section>
+    <section class="closing-record">
+      <p class="kicker">Level 12 · Fold 15</p><h2>The signal remains open.</h2><p>Explore the three voices, then return whenever the public record grows.</p>
+      <div><a href="/lore/level-12-fold-15/music">Enter The Cosmos Radio <span>→</span></a><a href="/lore/level-12-fold-15/gallery">Enter the photo galleries <span>→</span></a><a href="/#worlds">Return to the Cosmos <span>↗</span></a></div>
+    </section>
+  </div>
 </Layout>
+
+<style>
+  .record-page{--cream:#f3e5bd;--gold:#d9a441;--ember:#d85032;--cyan:#29d1dc;--magenta:#e253b5;--green:#62cf79;position:relative;overflow:hidden;color:#f5eddd;background:radial-gradient(circle at 12% 14%,rgba(143,33,32,.17),transparent 28rem),radial-gradient(circle at 88% 72%,rgba(14,100,88,.12),transparent 34rem),linear-gradient(180deg,rgba(5,5,10,.3),rgba(3,5,10,.78))}
+  .record-page:before{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.18;background-image:repeating-linear-gradient(0deg,transparent 0 3px,rgba(255,255,255,.035) 4px)}
+  .record-hero{position:relative;display:block;overflow:hidden;isolation:isolate;border-bottom:1px solid rgba(217,164,65,.35);background:#07070c}
+  .hero-voices{position:relative;z-index:-4;height:clamp(30rem,45vw,48rem);display:grid;grid-template-columns:repeat(3,minmax(0,1fr));overflow:hidden;background:#08080d}.hero-voices:before{content:'';position:absolute;inset:0;z-index:2;pointer-events:none;background:linear-gradient(0deg,#05050a 0%,rgba(5,5,10,.08) 24%,transparent 48%),linear-gradient(90deg,rgba(5,5,10,.2),transparent 12%,transparent 88%,rgba(5,5,10,.2))}
+  .voice-panel{position:relative;margin:0;overflow:hidden;border-left:1px solid rgba(217,164,65,.22)}.voice-panel img{width:100%;height:100%;display:block;object-fit:cover;filter:saturate(.8) contrast(1.08) brightness(.72);transition:filter .55s ease,transform .75s ease}.voice-panel.suki img{object-position:58% 42%;transform:scale(1.04)}.voice-panel.maya img{object-position:50% 4%}.voice-panel.guy img{object-position:50% 3%}.voice-panel figcaption{position:absolute;z-index:3;right:1.1rem;top:1.2rem;color:rgba(244,225,183,.72);font:700 .56rem/1 'JetBrains Mono',monospace;letter-spacing:.18em;text-transform:uppercase}.voice-panel:hover img{filter:saturate(1) contrast(1.05) brightness(.92);transform:scale(1.035)}.voice-panel.suki:hover img{transform:scale(1.08)}
+  .cosmos-radio-entry{position:relative;z-index:5;width:min(calc(100% - 3rem),1500px);margin:-1px auto 0;display:grid;grid-template-columns:auto 1fr auto;gap:1.25rem;align-items:center;padding:1.1rem 1.35rem;color:#f0e5cf;border:1px solid rgba(217,164,65,.48);background:linear-gradient(105deg,rgba(22,11,9,.98),rgba(5,8,13,.98) 55%,rgba(8,25,25,.96));box-shadow:0 22px 55px rgba(0,0,0,.42),0 0 34px rgba(217,164,65,.08);transition:transform .3s ease,border-color .3s ease,box-shadow .3s ease}.cosmos-radio-entry:hover{transform:translateY(-3px);border-color:#e3b457;box-shadow:0 28px 64px rgba(0,0,0,.52),0 0 42px rgba(217,164,65,.14)}.cosmos-radio-entry svg{width:4rem;height:4rem;padding:.45rem;color:#e0ac4f;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;border:1px solid rgba(217,164,65,.36);background:#08090c}.cosmos-radio-entry span{display:grid;gap:.2rem}.cosmos-radio-entry small{color:#d69b43;font:700 .55rem 'JetBrains Mono',monospace;letter-spacing:.14em}.cosmos-radio-entry strong{font:italic 400 clamp(1.65rem,3vw,2.8rem)/1 Georgia,serif}.cosmos-radio-entry em{color:#8f948f;font:500 .7rem 'JetBrains Mono',monospace;font-style:normal;text-transform:uppercase;letter-spacing:.06em}.cosmos-radio-entry>b{color:#e5b457;font:800 .6rem 'JetBrains Mono',monospace;letter-spacing:.12em}
+  .hero-smoke{position:absolute;z-index:-2;width:42rem;height:18rem;border-radius:50%;filter:blur(60px);opacity:.24;mix-blend-mode:screen;animation:smokeDrift 13s ease-in-out infinite alternate}.smoke-a{right:6%;top:4%;background:rgba(207,69,38,.28)}.smoke-b{right:24%;bottom:4%;background:rgba(219,153,50,.17);animation-delay:-6s}
+  .spark-field,.spark-field:before,.spark-field:after{position:absolute;inset:0;z-index:-1;content:'';pointer-events:none;background-image:radial-gradient(circle at 72% 18%,rgba(255,218,139,.9) 0 1px,transparent 2px),radial-gradient(circle at 82% 42%,rgba(224,89,47,.86) 0 1px,transparent 2px),radial-gradient(circle at 62% 74%,rgba(255,224,168,.8) 0 1.5px,transparent 2.5px),radial-gradient(circle at 91% 68%,rgba(255,160,70,.65) 0 1px,transparent 2px);animation:sparksRise 9s linear infinite}.spark-field:before{transform:translate(-12%,28%);animation-delay:-3s}.spark-field:after{transform:translate(7%,52%);animation-delay:-6s}
+  .hero-copy{position:relative;z-index:4;width:min(100%,1600px);margin:0 auto;padding:clamp(3.5rem,6vw,6rem) clamp(1.5rem,7vw,7rem) clamp(5rem,8vw,8rem);background:radial-gradient(circle at 18% 0,rgba(183,62,35,.14),transparent 31rem),linear-gradient(180deg,#05050a 0%,#07070c 100%)}
+  .record-code,.kicker,.chapter-number,.profile-index,.role,.sheet-cue,.successor-sheet>span{font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.17em}
+  .record-code{display:inline-flex;align-items:center;gap:.7rem;margin-bottom:1.4rem;color:var(--cream);font-size:.72rem}.record-code span{padding:.55rem .7rem;border:1px solid rgba(217,164,65,.65);color:#161009;background:linear-gradient(135deg,#f0d68c,#c98b2e)}
+  .kicker{margin:0 0 .9rem;color:#d9ad63;font-size:.68rem;font-weight:700}
+  .record-hero h1{max-width:900px;margin:0;font:900 clamp(3.4rem,7.6vw,8.2rem)/.84 'Orbitron',sans-serif;letter-spacing:-.075em;text-transform:uppercase;color:#f7f0df;text-shadow:0 18px 60px rgba(0,0,0,.78)}.record-hero h1 em{display:inline-block;margin-top:.22em;font:italic 400 .48em/1 Georgia,serif;letter-spacing:-.025em;text-transform:none;color:#e1b455}
+  .hero-deck{max-width:720px;margin:1.7rem 0 0;color:#c8c2b8;font-size:clamp(.96rem,1.4vw,1.15rem);line-height:1.85}.hero-actions{display:flex;flex-wrap:wrap;gap:.7rem;margin-top:2rem}
+  .hero-actions a,.closing-record a{min-height:2.9rem;display:inline-flex;align-items:center;padding:.75rem 1rem;border:1px solid rgba(217,164,65,.42);color:#ead9af;background:rgba(6,7,12,.7);font:700 .66rem/1 'JetBrains Mono',monospace;letter-spacing:.1em;text-transform:uppercase;transition:transform .25s ease,border-color .25s ease,background .25s ease}.hero-actions a:hover,.closing-record a:hover{transform:translateY(-3px);border-color:#e7b854;background:rgba(217,164,65,.12)}
+  .hero-foot{position:absolute;right:clamp(1.5rem,5vw,5rem);bottom:1.5rem;display:flex;align-items:center;gap:.8rem;color:rgba(240,222,183,.62);font:700 .55rem/1 'JetBrains Mono',monospace;letter-spacing:.16em}.hero-foot b{width:2rem;height:1px;background:rgba(217,164,65,.4)}
+  .transmission{padding:clamp(4rem,8vw,7rem) 1.5rem;text-align:center;border-bottom:1px solid rgba(217,164,65,.17);background:radial-gradient(circle,rgba(122,31,22,.12),transparent 65%)}.transmission h2{margin:0;font:italic 400 clamp(2rem,5vw,4.8rem)/1.05 Georgia,serif;color:var(--cream)}.transmission h2 span{color:#be5736;font-style:normal}.transmission>p:last-child{margin:1.1rem 0 0;color:#918a7e;font:italic 1rem/1.6 Georgia,serif}
+  .chapter{width:min(calc(100% - 3rem),1500px);margin:0 auto;padding:clamp(5rem,9vw,9rem) 0}.chapter-heading{display:grid;grid-template-columns:minmax(0,1fr) minmax(18rem,34rem);gap:clamp(2rem,6vw,8rem);align-items:end;margin-bottom:clamp(2.5rem,5vw,5rem)}.chapter-number{margin:0 0 .8rem;color:#be8050;font-size:.64rem}.chapter-heading h2,.closing-record h2{margin:0;color:#f4ead4;font:italic 400 clamp(2.8rem,6vw,6.4rem)/.9 Georgia,serif;letter-spacing:-.045em}.chapter-heading>p{margin:0;color:#9fa3ad;font-size:.95rem;line-height:1.8}
+  .group-record{position:relative;margin:0 0 1rem;overflow:hidden;border:1px solid rgba(211,146,58,.5);box-shadow:0 38px 80px rgba(0,0,0,.38),0 0 45px rgba(179,61,34,.08);background:#07070a}.group-record:before,.sheet-frame:before,.successor-sheet:before{content:'';position:absolute;inset:0;z-index:2;pointer-events:none;box-shadow:inset 0 0 0 9px rgba(0,0,0,.18),inset 0 0 0 10px rgba(224,176,78,.18)}.group-record img{width:100%;height:clamp(24rem,53vw,49rem);display:block;object-fit:cover;object-position:center 29%;filter:saturate(.85) contrast(1.05)}.group-record figcaption{position:absolute;inset:auto 0 0;display:flex;justify-content:space-between;gap:1rem;align-items:center;padding:1.4rem clamp(1.2rem,3vw,2.7rem);color:var(--cream);background:linear-gradient(90deg,rgba(4,4,7,.98),rgba(14,8,6,.83));border-top:1px solid rgba(217,164,65,.36)}.group-record figcaption span{font:800 .65rem/1 'JetBrains Mono',monospace;letter-spacing:.16em}.group-record figcaption em{color:#c9b486;font:italic 1rem/1.3 Georgia,serif}.band-gallery-link{display:inline-flex;align-items:center;gap:.8rem;margin:0 0 clamp(4rem,8vw,8rem);padding:.85rem 1rem;border:1px solid rgba(217,164,65,.42);color:#f0c66c;background:rgba(217,164,65,.07);font:700 .62rem/1.4 'JetBrains Mono',monospace;letter-spacing:.1em;text-transform:uppercase}.band-gallery-link span{transition:transform .2s ease}.band-gallery-link:hover span{transform:translateX(5px)}
+  .profile-stack{display:grid;gap:clamp(4rem,8vw,8rem)}.profile-record{display:grid;grid-template-columns:minmax(0,1.62fr) minmax(18rem,.72fr);gap:clamp(2rem,5vw,5rem);align-items:center}.profile-record.reverse{grid-template-columns:minmax(18rem,.72fr) minmax(0,1.62fr)}.profile-record.reverse .sheet-frame{grid-column:2;grid-row:1}.profile-record.reverse .profile-copy{grid-column:1;grid-row:1}
+  .sheet-frame,.successor-sheet{position:relative;display:block;overflow:hidden;border:1px solid rgba(217,164,65,.37);background:#06070b;box-shadow:0 32px 72px rgba(0,0,0,.4)}.sheet-frame img,.successor-sheet img{width:100%;height:auto;display:block;transition:transform .5s ease,filter .5s ease}.sheet-frame:hover img,.successor-sheet:hover img{transform:scale(1.018);filter:brightness(1.07)}.sheet-cue,.successor-sheet>span{position:absolute;z-index:3;right:.8rem;bottom:.8rem;display:flex;align-items:center;gap:.55rem;padding:.7rem .8rem;color:#f0d89f;background:rgba(4,5,8,.9);border:1px solid rgba(217,164,65,.4);font-size:.54rem}
+  .profile-copy{position:relative;padding:1rem 0 1rem clamp(0rem,2vw,2rem)}.profile-copy:before{content:'';position:absolute;left:0;top:0;bottom:0;width:1px;background:linear-gradient(transparent,rgba(211,79,44,.72),transparent)}.profile-index{display:flex;align-items:center;gap:.9rem;color:#b2794e;font-size:.58rem}.profile-index span{color:#f0c36a;font-size:1rem}.profile-index b{font-weight:600}.profile-copy h3,.successor-copy h3{margin:1rem 0 .35rem;color:#f4ead4;font:italic 400 clamp(2.3rem,4.8vw,4.8rem)/.92 Georgia,serif;letter-spacing:-.04em}.role{margin:0;color:#d3734f;font-size:.64rem;font-weight:700}.bio{margin:1.5rem 0 0;color:#b8b7b4;font-size:.95rem;line-height:1.85}.record-link{display:inline-flex;align-items:center;gap:.8rem;margin-top:1.6rem;margin-right:1.25rem;padding-bottom:.35rem;border-bottom:1px solid rgba(217,164,65,.37);color:#e3c988;font:700 .62rem/1.4 'JetBrains Mono',monospace;letter-spacing:.1em;text-transform:uppercase}.record-link.gallery-link{color:#f0b75b;border-color:rgba(239,171,65,.55)}.record-link span{transition:transform .2s ease}.record-link:hover span{transform:translateX(5px)}
+  .next-chapter{border-top:1px solid rgba(217,164,65,.2)}.successor-stack{display:grid;gap:clamp(7rem,13vw,13rem)}.successor-path{display:grid;gap:clamp(3rem,6vw,6rem)}.successor-divider{--divider-accent:var(--cyan);position:relative;margin:0;overflow:hidden;border:1px solid color-mix(in srgb,var(--divider-accent) 58%,transparent);background:#06080c;box-shadow:0 38px 80px rgba(0,0,0,.42),0 0 56px color-mix(in srgb,var(--divider-accent) 10%,transparent)}.successor-divider.guy{--divider-accent:var(--green)}.successor-divider:before{content:'';position:absolute;inset:0;z-index:2;pointer-events:none;box-shadow:inset 0 0 0 9px rgba(0,0,0,.2),inset 0 0 0 10px color-mix(in srgb,var(--divider-accent) 22%,transparent)}.successor-divider:after{content:'';position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(180deg,transparent 52%,rgba(2,4,8,.4) 74%,rgba(2,4,8,.88))}.successor-divider img{width:100%;height:clamp(27rem,52vw,48rem);display:block;object-fit:cover;object-position:50% 35%;filter:saturate(.9) contrast(1.06);transition:transform .7s ease,filter .5s ease}.successor-divider.maya img{object-position:50% 10%}.successor-divider.guy img{object-position:50% 36%}.successor-divider:hover img{transform:scale(1.018);filter:saturate(1.02) contrast(1.04)}.successor-divider figcaption{position:absolute;z-index:3;inset:auto 0 0;display:flex;justify-content:space-between;align-items:center;gap:1.5rem;padding:1.4rem clamp(1.2rem,3vw,2.7rem);color:var(--cream);background:linear-gradient(90deg,rgba(3,5,9,.98),color-mix(in srgb,var(--divider-accent) 12%,rgba(3,5,9,.94)));border-top:1px solid color-mix(in srgb,var(--divider-accent) 42%,transparent)}.successor-divider figcaption span{font:800 .65rem/1 'JetBrains Mono',monospace;letter-spacing:.16em}.successor-divider figcaption em{max-width:38rem;color:color-mix(in srgb,var(--divider-accent) 42%,#f0dfbb);font:italic 1rem/1.35 Georgia,serif;text-align:right}.successor-record{--chapter-accent:var(--cyan);position:relative;display:grid;grid-template-columns:minmax(0,1.65fr) minmax(19rem,.7fr);gap:clamp(2rem,5vw,5rem);align-items:center;isolation:isolate}.successor-record.guy{--chapter-accent:var(--green);grid-template-columns:minmax(19rem,.7fr) minmax(0,1.65fr)}.successor-record.guy .successor-sheet{grid-column:2;grid-row:1}.successor-record.guy .successor-copy{grid-column:1;grid-row:1}.successor-glow{position:absolute;z-index:-1;width:36rem;height:26rem;right:5%;bottom:-10%;border-radius:50%;background:color-mix(in srgb,var(--chapter-accent) 18%,transparent);filter:blur(90px);opacity:.6}.successor-record.guy .successor-glow{right:auto;left:4%}.successor-sheet{border-color:color-mix(in srgb,var(--chapter-accent) 50%,transparent)}.successor-sheet>span{border-color:color-mix(in srgb,var(--chapter-accent) 50%,transparent);color:#e7f6ec}.successor-copy .profile-index{color:color-mix(in srgb,var(--chapter-accent) 72%,#a09a8f)}.successor-copy .profile-index span,.successor-copy .role{color:var(--chapter-accent)}.successor-copy .record-link{color:color-mix(in srgb,var(--chapter-accent) 70%,#f4ddad);border-color:color-mix(in srgb,var(--chapter-accent) 40%,transparent)}.chapter-note{margin:1.4rem 0 0;color:#9ba7aa;font:600 .68rem/1.7 'JetBrains Mono',monospace;letter-spacing:.05em;text-transform:uppercase}.chapter-note i{padding:0 .25rem;color:var(--chapter-accent);font-style:normal}
+  .band-gallery-link.music-link{margin-left:.65rem;color:#f5d890;background:rgba(205,88,42,.1);border-color:rgba(224,126,55,.56)}.music-record-link{color:var(--chapter-accent)!important}.frequency-chapter{border-top:1px solid rgba(217,164,65,.2)}.frequency-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}.frequency-device{--frequency:var(--gold);position:relative;min-height:27rem;padding:1.4rem;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden;color:#e9e1d2;border:1px solid color-mix(in srgb,var(--frequency) 48%,transparent);background:radial-gradient(circle at 50% 22%,color-mix(in srgb,var(--frequency) 13%,transparent),transparent 15rem),linear-gradient(160deg,#15110c,#05070b 64%);box-shadow:0 28px 58px rgba(0,0,0,.35);transition:transform .35s ease,box-shadow .35s ease}.frequency-device.maya{--frequency:var(--cyan)}.frequency-device.guy{--frequency:var(--green)}.frequency-device:before{content:'';position:absolute;inset:0;opacity:0;background:repeating-linear-gradient(0deg,transparent 0 5px,color-mix(in srgb,var(--frequency) 10%,transparent) 6px);transition:opacity .3s ease}.frequency-device:hover{transform:translateY(-8px);box-shadow:0 38px 72px rgba(0,0,0,.5),0 0 42px color-mix(in srgb,var(--frequency) 11%,transparent)}.frequency-device:hover:before{opacity:1}.frequency-code{position:absolute;left:1.4rem;top:1.3rem;color:var(--frequency);font:700 .55rem 'JetBrains Mono',monospace;letter-spacing:.12em}.radio-ui{position:absolute;left:1.4rem;right:1.4rem;top:4rem;height:8.5rem;border:1px solid color-mix(in srgb,var(--frequency) 38%,transparent);background:#08090c;box-shadow:inset 0 0 35px rgba(0,0,0,.8)}.radio-ui i{position:absolute;left:1.2rem;top:1.2rem;width:3.2rem;height:3.2rem;border:2px solid var(--frequency);border-radius:50%;box-shadow:inset 0 0 0 8px #14130f}.radio-ui i:after{content:'';position:absolute;left:50%;top:.2rem;width:1px;height:1rem;background:var(--frequency);transform:rotate(38deg);transform-origin:bottom}.radio-ui b{position:relative;display:inline-block;width:.32rem;height:2.2rem;margin:4.9rem .16rem 0 0;background:var(--frequency);animation:frequencyMeter 1s ease-in-out infinite alternate}.radio-ui b:first-of-type{margin-left:6.2rem;height:1.2rem}.radio-ui b:nth-of-type(2){height:2.7rem;animation-delay:-.4s}.radio-ui b:nth-of-type(3){height:1.7rem;animation-delay:-.7s}.radio-ui b:nth-of-type(4){height:3.1rem;animation-delay:-.2s}.frequency-device h3{position:relative;margin:0;color:#f1e7d4;font:italic 400 clamp(1.8rem,3vw,3rem)/.95 Georgia,serif}.frequency-device p{position:relative;margin:.65rem 0;color:var(--frequency);font:700 .65rem 'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.11em}.frequency-device em{position:relative;color:#918e87;font:600 .56rem 'JetBrains Mono',monospace;font-style:normal;text-transform:uppercase;letter-spacing:.08em}.all-frequencies{display:inline-flex;gap:.8rem;margin-top:1rem;padding:.9rem 1rem;color:#ead7ad;border:1px solid rgba(217,164,65,.4);font:700 .6rem 'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.09em}@keyframes frequencyMeter{from{transform:scaleY(.45);opacity:.42}to{transform:scaleY(1);opacity:1}}
+  .closing-record{padding:clamp(5rem,9vw,9rem) 1.5rem;text-align:center;border-top:1px solid rgba(217,164,65,.22);background:radial-gradient(circle at center,rgba(201,116,35,.12),transparent 36rem),rgba(2,3,7,.45)}.closing-record h2{font-size:clamp(2.8rem,6vw,5.8rem)}.closing-record>p:not(.kicker){margin:1rem 0 0;color:#8f929b}.closing-record>div{display:flex;justify-content:center;flex-wrap:wrap;gap:.8rem;margin-top:2rem}.closing-record a{gap:.8rem}
+  @keyframes smokeDrift{from{transform:translate3d(-3%,-5%,0) scale(.9);opacity:.14}to{transform:translate3d(8%,9%,0) scale(1.16);opacity:.3}}@keyframes sparksRise{0%{transform:translateY(4%);opacity:.18}50%{opacity:.8}100%{transform:translateY(-5%);opacity:.14}}
+  @media(max-width:900px){.hero-voices{height:28rem}.hero-voices:before{background:linear-gradient(0deg,#05050a 0%,rgba(5,5,10,.08) 48%,transparent 100%)}.voice-panel.suki img{object-position:58% 42%;transform:scale(1.04)}.hero-foot{display:none}.chapter-heading,.profile-record,.profile-record.reverse,.successor-record,.successor-record.guy{grid-template-columns:1fr}.profile-record.reverse .sheet-frame,.profile-record.reverse .profile-copy,.successor-record.guy .successor-sheet,.successor-record.guy .successor-copy{grid-column:auto;grid-row:auto}.profile-copy{padding:0 0 0 1.2rem}.group-record img{height:clamp(22rem,72vw,38rem)}.frequency-grid{grid-template-columns:1fr}.frequency-device{min-height:23rem}}
+  @media(max-width:560px){.record-hero h1{font-size:clamp(2.9rem,14vw,4.3rem)}.hero-voices{height:21rem}.voice-panel figcaption{right:.45rem;top:.7rem;font-size:.45rem}.voice-panel.suki img{object-position:58% 42%;transform:scale(1.04)}.hero-copy{padding:3rem 1.2rem 4rem}.hero-deck{font-size:.9rem;line-height:1.7}.record-code{font-size:.62rem}.chapter{width:min(calc(100% - 2rem),1500px)}.chapter-heading{grid-template-columns:1fr}.group-record img{height:24rem;object-position:65% 28%}.group-record figcaption,.successor-divider figcaption{position:static;align-items:flex-start;flex-direction:column}.successor-divider img{height:30rem;object-position:50% 32%}.successor-divider.maya img{object-position:50% 8%}.successor-divider.guy img{object-position:50% 34%}.successor-divider figcaption em{text-align:left}.sheet-cue,.successor-sheet>span{right:.45rem;bottom:.45rem;padding:.55rem;font-size:.47rem}}
+  .successor-path{gap:0}.successor-record{margin-top:clamp(3rem,6vw,6rem)}.feature-actions{--feature-accent:var(--cyan);display:flex;flex-wrap:wrap;gap:.7rem;padding-top:1rem}.feature-actions.guy{--feature-accent:var(--green)}.feature-actions .band-gallery-link,.feature-actions .band-gallery-link.music-link{margin:0;color:color-mix(in srgb,var(--feature-accent) 72%,#f4e4bf);background:color-mix(in srgb,var(--feature-accent) 8%,transparent);border-color:color-mix(in srgb,var(--feature-accent) 42%,transparent)}
+  @media(max-width:560px){.cosmos-radio-entry{width:calc(100% - 2rem);grid-template-columns:auto 1fr;padding:.9rem}.cosmos-radio-entry svg{width:3.2rem;height:3.2rem}.cosmos-radio-entry>b{display:none}.cosmos-radio-entry em{display:none}.feature-actions{display:grid}.feature-actions .band-gallery-link{width:100%}}
+  @media(prefers-reduced-motion:reduce){.hero-smoke,.spark-field,.spark-field:before,.spark-field:after{animation:none}.sheet-frame img,.successor-sheet img,.voice-panel img{transition:none}}
+</style>
