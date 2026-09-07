@@ -2,15 +2,13 @@ import fs from 'node:fs';
 import process from 'node:process';
 import { execFileSync } from 'node:child_process';
 
-const candidates = [
-  process.env.COSMOS_OBSIDIAN_ROOT,
-  'E:\\The Cosmos of Wacky\\Obsidian\\thelevelsandthefolds\\THE COSMOS',
-  'E:\\The Cosmos of Wacky\\Obsidian\\THE COSMOS',
-].filter(Boolean);
+// Authoritative local Obsidian source confirmed by Wacky on 2026-09-07.
+const DEFAULT_SOURCE_ROOT = 'E:\\The Cosmos of Wacky\\Obsidian\\thelevelsandthefolds\\THE COSMOS';
+const sourceRoot = process.env.COSMOS_OBSIDIAN_ROOT || DEFAULT_SOURCE_ROOT;
 
-const sourceRoot = candidates.find((candidate) => fs.existsSync(candidate));
-if (!sourceRoot) {
-  console.error('Could not locate THE COSMOS. Set COSMOS_OBSIDIAN_ROOT first.');
+if (!fs.existsSync(sourceRoot)) {
+  console.error('Could not locate the authoritative THE COSMOS source folder.');
+  console.error(`Expected: ${sourceRoot}`);
   process.exit(1);
 }
 
