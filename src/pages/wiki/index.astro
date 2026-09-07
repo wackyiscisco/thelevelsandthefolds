@@ -2,19 +2,51 @@
 import Layout from '../../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
 
-const entries = (await getCollection('wiki'))
-  .sort((a, b) => {
-    const at = a.data.title || a.slug;
-    const bt = b.data.title || b.slug;
-    return at.localeCompare(bt);
-  });
+const entries = await getCollection('wiki');
 
-const groups = new Map();
+const cleanLabel = (value: string) => decodeURIComponent(value)
+  .replaceAll('-', ' ')
+  .replace(/\b\w/g, (letter) => letter.toUpperCase());
+
+const orderValue = (label: string) => {
+  const match = label.match(/^\s*(\d+(?:\.\d+)?)/);
+  return match ? Number(match[1]) : 9999;
+};
+
+const folders = new Map<string, { label: string; count: number; sections: Set<string> }>();
+const rootNotes = [];
+
 for (const entry of entries) {
-  const first = entry.slug.split('/')[0] || 'root';
-  if (!groups.has(first)) groups.set(first, []);
-  groups.get(first).push(entry);
+  const slugParts = entry.slug.split('/');
+  const sourceParts = String(entry.data.sourcePath || '').replaceAll('\\', '/').split('/');
+
+  if (slugParts.length === 1) {
+    rootNotes.push(entry);
+    continue;
+  }
+
+  const folder = slugParts[0];
+  const label = sourceParts[0] || cleanLabel(folder);
+  const section = sourceParts[1] || (slugParts[1] ? cleanLabel(slugParts[1]) : '');
+
+  if (!folders.has(folder)) {
+    folders.set(folder, { label, count: 0, sections: new Set() });
+  }
+
+  const item = folders.get(folder)!;
+  item.count += 1;
+  if (section) item.sections.add(section);
 }
+
+const folderCards = [...folders.entries()]
+  .map(([slug, data]) => ({ slug, ...data, sections: [...data.sections] }))
+  .sort((a, b) => orderValue(a.label) - orderValue(b.label) || a.label.localeCompare(b.label));
+
+rootNotes.sort((a, b) => {
+  const at = a.data.title || a.slug;
+  const bt = b.data.title || b.slug;
+  return at.localeCompare(bt);
+});
 ---
 
 <Layout title="Cosmos Wiki">
@@ -24,7 +56,7 @@ for (const entry of entries) {
       <h1 class="mt-3 text-4xl md:text-6xl font-black tracking-tight text-slate-100">The Cosmos of Wacky</h1>
       <p class="mt-4 max-w-4xl text-slate-400 leading-7">
         A continuously generated reference from the Obsidian <strong class="text-slate-200">THE COSMOS</strong> knowledge tree.
-        THE INNER COSMOS is excluded from this mirror.
+        Browse by project and then follow the same folder structure used in Obsidian. THE INNER COSMOS is excluded from this mirror.
       </p>
       <div class="mt-6 flex flex-wrap gap-3">
         <a href="/wiki/search" class="rounded-full border border-cyan-700/60 bg-cyan-950/40 px-4 py-2 text-sm text-cyan-200 hover:border-cyan-400 transition">Search the Wiki</a>
@@ -39,24 +71,49 @@ for (const entry of entries) {
         <p class="mt-3 text-slate-400">No Obsidian notes have been synced into this branch yet. Run <code class="text-amber-300">npm run wiki:sync</code> on the Cosmos workstation.</p>
       </section>
     ) : (
-      <div class="space-y-10">
-        {[...groups.entries()].map(([group, items]) => (
-          <section>
-            <div class="mb-4 flex items-center justify-between gap-4">
-              <h2 class="font-orbitron text-xl md:text-2xl font-bold text-slate-100">{decodeURIComponent(group.replaceAll('-', ' '))}</h2>
-              <span class="font-mono text-xs text-slate-500">{items.length} notes</span>
+      <>
+        <section>
+          <div class="mb-5 flex flex-wrap items-end justify-between gap-3">
+            <div>
+              <p class="font-mono text-[11px] uppercase tracking-[0.24em] text-purple-400">Projects & Sagas</p>
+              <h2 class="mt-2 font-orbitron text-2xl md:text-3xl font-bold text-slate-100">Enter a Cosmos branch</h2>
+            </div>
+            <span class="font-mono text-xs text-slate-500">{entries.length} total notes</span>
+          </div>
+
+          <div class="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+            {folderCards.map((folder) => (
+              <a href={`/wiki/folder/${folder.slug}`} class="group rounded-2xl border border-slate-800 bg-slate-950/75 p-5 hover:border-purple-500/70 hover:bg-purple-950/15 transition">
+                <div class="flex items-start justify-between gap-4">
+                  <strong class="font-orbitron text-lg text-slate-100 group-hover:text-purple-200 transition">{folder.label}</strong>
+                  <span class="shrink-0 rounded-full border border-slate-800 px-2.5 py-1 font-mono text-[10px] text-slate-500">{folder.count} notes</span>
+                </div>
+                <p class="mt-3 line-clamp-2 text-sm leading-6 text-slate-500">
+                  {folder.sections.slice(0, 5).join(' · ')}{folder.sections.length > 5 ? ' · …' : ''}
+                </p>
+                <span class="mt-5 inline-block text-sm text-cyan-300 group-hover:text-cyan-200">Browse branch →</span>
+              </a>
+            ))}
+          </div>
+        </section>
+
+        {rootNotes.length > 0 && (
+          <section class="mt-12 border-t border-slate-800 pt-9">
+            <div class="mb-5">
+              <p class="font-mono text-[11px] uppercase tracking-[0.24em] text-amber-400">Cosmos-wide references</p>
+              <h2 class="mt-2 font-orbitron text-xl md:text-2xl font-bold text-slate-100">Roots, registries & master indexes</h2>
             </div>
             <div class="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
-              {items.map((entry) => (
-                <a href={`/wiki/${entry.slug}`} class="group rounded-xl border border-slate-800 bg-slate-950/70 p-4 hover:border-purple-600/70 hover:bg-purple-950/15 transition">
-                  <strong class="block text-slate-200 group-hover:text-purple-200 transition">{entry.data.title || entry.slug.split('/').at(-1)}</strong>
-                  <span class="mt-2 block truncate font-mono text-[11px] text-slate-500">{entry.data.sourcePath || entry.slug}</span>
+              {rootNotes.map((entry) => (
+                <a href={`/wiki/${entry.slug}`} class="group rounded-xl border border-slate-800 bg-slate-950/65 p-4 hover:border-amber-600/60 hover:bg-amber-950/10 transition">
+                  <strong class="block text-slate-200 group-hover:text-amber-200 transition">{entry.data.title || entry.slug}</strong>
+                  <span class="mt-2 block truncate font-mono text-[11px] text-slate-600">{entry.data.sourcePath || entry.slug}</span>
                 </a>
               ))}
             </div>
           </section>
-        ))}
-      </div>
+        )}
+      </>
     )}
   </main>
 </Layout>
