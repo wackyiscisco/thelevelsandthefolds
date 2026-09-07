@@ -2,10 +2,18 @@
 
 This branch turns the Obsidian `THE COSMOS` knowledge tree into an Astro wiki under `/wiki`.
 
+## Authoritative local source
+
+Confirmed by Wacky on 2026-09-07:
+
+`E:\\The Cosmos of Wacky\\Obsidian\\thelevelsandthefolds\\THE COSMOS`
+
+That folder is the default and authoritative local source for the wiki mirror. `COSMOS_OBSIDIAN_ROOT` remains available only as an intentional override if the vault is physically moved later.
+
 ## Source boundary
 
 Included:
-- everything inside the local `THE COSMOS` folder
+- everything inside the authoritative local `THE COSMOS` folder
 - Markdown notes
 - linked/static assets located inside that tree
 
@@ -14,16 +22,6 @@ Excluded by hard rule:
 - `.obsidian`
 - `.git`
 - `node_modules`
-
-## Local source detection
-
-The sync script checks these locations in order:
-
-1. `COSMOS_OBSIDIAN_ROOT` environment variable
-2. `E:\\The Cosmos of Wacky\\Obsidian\\thelevelsandthefolds\\THE COSMOS`
-3. `E:\\The Cosmos of Wacky\\Obsidian\\THE COSMOS`
-
-If the real source differs, set `COSMOS_OBSIDIAN_ROOT` to the exact local `THE COSMOS` directory.
 
 ## Commands
 
@@ -39,17 +37,35 @@ Continuously watch Obsidian and regenerate the wiki mirror:
 npm run wiki:watch
 ```
 
-To also commit and push generated changes automatically from the local clone, set:
+Windows launcher with automatic Git commit/push enabled:
 
 ```powershell
-$env:COSMOS_AUTO_PUSH="1"
-npm run wiki:watch
+powershell -ExecutionPolicy Bypass -File .\scripts\wiki-watch.ps1
 ```
 
-The auto-push mode stages only:
+Install the watcher to start automatically whenever Wacky logs into Windows:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\install-wiki-watch-task.ps1
+```
+
+The automatic mode stages only:
 - `src/content/wiki`
 - `public/wiki-assets`
 - `src/data/wiki-sync-manifest.json`
+
+It does not stage unrelated website work.
+
+## Update flow
+
+1. Wacky or High Mei edits/adds/removes something inside the authoritative Obsidian `THE COSMOS` folder.
+2. The local watcher detects the filesystem change.
+3. The mirror regenerates the wiki Markdown and eligible assets.
+4. Automatic mode commits and pushes only generated wiki changes.
+5. The existing site deployment rebuilds from GitHub.
+6. `/wiki`, `/wiki/search`, `/wiki/index.json`, and `/llms.txt` expose the refreshed knowledge to humans and AI systems.
+
+The GitHub/cloud site cannot directly watch the local E: drive; the Windows watcher is the required local-to-cloud bridge.
 
 ## Generated web surfaces
 
