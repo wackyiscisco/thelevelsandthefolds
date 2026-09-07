@@ -137,6 +137,27 @@ for (const file of assetFiles) {
   fs.copyFileSync(file.abs, destination);
 }
 
+const imageExt = new Set(['.png', '.jpg', '.jpeg', '.webp', '.gif', '.avif', '.svg']);
+const assetIndex = assetFiles.map((file) => {
+  const rel = file.rel.replaceAll('\\', '/');
+  const folder = path.posix.dirname(rel) === '.' ? '' : path.posix.dirname(rel);
+  const ext = path.extname(rel).toLowerCase();
+  return {
+    name: path.basename(rel),
+    sourcePath: rel,
+    folderPath: folder,
+    folderSlug: folder ? safeSlug(folder) : '',
+    publicPath: `/wiki-assets/${rel.split('/').map(encodeURIComponent).join('/')}`,
+    extension: ext,
+    isImage: imageExt.has(ext),
+  };
+});
+
+fs.writeFileSync(
+  path.join(repoRoot, 'src', 'data', 'wiki-asset-index.json'),
+  JSON.stringify({ generatedAt: new Date().toISOString(), assets: assetIndex }, null, 2),
+);
+
 const manifest = {
   generatedAt: new Date().toISOString(),
   sourceRoot,
