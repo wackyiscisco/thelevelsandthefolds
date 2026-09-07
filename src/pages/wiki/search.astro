@@ -1,5 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import WikiNav from '../../components/WikiNav.astro';
 import { getCollection } from 'astro:content';
 
 const entries = (await getCollection('wiki')).map((entry) => ({
@@ -12,9 +13,10 @@ const entries = (await getCollection('wiki')).map((entry) => ({
 
 <Layout title="Search Cosmos Wiki">
   <main class="relative z-10 max-w-6xl mx-auto px-5 md:px-8 py-10 md:py-14">
+    <WikiNav backFallback="/wiki" />
+
     <header class="mb-8">
-      <a href="/wiki" class="font-mono text-xs text-purple-300 hover:text-purple-200">← Cosmos Wiki</a>
-      <h1 class="mt-4 text-4xl md:text-5xl font-black text-slate-100">Search the Cosmos</h1>
+      <h1 class="text-4xl md:text-5xl font-black text-slate-100">Search the Cosmos</h1>
       <p class="mt-3 text-slate-400">Search titles, source paths, and mirrored Obsidian note text.</p>
     </header>
 
