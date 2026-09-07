@@ -6,16 +6,14 @@ const repoRoot = process.cwd();
 const wikiRoot = path.join(repoRoot, 'src', 'content', 'wiki');
 const assetRoot = path.join(repoRoot, 'public', 'wiki-assets');
 
-const candidates = [
-  process.env.COSMOS_OBSIDIAN_ROOT,
-  'E:\\The Cosmos of Wacky\\Obsidian\\thelevelsandthefolds\\THE COSMOS',
-  'E:\\The Cosmos of Wacky\\Obsidian\\THE COSMOS',
-].filter(Boolean);
+// Authoritative local Obsidian source confirmed by Wacky on 2026-09-07.
+const DEFAULT_SOURCE_ROOT = 'E:\\The Cosmos of Wacky\\Obsidian\\thelevelsandthefolds\\THE COSMOS';
+const sourceRoot = process.env.COSMOS_OBSIDIAN_ROOT || DEFAULT_SOURCE_ROOT;
 
-const sourceRoot = candidates.find((candidate) => fs.existsSync(candidate));
-if (!sourceRoot) {
-  console.error('Could not locate THE COSMOS. Set COSMOS_OBSIDIAN_ROOT to the local THE COSMOS folder.');
-  console.error('Checked:', candidates.join('\n  '));
+if (!fs.existsSync(sourceRoot)) {
+  console.error('Could not locate the authoritative THE COSMOS source folder.');
+  console.error(`Expected: ${sourceRoot}`);
+  console.error('Override with COSMOS_OBSIDIAN_ROOT only if the local vault is intentionally moved.');
   process.exit(1);
 }
 
@@ -132,4 +130,5 @@ const manifest = {
 fs.writeFileSync(path.join(repoRoot, 'src', 'data', 'wiki-sync-manifest.json'), JSON.stringify(manifest, null, 2));
 
 console.log(`Wiki sync complete: ${mdFiles.length} notes, ${assetFiles.length} assets.`);
+console.log(`Source: ${sourceRoot}`);
 console.log('Excluded: THE INNER COSMOS');
