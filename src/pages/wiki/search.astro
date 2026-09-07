@@ -1,0 +1,64 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const entries = (await getCollection('wiki')).map((entry) => ({
+  slug: entry.slug,
+  title: entry.data.title || entry.slug.split('/').at(-1),
+  sourcePath: entry.data.sourcePath || entry.slug,
+  body: entry.body.slice(0, 5000),
+}));
+---
+
+<Layout title="Search Cosmos Wiki">
+  <main class="relative z-10 max-w-6xl mx-auto px-5 md:px-8 py-10 md:py-14">
+    <header class="mb-8">
+      <a href="/wiki" class="font-mono text-xs text-purple-300 hover:text-purple-200">← Cosmos Wiki</a>
+      <h1 class="mt-4 text-4xl md:text-5xl font-black text-slate-100">Search the Cosmos</h1>
+      <p class="mt-3 text-slate-400">Search titles, source paths, and mirrored Obsidian note text.</p>
+    </header>
+
+    <div class="rounded-2xl border border-slate-800 bg-slate-950/75 p-4 md:p-6">
+      <label for="wiki-search" class="sr-only">Search wiki</label>
+      <input id="wiki-search" type="search" placeholder="Pandora Raven, Prima, Level 8 Fold 39, song title..." class="w-full rounded-xl border border-slate-700 bg-black/40 px-4 py-4 text-slate-100 outline-none focus:border-purple-500" />
+      <p id="wiki-count" class="mt-3 font-mono text-xs text-slate-500">{entries.length} notes indexed</p>
+    </div>
+
+    <section id="wiki-results" class="mt-6 grid gap-3"></section>
+  </main>
+
+  <script define:vars={{ entries }}>
+    const input = document.getElementById('wiki-search');
+    const results = document.getElementById('wiki-results');
+    const count = document.getElementById('wiki-count');
+
+    const esc = (value) => String(value)
+      .replaceAll('&', '&amp;')
+      .replaceAll('<', '&lt;')
+      .replaceAll('>', '&gt;')
+      .replaceAll('"', '&quot;')
+      .replaceAll("'", '&#039;');
+
+    const render = () => {
+      const q = input.value.trim().toLowerCase();
+      const tokens = q.split(/\s+/).filter(Boolean);
+      const matched = q ? entries.filter((entry) => {
+        const haystack = `${entry.title} ${entry.sourcePath} ${entry.body}`.toLowerCase();
+        return tokens.every((token) => haystack.includes(token));
+      }).slice(0, 100) : entries.slice(0, 40);
+
+      count.textContent = q ? `${matched.length} matching notes` : `${entries.length} notes indexed`;
+      results.innerHTML = matched.map((entry) => `
+        <a href="/wiki/${entry.slug}" class="block rounded-xl border border-slate-800 bg-slate-950/65 p-4 hover:border-purple-600/70 transition">
+          <strong class="text-slate-100">${esc(entry.title)}</strong>
+          <span class="mt-2 block break-all font-mono text-[11px] text-slate-500">${esc(entry.sourcePath)}</span>
+        </a>
+      `).join('');
+    };
+
+    const query = new URLSearchParams(location.search).get('q');
+    if (query) input.value = query;
+    input.addEventListener('input', render);
+    render();
+  </script>
+</Layout>
