@@ -1,5 +1,6 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
+import WikiNav from '../../../components/WikiNav.astro';
 import { getCollection } from 'astro:content';
 import { loadWikiAssetIndex, type WikiAssetRecord } from '../../../lib/wiki-assets';
 
@@ -50,6 +51,13 @@ const representativeSourcePath = String(descendants[0]?.data.sourcePath || desce
 const representativeSource = representativeSourcePath.split('/');
 const folderParts = folderPath.split('/');
 const title = representativeSource[depth - 1] || cleanLabel(folderParts.at(-1) || folderPath);
+const parentFolderParts = folderParts.slice(0, -1);
+const parentHref = parentFolderParts.length ? `/wiki/folder/${parentFolderParts.join('/')}` : '/wiki';
+const parentLabel = depth > 1
+  ? (representativeSource[depth - 2] || cleanLabel(folderParts.at(-2) || 'Wiki Home'))
+  : 'Wiki Home';
+const branchHref = depth > 1 ? `/wiki/folder/${folderParts[0]}` : undefined;
+const branchLabel = depth > 1 ? (representativeSource[0] || cleanLabel(folderParts[0])) : undefined;
 
 const childFolders = new Map<string, { label: string; noteCount: number; assetCount: number }>();
 const directNotes = [];
@@ -110,6 +118,14 @@ const breadcrumbs = folderParts.map((part: string, index: number) => ({
 
 <Layout title={`${title} | Cosmos Wiki`}>
   <main class="relative z-10 max-w-[1500px] mx-auto px-5 md:px-8 py-8 md:py-12">
+    <WikiNav
+      parentHref={parentHref}
+      parentLabel={parentLabel}
+      branchHref={branchHref}
+      branchLabel={branchLabel}
+      backFallback={parentHref}
+    />
+
     <nav class="mb-6 flex flex-wrap items-center gap-2 font-mono text-[11px] text-slate-500" aria-label="Wiki folder breadcrumbs">
       <a href="/wiki" class="hover:text-purple-300">Wiki</a>
       {breadcrumbs.map((crumb, index) => (
