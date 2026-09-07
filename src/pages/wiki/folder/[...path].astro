@@ -1,0 +1,140 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('wiki');
+  const folders = new Set<string>();
+
+  for (const entry of entries) {
+    const parts = entry.slug.split('/');
+    for (let depth = 1; depth < parts.length; depth += 1) {
+      folders.add(parts.slice(0, depth).join('/'));
+    }
+  }
+
+  return [...folders].map((folderPath) => ({
+    params: { path: folderPath },
+    props: { folderPath },
+  }));
+}
+
+const { folderPath } = Astro.props;
+const entries = await getCollection('wiki');
+const prefix = `${folderPath}/`;
+const depth = folderPath.split('/').length;
+const descendants = entries.filter((entry) => entry.slug.startsWith(prefix));
+
+const cleanLabel = (value: string) => decodeURIComponent(value)
+  .replaceAll('-', ' ')
+  .replace(/\b\w/g, (letter) => letter.toUpperCase());
+
+const orderValue = (label: string) => {
+  const match = label.match(/^\s*(\d+(?:\.\d+)?)/);
+  return match ? Number(match[1]) : 9999;
+};
+
+const representativeSource = String(descendants[0]?.data.sourcePath || '').replaceAll('\\', '/').split('/');
+const folderParts = folderPath.split('/');
+const title = representativeSource[depth - 1] || cleanLabel(folderParts.at(-1) || folderPath);
+
+const childFolders = new Map<string, { label: string; count: number }>();
+const directNotes = [];
+
+for (const entry of descendants) {
+  const rest = entry.slug.slice(prefix.length);
+  const restParts = rest.split('/');
+  const sourceParts = String(entry.data.sourcePath || '').replaceAll('\\', '/').split('/');
+
+  if (restParts.length === 1) {
+    directNotes.push(entry);
+    continue;
+  }
+
+  const child = restParts[0];
+  const label = sourceParts[depth] || cleanLabel(child);
+  if (!childFolders.has(child)) childFolders.set(child, { label, count: 0 });
+  childFolders.get(child)!.count += 1;
+}
+
+const folders = [...childFolders.entries()]
+  .map(([slug, data]) => ({ slug, ...data }))
+  .sort((a, b) => orderValue(a.label) - orderValue(b.label) || a.label.localeCompare(b.label));
+
+directNotes.sort((a, b) => {
+  const at = a.data.title || a.slug;
+  const bt = b.data.title || b.slug;
+  return at.localeCompare(bt);
+});
+
+const breadcrumbs = folderParts.map((part: string, index: number) => ({
+  href: `/wiki/folder/${folderParts.slice(0, index + 1).join('/')}`,
+  label: representativeSource[index] || cleanLabel(part),
+}));
+---
+
+<Layout title={`${title} | Cosmos Wiki`}>
+  <main class="relative z-10 max-w-[1500px] mx-auto px-5 md:px-8 py-8 md:py-12">
+    <nav class="mb-6 flex flex-wrap items-center gap-2 font-mono text-[11px] text-slate-500" aria-label="Wiki folder breadcrumbs">
+      <a href="/wiki" class="hover:text-purple-300">Wiki</a>
+      {breadcrumbs.map((crumb, index) => (
+        <>
+          <span>/</span>
+          {index === breadcrumbs.length - 1 ? (
+            <span class="text-slate-300">{crumb.label}</span>
+          ) : (
+            <a href={crumb.href} class="hover:text-purple-300">{crumb.label}</a>
+          )}
+        </>
+      ))}
+    </nav>
+
+    <header class="mb-8 border-b border-slate-800 pb-7">
+      <p class="font-mono text-[11px] uppercase tracking-[0.24em] text-purple-400">Cosmos Wiki Branch</p>
+      <h1 class="mt-3 text-3xl md:text-5xl font-black tracking-tight text-slate-100">{title}</h1>
+      <p class="mt-3 text-slate-500">{descendants.length} notes in this branch. Folders mirror the structure of THE COSMOS in Obsidian.</p>
+    </header>
+
+    {folders.length > 0 && (
+      <section>
+        <div class="mb-4 flex items-center justify-between gap-3">
+          <h2 class="font-orbitron text-xl font-bold text-slate-100">Folders</h2>
+          <span class="font-mono text-xs text-slate-600">{folders.length} sections</span>
+        </div>
+        <div class="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+          {folders.map((folder) => (
+            <a href={`/wiki/folder/${folderPath}/${folder.slug}`} class="group rounded-2xl border border-slate-800 bg-slate-950/75 p-5 hover:border-cyan-600/70 hover:bg-cyan-950/10 transition">
+              <div class="flex items-start justify-between gap-4">
+                <strong class="font-orbitron text-base text-slate-100 group-hover:text-cyan-200 transition">{folder.label}</strong>
+                <span class="shrink-0 rounded-full border border-slate-800 px-2.5 py-1 font-mono text-[10px] text-slate-500">{folder.count}</span>
+              </div>
+              <span class="mt-5 inline-block text-sm text-cyan-300">Open folder →</span>
+            </a>
+          ))}
+        </div>
+      </section>
+    )}
+
+    {directNotes.length > 0 && (
+      <section class:list={[folders.length > 0 && 'mt-10 border-t border-slate-800 pt-8']}>
+        <div class="mb-4 flex items-center justify-between gap-3">
+          <h2 class="font-orbitron text-xl font-bold text-slate-100">Pages</h2>
+          <span class="font-mono text-xs text-slate-600">{directNotes.length} pages</span>
+        </div>
+        <div class="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
+          {directNotes.map((entry) => (
+            <a href={`/wiki/${entry.slug}`} class="group rounded-xl border border-slate-800 bg-slate-950/65 p-4 hover:border-purple-600/60 hover:bg-purple-950/10 transition">
+              <strong class="block text-slate-200 group-hover:text-purple-200 transition">{entry.data.title || entry.slug.split('/').at(-1)}</strong>
+              <span class="mt-2 block truncate font-mono text-[11px] text-slate-600">{entry.data.sourcePath || entry.slug}</span>
+            </a>
+          ))}
+        </div>
+      </section>
+    )}
+
+    <div class="mt-10 border-t border-slate-800 pt-6 flex flex-wrap gap-4 text-sm">
+      <a href="/wiki" class="text-purple-300 hover:text-purple-200">← Wiki home</a>
+      <a href="/wiki/search" class="text-cyan-300 hover:text-cyan-200">Search all notes →</a>
+    </div>
+  </main>
+</Layout>
