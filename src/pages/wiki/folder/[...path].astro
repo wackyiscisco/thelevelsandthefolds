@@ -1,33 +1,11 @@
 ---
-import fs from 'node:fs';
-import path from 'node:path';
 import Layout from '../../../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
-
-type AssetRecord = {
-  name: string;
-  sourcePath: string;
-  folderPath: string;
-  folderSlug: string;
-  publicPath: string;
-  extension: string;
-  isImage: boolean;
-};
-
-const loadAssetIndex = (): AssetRecord[] => {
-  const file = path.join(process.cwd(), 'src', 'data', 'wiki-asset-index.json');
-  if (!fs.existsSync(file)) return [];
-  try {
-    const parsed = JSON.parse(fs.readFileSync(file, 'utf8'));
-    return Array.isArray(parsed.assets) ? parsed.assets : [];
-  } catch {
-    return [];
-  }
-};
+import { loadWikiAssetIndex, type WikiAssetRecord } from '../../../lib/wiki-assets';
 
 export async function getStaticPaths() {
   const entries = await getCollection('wiki');
-  const assets = loadAssetIndex();
+  const assets = loadWikiAssetIndex();
   const folders = new Set<string>();
 
   for (const entry of entries) {
@@ -53,7 +31,7 @@ export async function getStaticPaths() {
 
 const { folderPath } = Astro.props;
 const entries = await getCollection('wiki');
-const assets = loadAssetIndex();
+const assets = loadWikiAssetIndex();
 const prefix = `${folderPath}/`;
 const depth = folderPath.split('/').length;
 const descendants = entries.filter((entry) => entry.slug.startsWith(prefix));
@@ -75,7 +53,7 @@ const title = representativeSource[depth - 1] || cleanLabel(folderParts.at(-1) |
 
 const childFolders = new Map<string, { label: string; noteCount: number; assetCount: number }>();
 const directNotes = [];
-const directAssets: AssetRecord[] = [];
+const directAssets: WikiAssetRecord[] = [];
 
 for (const entry of descendants) {
   const rest = entry.slug.slice(prefix.length);
