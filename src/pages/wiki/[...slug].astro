@@ -1,5 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import WikiNav from '../../components/WikiNav.astro';
 import { getCollection } from 'astro:content';
 
 export async function getStaticPaths() {
@@ -14,10 +15,24 @@ const { entry } = Astro.props;
 const { Content, headings } = await entry.render();
 const title = entry.data.title || entry.slug.split('/').at(-1);
 const breadcrumbs = entry.slug.split('/');
+const sourceParts = String(entry.data.sourcePath || '').replaceAll('\\', '/').split('/');
+const parentParts = breadcrumbs.slice(0, -1);
+const parentHref = parentParts.length ? `/wiki/folder/${parentParts.join('/')}` : '/wiki';
+const parentLabel = sourceParts.at(-2) || 'Wiki Home';
+const branchHref = breadcrumbs.length > 1 ? `/wiki/folder/${breadcrumbs[0]}` : '/wiki';
+const branchLabel = sourceParts[0] || 'Wiki Home';
 ---
 
 <Layout title={title}>
   <main class="relative z-10 max-w-[1500px] mx-auto px-5 md:px-8 py-8 md:py-12">
+    <WikiNav
+      parentHref={parentHref}
+      parentLabel={parentLabel}
+      branchHref={branchHref}
+      branchLabel={branchLabel}
+      backFallback={parentHref}
+    />
+
     <div class="grid gap-8 xl:grid-cols-[minmax(0,1fr)_280px]">
       <article class="min-w-0 rounded-2xl border border-slate-800 bg-slate-950/75 p-5 md:p-8 shadow-2xl shadow-black/20">
         <nav class="mb-6 flex flex-wrap items-center gap-2 font-mono text-[11px] text-slate-500" aria-label="Wiki breadcrumbs">
@@ -25,7 +40,13 @@ const breadcrumbs = entry.slug.split('/');
           {breadcrumbs.map((part, index) => (
             <>
               <span>/</span>
-              <span class={index === breadcrumbs.length - 1 ? 'text-slate-300' : ''}>{decodeURIComponent(part.replaceAll('-', ' '))}</span>
+              {index < breadcrumbs.length - 1 ? (
+                <a href={`/wiki/folder/${breadcrumbs.slice(0, index + 1).join('/')}`} class="hover:text-purple-300">
+                  {sourceParts[index] || decodeURIComponent(part.replaceAll('-', ' '))}
+                </a>
+              ) : (
+                <span class="text-slate-300">{title}</span>
+              )}
             </>
           ))}
         </nav>
@@ -46,7 +67,7 @@ const breadcrumbs = entry.slug.split('/');
         </div>
       </article>
 
-      <aside class="xl:sticky xl:top-28 xl:self-start rounded-2xl border border-slate-800 bg-slate-950/70 p-5">
+      <aside class="xl:sticky xl:top-40 xl:self-start rounded-2xl border border-slate-800 bg-slate-950/70 p-5">
         <h2 class="font-orbitron text-sm font-bold uppercase tracking-wider text-slate-300">On this page</h2>
         {headings.length ? (
           <ol class="mt-4 space-y-2 text-sm text-slate-500">
