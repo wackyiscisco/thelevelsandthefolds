@@ -72,8 +72,28 @@ const resolveWikiTarget = (rawTarget) => {
   return `/wiki/search?q=${encodeURIComponent(target)}`;
 };
 
+// Obsidian notes may contain arbitrary YAML frontmatter that Astro's content
+// parser rejects. The wiki mirror does not need to trust or reinterpret that
+// YAML, so strip only a leading frontmatter block and replace it with a small,
+// deterministic schema owned by the wiki sync. The source note remains untouched.
+const stripLeadingFrontmatter = (text) => {
+  const cleaned = text.replace(/^\uFEFF/, '');
+  const lines = cleaned.split(/\r?\n/);
+  if (lines[0]?.trim() !== '---') return cleaned;
+
+  for (let i = 1; i < lines.length; i += 1) {
+    if (lines[i].trim() === '---') {
+      return lines.slice(i + 1).join('\n').replace(/^\n+/, '');
+    }
+  }
+
+  // If a note starts with an unterminated YAML fence, preserve the text as body
+  // rather than feeding invalid frontmatter to Astro.
+  return cleaned;
+};
+
 const transformMarkdown = (text, relPath, mtime) => {
-  let output = text;
+  let output = stripLeadingFrontmatter(text);
 
   output = output.replace(/!\[\[([^\]|]+)(?:\|([^\]]+))?\]\]/g, (_match, target, label) => {
     const assetRel = assetMap.get(path.basename(target.trim()).toLowerCase());
@@ -86,19 +106,16 @@ const transformMarkdown = (text, relPath, mtime) => {
     return `[${(label || target).trim()}](${href})`;
   });
 
-  const hasFrontmatter = output.startsWith('---\n') || output.startsWith('---\r\n');
-  const metadata = `title: ${JSON.stringify(path.basename(relPath, path.extname(relPath)))}\nsourcePath: ${JSON.stringify(relPath.replaceAll('\\', '/'))}\nsourceModified: ${JSON.stringify(mtime.toISOString())}\n`;
+  const metadata = [
+    '---',
+    `title: ${JSON.stringify(path.basename(relPath, path.extname(relPath)))}`,
+    `sourcePath: ${JSON.stringify(relPath.replaceAll('\\', '/'))}`,
+    `sourceModified: ${JSON.stringify(mtime.toISOString())}`,
+    '---',
+    '',
+  ].join('\n');
 
-  if (hasFrontmatter) {
-    const end = output.indexOf('\n---', 4);
-    if (end !== -1) {
-      output = `${output.slice(0, end)}\nsourcePath: ${JSON.stringify(relPath.replaceAll('\\', '/'))}\nsourceModified: ${JSON.stringify(mtime.toISOString())}${output.slice(end)}`;
-    }
-  } else {
-    output = `---\n${metadata}---\n\n${output}`;
-  }
-
-  return output;
+  return `${metadata}${output}`;
 };
 
 fs.rmSync(wikiRoot, { recursive: true, force: true });
